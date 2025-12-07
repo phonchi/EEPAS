@@ -131,16 +131,11 @@ python_src/
 ├── requirements.txt                   # Python dependencies
 │
 ├── Configuration Files/
-│   ├── config.json                          # Taiwan standard configuration
-│   ├── config_decluster.json                # Taiwan declustered configuration
-│   ├── config_include921.json               # Taiwan include921 configuration
-│   ├── config_m205.json                     # Taiwan m0=2.05 configuration
 │   ├── config_italy.json                    # Italy standard configuration
 │   ├── config_italy_3stage.json             # Italy three-stage optimization
-│   ├── config_italy_causal_ew0.json         # Numerical integration validation: EW0
-│   ├── config_italy_causal_ew0_accurate.json # Numerical integration validation: EW0 accurate mode
-│   ├── config_italy_causal_ew1.json         # Numerical integration validation: EW1
-│   └── config_italy_causal_ew1_accurate.json # Numerical integration validation: EW1 accurate mode
+│   ├── config_italy_causal_ew0.json         # EW0 test configuration
+│   ├── config_italy_causal_ew0_accurate.json # EW0 accurate mode
+│   └── config_italy_causal_ew1.json         # EW1 test configuration
 │
 ├── Core Programs/
 │   ├── ppe_learning.py                      # PPE parameter learning
@@ -164,28 +159,19 @@ python_src/
 │   └── fminsearchcon.py                     # Optimization tools
 │
 ├── data/                              # Earthquake data
-│   ├── Taiwan/                              # Taiwan data
-│   │   ├── CELLE_ter_TW_twd97_24regions_correct.mat
-│   │   └── GDMScatalog_A_filtered_twd97.mat
-│   └── Italy/                               # Italy data
-│       ├── CELLE_ter.mat                    # Testing region (177 grid cells)
-│       ├── HORUS_Italy_RDN2008_polygon_filtered.mat  # Neighborhood region
-│       └── CPTI15.mat                       # Italian catalog
+│   ├── CELLE_ter.mat                        # Testing region (177 grid cells)
+│   ├── HORUS_Italy_RDN2008_polygon_filtered.mat  # Italy earthquake catalog
+│   └── CPTI15.mat                           # Neighborhood region polygon
 │
 ├── docs/                              # Documentation and reports
 │   ├── README.md                            # Subdirectory overview
 │   └── ...
 │
-├── results/                           # Taiwan standard results
-├── results_decluster/                 # Taiwan declustered results
-├── results_include921/                # Taiwan include921 results
-├── results_m205_python/               # Taiwan m0=2.05 results
 ├── results_italy/                     # Italy standard results
 ├── results_italy_3stage/              # Italy three-stage results
 ├── results_italy_causal_ew0/          # Italy EW0 results
 ├── results_italy_causal_ew0_accurate/ # Italy EW0 accurate mode results
-├── results_italy_causal_ew1/          # Italy EW1 results
-└── archive_test_files/                # Historical test files (archived)
+└── results_italy_causal_ew1/          # Italy EW1 results
 ```
 
 ## 📖 Usage Guide
@@ -268,72 +254,34 @@ python3 eepas_make_forecast.py --config config.json
 
 ## 🔬 Analysis Tools
 
-### Earthquake Distribution Analysis
+### Forecast Evaluation
 
-Analyze spatial distribution of Taiwan earthquakes in 6 and 24 regions:
+Evaluate forecast Lambda sums and verify numerical integration:
 
 ```bash
-python3 analysis/run_distribution_analysis.py config.json
+python3 analysis/analyze_forecast_lambda.py --results-dir results_italy_causal_ew0
 ```
 
 **Output**:
-- Console: Statistical summary (valid earthquake count, regional activity, temporal segments)
-- `.mat` files: Complete analysis results
+- PPE Lambda sum verification
+- EEPAS Lambda sum verification
+- Comparison with target event count
 
-See: `docs/README_DISTRIBUTION_ANALYSIS.md`
+### PyCSEP Format Conversion
 
-### Weight Analysis
-
-Compare earthquake weight distributions across 4 configurations:
-
-```bash
-python3 analysis/run_weight_analysis.py
-```
-
-**Analysis**:
-- 4 configurations (standard, declustered, include921, m0=2.05)
-- Annual and monthly weight distributions
-- Statistical features (mean, standard deviation, coefficient of variation)
-- Cross-configuration comparison
-
-See: `docs/README_WEIGHT_ANALYSIS.md`
-
-### Region Subdivision
-
-Subdivide 6 regions into 24 regions:
+Convert forecasts to PyCSEP format for CSEP evaluation:
 
 ```bash
-python3 analysis/region_subdivision.py \
-    data/CELLE_ter_TW.mat \
-    output_24regions.mat \
-    --lon-subdivisions 2 \
-    --lat-subdivisions 2
+python3 analysis/forecast_converter.py \
+    --input results_italy/PREVISIONI_3m_EEPAS_2012_2022.mat \
+    --output forecasts/eepas_forecast.csv \
+    --format pycsep
 ```
 
-**Workflow**:
-1. Subdivide in WGS84 lat/lon (uniform angular intervals)
-2. Convert to TWD97 using `convert_to_twd97.py`
-3. Validate conversion precision
-
-See: `docs/REGION_SUBDIVISION_VERIFICATION.md`
-
-### Coordinate Conversion
-
-WGS84 (lat/lon) → TWD97 TM2 zone 121 (projected coordinates):
-
-```bash
-python3 utils/convert_to_twd97.py \
-    --horus-in data/GDMScatalog_A_filtered.mat \
-    --celle-in data/CELLE_ter_TW.mat \
-    --horus-out output_catalog_twd97.mat \
-    --celle-out output_celle_twd97.mat
-```
-
-**Support**:
-- HORUS earthquake catalog conversion
-- CELLE region definition conversion
-- EPSG:3826 projection (TWD97 TM2 zone 121)
-- Meters → kilometers unit conversion
+**Supported Formats**:
+- PyCSEP (for CSEP testing)
+- CSV (tabular format)
+- JSON (with metadata)
 
 ## ⚙️ Configuration
 
@@ -444,29 +392,27 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Original MATLAB version developers
-- Central Weather Bureau Seismological Center, Taiwan (data provision)
-- GDMS earthquake catalog maintenance team
+- Original EEPAS model developers
 - CPTI15 Italian earthquake catalog maintenance team
+- HORUS earthquake catalog contributors
 
 ## 📖 Citation
 
 If you use this project in your research, please cite:
 
 ```bibtex
-@software{eepas_taiwan_italy_python,
-  title = {EEPAS Taiwan & Italy - Python Implementation},
+@software{eepas_python,
+  title = {EEPAS - Python Implementation},
   author = {Your Name},
   year = {2025},
-  url = {https://github.com/your-org/EEPAS_Taiwan}
+  url = {https://github.com/your-org/EEPAS}
 }
 ```
 
 ## 🔗 Related Resources
 
-- [EEPAS Original Paper (ggad123.pdf)](ggad123.pdf)
-- [Taiwan Earthquake Catalog](https://gdms.cwb.gov.tw/)
-- [TWD97 Coordinate System](https://en.wikipedia.org/wiki/TWD97)
+- [CPTI15 - Italian Parametric Earthquake Catalog](https://emidius.mi.ingv.it/CPTI15-DBMI15/)
+- [INGV - Istituto Nazionale di Geofisica e Vulcanologia](https://www.ingv.it/)
 
 ---
 

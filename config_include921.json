@@ -1,0 +1,140 @@
+{
+  "dataDir": "data",
+  "resultsDir": "results_include921",
+  "catalogStartYear": 1991,
+  "learnStartYear": 2002,
+  "learnEndYear": 2016,
+  "forecastStartYear": 2016,
+  "forecastEndYear": 2024,
+  "inputFiles": {
+    "catalogFile": "GDMScatalog_A_twd97.mat",
+    "neighborhoodRegionFile": "CPTI11.mat",
+    "testingRegionFile": "CELLE_ter_TW_twd97_24regions_correct.mat"
+  },
+  "outputFiles": {
+    "EEPASParamPattern": "Fitted_par_EEPAS_%d_%d.csv",
+    "PPEParamPattern": "Fitted_par_PPE_%d_%d.csv",
+    "AftershockParamPattern": "Fitted_par_aftershock_%d_%d.csv",
+    "EEPASForecastPattern": "PREVISIONI_3m_EEPAS_%d_%d_24.mat",
+    "PPEForecastPattern": "PREVISIONI_3m_PPE_%d_%d_24.mat"
+  },
+  "optimization": {
+    "stage1": {
+      "parameters": [
+        "am",
+        "at",
+        "Sa",
+        "u"
+      ],
+      "initialValues": [
+        2.3,
+        -0.13,
+        0.68,
+        0.2
+      ],
+      "lowerBounds": [
+        0.5,
+        -0.5,
+        0.01,
+        0.0
+      ],
+      "upperBounds": [
+        4.0,
+        2.5,
+        2.0,
+        0.75
+      ],
+      "fixedValues": {
+        "bm": 0.86,
+        "Sm": 0.18,
+        "bt": 0.63,
+        "St": 0.4,
+        "ba": 0.64
+      }
+    },
+    "stage2": {
+      "parameters": [
+        "Sm",
+        "bt",
+        "St",
+        "ba",
+        "u"
+      ],
+      "initialValues": [
+        0.18,
+        0.63,
+        0.4,
+        0.64,
+        "u_from_stage1"
+      ],
+      "lowerBounds": [
+        0.05,
+        0.05,
+        0.05,
+        0.05,
+        0.0
+      ],
+      "upperBounds": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.75
+      ]
+    },
+    "stage3": {
+      "parameters": [
+        "am",
+        "Sm",
+        "at",
+        "bt",
+        "St",
+        "ba",
+        "Sa",
+        "u"
+      ],
+      "lowerBounds": [
+        0.5,
+        0.05,
+        -0.5,
+        0.05,
+        0.05,
+        0.05,
+        0.0025,
+        0.0
+      ],
+      "upperBounds": [
+        4.0,
+        1.0,
+        2.5,
+        1.0,
+        1.0,
+        1.0,
+        2.0,
+        0.75
+      ],
+      "fixedValues": {
+        "bm": 0.86
+      }
+    }
+  },
+  "modelParams": {
+    "delay": 10,
+    "B": 0.897218517,
+    "m0": 2.35,
+    "mT": 5.0,
+    "delta": 1.2,
+    "p": 1.035,
+    "c": 0.03,
+    "sigmaU": 0.006,
+    "weightFlag": 1,
+    "useCausalEW": 1,
+    "useRollingUpdate": true,
+    "timeComp": {
+      "enable": true,
+      "mode": "B",
+      "omega": 0.0,
+      "lead_time_days": 90
+    }
+  }
+}

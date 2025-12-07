@@ -1,0 +1,866 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eepas_learning_auto_boundary &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/eepas_learning_auto_boundary';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for eepas_learning_auto_boundary</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EEPAS Parameter Learning with Automatic Boundary Adjustment.</span>
+
+<span class="sd">Learn EEPAS model parameters with automatic boundary adjustment to avoid</span>
+<span class="sd">local optima caused by parameters hitting bounds during optimization.</span>
+
+<span class="sd">Defaults: Three-stage + Multistart (3 starts) + fminsearchcon optimizer</span>
+
+<span class="sd">Optimization Modes (in priority order):</span>
+<span class="sd">    1. Custom Stages (if customStages enabled in config)</span>
+<span class="sd">    2. Single-Stage (if --single-stage specified)</span>
+<span class="sd">    3. Three-Stage (default, or if --three-stage specified)</span>
+
+<span class="sd">Examples:</span>
+<span class="sd">    Default (three-stage)::</span>
+
+<span class="sd">        python3 eepas_learning_auto_boundary.py --config config.json</span>
+
+<span class="sd">    Single-stage optimization::</span>
+
+<span class="sd">        python3 eepas_learning_auto_boundary.py --config config.json --single-stage</span>
+
+<span class="sd">    Custom stages (enable in config)::</span>
+
+<span class="sd">        # Set &quot;customStages&quot;: {&quot;enable&quot;: true, &quot;stages&quot;: [...]} in config.json</span>
+<span class="sd">        python3 eepas_learning_auto_boundary.py --config config_custom.json</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">eepas_learning</span><span class="w"> </span><span class="kn">import</span> <span class="n">eepas_learning</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.auto_boundary_adjustment</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_boundary_hits</span><span class="p">,</span> <span class="n">suggest_boundary_adjustment</span><span class="p">,</span> <span class="n">save_adjusted_config</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<div class="viewcode-block" id="parse_result_csv">
+<a class="viewcode-back" href="../api_reference/core.html#eepas_learning_auto_boundary.parse_result_csv">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_result_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse EEPAS result CSV file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        csv_path: Path to CSV file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Dictionary containing 9 EEPAS parameters (am, bm, Sm, at, bt, St, ba, Sa, u) and ln_likelihood</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="eepas_with_auto_boundary">
+<a class="viewcode-back" href="../api_reference/core.html#eepas_learning_auto_boundary.eepas_with_auto_boundary">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">eepas_with_auto_boundary</span><span class="p">(</span>
+    <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">m0</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_adjustment_rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">disable_boundary_adjustment</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+    <span class="n">expansion_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">nll_convergence_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">single_stage</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">multi_start</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">n_starts</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">use_basinhopping</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">basinhopping_niter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;fminsearchcon&#39;</span><span class="p">,</span>
+    <span class="n">ppe_ref_mag</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">use_fast_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">magnitude_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    EEPAS parameter learning with automatic boundary adjustment.</span>
+
+<span class="sd">    Workflow:</span>
+
+<span class="sd">        1. Execute EEPAS optimization with current boundaries (three-stage or single-stage)</span>
+<span class="sd">        2. Check if any result parameters hit boundaries</span>
+<span class="sd">        3. If hit, relax boundaries and save new configuration</span>
+<span class="sd">        4. Check if NLL has converged</span>
+<span class="sd">        5. Repeat until convergence or maximum rounds reached</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        config_path: Configuration file path</span>
+<span class="sd">        m0: Completeness magnitude (if not specified, uses value from config file)</span>
+<span class="sd">        max_adjustment_rounds: Maximum boundary adjustment rounds (default: 3), usually converges in 2-3 rounds</span>
+<span class="sd">        tolerance: Boundary hit detection tolerance (default: 0.01 = 1%), parameter distance to boundary &lt; 1% is considered hitting</span>
+<span class="sd">        expansion_factor: Boundary expansion factor (default: 2.0), lower bound: new = old / 2.0, upper bound: new = old * 2.0</span>
+<span class="sd">        nll_convergence_threshold: NLL convergence threshold (default: 0.1), two consecutive rounds with improvement &lt; 0.1 → automatic stop</span>
+<span class="sd">        single_stage: Whether to use single-stage full parameter optimization (default: True, uses single-stage)</span>
+<span class="sd">        multi_start: Whether to use multi-start optimization (default: True)</span>
+<span class="sd">        n_starts: Number of multi-start points (default: 3)</span>
+<span class="sd">        use_basinhopping: Whether to use basinhopping global optimization (default: False)</span>
+<span class="sd">        basinhopping_niter: Number of basinhopping iterations (default: 20)</span>
+<span class="sd">        optimizer: Optimizer to use: &#39;fminsearchcon&#39;, &#39;SLSQP&#39;, &#39;L-BFGS-B&#39; (default: &#39;fminsearchcon&#39;)</span>
+<span class="sd">        ppe_ref_mag: PPE reference magnitude: &#39;mT&#39; or &#39;m0&#39; (default: None, uses config)</span>
+<span class="sd">        use_fast_mode: Whether to use fast magnitude integration (default: False)</span>
+<span class="sd">        magnitude_samples: Number of magnitude samples for fast mode (default: 50)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Final parameter dictionary containing optimized EEPAS parameters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">single_stage</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;EEPAS Parameter Learning - Single-Stage Full Optimization + Automatic Boundary Adjustment&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;EEPAS Parameter Learning - Three-Stage Optimization + Automatic Boundary Adjustment&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Configuration: </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Optimization mode: </span><span class="si">{</span><span class="s2">&quot;Single-stage full parameter optimization&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">single_stage</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;Three-stage optimization&quot;</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Maximum adjustment rounds: </span><span class="si">{</span><span class="n">max_adjustment_rounds</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Boundary tolerance: </span><span class="si">{</span><span class="n">tolerance</span><span class="si">}</span><span class="s1"> (parameter distance to boundary &lt;</span><span class="si">{</span><span class="n">tolerance</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">% is considered hitting)&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Expansion factor: </span><span class="si">{</span><span class="n">expansion_factor</span><span class="si">}</span><span class="s1">x&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;NLL convergence threshold: </span><span class="si">{</span><span class="n">nll_convergence_threshold</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+
+    <span class="c1"># ===== Load initial configuration =====</span>
+    <span class="n">original_config_path</span> <span class="o">=</span> <span class="n">config_path</span>  <span class="c1"># save original config path</span>
+    <span class="n">current_config_path</span> <span class="o">=</span> <span class="n">config_path</span>   <span class="c1"># current config path in use</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">current_config_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="n">results_dir</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;resultsDir&#39;</span><span class="p">,</span> <span class="s1">&#39;results_decluster&#39;</span><span class="p">)</span>
+    <span class="n">learn_start</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;learnStartYear&#39;</span><span class="p">]</span>
+    <span class="n">learn_end</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;learnEndYear&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Construct EEPAS result file path</span>
+    <span class="n">base_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">results_dir</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">base_dir</span><span class="o">.</span><span class="n">is_absolute</span><span class="p">():</span>
+        <span class="n">base_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">current_config_path</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">base_dir</span>
+    <span class="n">eepas_result_path</span> <span class="o">=</span> <span class="n">base_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;Fitted_par_EEPAS_</span><span class="si">{</span><span class="n">learn_start</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">learn_end</span><span class="si">}</span><span class="s1">.csv&#39;</span>
+
+    <span class="c1"># Record NLL from each round to determine convergence</span>
+    <span class="n">nll_history</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># ===== Start iterative optimization =====</span>
+    <span class="k">for</span> <span class="n">round_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_adjustment_rounds</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">80</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Round </span><span class="si">{</span><span class="n">round_num</span><span class="si">}</span><span class="s1"> Optimization&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">80</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using configuration: </span><span class="si">{</span><span class="n">current_config_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">80</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Reload current config (might be newly adjusted)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">current_config_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="c1"># Execute EEPAS optimization (call eepas_learning)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">eepas_learning</span><span class="p">(</span><span class="n">current_config_path</span><span class="p">,</span> <span class="n">m0</span><span class="o">=</span><span class="n">m0</span><span class="p">,</span>
+                         <span class="n">multi_start</span><span class="o">=</span><span class="n">multi_start</span><span class="p">,</span> <span class="n">n_starts</span><span class="o">=</span><span class="n">n_starts</span><span class="p">,</span>
+                         <span class="n">single_stage</span><span class="o">=</span><span class="n">single_stage</span><span class="p">,</span>
+                         <span class="n">use_basinhopping</span><span class="o">=</span><span class="n">use_basinhopping</span><span class="p">,</span>
+                         <span class="n">basinhopping_niter</span><span class="o">=</span><span class="n">basinhopping_niter</span><span class="p">,</span>
+                         <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+                         <span class="n">ppe_ref_mag</span><span class="o">=</span><span class="n">ppe_ref_mag</span><span class="p">,</span>
+                         <span class="n">use_fast_mode</span><span class="o">=</span><span class="n">use_fast_mode</span><span class="p">,</span>
+                         <span class="n">magnitude_samples</span><span class="o">=</span><span class="n">magnitude_samples</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;❌ Optimization failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Check if result file was generated</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">eepas_result_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;❌ Result file not found: </span><span class="si">{</span><span class="n">eepas_result_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Parse optimization results (CSV file)</span>
+        <span class="n">result_params</span> <span class="o">=</span> <span class="n">parse_result_csv</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">eepas_result_path</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result_params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;❌ Failed to parse result file&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">final_nll</span> <span class="o">=</span> <span class="n">result_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ln_likelihood&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">✅ This round optimization complete&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   Final NLL = </span><span class="si">{</span><span class="n">final_nll</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># ===== Check NLL convergence =====</span>
+        <span class="n">nll_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">final_nll</span><span class="p">)</span>
+
+        <span class="c1"># If we have results from two or more rounds, check if NLL improvement is below threshold</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nll_history</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">nll_improvement</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">nll_history</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">nll_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   NLL improvement: </span><span class="si">{</span><span class="n">nll_improvement</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># NLL convergence criterion: two consecutive rounds with improvement &lt; 0.1</span>
+            <span class="k">if</span> <span class="n">nll_improvement</span> <span class="o">&lt;</span> <span class="n">nll_convergence_threshold</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">80</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;✅ NLL has converged! Improvement (</span><span class="si">{</span><span class="n">nll_improvement</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">) &lt; threshold (</span><span class="si">{</span><span class="n">nll_convergence_threshold</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   Round </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nll_history</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s1">: NLL = </span><span class="si">{</span><span class="n">nll_history</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   Round </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nll_history</span><span class="p">)</span><span class="si">}</span><span class="s1">: NLL = </span><span class="si">{</span><span class="n">nll_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   Stopping further adjustments.&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">result_params</span>
+
+        <span class="c1"># ===== If boundary adjustment is disabled, return result directly =====</span>
+        <span class="k">if</span> <span class="n">disable_boundary_adjustment</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;✅ Optimization complete (boundary adjustment disabled)&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   Final NLL = </span><span class="si">{</span><span class="n">final_nll</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result_params</span>
+
+        <span class="c1"># ===== Check boundary hits =====</span>
+        <span class="c1"># Load Stage3 boundary settings</span>
+        <span class="n">stage3_config</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;optimization&#39;</span><span class="p">][</span><span class="s1">&#39;stage3&#39;</span><span class="p">]</span>
+        <span class="n">param_names</span> <span class="o">=</span> <span class="n">stage3_config</span><span class="p">[</span><span class="s1">&#39;parameters&#39;</span><span class="p">]</span>
+        <span class="n">lower_bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">stage3_config</span><span class="p">[</span><span class="s1">&#39;lowerBounds&#39;</span><span class="p">])</span>
+        <span class="n">upper_bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">stage3_config</span><span class="p">[</span><span class="s1">&#39;upperBounds&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Extract 8 EEPAS parameter values from results</span>
+        <span class="n">params_values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">param_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">result_params</span><span class="p">:</span>
+                <span class="n">params_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_params</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;⚠️  Warning: Parameter </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> not found in results&#39;</span><span class="p">)</span>
+                <span class="n">params_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">params_values</span><span class="p">)</span>
+
+        <span class="c1"># Check if parameters hit boundaries (using configured tolerance)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Checking if Stage3 parameters hit boundaries...&#39;</span><span class="p">)</span>
+        <span class="n">hits</span> <span class="o">=</span> <span class="n">check_boundary_hits</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">lower_bounds</span><span class="p">,</span> <span class="n">upper_bounds</span><span class="p">,</span> <span class="n">param_names</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">)</span>
+
+        <span class="c1"># If no parameters hit boundaries → optimization successfully completed</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">hits</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;✅ Optimization successfully completed! No parameters hit boundaries&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   Final NLL = </span><span class="si">{</span><span class="n">final_nll</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result_params</span>
+
+        <span class="c1"># Suggest and apply adjustments (using unified adjustment logic, respecting physical constraints)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">💡 Suggesting boundary adjustments (expansion factor = </span><span class="si">{</span><span class="n">expansion_factor</span><span class="si">}</span><span class="s1">x):&#39;</span><span class="p">)</span>
+        <span class="n">adjusted</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">for</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">bound_type</span> <span class="ow">in</span> <span class="n">hits</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">param_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span>
+            <span class="n">current_value</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">bound_type</span> <span class="o">==</span> <span class="s1">&#39;lower&#39;</span><span class="p">:</span>
+                <span class="n">old_bound</span> <span class="o">=</span> <span class="n">lower_bounds</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="c1"># Use unified boundary adjustment function (respecting physical constraints)</span>
+                <span class="n">new_bound</span> <span class="o">=</span> <span class="n">suggest_boundary_adjustment</span><span class="p">(</span>
+                    <span class="n">param_name</span><span class="p">,</span> <span class="n">current_value</span><span class="p">,</span> <span class="n">old_bound</span><span class="p">,</span> <span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">expansion_factor</span>
+                <span class="p">)</span>
+                <span class="n">stage3_config</span><span class="p">[</span><span class="s1">&#39;lowerBounds&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_bound</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   </span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1"> lower bound: </span><span class="si">{</span><span class="n">old_bound</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1"> → </span><span class="si">{</span><span class="n">new_bound</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">adjusted</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># upper</span>
+                <span class="n">old_bound</span> <span class="o">=</span> <span class="n">upper_bounds</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="c1"># Use unified boundary adjustment function (respecting physical constraints)</span>
+                <span class="n">new_bound</span> <span class="o">=</span> <span class="n">suggest_boundary_adjustment</span><span class="p">(</span>
+                    <span class="n">param_name</span><span class="p">,</span> <span class="n">current_value</span><span class="p">,</span> <span class="n">old_bound</span><span class="p">,</span> <span class="s1">&#39;upper&#39;</span><span class="p">,</span> <span class="n">expansion_factor</span>
+                <span class="p">)</span>
+                <span class="n">stage3_config</span><span class="p">[</span><span class="s1">&#39;upperBounds&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_bound</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   </span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1"> upper bound: </span><span class="si">{</span><span class="n">old_bound</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1"> → </span><span class="si">{</span><span class="n">new_bound</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">adjusted</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">adjusted</span><span class="p">:</span>
+            <span class="c1"># Create new configuration file (do not overwrite original)</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+
+            <span class="c1"># Generate new config file name</span>
+            <span class="n">original_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">original_config_path</span><span class="p">)</span>
+            <span class="n">stem</span> <span class="o">=</span> <span class="n">original_path</span><span class="o">.</span><span class="n">stem</span>  <span class="c1"># filename without extension</span>
+            <span class="n">suffix</span> <span class="o">=</span> <span class="n">original_path</span><span class="o">.</span><span class="n">suffix</span>  <span class="c1"># file extension</span>
+            <span class="n">new_config_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stem</span><span class="si">}</span><span class="s1">_autoadjusted_round</span><span class="si">{</span><span class="n">round_num</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="n">new_config_path</span> <span class="o">=</span> <span class="n">original_path</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">new_config_name</span>
+
+            <span class="c1"># Save adjusted config to new file</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">new_config_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   ✅ Created new config file: </span><span class="si">{</span><span class="n">new_config_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   📌 Original config file remains unchanged: </span><span class="si">{</span><span class="n">original_config_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Update current config path (next round will use the new config)</span>
+            <span class="n">current_config_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">new_config_path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">round_num</span> <span class="o">==</span> <span class="n">max_adjustment_rounds</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">80</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;⚠️  Maximum adjustment rounds (</span><span class="si">{</span><span class="n">max_adjustment_rounds</span><span class="si">}</span><span class="s1">) reached, stopping&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   Current NLL = </span><span class="si">{</span><span class="n">final_nll</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;   Recommendation: Check if parameters still hit boundaries, may need manual further adjustment&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">🔄 Boundary issue detected, preparing Round </span><span class="si">{</span><span class="n">round_num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1"> optimization...&#39;</span><span class="p">)</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Give user 2 seconds to view information, but no interaction needed</span>
+
+    <span class="k">return</span> <span class="n">result_params</span></div>
+
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../api_reference/core.html#eepas_learning_auto_boundary.main">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;EEPAS Parameter Learning - Automatic Boundary Adjustment Version&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--config&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Configuration file path (JSON format)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--m0&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Completeness magnitude (optional, overrides value in config file)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--max-rounds&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Maximum boundary adjustment rounds (default: 3)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--no-boundary-adjustment&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Disable automatic boundary adjustment, use fixed boundaries from config&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--tolerance&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Boundary hit tolerance, relative proportion (default: 0.01 = 1</span><span class="si">%%</span><span class="s1">)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--expansion&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Boundary expansion factor (default: 2.0)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--nll-threshold&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;NLL convergence threshold (default: 0.1)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--single-stage&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use single-stage full parameter optimization (8 parameters jointly)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--three-stage&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use three-stage optimization (stage 1: am,at,Sa,u → stage 2: Sm,bt,St,ba,u → stage 3: all)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--no-multistart&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Disable multi-start search (default: enabled with 3 starting points)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--n-starts&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Number of multi-start points (default: 3)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--basinhopping&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use Basin-Hopping global optimization (escape local optima)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--basinhopping-niter&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Basin-hopping iteration count (default: 20)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--optimizer&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;fminsearchcon&#39;</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fminsearchcon&#39;</span><span class="p">,</span> <span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span> <span class="s1">&#39;TNC&#39;</span><span class="p">,</span> <span class="s1">&#39;SLSQP&#39;</span><span class="p">,</span> <span class="s1">&#39;Powell&#39;</span><span class="p">],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Optimizer selection (default: fminsearchcon)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--ppe-ref-mag&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;m0&#39;</span><span class="p">,</span> <span class="s1">&#39;mT&#39;</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;mT&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;PPE reference magnitude: m0 or mT (default: mT, paper version)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--accurate&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use accurate mode (quad_vec integration, slower but more precise)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--magnitude-samples&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Number of sampling points for fast mode (default: 50)&#39;</span>
+    <span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="c1"># Check for conflicting arguments</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">single_stage</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">three_stage</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;❌ Error: Cannot specify both --single-stage and --three-stage&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Determine optimization mode</span>
+    <span class="c1"># Priority:</span>
+    <span class="c1"># 1. If config has customStages enabled → use custom stages</span>
+    <span class="c1"># 2. If --single-stage or --three-stage specified → use explicit mode</span>
+    <span class="c1"># 3. Auto-detect from stage1 configuration:</span>
+    <span class="c1">#    - If stage1 has all 8 parameters → single-stage</span>
+    <span class="c1">#    - Otherwise → three-stage</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">utils.data_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+    <span class="n">custom_config</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_custom_stages</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">custom_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Custom stages enabled in config</span>
+        <span class="n">optimization_mode</span> <span class="o">=</span> <span class="s1">&#39;custom&#39;</span>
+        <span class="n">single_stage_flag</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Not used for custom stages</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;🎯 Optimization mode: Custom Stages (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">custom_config</span><span class="p">[</span><span class="s2">&quot;stages&quot;</span><span class="p">])</span><span class="si">}</span><span class="s1"> stages)&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">single_stage</span><span class="p">:</span>
+        <span class="c1"># User explicitly requested single-stage</span>
+        <span class="n">optimization_mode</span> <span class="o">=</span> <span class="s1">&#39;single&#39;</span>
+        <span class="n">single_stage_flag</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;🎯 Optimization mode: Single-Stage (8 parameters jointly)&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">three_stage</span><span class="p">:</span>
+        <span class="c1"># User explicitly requested three-stage</span>
+        <span class="n">optimization_mode</span> <span class="o">=</span> <span class="s1">&#39;three&#39;</span>
+        <span class="n">single_stage_flag</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;🎯 Optimization mode: Three-Stage (am,at,Sa,u → Sm,bt,St,ba,u → all)&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Auto-detect from stage1 configuration</span>
+        <span class="n">stage1_config_type</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">detect_stage1_config_type</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">stage1_config_type</span> <span class="o">==</span> <span class="s1">&#39;single&#39;</span><span class="p">:</span>
+            <span class="n">optimization_mode</span> <span class="o">=</span> <span class="s1">&#39;single&#39;</span>
+            <span class="n">single_stage_flag</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;🎯 Optimization mode: Single-Stage (auto-detected from stage1 config)&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;   stage1 contains all 8 parameters → using single-stage optimization&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">optimization_mode</span> <span class="o">=</span> <span class="s1">&#39;three&#39;</span>
+            <span class="n">single_stage_flag</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;🎯 Optimization mode: Three-Stage (auto-detected from stage1 config)&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;   stage1 contains partial parameters → using three-stage optimization&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Determine which mode to use</span>
+    <span class="n">use_fast_mode</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">accurate</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">accurate</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;⚠️  Using accurate mode (quad_vec), slower but higher precision&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;✅ Using fast mode (magnitude_samples=</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">magnitude_samples</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using PPE reference magnitude: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">ppe_ref_mag</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">eepas_with_auto_boundary</span><span class="p">(</span>
+        <span class="n">config_path</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
+        <span class="n">m0</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">m0</span><span class="p">,</span>
+        <span class="n">max_adjustment_rounds</span><span class="o">=</span><span class="mi">1</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">no_boundary_adjustment</span> <span class="k">else</span> <span class="n">args</span><span class="o">.</span><span class="n">max_rounds</span><span class="p">,</span>
+        <span class="n">disable_boundary_adjustment</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">no_boundary_adjustment</span><span class="p">,</span>
+        <span class="n">tolerance</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">tolerance</span><span class="p">,</span>
+        <span class="n">expansion_factor</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">expansion</span><span class="p">,</span>
+        <span class="n">nll_convergence_threshold</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">nll_threshold</span><span class="p">,</span>
+        <span class="n">single_stage</span><span class="o">=</span><span class="n">single_stage_flag</span><span class="p">,</span>
+        <span class="n">multi_start</span><span class="o">=</span><span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">no_multistart</span><span class="p">,</span>  <span class="c1"># Default enable multistart, unless --no-multistart specified</span>
+        <span class="n">n_starts</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">n_starts</span><span class="p">,</span>
+        <span class="n">use_basinhopping</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">basinhopping</span><span class="p">,</span>
+        <span class="n">basinhopping_niter</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">basinhopping_niter</span><span class="p">,</span>
+        <span class="n">optimizer</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">optimizer</span><span class="p">,</span>
+        <span class="n">ppe_ref_mag</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">ppe_ref_mag</span><span class="p">,</span>
+        <span class="n">use_fast_mode</span><span class="o">=</span><span class="n">use_fast_mode</span><span class="p">,</span>
+        <span class="n">magnitude_samples</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">magnitude_samples</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Final Results Summary:&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;ln_likelihood&#39;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  NLL = </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;ln_likelihood&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

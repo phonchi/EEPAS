@@ -1,0 +1,3473 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>EEPAS Italy Results: Visualization and PyCSEP Evaluation &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/EEPAS_Forecast_Evaluation_New';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="EEPAS Italy Preprocessing: Estimation of Completeness (\(m_c\)) and \(b\)-value" href="Estimate_mc_b_Italy_clean.html" />
+    <link rel="prev" title="Examining the \(\Psi\) Phenomenon in Italian Seismicity" href="Examine_Psi_Italy_clean.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/examples/EEPAS_Forecast_Evaluation_New.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>EEPAS Italy Results: Visualization and PyCSEP Evaluation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📚-Overview">📚 Overview</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#What-This-Notebook-Does">What This Notebook Does</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#🎯-EEPAS-Workflow-Context">🎯 EEPAS Workflow Context</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-Configuration-and-Data">📊 Configuration and Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Input-Files-(from-results_italy_causal_ew0/)">Input Files (from <code class="docutils literal notranslate"><span class="pre">results_italy_causal_ew0/</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Catalog-Files">Catalog Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Key-Parameters">Key Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📝-Notebook-Structure">📝 Notebook Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#⚠️-Important-Notes">⚠️ Important Notes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#🎯-Workflow">🎯 Workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#1.-Setup-and-Imports">1. Setup and Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#2.-Initialize-Forecast-Converters">2. Initialize Forecast Converters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#3.-Convert-All-Periods-and-Export">3. Convert All Periods and Export</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#4.-Create-PyCSEP-Forecast-Objects">4. Create PyCSEP Forecast Objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#5.-Load-and-Filter-Catalog">5. Load and Filter Catalog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#6.-Visualize-Forecasts">6. Visualize Forecasts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#7.-Run-PyCSEP-Consistency-Tests">7. Run PyCSEP Consistency Tests</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#EEPAS-Tests">EEPAS Tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-EEPAS-Test-Results-Summary">📊 EEPAS Test Results Summary</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Key-Findings">Key Findings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#What-This-Means">What This Means</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Connection-to-Paper">Connection to Paper</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PPE-Tests">PPE Tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-PPE-Test-Results-Summary">📊 PPE Test Results Summary</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Key Findings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#8.-Compare-EEPAS-vs.-PPE">8. Compare EEPAS vs. PPE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#9.-Plot-Comparison-Summary">9. Plot Comparison Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <style>
+    .nbinput .prompt,
+    .nboutput .prompt {
+        display: none;
+    }
+</style><section id="EEPAS-Italy-Results:-Visualization-and-PyCSEP-Evaluation">
+<h1>EEPAS Italy Results: Visualization and PyCSEP Evaluation<a class="headerlink" href="#EEPAS-Italy-Results:-Visualization-and-PyCSEP-Evaluation" title="Link to this heading">#</a></h1>
+<section id="📚-Overview">
+<h2>📚 Overview<a class="headerlink" href="#📚-Overview" title="Link to this heading">#</a></h2>
+<p>This notebook demonstrates the <strong>complete evaluation pipeline</strong> for EEPAS forecasts using the <strong>PyCSEP</strong> (Collaboratory for the Study of Earthquake Predictability) framework.</p>
+<section id="What-This-Notebook-Does">
+<h3>What This Notebook Does<a class="headerlink" href="#What-This-Notebook-Does" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Load EEPAS and PPE Forecasts</strong></p></li>
+<li><p><strong>Visualize Forecast Maps</strong>: Plot spatial distribution of seismicity rates with observed earthquakes</p></li>
+<li><p><strong>Run PyCSEP Consistency Tests</strong>: Evaluate forecast performance using standardized tests</p></li>
+<li><p><strong>Compare Models</strong>: Quantitatively compare EEPAS vs. PPE using multiple scoring metrics</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="🎯-EEPAS-Workflow-Context">
+<h2>🎯 EEPAS Workflow Context<a class="headerlink" href="#🎯-EEPAS-Workflow-Context" title="Link to this heading">#</a></h2>
+<p>This notebook represents <strong>Step 5</strong> (Evaluation) in the EEPAS pipeline:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[Step 1] PPE Learning → a, d, s
+[Step 2] Aftershock Fitting → ν, κ
+[Step 3] EEPAS Learning → am, bm, Sm, at, bt, St, ba, Sa, u
+[Step 4] Forecast Generation → PREVISIONI_3m_EEPAS_*.mat, PREVISIONI_3m_PPE_*.mat
+[Step 5] Evaluation (this notebook) → PyCSEP tests + visualization
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="📊-Configuration-and-Data">
+<h2>📊 Configuration and Data<a class="headerlink" href="#📊-Configuration-and-Data" title="Link to this heading">#</a></h2>
+<section id="Input-Files-(from-results_italy_causal_ew0/)">
+<h3>Input Files (from <code class="docutils literal notranslate"><span class="pre">results_italy_causal_ew0/</span></code>)<a class="headerlink" href="#Input-Files-(from-results_italy_causal_ew0/)" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Usage</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PREVISIONI_3m_EEPAS_2012_2022.mat</span></code></p></td>
+<td><p>EEPAS forecast (2012-2022)</p></td>
+<td><p>Main forecast to evaluate</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PREVISIONI_3m_PPE_2012_2022.mat</span></code></p></td>
+<td><p>PPE forecast (2012-2022)</p></td>
+<td><p>Baseline model for comparison</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Fitted_par_EEPAS_1990_2012.csv</span></code></p></td>
+<td><p>Learned EEPAS parameters</p></td>
+<td><p>Reference for interpretation</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Fitted_par_PPE_1990_2012.csv</span></code></p></td>
+<td><p>Learned PPE parameters</p></td>
+<td><p>Reference for interpretation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="Catalog-Files">
+<h3>Catalog Files<a class="headerlink" href="#Catalog-Files" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>HORUS_Italy_filtered.mat</strong>: Observed earthquakes in testing region (177 cells)</p></li>
+<li><p><strong>CELLE_ter.mat</strong>: Grid cell definitions (177 cells, ~42.43 km × 42.43 km each)</p></li>
+<li><p><strong>CPTI15.mat</strong>: Italian polygon boundary (for spatial filtering)</p></li>
+</ul>
+</section>
+<section id="Key-Parameters">
+<h3>Key Parameters<a class="headerlink" href="#Key-Parameters" title="Link to this heading">#</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;forecastStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2012</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;forecastEndYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2022</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;forecastPeriodDays&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">91.31</span><span class="p">,</span><span class="w">  </span><span class="c1">// 3-month periods</span>
+<span class="w">  </span><span class="nt">&quot;modelParams&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;mT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span><span class="w">                   </span><span class="c1">// Target magnitude threshold</span>
+<span class="w">    </span><span class="nt">&quot;m0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.45</span><span class="w">                    </span><span class="c1">// Completeness magnitude</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Result</strong>:</p>
+<ul class="simple">
+<li><p><strong>40 forecast periods</strong> (10 years ÷ 3 months ≈ 40 periods)</p></li>
+<li><p><strong>Magnitude bins</strong>: M ≥ 5.0 in 0.1 increments (25 bins total)</p></li>
+<li><p><strong>Spatial bins</strong>: 177 grid cells</p></li>
+<li><p><strong>Total space-magnitude bins</strong>: 177 × 25 = 4,425 bins</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="📝-Notebook-Structure">
+<h2>📝 Notebook Structure<a class="headerlink" href="#📝-Notebook-Structure" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Data Loading</strong>: Load forecasts, grid definitions, and catalog</p></li>
+<li><p><strong>Forecast Visualization</strong>: Plot spatial maps with observed earthquakes</p></li>
+<li><p><strong>EEPAS Evaluation</strong>: Run all PyCSEP tests on EEPAS forecast</p></li>
+<li><p><strong>PPE Evaluation</strong>: Run all PyCSEP tests on PPE forecast</p></li>
+<li><p><strong>Model Comparison</strong>: Compare performance using multiple metrics</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="⚠️-Important-Notes">
+<h2>⚠️ Important Notes<a class="headerlink" href="#⚠️-Important-Notes" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Coordinate Transformations</strong>:</p>
+<ul class="simple">
+<li><p>Forecasts are in RDN2008 (EPSG:7794) projection</p></li>
+<li><p>PyCSEP requires WGS84 (lat/lon)</p></li>
+<li><p>We perform coordinate transformation for each grid cell</p></li>
+</ul>
+</li>
+<li><p><strong>Magnitude Threshold</strong>:</p>
+<ul class="simple">
+<li><p>Forecasts use M ≥ 5.0 (mT in config)</p></li>
+<li><p>Catalog filtering must match: <code class="docutils literal notranslate"><span class="pre">magnitude</span> <span class="pre">&gt;=</span> <span class="pre">4.95</span></code> (to include M 5.0-5.05 bin)</p></li>
+</ul>
+</li>
+<li><p><strong>Time Period</strong>:</p>
+<ul class="simple">
+<li><p>Forecast: 2012-01-01 to 2021-12-31</p></li>
+<li><p>Actual evaluation: 2012-01-25 to 2018-12-26 (based on available catalog)</p></li>
+</ul>
+</li>
+<li><p><strong>PyCSEP Patch</strong>:</p>
+<ul class="simple">
+<li><p>We patch <code class="docutils literal notranslate"><span class="pre">csep/core/regions.py</span></code> to fix polygon boundary handling</p></li>
+<li><p>See <code class="docutils literal notranslate"><span class="pre">patch_pycsep.py</span></code> for details</p></li>
+</ul>
+</li>
+</ol>
+<hr class="docutils" />
+<p>Let’s begin!</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pycsep<span class="w"> </span>-qq
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">24.3/24.3 MB</span> <span class="ansi-red-fg">20.8 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+  Preparing metadata (setup.py) ... done
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">11.8/11.8 MB</span> <span class="ansi-red-fg">39.3 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">14.5/14.5 MB</span> <span class="ansi-red-fg">84.2 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">1.6/1.6 MB</span> <span class="ansi-red-fg">53.7 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+  Building wheel for pycsep (setup.py) ... done
+<span class="ansi-red-fg">ERROR: pip&#39;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+google-adk 1.19.0 requires sqlalchemy&lt;3.0.0,&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.
+ipython-sql 0.5.0 requires sqlalchemy&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.</span><span class="ansi-red-fg">
+</span>
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Mounted at /content/drive
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/HORUS_Italy_polygon_filtered.mat<span class="w"> </span>/content/
+<span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/HORUS_Italy_RDN2008_polygon_filtered.mat<span class="w"> </span>/content/
+<span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/HORUS_Italy_filtered.mat<span class="w"> </span>/content/
+<span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/HORUS_Italy_RDN2008_filtered.mat<span class="w"> </span>/content/
+<span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/EEPAS_CODE/CELLE_ter.mat<span class="w"> </span>/content/
+<span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/EEPAS_CODE/CPTI15.mat<span class="w"> </span>/content/
+<span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/earth_src/src/EEPAS_Taiwan-main/src/analysis/forecast_converter.py<span class="w"> </span>/content/
+<span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/earth_src/src/EEPAS_Taiwan-main/src/analysis/patch_pycsep.py<span class="w"> </span>/content/
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/results_italy_paper.zip<span class="w"> </span>/content/
+<span class="o">!</span>unzip<span class="w"> </span>/content/results_italy_paper.zip
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Archive:  /content/results_italy_paper.zip
+   creating: results_italy_paper_1round_full/
+  inflating: results_italy_paper_1round_full/Fitted_par_aftershock_1990_2012.csv
+  inflating: results_italy_paper_1round_full/Fitted_par_EEPAS_1990_2012.csv
+  inflating: results_italy_paper_1round_full/Fitted_par_PPE_1990_2012.csv
+  inflating: results_italy_paper_1round_full/PREVISIONI_3m_EEPAS_2012_2022.mat
+  inflating: results_italy_paper_1round_full/PREVISIONI_3m_PPE_2012_2022.mat
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python<span class="w"> </span>patch_pycsep.py
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Checking file: /usr/local/lib/python3.12/dist-packages/csep/core/regions.py
+✅ Success: Code has been automatically replaced.
+</pre></div></div>
+</div>
+</section>
+<section id="🎯-Workflow">
+<h2>🎯 Workflow<a class="headerlink" href="#🎯-Workflow" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[Step 1] Load EEPAS/PPE forecasts using EEPASForecastConverter
+[Step 2] Convert to PyCSEP GriddedForecast objects
+[Step 3] Load and filter earthquake catalog
+[Step 4] Run PyCSEP consistency tests
+[Step 5] Compare EEPAS vs. PPE
+</pre></div>
+</div>
+<hr class="docutils" />
+</section>
+<section id="1.-Setup-and-Imports">
+<h2>1. Setup and Imports<a class="headerlink" href="#1.-Setup-and-Imports" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cartopy.crs</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ccrs</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cartopy.mpl.gridliner</span><span class="w"> </span><span class="kn">import</span> <span class="n">LONGITUDE_FORMATTER</span><span class="p">,</span> <span class="n">LATITUDE_FORMATTER</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">csep</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">time_utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csep.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">poisson_evaluations</span> <span class="k">as</span> <span class="n">poisson</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csep.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">binomial_evaluations</span> <span class="k">as</span> <span class="n">binomial</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plots</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csep.utils.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_Kagan_I1_score</span>
+
+<span class="c1"># Add parent directory to path</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">forecast_converter</span><span class="w"> </span><span class="kn">import</span> <span class="n">EEPASForecastConverter</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ All imports successful!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+✅ All imports successful!
+</pre></div></div>
+</div>
+</section>
+<section id="2.-Initialize-Forecast-Converters">
+<h2>2. Initialize Forecast Converters<a class="headerlink" href="#2.-Initialize-Forecast-Converters" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># File paths</span>
+<span class="n">eepas_file</span> <span class="o">=</span> <span class="s1">&#39;/content/results_italy_paper_1round_full/PREVISIONI_3m_EEPAS_2012_2022.mat&#39;</span>
+<span class="n">ppe_file</span> <span class="o">=</span> <span class="s1">&#39;/content/results_italy_paper_1round_full/PREVISIONI_3m_PPE_2012_2022.mat&#39;</span>
+<span class="n">grid_file</span> <span class="o">=</span> <span class="s1">&#39;CELLE_ter.mat&#39;</span>
+
+<span class="c1"># Initialize converters</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initializing EEPAS converter...&quot;</span><span class="p">)</span>
+<span class="n">eepas_converter</span> <span class="o">=</span> <span class="n">EEPASForecastConverter</span><span class="p">(</span>
+    <span class="n">forecast_file</span><span class="o">=</span><span class="n">eepas_file</span><span class="p">,</span>
+    <span class="n">grid_file</span><span class="o">=</span><span class="n">grid_file</span><span class="p">,</span>
+    <span class="n">num_regions</span><span class="o">=</span><span class="mi">177</span><span class="p">,</span>
+    <span class="n">num_magnitude_steps</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">magnitude_min</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">magnitude_step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">coordinate_transform</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># RDN2008 → WGS84</span>
+    <span class="n">source_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:7794&#39;</span><span class="p">,</span>
+    <span class="n">target_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Initializing PPE converter...&quot;</span><span class="p">)</span>
+<span class="n">ppe_converter</span> <span class="o">=</span> <span class="n">EEPASForecastConverter</span><span class="p">(</span>
+    <span class="n">forecast_file</span><span class="o">=</span><span class="n">ppe_file</span><span class="p">,</span>
+    <span class="n">grid_file</span><span class="o">=</span><span class="n">grid_file</span><span class="p">,</span>
+    <span class="n">num_regions</span><span class="o">=</span><span class="mi">177</span><span class="p">,</span>
+    <span class="n">num_magnitude_steps</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">magnitude_min</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">magnitude_step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">coordinate_transform</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">source_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:7794&#39;</span><span class="p">,</span>
+    <span class="n">target_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Converters initialized!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   EEPAS: </span><span class="si">{</span><span class="n">eepas_converter</span><span class="o">.</span><span class="n">num_periods</span><span class="si">}</span><span class="s2"> periods detected&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   PPE: </span><span class="si">{</span><span class="n">ppe_converter</span><span class="o">.</span><span class="n">num_periods</span><span class="si">}</span><span class="s2"> periods detected&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Initializing EEPAS converter...
+Loading forecast file: /content/results_italy_paper_1round_full/PREVISIONI_3m_EEPAS_2012_2022.mat
+   Variable name: PREVISIONI_3m_less
+   Data shape: (1000, 178)
+   Detected 40 time periods
+
+Loading grid definition: CELLE_ter.mat
+   Performing coordinate transformation...
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Converting grids: 100%|██████████| 177/177 [00:00&lt;00:00, 13726.14it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Successfully loaded 177 grids
+
+Magnitude range: M5.0 - M7.5
+   Total 25 magnitude bins
+
+Initializing PPE converter...
+Loading forecast file: /content/results_italy_paper_1round_full/PREVISIONI_3m_PPE_2012_2022.mat
+   Variable name: PREVISIONI_3m
+   Data shape: (1000, 178)
+   Detected 40 time periods
+
+Loading grid definition: CELLE_ter.mat
+   Performing coordinate transformation...
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Converting grids: 100%|██████████| 177/177 [00:00&lt;00:00, 13383.42it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Successfully loaded 177 grids
+
+Magnitude range: M5.0 - M7.5
+   Total 25 magnitude bins
+
+✅ Converters initialized!
+   EEPAS: 40 periods detected
+   PPE: 40 periods detected
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+</section>
+<section id="3.-Convert-All-Periods-and-Export">
+<h2>3. Convert All Periods and Export<a class="headerlink" href="#3.-Convert-All-Periods-and-Export" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert EEPAS forecast (all periods summed)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converting EEPAS forecast (40 periods)...&quot;</span><span class="p">)</span>
+<span class="n">eepas_data</span> <span class="o">=</span> <span class="n">eepas_converter</span><span class="o">.</span><span class="n">convert_all_periods</span><span class="p">(</span>
+    <span class="n">output_file</span><span class="o">=</span><span class="s1">&#39;eepas_forecast_all.dat&#39;</span><span class="p">,</span>
+    <span class="n">perform_downsampling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">grid_resolution</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ EEPAS conversion complete!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Total grid points: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">eepas_data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Total rate: </span><span class="si">{</span><span class="n">eepas_data</span><span class="p">[</span><span class="s1">&#39;RATE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Spatial extent: Lon [</span><span class="si">{</span><span class="n">eepas_data</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">eepas_data</span><span class="p">[</span><span class="s1">&#39;LON_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;                   Lat [</span><span class="si">{</span><span class="n">eepas_data</span><span class="p">[</span><span class="s1">&#39;LAT_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">eepas_data</span><span class="p">[</span><span class="s1">&#39;LAT_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Converting EEPAS forecast (40 periods)...
+
+======================================================================
+Converting All Periods (1 - 40)
+======================================================================
+
+Processing period 1/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:07&lt;00:00, 610.20it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 2/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1210.58it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 3/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1538.00it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 4/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1501.07it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 5/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1090.30it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 6/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1501.71it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 7/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1584.90it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 8/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1657.25it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 9/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1049.58it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 10/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1656.13it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 11/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1544.88it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 12/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1656.90it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 13/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1065.40it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 14/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1679.45it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 15/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1572.94it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 16/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1582.33it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 17/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 993.83it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 18/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1662.63it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 19/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1691.83it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 20/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1578.57it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 21/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1007.56it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 22/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1569.20it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 23/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1702.69it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 24/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1066.12it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 25/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1429.81it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 26/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1561.13it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 27/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1587.26it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 28/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1142.88it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 29/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1441.60it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 30/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1197.94it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 31/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1671.98it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 32/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1083.03it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 33/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1688.99it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 34/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1197.85it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 35/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1176.52it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 36/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1404.37it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 37/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1660.10it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 38/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1708.48it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 39/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1315.63it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 40/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1359.42it/s]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Combining all periods...
+
+Summing forecast rates across periods...
+
+   Before merge: 3684000 grid points
+   After summing: 88500 unique grid points
+
+Exporting PyCSEP format: eepas_forecast_all.dat
+   Successfully exported 88500 rows
+
+All periods conversion complete!
+
+✅ EEPAS conversion complete!
+   Total grid points: 88500
+   Total rate: 16.188821
+   Spatial extent: Lon [6.50, 18.40]
+                   Lat [36.60, 47.00]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert PPE forecast (all periods summed)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converting PPE forecast (40 periods)...&quot;</span><span class="p">)</span>
+<span class="n">ppe_data</span> <span class="o">=</span> <span class="n">ppe_converter</span><span class="o">.</span><span class="n">convert_all_periods</span><span class="p">(</span>
+    <span class="n">output_file</span><span class="o">=</span><span class="s1">&#39;ppe_forecast_all.dat&#39;</span><span class="p">,</span>
+    <span class="n">perform_downsampling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">grid_resolution</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ PPE conversion complete!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Total grid points: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ppe_data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Total rate: </span><span class="si">{</span><span class="n">ppe_data</span><span class="p">[</span><span class="s1">&#39;RATE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Converting PPE forecast (40 periods)...
+
+======================================================================
+Converting All Periods (1 - 40)
+======================================================================
+
+Processing period 1/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1543.10it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 2/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1190.53it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 3/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1712.38it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 4/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1659.85it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 5/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1695.93it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 6/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1139.18it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 7/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1704.85it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 8/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1698.62it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 9/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1674.01it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 10/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1096.60it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 11/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1702.14it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 12/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1693.98it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 13/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1689.89it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 14/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1053.95it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 15/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1689.11it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 16/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1696.43it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 17/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1681.43it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 18/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1063.79it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 19/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1672.13it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 20/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1690.30it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 21/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1675.20it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 22/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1093.80it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 23/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1699.77it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 24/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1685.81it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 25/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1689.19it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 26/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1178.58it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 27/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1574.84it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 28/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1708.27it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 29/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1688.49it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 30/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1248.43it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 31/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1434.46it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 32/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1701.03it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 33/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1691.19it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 34/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1292.28it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 35/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1390.96it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 36/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1679.30it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 37/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1700.30it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 38/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1381.20it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 39/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1312.98it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Processing period 40/40...
+
+Performing spatial downsampling (→ 0.1° × 0.1°)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1680.68it/s]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   Original: 4425 coarse grids → Downsampled: 92100 0.1° grids
+
+Combining all periods...
+
+Summing forecast rates across periods...
+
+   Before merge: 3684000 grid points
+   After summing: 88500 unique grid points
+
+Exporting PyCSEP format: ppe_forecast_all.dat
+   Successfully exported 88500 rows
+
+All periods conversion complete!
+
+✅ PPE conversion complete!
+   Total grid points: 88500
+   Total rate: 13.999883
+</pre></div></div>
+</div>
+</section>
+<section id="4.-Create-PyCSEP-Forecast-Objects">
+<h2>4. Create PyCSEP Forecast Objects<a class="headerlink" href="#4.-Create-PyCSEP-Forecast-Objects" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define time range</span>
+<span class="n">start_date</span> <span class="o">=</span> <span class="n">time_utils</span><span class="o">.</span><span class="n">strptime_to_utc_datetime</span><span class="p">(</span><span class="s1">&#39;2012-01-01 00:00:00.0&#39;</span><span class="p">)</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="n">time_utils</span><span class="o">.</span><span class="n">strptime_to_utc_datetime</span><span class="p">(</span><span class="s1">&#39;2021-12-31 23:59:59.0&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create PyCSEP forecasts</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating PyCSEP forecast objects...&quot;</span><span class="p">)</span>
+
+<span class="n">eepas_forecast</span> <span class="o">=</span> <span class="n">eepas_converter</span><span class="o">.</span><span class="n">to_pycsep_forecast</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">eepas_data</span><span class="p">,</span>
+    <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
+    <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;EEPAS_2012_2021&#39;</span>
+<span class="p">)</span>
+
+<span class="n">ppe_forecast</span> <span class="o">=</span> <span class="n">ppe_converter</span><span class="o">.</span><span class="n">to_pycsep_forecast</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">ppe_data</span><span class="p">,</span>
+    <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
+    <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;PPE_2012_2021&#39;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ PyCSEP forecasts created!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   EEPAS: </span><span class="si">{</span><span class="n">eepas_forecast</span><span class="o">.</span><span class="n">event_count</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> expected events&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   PPE: </span><span class="si">{</span><span class="n">ppe_forecast</span><span class="o">.</span><span class="n">event_count</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> expected events&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Creating PyCSEP forecast objects...
+
+Exporting PyCSEP format: /tmp/tmpcxjnjit7.dat
+   Successfully exported 88500 rows
+
+Exporting PyCSEP format: /tmp/tmphvo570o3.dat
+   Successfully exported 88500 rows
+
+✅ PyCSEP forecasts created!
+   EEPAS: 16.19 expected events
+   PPE: 14.00 expected events
+</pre></div></div>
+</div>
+</section>
+<section id="5.-Load-and-Filter-Catalog">
+<h2>5. Load and Filter Catalog<a class="headerlink" href="#5.-Load-and-Filter-Catalog" title="Link to this heading">#</a></h2>
+<p>Load observed earthquakes from HORUS catalog</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Custom loader for HORUS format</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_horus_catalog</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load HORUS catalog and convert to PyCSEP format&quot;&quot;&quot;</span>
+    <span class="n">mat_data</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">horus_data</span> <span class="o">=</span> <span class="n">mat_data</span><span class="p">[</span><span class="s1">&#39;HORUS&#39;</span><span class="p">]</span>
+
+    <span class="n">eventlist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">event</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">horus_data</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+            <span class="n">second_float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+            <span class="n">second</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">second_float</span><span class="p">)</span>
+            <span class="n">microsecond</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">second_float</span> <span class="o">-</span> <span class="n">second</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span><span class="p">)</span>
+
+            <span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">6</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+            <span class="n">depth</span><span class="p">,</span> <span class="n">magnitude</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">8</span><span class="p">]),</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">9</span><span class="p">]),</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">microsecond</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+            <span class="n">origin_time</span> <span class="o">=</span> <span class="n">time_utils</span><span class="o">.</span><span class="n">datetime_to_utc_epoch</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+            <span class="n">event_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;HORUS-</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s1">06d</span><span class="si">}</span><span class="s1">&#39;</span>
+
+            <span class="n">eventlist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">event_id</span><span class="p">,</span> <span class="n">origin_time</span><span class="p">,</span> <span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">magnitude</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+    <span class="k">return</span> <span class="n">eventlist</span>
+
+<span class="c1"># Load catalog</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading earthquake catalog...&quot;</span><span class="p">)</span>
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">csep</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;HORUS_Italy_filtered.mat&#39;</span><span class="p">,</span> <span class="n">loader</span><span class="o">=</span><span class="n">load_horus_catalog</span><span class="p">)</span>
+
+<span class="c1"># Filter catalog</span>
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;magnitude &gt;= 4.95&#39;</span><span class="p">)</span>  <span class="c1"># Include M5.0-5.05 bin</span>
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;depth &lt;= 40&#39;</span><span class="p">)</span>  <span class="c1"># Match forecast depth range</span>
+
+<span class="c1"># Filter to forecast time range</span>
+<span class="n">start_epoch</span> <span class="o">=</span> <span class="n">time_utils</span><span class="o">.</span><span class="n">datetime_to_utc_epoch</span><span class="p">(</span><span class="n">start_date</span><span class="p">)</span>
+<span class="n">end_epoch</span> <span class="o">=</span> <span class="n">time_utils</span><span class="o">.</span><span class="n">datetime_to_utc_epoch</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">filter</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;origin_time &gt;= </span><span class="si">{</span><span class="n">start_epoch</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;origin_time &lt; </span><span class="si">{</span><span class="n">end_epoch</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+
+<span class="c1"># Filter to forecast spatial region</span>
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">filter_spatial</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="o">.</span><span class="n">region</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Catalog loaded and filtered&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Loading earthquake catalog...
+
+✅ Catalog loaded and filtered
+
+        Name: None
+
+        Start Date: 2012-01-25 08:06:37.090000+00:00
+        End Date: 2018-12-26 02:19:14+00:00
+
+        Latitude: (37.644, 44.8955)
+        Longitude: (10.1357, 16.0158)
+
+        Min Mw: 5.0
+        Max Mw: 6.6
+
+        Event Count: 25
+
+</pre></div></div>
+</div>
+</section>
+<section id="6.-Visualize-Forecasts">
+<h2>6. Visualize Forecasts<a class="headerlink" href="#6.-Visualize-Forecasts" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot EEPAS forecast</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;projection&#39;</span><span class="p">:</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">Mercator</span><span class="p">()})</span>
+
+<span class="c1"># EEPAS</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">eepas_forecast</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">48</span><span class="p">],</span>
+    <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;EEPAS Forecast (2012-2021)&#39;</span><span class="p">,</span> <span class="s1">&#39;cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;rainbow&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># PPE</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ppe_forecast</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">48</span><span class="p">],</span>
+    <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;PPE Forecast (2012-2021)&#39;</span><span class="p">,</span> <span class="s1">&#39;cmap&#39;</span><span class="p">:</span> <span class="s1">&#39;rainbow&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;forecast_comparison.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Forecast visualization saved!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/tmp/ipython-input-1022497928.py:20: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.tight_layout()
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+✅ Forecast visualization saved!
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_19_2.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_19_2.png" />
+</div>
+</div>
+</section>
+<section id="7.-Run-PyCSEP-Consistency-Tests">
+<h2>7. Run PyCSEP Consistency Tests<a class="headerlink" href="#7.-Run-PyCSEP-Consistency-Tests" title="Link to this heading">#</a></h2>
+<section id="EEPAS-Tests">
+<h3>EEPAS Tests<a class="headerlink" href="#EEPAS-Tests" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seed</span> <span class="o">=</span> <span class="mi">123456</span>
+<span class="n">nsim</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running EEPAS consistency tests...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># L-test</span>
+<span class="n">eepas_l_test</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">likelihood_test</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;L-test: δ=</span><span class="si">{</span><span class="n">eepas_l_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">eepas_l_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;$\mathcal</span><span class="si">{L}</span><span class="s1">-\mathrm</span><span class="si">{test}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;Log-likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># CL-test</span>
+<span class="n">eepas_cl_test</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">conditional_likelihood_test</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CL-test: δ=</span><span class="si">{</span><span class="n">eepas_cl_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">eepas_cl_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;$CL-\mathrm</span><span class="si">{test}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;conditional log-likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># N-test</span>
+<span class="n">eepas_n_test</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">number_test</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N-test: δ₁=</span><span class="si">{</span><span class="n">eepas_n_test</span><span class="o">.</span><span class="n">quantile</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, δ₂=</span><span class="si">{</span><span class="n">eepas_n_test</span><span class="o">.</span><span class="n">quantile</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">eepas_n_test</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;Number of events&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># S-test</span>
+<span class="n">eepas_s_test</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">spatial_test</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;S-test: δ=</span><span class="si">{</span><span class="n">eepas_s_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">eepas_s_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;Normalized likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># M-test</span>
+<span class="n">eepas_m_test</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">magnitude_test</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;M-test: δ=</span><span class="si">{</span><span class="n">eepas_m_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">eepas_m_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;Normalized likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Running EEPAS consistency tests...
+
+L-test: δ=0.0126
+CL-test: δ=0.1775
+N-test: δ₁=0.0252, δ₂=0.9851
+S-test: δ=0.5747
+M-test: δ=0.1038
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_22_1.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_22_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_22_2.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_22_2.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_22_3.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_22_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_22_4.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_22_4.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_22_5.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_22_5.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running EEPAS consistency tests...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># CL-test</span>
+<span class="n">eepas_cl_test</span> <span class="o">=</span> <span class="n">binomial</span><span class="o">.</span><span class="n">binary_conditional_likelihood_test</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CL-test: δ=</span><span class="si">{</span><span class="n">eepas_cl_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">eepas_cl_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;$CL-\mathrm</span><span class="si">{test}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;conditional log-likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># N-test</span>
+<span class="n">eepas_n_test</span> <span class="o">=</span> <span class="n">binomial</span><span class="o">.</span><span class="n">negative_binomial_number_test</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="mf">67.76</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N-test: δ₁=</span><span class="si">{</span><span class="n">eepas_n_test</span><span class="o">.</span><span class="n">quantile</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, δ₂=</span><span class="si">{</span><span class="n">eepas_n_test</span><span class="o">.</span><span class="n">quantile</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_consistency_test</span><span class="p">(</span>
+    <span class="n">eepas_n_test</span><span class="p">,</span> <span class="n">variance</span> <span class="o">=</span> <span class="mf">67.76</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;Number of events&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># S-test</span>
+<span class="n">eepas_s_test</span> <span class="o">=</span> <span class="n">binomial</span><span class="o">.</span><span class="n">binary_spatial_test</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;S-test: δ=</span><span class="si">{</span><span class="n">eepas_s_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">eepas_s_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;Normalized likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Running EEPAS consistency tests...
+
+CL-test: δ=0.1768
+N-test: δ₁=0.1507, δ₂=0.8701
+S-test: δ=0.7101
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_23_1.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_23_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_23_2.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_23_2.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_23_3.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_23_3.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="📊-EEPAS-Test-Results-Summary">
+<h2>📊 EEPAS Test Results Summary<a class="headerlink" href="#📊-EEPAS-Test-Results-Summary" title="Link to this heading">#</a></h2>
+<p>Based on the PyCSEP evaluation above, here’s what the tests tell us about <strong>EEPAS forecast performance</strong>:</p>
+<section id="Key-Findings">
+<h3>Key Findings<a class="headerlink" href="#Key-Findings" title="Link to this heading">#</a></h3>
+<p><strong>1. Total Event Count</strong></p>
+<ul class="simple">
+<li><p><strong>Forecast</strong>: 16.19 events (M ≥ 5.0)</p></li>
+<li><p><strong>Observed</strong>: 25 events (2012-01-25 to 2018-12-26)</p></li>
+<li><p><strong>Result</strong>: EEPAS <strong>underpredicts</strong> the rate by ~35%</p></li>
+</ul>
+<p><strong>2. Consistency Tests</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Test</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Result</p></th>
+<th class="head"><p>Interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>N-test</strong></p></td>
+<td><p>Total event count</p></td>
+<td><p>❌ Fails (δ₂ &gt; 0.975)</p></td>
+<td><p>Significantly underpredicts</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>L-test</strong></p></td>
+<td><p>Overall likelihood</p></td>
+<td><p>⚠️ Check plot</p></td>
+<td><p>Dominated by rate component</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>CL-test</strong></p></td>
+<td><p>Spatial-magnitude (rate-independent)</p></td>
+<td><p>✅ Check plot</p></td>
+<td><p>Better spatial skill than rate</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>M-test</strong></p></td>
+<td><p>Magnitude distribution</p></td>
+<td><p>✅ Check plot</p></td>
+<td><p>Consistent with GR law</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>S-test</strong></p></td>
+<td><p>Spatial distribution</p></td>
+<td><p>✅ Check plot</p></td>
+<td><p>Events occur where predicted</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="What-This-Means">
+<h3>What This Means<a class="headerlink" href="#What-This-Means" title="Link to this heading">#</a></h3>
+<p><strong>Good News</strong>:</p>
+<ul class="simple">
+<li><p>EEPAS captures the <strong>spatial-magnitude patterns</strong> well</p></li>
+<li><p>Events occur in predicted high-rate regions</p></li>
+<li><p>The precursory signal λ_precursor provides useful spatial information</p></li>
+</ul>
+<p><strong>Challenge</strong>:</p>
+<ul class="simple">
+<li><p>The <strong>rate component</strong> underpredicts by ~35%</p></li>
+<li><p>This is likely because:</p>
+<ol class="arabic simple">
+<li><p>The 2012-2018 period had higher-than-average seismicity</p></li>
+<li><p>The training period (1990-2011) underestimates the long-term rate</p></li>
+<li><p>The PPE background rate s is too small</p></li>
+</ol>
+</li>
+</ul>
+</section>
+<section id="Connection-to-Paper">
+<h3>Connection to Paper<a class="headerlink" href="#Connection-to-Paper" title="Link to this heading">#</a></h3>
+<p>The manuscript notes: &gt; “EEPAS improves spatial-magnitude forecasting by incorporating precursory activation patterns, but the background rate s must be calibrated to long-term seismicity”</p>
+<p>This is exactly what we observe here - spatial skill is good, but rate calibration needs improvement.</p>
+<hr class="docutils" />
+</section>
+<section id="PPE-Tests">
+<h3>PPE Tests<a class="headerlink" href="#PPE-Tests" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running PPE consistency tests...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># L-test</span>
+<span class="n">ppe_l_test</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">likelihood_test</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;L-test: δ=</span><span class="si">{</span><span class="n">ppe_l_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">ppe_l_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;$\mathcal</span><span class="si">{L}</span><span class="s1">-\mathrm</span><span class="si">{test}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;Log-likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># CL-test</span>
+<span class="n">ppe_cl_test</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">conditional_likelihood_test</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CL-test: δ=</span><span class="si">{</span><span class="n">ppe_cl_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">ppe_cl_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;$CL-\mathrm</span><span class="si">{test}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;conditional log-likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># N-test</span>
+<span class="n">ppe_n_test</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">number_test</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N-test: δ₁=</span><span class="si">{</span><span class="n">ppe_n_test</span><span class="o">.</span><span class="n">quantile</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, δ₂=</span><span class="si">{</span><span class="n">ppe_n_test</span><span class="o">.</span><span class="n">quantile</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">ppe_n_test</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;Number of events&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># S-test</span>
+<span class="n">ppe_s_test</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">spatial_test</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;S-test: δ=</span><span class="si">{</span><span class="n">ppe_s_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">ppe_s_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;Normalized likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># M-test</span>
+<span class="n">ppe_m_test</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">magnitude_test</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;M-test: δ=</span><span class="si">{</span><span class="n">ppe_m_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">ppe_m_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;Normalized likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Running PPE consistency tests...
+
+L-test: δ=0.0076
+CL-test: δ=0.9013
+N-test: δ₁=0.0050, δ₂=0.9974
+S-test: δ=0.9950
+M-test: δ=0.2385
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_26_1.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_26_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_26_2.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_26_2.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_26_3.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_26_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_26_4.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_26_4.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_26_5.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_26_5.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running PPE consistency tests...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># CL-test</span>
+<span class="n">ppe_cl_test</span> <span class="o">=</span> <span class="n">binomial</span><span class="o">.</span><span class="n">binary_conditional_likelihood_test</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CL-test: δ=</span><span class="si">{</span><span class="n">ppe_cl_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">ppe_cl_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;$CL-\mathrm</span><span class="si">{test}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="s1">&#39;conditional log-likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># N-test</span>
+<span class="n">ppe_n_test</span> <span class="o">=</span> <span class="n">binomial</span><span class="o">.</span><span class="n">negative_binomial_number_test</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="mf">67.76</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N-test: δ₁=</span><span class="si">{</span><span class="n">ppe_n_test</span><span class="o">.</span><span class="n">quantile</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, δ₂=</span><span class="si">{</span><span class="n">ppe_n_test</span><span class="o">.</span><span class="n">quantile</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_consistency_test</span><span class="p">(</span>
+    <span class="n">ppe_n_test</span><span class="p">,</span> <span class="n">variance</span> <span class="o">=</span> <span class="mf">67.76</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;Number of events&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># S-test</span>
+<span class="n">ppe_s_test</span> <span class="o">=</span> <span class="n">binomial</span><span class="o">.</span><span class="n">binary_spatial_test</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;S-test: δ=</span><span class="si">{</span><span class="n">ppe_s_test</span><span class="o">.</span><span class="n">quantile</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plots</span><span class="o">.</span><span class="n">plot_poisson_consistency_test</span><span class="p">(</span>
+    <span class="n">ppe_s_test</span><span class="p">,</span>
+    <span class="n">one_sided_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span><span class="s1">&#39;Normalized likelihood&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Running PPE consistency tests...
+
+CL-test: δ=0.9014
+N-test: δ₁=0.1083, δ₂=0.9067
+S-test: δ=0.9970
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_27_1.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_27_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_27_2.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_27_2.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_27_3.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_27_3.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="📊-PPE-Test-Results-Summary">
+<h2>📊 PPE Test Results Summary<a class="headerlink" href="#📊-PPE-Test-Results-Summary" title="Link to this heading">#</a></h2>
+<p>Here’s what the PyCSEP evaluation tells us about <strong>PPE forecast performance</strong>:</p>
+<section id="id1">
+<h3>Key Findings<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p><strong>1. Total Event Count</strong></p>
+<ul class="simple">
+<li><p><strong>Forecast</strong>: 14.00 events (M ≥ 5.0)</p></li>
+<li><p><strong>Observed</strong>: 25 events (same period as EEPAS)</p></li>
+<li><p><strong>Result</strong>: PPE <strong>underpredicts</strong> the rate by ~44%</p></li>
+</ul>
+<p><strong>2. Consistency Tests</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Test</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Result</p></th>
+<th class="head"><p>Interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>N-test</strong></p></td>
+<td><p>Total event count</p></td>
+<td><p>❌ Fails (δ₂ &gt; 0.975)</p></td>
+<td><p>Significantly underpredicts</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>L-test</strong></p></td>
+<td><p>Overall likelihood</p></td>
+<td><p>⚠️ Check plot</p></td>
+<td><p>Dominated by rate component</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>CL-test</strong></p></td>
+<td><p>Spatial-magnitude (rate-independent)</p></td>
+<td><p>✅ Check plot</p></td>
+<td><p>Reasonable spatial skill</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>M-test</strong></p></td>
+<td><p>Magnitude distribution</p></td>
+<td><p>✅ Check plot</p></td>
+<td><p>Consistent with GR law</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>S-test</strong></p></td>
+<td><p>Spatial distribution</p></td>
+<td><p>✅ Check plot</p></td>
+<td><p>Events occur in predicted regions</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="8.-Compare-EEPAS-vs.-PPE">
+<h2>8. Compare EEPAS vs. PPE<a class="headerlink" href="#8.-Compare-EEPAS-vs.-PPE" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_brier_score_ndarray</span><span class="p">(</span><span class="n">forecast</span><span class="p">,</span> <span class="n">observations</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Computes the brier (binary) score for spatial-magnitude cells</span>
+<span class="sd">    using the formula:</span>
+<span class="sd">    Q(Lambda, Sigma) = 1/N sum_{i=1}^N (Lambda_i - Ind(Sigma_i &gt; 0 ))^2</span>
+<span class="sd">    where Lambda is the forecast array, Sigma is the observed catalog, N the</span>
+<span class="sd">    number of spatial-magnitude cells and Ind is the indicator function, which</span>
+<span class="sd">    is 1 if Sigma_i &gt; 0 and 0 otherwise.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        forecast: 2d array of forecasted rates</span>
+<span class="sd">        observations: 2d array of observed counts</span>
+<span class="sd">    Returns</span>
+<span class="sd">        brier: float, brier score</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">prob_success</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">forecast</span><span class="p">)</span>
+    <span class="n">brier_cell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">prob_success</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">observations</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">brier</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">brier_cell</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">n_dim</span> <span class="ow">in</span> <span class="n">observations</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+        <span class="n">brier</span> <span class="o">/=</span> <span class="n">n_dim</span>
+    <span class="k">return</span> <span class="n">brier</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate comparison metrics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csep.core.binomial_evaluations</span><span class="w"> </span><span class="kn">import</span> <span class="n">binary_joint_log_likelihood_ndarray</span> <span class="k">as</span> <span class="n">jolib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csep.core.poisson_evaluations</span><span class="w"> </span><span class="kn">import</span> <span class="n">poisson_joint_log_likelihood_ndarray</span> <span class="k">as</span> <span class="n">jolip</span>
+
+<span class="c1"># Joint log-likelihood (Poisson)</span>
+<span class="n">target_idx_eepas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">catalog</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+<span class="n">target_rates_eepas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">target_idx_eepas</span><span class="p">])</span>
+<span class="n">eepas_llp</span> <span class="o">=</span> <span class="n">jolip</span><span class="p">(</span><span class="n">target_rates_eepas</span><span class="p">,</span> <span class="n">catalog</span><span class="o">.</span><span class="n">event_count</span><span class="p">,</span> <span class="n">eepas_forecast</span><span class="o">.</span><span class="n">event_count</span><span class="p">)</span>
+
+<span class="n">target_idx_ppe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">catalog</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+<span class="n">target_rates_ppe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">target_idx_ppe</span><span class="p">])</span>
+<span class="n">ppe_llp</span> <span class="o">=</span> <span class="n">jolip</span><span class="p">(</span><span class="n">target_rates_ppe</span><span class="p">,</span> <span class="n">catalog</span><span class="o">.</span><span class="n">event_count</span><span class="p">,</span> <span class="n">ppe_forecast</span><span class="o">.</span><span class="n">event_count</span><span class="p">)</span>
+
+<span class="c1"># Joint log-likelihood (Binary)</span>
+<span class="n">eepas_llb</span> <span class="o">=</span> <span class="n">jolib</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">(),</span> <span class="n">catalog</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">())</span>
+<span class="n">ppe_llb</span> <span class="o">=</span> <span class="n">jolib</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">(),</span> <span class="n">catalog</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">())</span>
+
+<span class="c1"># Kagan I1 score</span>
+<span class="n">eepas_kagan</span> <span class="o">=</span> <span class="n">get_Kagan_I1_score</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">)</span>
+<span class="n">ppe_kagan</span> <span class="o">=</span> <span class="n">get_Kagan_I1_score</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="p">,</span> <span class="n">catalog</span><span class="p">)</span>
+
+<span class="n">eepas_Brier</span> <span class="o">=</span> <span class="n">_brier_score_ndarray</span><span class="p">(</span><span class="n">eepas_forecast</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">(),</span> <span class="n">catalog</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">())</span>
+<span class="n">ppe_Brier</span> <span class="o">=</span> <span class="n">_brier_score_ndarray</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">(),</span> <span class="n">catalog</span><span class="o">.</span><span class="n">spatial_counts</span><span class="p">())</span>
+
+<span class="c1"># Print comparison</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📊 EEPAS vs. PPE Comparison&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;Metric&#39;</span><span class="si">:</span><span class="s2">&lt;30</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;EEPAS&#39;</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;PPE&#39;</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Winner&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Expected events&#39;</span><span class="si">:</span><span class="s2">&lt;30</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">eepas_forecast</span><span class="o">.</span><span class="n">event_count</span><span class="si">:</span><span class="s2">&gt;12.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ppe_forecast</span><span class="o">.</span><span class="n">event_count</span><span class="si">:</span><span class="s2">&gt;12.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Observed events&#39;</span><span class="si">:</span><span class="s2">&lt;30</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">catalog</span><span class="o">.</span><span class="n">event_count</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">catalog</span><span class="o">.</span><span class="n">event_count</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Poisson log-likelihood&#39;</span><span class="si">:</span><span class="s2">&lt;30</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">eepas_llp</span><span class="si">:</span><span class="s2">&gt;12.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ppe_llp</span><span class="si">:</span><span class="s2">&gt;12.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;EEPAS&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">eepas_llp</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ppe_llp</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;PPE&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Binary log-likelihood&#39;</span><span class="si">:</span><span class="s2">&lt;30</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">eepas_llb</span><span class="si">:</span><span class="s2">&gt;12.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ppe_llb</span><span class="si">:</span><span class="s2">&gt;12.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;EEPAS&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">eepas_llb</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ppe_llb</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;PPE&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Kagan I₁ score&#39;</span><span class="si">:</span><span class="s2">&lt;30</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">eepas_kagan</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;12.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ppe_kagan</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;12.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;EEPAS&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">eepas_kagan</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ppe_kagan</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;PPE&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Brier score&#39;</span><span class="si">:</span><span class="s2">&lt;30</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">eepas_Brier</span><span class="si">:</span><span class="s2">&gt;12.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ppe_Brier</span><span class="si">:</span><span class="s2">&gt;12.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;EEPAS&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">eepas_Brier</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ppe_Brier</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;PPE&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+============================================================
+📊 EEPAS vs. PPE Comparison
+============================================================
+
+Metric                                EEPAS          PPE     Winner
+------------------------------------------------------------
+Expected events                       16.19        14.00
+Observed events                          25           25
+Poisson log-likelihood              -168.71      -168.25        PPE
+Binary log-likelihood               -110.57      -110.15        PPE
+Kagan I₁ score                       1.0691       1.1966        PPE
+Brier score                         -0.0111      -0.0111      EEPAS
+============================================================
+</pre></div></div>
+</div>
+</section>
+<section id="9.-Plot-Comparison-Summary">
+<h2>9. Plot Comparison Summary<a class="headerlink" href="#9.-Plot-Comparison-Summary" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;EEPAS&#39;</span><span class="p">,</span> <span class="s1">&#39;PPE&#39;</span><span class="p">]</span>
+<span class="n">x_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">models</span><span class="p">))</span>
+
+<span class="c1"># Poisson log-likelihood</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_pos</span><span class="p">,</span> <span class="p">[</span><span class="n">eepas_llp</span><span class="p">,</span> <span class="n">ppe_llp</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#fc8d62&#39;</span><span class="p">,</span> <span class="s1">&#39;#8da0cb&#39;</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_pos</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">models</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Log-likelihood&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Poisson Joint Likelihood&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Binary log-likelihood</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_pos</span><span class="p">,</span> <span class="p">[</span><span class="n">eepas_llb</span><span class="p">,</span> <span class="n">ppe_llb</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#fc8d62&#39;</span><span class="p">,</span> <span class="s1">&#39;#8da0cb&#39;</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_pos</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">models</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Log-likelihood&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Binary Joint Likelihood&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Kagan I1</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_pos</span><span class="p">,</span> <span class="p">[</span><span class="n">eepas_kagan</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ppe_kagan</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#fc8d62&#39;</span><span class="p">,</span> <span class="s1">&#39;#8da0cb&#39;</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_pos</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">models</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Kagan I₁ Score&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Kagan I₁ Score&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Brier</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_pos</span><span class="p">,</span> <span class="p">[</span><span class="n">eepas_Brier</span><span class="p">,</span> <span class="n">ppe_Brier</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#fc8d62&#39;</span><span class="p">,</span> <span class="s1">&#39;#8da0cb&#39;</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_pos</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">models</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Brier Score&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Brier Score&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;model_comparison.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Comparison plot saved!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+✅ Comparison plot saved!
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EEPAS_Forecast_Evaluation_New_33_1.png" src="../_images/examples_EEPAS_Forecast_Evaluation_New_33_1.png" />
+</div>
+</div>
+<p>For more details on PyCSEP implementation and additional plots, checkout <a class="reference external" href="https://github.com/KennyGraham1/pyCSEP_followup_paper/blob/main/notebooks/plot_figure_4-6.ipynb">this notebook</a>.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Examine_Psi_Italy_clean.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Estimate_mc_b_Italy_clean.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📚-Overview">📚 Overview</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#What-This-Notebook-Does">What This Notebook Does</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#🎯-EEPAS-Workflow-Context">🎯 EEPAS Workflow Context</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-Configuration-and-Data">📊 Configuration and Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Input-Files-(from-results_italy_causal_ew0/)">Input Files (from <code class="docutils literal notranslate"><span class="pre">results_italy_causal_ew0/</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Catalog-Files">Catalog Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Key-Parameters">Key Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📝-Notebook-Structure">📝 Notebook Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#⚠️-Important-Notes">⚠️ Important Notes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#🎯-Workflow">🎯 Workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#1.-Setup-and-Imports">1. Setup and Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#2.-Initialize-Forecast-Converters">2. Initialize Forecast Converters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#3.-Convert-All-Periods-and-Export">3. Convert All Periods and Export</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#4.-Create-PyCSEP-Forecast-Objects">4. Create PyCSEP Forecast Objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#5.-Load-and-Filter-Catalog">5. Load and Filter Catalog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#6.-Visualize-Forecasts">6. Visualize Forecasts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#7.-Run-PyCSEP-Consistency-Tests">7. Run PyCSEP Consistency Tests</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#EEPAS-Tests">EEPAS Tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-EEPAS-Test-Results-Summary">📊 EEPAS Test Results Summary</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Key-Findings">Key Findings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#What-This-Means">What This Means</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Connection-to-Paper">Connection to Paper</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PPE-Tests">PPE Tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-PPE-Test-Results-Summary">📊 PPE Test Results Summary</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Key Findings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#8.-Compare-EEPAS-vs.-PPE">8. Compare EEPAS vs. PPE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#9.-Plot-Comparison-Summary">9. Plot Comparison Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

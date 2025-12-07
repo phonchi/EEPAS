@@ -1,0 +1,830 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.coordinate_transform &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/coordinate_transform';</script>
+    <link rel="icon" href="../../_static/logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.coordinate_transform</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Coordinate Transformation Utility for Earthquake Catalogs</span>
+
+<span class="sd">Converts HORUS earthquake catalog and CELLE grid coordinates between different</span>
+<span class="sd">coordinate reference systems (CRS). Supports multiple regional projections.</span>
+
+<span class="sd">Supported CRS:</span>
+<span class="sd">    - WGS84 (EPSG:4326): Global lat/lon coordinate system</span>
+<span class="sd">    - RDN2008 (EPSG:7794): Italy zone projected system (default)</span>
+<span class="sd">    - TWD97 (EPSG:3826): Taiwan TM2 121°E projected system</span>
+<span class="sd">    - Custom: Any EPSG code supported by pyproj</span>
+
+<span class="sd">Transformed coordinates are in kilometers and replace original lat/lon columns</span>
+<span class="sd">in the output MATLAB .mat files.</span>
+
+<span class="sd">Usage:</span>
+<span class="sd">    # Default: WGS84 to RDN2008 (Italy)</span>
+<span class="sd">    python coordinate_transform.py \\</span>
+<span class="sd">        --horus-in HORUS_Italy.mat \\</span>
+<span class="sd">        --celle-in CELLE_Italy.mat \\</span>
+<span class="sd">        --horus-out HORUS_Italy_RDN2008.mat \\</span>
+<span class="sd">        --celle-out CELLE_Italy_RDN2008.mat</span>
+
+<span class="sd">    # Taiwan: WGS84 to TWD97</span>
+<span class="sd">    python coordinate_transform.py \\</span>
+<span class="sd">        --horus-in HORUS_Taiwan.mat \\</span>
+<span class="sd">        --celle-in CELLE_Taiwan.mat \\</span>
+<span class="sd">        --horus-out HORUS_Taiwan_TWD97.mat \\</span>
+<span class="sd">        --celle-out CELLE_Taiwan_TWD97.mat \\</span>
+<span class="sd">        --target-crs epsg:3826 \\</span>
+<span class="sd">        --region Taiwan</span>
+
+<span class="sd">    # Custom EPSG code</span>
+<span class="sd">    python coordinate_transform.py \\</span>
+<span class="sd">        --horus-in input.mat \\</span>
+<span class="sd">        --celle-in grids.mat \\</span>
+<span class="sd">        --horus-out output.mat \\</span>
+<span class="sd">        --celle-out grids_out.mat \\</span>
+<span class="sd">        --target-crs epsg:32633 \\</span>
+<span class="sd">        --region &quot;Custom Region&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">loadmat</span><span class="p">,</span> <span class="n">savemat</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyproj</span><span class="w"> </span><span class="kn">import</span> <span class="n">Transformer</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
+
+
+<span class="c1"># Predefined coordinate systems and validation bounds</span>
+<span class="n">CRS_PRESETS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;rdn2008&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;epsg&#39;</span><span class="p">:</span> <span class="s1">&#39;epsg:7794&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;RDN2008 Italy Zone&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">20</span><span class="p">)},</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Italy national projected coordinate system&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;twd97&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;epsg&#39;</span><span class="p">:</span> <span class="s1">&#39;epsg:3826&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;TWD97 TM2 121°E&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">119</span><span class="p">,</span> <span class="mi">123</span><span class="p">)},</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Taiwan projected coordinate system (Transverse Mercator 2-degree)&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;wgs84&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;epsg&#39;</span><span class="p">:</span> <span class="s1">&#39;epsg:4326&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;WGS84&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span> <span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">)},</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Global geographic coordinate system (lat/lon)&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="get_crs_info">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.coordinate_transform.get_crs_info">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_crs_info</span><span class="p">(</span><span class="n">crs_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get coordinate system information from preset or custom EPSG code.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        crs_key: CRS preset key (&#39;rdn2008&#39;, &#39;twd97&#39;) or EPSG code (&#39;epsg:3826&#39;)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: CRS information including EPSG code, name, and bounds</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">crs_lower</span> <span class="o">=</span> <span class="n">crs_key</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="c1"># Check if it&#39;s a preset</span>
+    <span class="k">if</span> <span class="n">crs_lower</span> <span class="ow">in</span> <span class="n">CRS_PRESETS</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">CRS_PRESETS</span><span class="p">[</span><span class="n">crs_lower</span><span class="p">]</span>
+
+    <span class="c1"># If starts with &#39;epsg:&#39;, treat as custom EPSG code</span>
+    <span class="k">if</span> <span class="n">crs_lower</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;epsg:&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;epsg&#39;</span><span class="p">:</span> <span class="n">crs_lower</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Custom </span><span class="si">{</span><span class="n">crs_key</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span> <span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">)},</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Custom coordinate reference system&#39;</span>
+        <span class="p">}</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unknown coordinate system: </span><span class="si">{</span><span class="n">crs_key</span><span class="si">}</span><span class="s1">. Supported presets: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">CRS_PRESETS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s1"> or custom EPSG code (e.g., epsg:3826)&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="validate_coordinates">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.coordinate_transform.validate_coordinates">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_coordinates</span><span class="p">(</span><span class="n">lon</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">lat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">bounds</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+                        <span class="n">region_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;region&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate coordinates are within expected regional bounds.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lon: Longitude array (degrees East)</span>
+<span class="sd">        lat: Latitude array (degrees North)</span>
+<span class="sd">        bounds: Dictionary with &#39;lat&#39; and &#39;lon&#39; tuples (min, max)</span>
+<span class="sd">        region_name: Name of region for warning messages</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[bool, int]: (all_valid, invalid_count)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lat_min</span><span class="p">,</span> <span class="n">lat_max</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
+    <span class="n">lon_min</span><span class="p">,</span> <span class="n">lon_max</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span>
+
+    <span class="n">valid_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">lat</span> <span class="o">&gt;=</span> <span class="n">lat_min</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">lat</span> <span class="o">&lt;=</span> <span class="n">lat_max</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">lon</span> <span class="o">&gt;=</span> <span class="n">lon_min</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">lon</span> <span class="o">&lt;=</span> <span class="n">lon_max</span><span class="p">)</span>
+    <span class="n">invalid_count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">~</span><span class="n">valid_mask</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">invalid_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;⚠️  Warning: </span><span class="si">{</span><span class="n">invalid_count</span><span class="si">}</span><span class="s1"> coordinates out of bounds for </span><span class="si">{</span><span class="n">region_name</span><span class="si">}</span><span class="s1">, transformation may be inaccurate&#39;</span><span class="p">)</span>
+        <span class="n">invalid_lats</span> <span class="o">=</span> <span class="n">lat</span><span class="p">[</span><span class="o">~</span><span class="n">valid_mask</span><span class="p">]</span>
+        <span class="n">invalid_lons</span> <span class="o">=</span> <span class="n">lon</span><span class="p">[</span><span class="o">~</span><span class="n">valid_mask</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   Invalid range: lat [</span><span class="si">{</span><span class="n">invalid_lats</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">invalid_lats</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">]°N, &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;lon [</span><span class="si">{</span><span class="n">invalid_lons</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">invalid_lons</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">]°E&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   Expected range: lat [</span><span class="si">{</span><span class="n">lat_min</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">lat_max</span><span class="si">}</span><span class="s1">]°N, lon [</span><span class="si">{</span><span class="n">lon_min</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">lon_max</span><span class="si">}</span><span class="s1">]°E&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">invalid_count</span>
+
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span></div>
+
+
+
+<div class="viewcode-block" id="convert_coordinates">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.coordinate_transform.convert_coordinates">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">convert_coordinates</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">lon_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">lat_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                       <span class="n">transformer</span><span class="p">:</span> <span class="n">Transformer</span><span class="p">,</span> <span class="n">bounds</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+                       <span class="n">region_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;region&quot;</span><span class="p">,</span>
+                       <span class="n">meters_per_km</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert lat/lon coordinates in array to projected coordinates.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        array: Array containing lat/lon data</span>
+<span class="sd">        lon_idx: Longitude column index</span>
+<span class="sd">        lat_idx: Latitude column index</span>
+<span class="sd">        transformer: pyproj Transformer object</span>
+<span class="sd">        bounds: Coordinate validation bounds</span>
+<span class="sd">        region_name: Region name for validation messages</span>
+<span class="sd">        meters_per_km: Meters to kilometers conversion factor (default: 1000.0)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: Transformed array with coordinates in km</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Validates coordinates are within regional bounds and prints warnings</span>
+<span class="sd">        for out-of-range coordinates.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Extract lon/lat</span>
+    <span class="n">lon</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:,</span> <span class="n">lon_idx</span><span class="p">]</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:,</span> <span class="n">lat_idx</span><span class="p">]</span>
+
+    <span class="c1"># Validate coordinate range</span>
+    <span class="n">validate_coordinates</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">region_name</span><span class="p">)</span>
+
+    <span class="c1"># Transform coordinates (lon, lat) -&gt; (easting x, northing y)</span>
+    <span class="n">x_m</span><span class="p">,</span> <span class="n">y_m</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
+    <span class="n">x_km</span> <span class="o">=</span> <span class="n">x_m</span> <span class="o">/</span> <span class="n">meters_per_km</span>
+    <span class="n">y_km</span> <span class="o">=</span> <span class="n">y_m</span> <span class="o">/</span> <span class="n">meters_per_km</span>
+
+    <span class="c1"># Create modified array copy</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">result</span><span class="p">[:,</span> <span class="n">lon_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_km</span>  <span class="c1"># Replace lon column with x (easting, km)</span>
+    <span class="n">result</span><span class="p">[:,</span> <span class="n">lat_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_km</span>  <span class="c1"># Replace lat column with y (northing, km)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="convert_celle_coordinates">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.coordinate_transform.convert_celle_coordinates">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">convert_celle_coordinates</span><span class="p">(</span><span class="n">celle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">transformer</span><span class="p">:</span> <span class="n">Transformer</span><span class="p">,</span>
+                              <span class="n">bounds</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">region_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;region&quot;</span><span class="p">,</span>
+                              <span class="n">meters_per_km</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert CELLE grid boundary coordinates.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        celle: CELLE array (each row: lon_min, lon_max, lat_min, lat_max)</span>
+<span class="sd">        transformer: pyproj Transformer object</span>
+<span class="sd">        bounds: Coordinate validation bounds</span>
+<span class="sd">        region_name: Region name for validation messages</span>
+<span class="sd">        meters_per_km: Meters to kilometers conversion factor (default: 1000.0)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: Transformed CELLE array (x_min, x_max, y_min, y_max in km)</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        CELLE format columns:</span>
+<span class="sd">            - Column 0: Minimum longitude (°E)</span>
+<span class="sd">            - Column 1: Maximum longitude (°E)</span>
+<span class="sd">            - Column 2: Minimum latitude (°N)</span>
+<span class="sd">            - Column 3: Maximum latitude (°N)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">celle</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">lat_min_bound</span><span class="p">,</span> <span class="n">lat_max_bound</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
+    <span class="n">lon_min_bound</span><span class="p">,</span> <span class="n">lon_max_bound</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Transform four corners of each grid cell</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">celle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="c1"># Extract grid boundaries</span>
+        <span class="n">lon_min</span> <span class="o">=</span> <span class="n">celle</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">lon_max</span> <span class="o">=</span> <span class="n">celle</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">lat_min</span> <span class="o">=</span> <span class="n">celle</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">lat_max</span> <span class="o">=</span> <span class="n">celle</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+        <span class="c1"># Check coordinate range</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">lon_min_bound</span> <span class="o">&lt;=</span> <span class="n">lon_min</span> <span class="o">&lt;=</span> <span class="n">lon_max_bound</span> <span class="ow">and</span>
+                <span class="n">lon_min_bound</span> <span class="o">&lt;=</span> <span class="n">lon_max</span> <span class="o">&lt;=</span> <span class="n">lon_max_bound</span> <span class="ow">and</span>
+                <span class="n">lat_min_bound</span> <span class="o">&lt;=</span> <span class="n">lat_min</span> <span class="o">&lt;=</span> <span class="n">lat_max_bound</span> <span class="ow">and</span>
+                <span class="n">lat_min_bound</span> <span class="o">&lt;=</span> <span class="n">lat_max</span> <span class="o">&lt;=</span> <span class="n">lat_max_bound</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;⚠️  Warning: Grid </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1"> coordinates out of bounds for </span><span class="si">{</span><span class="n">region_name</span><span class="si">}</span><span class="s1">, transformation may be inaccurate&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   Grid range: lon [</span><span class="si">{</span><span class="n">lon_min</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">lon_max</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">]°E, &#39;</span>
+                  <span class="sa">f</span><span class="s1">&#39;lat [</span><span class="si">{</span><span class="n">lat_min</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">lat_max</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">]°N&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Transform min lon, min lat corner</span>
+        <span class="n">x1_m</span><span class="p">,</span> <span class="n">y1_m</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">lon_min</span><span class="p">,</span> <span class="n">lat_min</span><span class="p">)</span>
+        <span class="c1"># Transform max lon, max lat corner</span>
+        <span class="n">x2_m</span><span class="p">,</span> <span class="n">y2_m</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">lon_max</span><span class="p">,</span> <span class="n">lat_max</span><span class="p">)</span>
+
+        <span class="c1"># Convert to km and store back to array</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x1_m</span> <span class="o">/</span> <span class="n">meters_per_km</span>  <span class="c1"># Min lon -&gt; Min easting (x)</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x2_m</span> <span class="o">/</span> <span class="n">meters_per_km</span>  <span class="c1"># Max lon -&gt; Max easting (x)</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">y1_m</span> <span class="o">/</span> <span class="n">meters_per_km</span>  <span class="c1"># Min lat -&gt; Min northing (y)</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">y2_m</span> <span class="o">/</span> <span class="n">meters_per_km</span>  <span class="c1"># Max lat -&gt; Max northing (y)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.coordinate_transform.main">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">horus_infile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">celle_infile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span>
+         <span class="n">horus_outfile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">celle_outfile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span>
+         <span class="n">target_crs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;rdn2008&#39;</span><span class="p">,</span> <span class="n">region_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main function to convert HORUS and CELLE coordinates between CRS.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        horus_infile: Input HORUS catalog .mat file path (optional)</span>
+<span class="sd">        celle_infile: Input CELLE grid .mat file path (optional)</span>
+<span class="sd">        horus_outfile: Output HORUS .mat file path (optional)</span>
+<span class="sd">        celle_outfile: Output CELLE .mat file path (optional)</span>
+<span class="sd">        target_crs: Target coordinate system (&#39;rdn2008&#39;, &#39;twd97&#39;, or &#39;epsg:XXXX&#39;)</span>
+<span class="sd">        region_name: Custom region name for messages (optional)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None: Writes transformed data to output files and prints status</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        HORUS format columns:</span>
+<span class="sd">            - Column 7 (index 6): Latitude (°N)</span>
+<span class="sd">            - Column 8 (index 7): Longitude (°E)</span>
+
+<span class="sd">        After transformation, these columns contain:</span>
+<span class="sd">            - Column 7 (index 6): Northing Y (km)</span>
+<span class="sd">            - Column 8 (index 7): Easting X (km)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get CRS information</span>
+    <span class="n">crs_info</span> <span class="o">=</span> <span class="n">get_crs_info</span><span class="p">(</span><span class="n">target_crs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">region_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">region_name</span> <span class="o">=</span> <span class="n">crs_info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coordinate Transformation Tool&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Target Coordinate System: </span><span class="si">{</span><span class="n">crs_info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">crs_info</span><span class="p">[</span><span class="s2">&quot;epsg&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Description: </span><span class="si">{</span><span class="n">crs_info</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Region: </span><span class="si">{</span><span class="n">region_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+
+    <span class="c1"># Data processing constants</span>
+    <span class="n">HORUS_VAR</span> <span class="o">=</span> <span class="s1">&#39;HORUS&#39;</span>  <span class="c1"># Variable name in HORUS.mat</span>
+    <span class="n">CELLE_VAR</span> <span class="o">=</span> <span class="s1">&#39;CELLE&#39;</span>  <span class="c1"># Variable name in CELLE.mat</span>
+
+    <span class="c1"># HORUS catalog column indices</span>
+    <span class="n">LAT_COL_IDX</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1"># Latitude column index (column 7)</span>
+    <span class="n">LON_COL_IDX</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># Longitude column index (column 8)</span>
+
+    <span class="n">SRC_CRS</span> <span class="o">=</span> <span class="s1">&#39;epsg:4326&#39;</span>  <span class="c1"># WGS 84 coordinate system (source)</span>
+    <span class="n">DST_CRS</span> <span class="o">=</span> <span class="n">crs_info</span><span class="p">[</span><span class="s1">&#39;epsg&#39;</span><span class="p">]</span>  <span class="c1"># Target coordinate system</span>
+    <span class="n">METERS_PER_KM</span> <span class="o">=</span> <span class="mf">1000.0</span>  <span class="c1"># Meters per kilometer</span>
+
+    <span class="c1"># Create coordinate transformer</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">transformer</span> <span class="o">=</span> <span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">SRC_CRS</span><span class="p">,</span> <span class="n">DST_CRS</span><span class="p">,</span> <span class="n">always_xy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">✓ Coordinate transformer created: </span><span class="si">{</span><span class="n">SRC_CRS</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">DST_CRS</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;❌ Error creating coordinate transformer: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Process HORUS earthquake catalog</span>
+    <span class="k">if</span> <span class="n">horus_infile</span> <span class="ow">and</span> <span class="n">horus_outfile</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">horus_infile</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Processing HORUS file: </span><span class="si">{</span><span class="n">horus_infile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                <span class="c1"># Read MATLAB file</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">horus_infile</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">HORUS_VAR</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Variable `</span><span class="si">{</span><span class="n">HORUS_VAR</span><span class="si">}</span><span class="s1">` not found in </span><span class="si">{</span><span class="n">horus_infile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                <span class="n">horus</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">HORUS_VAR</span><span class="p">]</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Original data shape: </span><span class="si">{</span><span class="n">horus</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Coordinate range:&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Latitude: [</span><span class="si">{</span><span class="n">horus</span><span class="p">[:,</span><span class="w"> </span><span class="n">LAT_COL_IDX</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">horus</span><span class="p">[:,</span><span class="w"> </span><span class="n">LAT_COL_IDX</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">]°N&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Longitude: [</span><span class="si">{</span><span class="n">horus</span><span class="p">[:,</span><span class="w"> </span><span class="n">LON_COL_IDX</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">horus</span><span class="p">[:,</span><span class="w"> </span><span class="n">LON_COL_IDX</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">]°E&#39;</span><span class="p">)</span>
+
+                <span class="c1"># Transform coordinates</span>
+                <span class="n">horus_transformed</span> <span class="o">=</span> <span class="n">convert_coordinates</span><span class="p">(</span>
+                    <span class="n">horus</span><span class="p">,</span> <span class="n">LON_COL_IDX</span><span class="p">,</span> <span class="n">LAT_COL_IDX</span><span class="p">,</span> <span class="n">transformer</span><span class="p">,</span>
+                    <span class="n">crs_info</span><span class="p">[</span><span class="s1">&#39;bounds&#39;</span><span class="p">],</span> <span class="n">region_name</span><span class="p">,</span> <span class="n">METERS_PER_KM</span><span class="p">)</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Transformed coordinate range (km):&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Easting (X): [</span><span class="si">{</span><span class="n">horus_transformed</span><span class="p">[:,</span><span class="w"> </span><span class="n">LON_COL_IDX</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">horus_transformed</span><span class="p">[:,</span><span class="w"> </span><span class="n">LON_COL_IDX</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">] km&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Northing (Y): [</span><span class="si">{</span><span class="n">horus_transformed</span><span class="p">[:,</span><span class="w"> </span><span class="n">LAT_COL_IDX</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">horus_transformed</span><span class="p">[:,</span><span class="w"> </span><span class="n">LAT_COL_IDX</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">] km&#39;</span><span class="p">)</span>
+
+                <span class="c1"># Save transformed data</span>
+                <span class="n">savemat</span><span class="p">(</span><span class="n">horus_outfile</span><span class="p">,</span> <span class="p">{</span><span class="n">HORUS_VAR</span><span class="p">:</span> <span class="n">horus_transformed</span><span class="p">})</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;✓ Data written to </span><span class="si">{</span><span class="n">horus_outfile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Variable name `</span><span class="si">{</span><span class="n">HORUS_VAR</span><span class="si">}</span><span class="s1">` preserved, original lat/lon replaced with projected coordinates (km)&#39;</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;❌ Error processing HORUS file: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;⚠️  HORUS file not found: </span><span class="si">{</span><span class="n">horus_infile</span><span class="si">}</span><span class="s1">, skipping&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">horus_infile</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">No HORUS input file specified, skipping HORUS transformation&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Process CELLE grid definition</span>
+    <span class="k">if</span> <span class="n">celle_infile</span> <span class="ow">and</span> <span class="n">celle_outfile</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">celle_infile</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Processing CELLE file: </span><span class="si">{</span><span class="n">celle_infile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                <span class="c1"># Read MATLAB file</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">celle_infile</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">CELLE_VAR</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Variable `</span><span class="si">{</span><span class="n">CELLE_VAR</span><span class="si">}</span><span class="s1">` not found in </span><span class="si">{</span><span class="n">celle_infile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                <span class="n">celle</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">CELLE_VAR</span><span class="p">]</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Original data shape: </span><span class="si">{</span><span class="n">celle</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Number of grids: </span><span class="si">{</span><span class="n">celle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Coordinate range:&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Latitude: [</span><span class="si">{</span><span class="n">celle</span><span class="p">[:,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">celle</span><span class="p">[:,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">]°N&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Longitude: [</span><span class="si">{</span><span class="n">celle</span><span class="p">[:,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">celle</span><span class="p">[:,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">]°E&#39;</span><span class="p">)</span>
+
+                <span class="c1"># Transform coordinates</span>
+                <span class="n">celle_transformed</span> <span class="o">=</span> <span class="n">convert_celle_coordinates</span><span class="p">(</span>
+                    <span class="n">celle</span><span class="p">,</span> <span class="n">transformer</span><span class="p">,</span> <span class="n">crs_info</span><span class="p">[</span><span class="s1">&#39;bounds&#39;</span><span class="p">],</span> <span class="n">region_name</span><span class="p">,</span> <span class="n">METERS_PER_KM</span><span class="p">)</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Transformed coordinate range (km):&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Easting (X): [</span><span class="si">{</span><span class="n">celle_transformed</span><span class="p">[:,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">celle_transformed</span><span class="p">[:,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">] km&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Northing (Y): [</span><span class="si">{</span><span class="n">celle_transformed</span><span class="p">[:,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">celle_transformed</span><span class="p">[:,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">] km&#39;</span><span class="p">)</span>
+
+                <span class="c1"># Save transformed data</span>
+                <span class="n">savemat</span><span class="p">(</span><span class="n">celle_outfile</span><span class="p">,</span> <span class="p">{</span><span class="n">CELLE_VAR</span><span class="p">:</span> <span class="n">celle_transformed</span><span class="p">})</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;✓ Data written to </span><span class="si">{</span><span class="n">celle_outfile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Variable name `</span><span class="si">{</span><span class="n">CELLE_VAR</span><span class="si">}</span><span class="s1">` preserved, original lat/lon replaced with projected coordinates (km)&#39;</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;❌ Error processing CELLE file: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;⚠️  CELLE file not found: </span><span class="si">{</span><span class="n">celle_infile</span><span class="si">}</span><span class="s1">, skipping&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">celle_infile</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">No CELLE input file specified, skipping CELLE transformation&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;✓ Coordinate transformation completed!&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Transform coordinate systems for HORUS and CELLE files (supports multiple projected coordinate systems)&#39;</span><span class="p">,</span>
+        <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span><span class="p">,</span>
+        <span class="n">epilog</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Usage examples:</span>
+
+<span class="s2">1. Italy (WGS84 -&gt; RDN2008, default):</span>
+<span class="s2">  python coordinate_transform.py </span><span class="se">\\</span>
+<span class="s2">    --horus-in HORUS_Italy.mat </span><span class="se">\\</span>
+<span class="s2">    --celle-in CELLE_Italy.mat </span><span class="se">\\</span>
+<span class="s2">    --horus-out HORUS_Italy_RDN2008.mat </span><span class="se">\\</span>
+<span class="s2">    --celle-out CELLE_Italy_RDN2008.mat</span>
+
+<span class="s2">2. Taiwan (WGS84 -&gt; TWD97):</span>
+<span class="s2">  python coordinate_transform.py </span><span class="se">\\</span>
+<span class="s2">    --horus-in HORUS_Taiwan.mat </span><span class="se">\\</span>
+<span class="s2">    --celle-in CELLE_Taiwan.mat </span><span class="se">\\</span>
+<span class="s2">    --horus-out HORUS_Taiwan_TWD97.mat </span><span class="se">\\</span>
+<span class="s2">    --celle-out CELLE_Taiwan_TWD97.mat </span><span class="se">\\</span>
+<span class="s2">    --target-crs twd97 </span><span class="se">\\</span>
+<span class="s2">    --region Taiwan</span>
+
+<span class="s2">3. Custom EPSG code:</span>
+<span class="s2">  python coordinate_transform.py </span><span class="se">\\</span>
+<span class="s2">    --horus-in input.mat </span><span class="se">\\</span>
+<span class="s2">    --horus-out output.mat </span><span class="se">\\</span>
+<span class="s2">    --target-crs epsg:32633 </span><span class="se">\\</span>
+<span class="s2">    --region &quot;Custom Region&quot;</span>
+
+<span class="s2">Supported default coordinate systems:</span>
+<span class="s2">  - rdn2008: RDN2008 Italy Zone (EPSG:7794) [default]</span>
+<span class="s2">  - twd97: TWD97 TM2 121°E (EPSG:3826)</span>
+<span class="s2">  - or any EPSG code (e.g., epsg:32633)</span>
+
+<span class="s2">Notes:</span>
+<span class="s2">  - Input file coordinates must be WGS84 lat/lon (°N, °E)</span>
+<span class="s2">  - Output file coordinates will be in projected coordinates (km)</span>
+<span class="s2">  - HORUS file column 7 (index 6) is latitude, column 8 (index 7) is longitude</span>
+<span class="s2">  - CELLE file format: [lon_min, lon_max, lat_min, lat_max]</span>
+<span class="s2">  - Can transform HORUS or CELLE separately (omit the other file parameter)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--horus-in&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Input HORUS earthquake catalog file path (.mat format)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--celle-in&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Input CELLE grid definition file path (.mat format)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--horus-out&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Output HORUS MAT file path&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--celle-out&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Output CELLE MAT file path&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--target-crs&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;rdn2008&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Target coordinate system (rdn2008, twd97, or epsg:XXXX) [default: rdn2008]&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--region&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Region name (for message display)&#39;</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="c1"># Validate input/output pairs</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">horus_in</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">horus_out</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;--horus-in must be paired with --horus-out&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">horus_out</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">horus_in</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;--horus-out must be paired with --horus-in&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">celle_in</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">celle_out</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;--celle-in must be paired with --celle-out&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">celle_out</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">celle_in</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;--celle-out must be paired with --celle-in&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">horus_in</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">celle_in</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;At least --horus-in or --celle-in must be specified&#39;</span><span class="p">)</span>
+
+    <span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">horus_in</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">celle_in</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">horus_out</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">celle_out</span><span class="p">,</span>
+         <span class="n">args</span><span class="o">.</span><span class="n">target_crs</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">region</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

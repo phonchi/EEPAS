@@ -1,0 +1,663 @@
+#!/usr/bin/env python3
+"""
+EEPAS Forecast to PyCSEP Converter
+
+完整的預測格式轉換工具，支援：
+- EEPAS/PPE 預測 MATLAB 格式 → PyCSEP GriddedForecast
+- 座標轉換（RDN2008 → WGS84）
+- 空間下採樣（大網格 → 0.1° 子網格）
+- 時間週期處理（3個月/1年）
+
+Author: EEPAS Team
+Date: 2025-11-26
+Version: 1.0.0
+"""
+
+import numpy as np
+import pandas as pd
+import scipy.io as sio
+from datetime import datetime, timedelta
+from tqdm import tqdm
+import os
+
+try:
+    from pyproj import Transformer
+except ImportError:
+    Transformer = None
+    print("Warning: pyproj not installed. Coordinate transformation will not work.")
+
+try:
+    import csep
+    from csep.utils import time_utils
+except ImportError:
+    csep = None
+    print("Warning: pycsep not installed. PyCSEP format export will not work.")
+
+
+class EEPASForecastConverter:
+    """
+    EEPAS 預測格式轉換器
+
+    功能：
+    1. 載入 EEPAS/PPE MATLAB 預測檔案
+    2. 載入網格定義（CELLE_ter.mat）並進行座標轉換
+    3. 提取特定時間週期的預測
+    4. 空間下採樣（大網格 → 0.1° 子網格）
+    5. 匯出 PyCSEP 相容格式
+
+    Examples:
+        >>> # 基本使用
+        >>> converter = EEPASForecastConverter(
+        ...     forecast_file='PREVISIONI_3m_EEPAS_2012_2022.mat',
+        ...     grid_file='CELLE_ter.mat'
+        ... )
+        >>>
+        >>> # 轉換特定週期
+        >>> converter.convert_period(
+        ...     period=1,
+        ...     start_year=2012,
+        ...     output_file='forecast_period_1.dat'
+        ... )
+        >>>
+        >>> # 轉換所有週期（累加）
+        >>> converter.convert_all_periods(
+        ...     start_year=2012,
+        ...     output_file='forecast_all_periods.dat'
+        ... )
+    """
+
+    def __init__(self, forecast_file, grid_file,
+                 num_regions=177, num_magnitude_steps=25,
+                 magnitude_min=5.0, magnitude_step=0.1,
+                 depth_min=0.0, depth_max=30.0,
+                 coordinate_transform=True,
+                 source_crs='EPSG:7794', target_crs='EPSG:4326',
+                 verbose=True):
+        """
+        初始化轉換器
+
+        Args:
+            forecast_file: EEPAS/PPE 預測 .mat 檔案路徑
+            grid_file: 網格定義 .mat 檔案路徑 (CELLE_ter.mat)
+            num_regions: 空間網格數量 (default: 177 for Italy)
+            num_magnitude_steps: 震級 bin 數量 (default: 25)
+            magnitude_min: 最小震級 (default: 5.0)
+            magnitude_step: 震級間隔 (default: 0.1)
+            depth_min: 最小深度 km (default: 0.0)
+            depth_max: 最大深度 km (default: 30.0)
+            coordinate_transform: 是否進行座標轉換 (default: True)
+            source_crs: 來源座標系統 (default: 'EPSG:7794' for RDN2008)
+            target_crs: 目標座標系統 (default: 'EPSG:4326' for WGS84)
+            verbose: 顯示詳細訊息 (default: True)
+        """
+        self.forecast_file = forecast_file
+        self.grid_file = grid_file
+        self.num_regions = num_regions
+        self.num_magnitude_steps = num_magnitude_steps
+        self.magnitude_min = magnitude_min
+        self.magnitude_step = magnitude_step
+        self.depth_min = depth_min
+        self.depth_max = depth_max
+        self.coordinate_transform = coordinate_transform
+        self.source_crs = source_crs
+        self.target_crs = target_crs
+        self.verbose = verbose
+
+        # 載入數據
+        self._load_forecast()
+        self._load_grid()
+        self._create_magnitude_bins()
+
+    def _log(self, message):
+        """內部日誌函數"""
+        if self.verbose:
+            print(message)
+
+    def _load_forecast(self):
+        """載入預測數據"""
+        self._log(f"📂 載入預測檔案: {self.forecast_file}")
+
+        mat_data = sio.loadmat(self.forecast_file)
+
+        # 自動偵測變數名稱
+        if 'PREVISIONI_3m_less' in mat_data:
+            key = 'PREVISIONI_3m_less'
+        elif 'PREVISIONI_3m' in mat_data:
+            key = 'PREVISIONI_3m'
+        else:
+            # 尋找最大的非元數據陣列
+            potential_keys = [k for k in mat_data.keys() if not k.startswith('__')]
+            if not potential_keys:
+                raise ValueError("找不到預測數據變數")
+            key = potential_keys[0]
+
+        self.forecast_data = mat_data[key]
+        self._log(f"   變數名稱: {key}")
+        self._log(f"   數據形狀: {self.forecast_data.shape}")
+
+        # 計算週期數量
+        self.num_periods = self.forecast_data.shape[0] // self.num_magnitude_steps
+        self._log(f"   偵測到 {self.num_periods} 個時間週期")
+
+    def _load_grid(self):
+        """載入並轉換網格定義"""
+        self._log(f"\n📐 載入網格定義: {self.grid_file}")
+
+        mat_data = sio.loadmat(self.grid_file)
+
+        # 尋找網格數據
+        if 'CELLESD' in mat_data:
+            cells_data = mat_data['CELLESD'][:, :4]  # 只取前4欄 (x_min, x_max, y_min, y_max)
+        else:
+            raise ValueError("找不到 'CELLESD' 變數")
+
+        if self.coordinate_transform:
+            self._log("   執行座標轉換...")
+            if Transformer is None:
+                raise ImportError("需要安裝 pyproj: pip install pyproj")
+
+            # 轉換為公尺（如果是公里）
+            data_m = cells_data * 1000
+
+            # 建立轉換器
+            transformer = Transformer.from_crs(
+                self.source_crs,
+                self.target_crs,
+                always_xy=True
+            )
+
+            cells_lonlat = []
+            for i in tqdm(range(len(data_m)), desc="   轉換網格", disable=not self.verbose):
+                x_min, x_max, y_min, y_max = data_m[i]
+
+                # 轉換四個角點
+                corners_xy = [
+                    (x_min, y_min), (x_max, y_min),
+                    (x_min, y_max), (x_max, y_max)
+                ]
+
+                lons, lats = transformer.transform(
+                    [p[0] for p in corners_xy],
+                    [p[1] for p in corners_xy]
+                )
+
+                # 建立邊界框
+                cells_lonlat.append({
+                    'LON_0': np.min(lons),
+                    'LON_1': np.max(lons),
+                    'LAT_0': np.min(lats),
+                    'LAT_1': np.max(lats)
+                })
+
+            self.cell_bounds = pd.DataFrame(cells_lonlat)
+        else:
+            # 直接使用（假設已是經緯度）
+            self.cell_bounds = pd.DataFrame(
+                cells_data,
+                columns=['LON_0', 'LON_1', 'LAT_0', 'LAT_1']
+            )
+
+        self._log(f"   成功載入 {len(self.cell_bounds)} 個網格")
+
+    def _create_magnitude_bins(self):
+        """建立震級 bins"""
+        self.magnitude_bins = []
+        for i in range(self.num_magnitude_steps):
+            mag_0 = self.magnitude_min + self.magnitude_step * i
+            mag_1 = mag_0 + self.magnitude_step
+            self.magnitude_bins.append((round(mag_0, 2), round(mag_1, 2)))
+
+        self._log(f"\n📊 震級範圍: M{self.magnitude_min} - M{self.magnitude_bins[-1][1]}")
+        self._log(f"   共 {len(self.magnitude_bins)} 個震級 bins")
+
+    def extract_period(self, period_idx):
+        """
+        提取特定週期的預測數據
+
+        Args:
+            period_idx: 週期索引（從 1 開始）
+
+        Returns:
+            pd.DataFrame: 該週期的粗網格預測數據
+        """
+        if period_idx < 1 or period_idx > self.num_periods:
+            raise ValueError(f"週期索引超出範圍: {period_idx} (有效範圍: 1-{self.num_periods})")
+
+        start_idx = (period_idx - 1) * self.num_magnitude_steps
+        end_idx = start_idx + self.num_magnitude_steps
+
+        period_rows = self.forecast_data[start_idx:end_idx]
+
+        rows = []
+        for mag_idx in range(min(len(period_rows), self.num_magnitude_steps)):
+            mag_0, mag_1 = self.magnitude_bins[mag_idx]
+            mag_row = period_rows[mag_idx]
+            period_number = int(mag_row[0])
+
+            for region_idx in range(min(self.num_regions, len(self.cell_bounds))):
+                rate = float(mag_row[region_idx + 1])  # +1 因為第0欄是週期編號
+                region = self.cell_bounds.iloc[region_idx]
+
+                rows.append({
+                    'LON_0': float(region['LON_0']),
+                    'LON_1': float(region['LON_1']),
+                    'LAT_0': float(region['LAT_0']),
+                    'LAT_1': float(region['LAT_1']),
+                    'Z_0': self.depth_min,
+                    'Z_1': self.depth_max,
+                    'MAG_0': mag_0,
+                    'MAG_1': mag_1,
+                    'RATE': rate,
+                    'FLAG': 1,
+                    'PERIOD': period_number
+                })
+
+        return pd.DataFrame(rows)
+
+    def spatial_downsampling(self, data, grid_resolution=0.1):
+        """
+        空間下採樣：將大網格劃分為 0.1° × 0.1° 子網格
+
+        使用「質心在邊界框內」方法進行空間下採樣
+
+        Args:
+            data: 粗網格預測數據 (pd.DataFrame)
+            grid_resolution: 子網格解析度（度）(default: 0.1)
+
+        Returns:
+            pd.DataFrame: 下採樣後的預測數據
+        """
+        self._log(f"\n🔍 執行空間下採樣 (→ {grid_resolution}° × {grid_resolution}°)")
+
+        new_rows = []
+
+        for _, row in tqdm(data.iterrows(), total=len(data),
+                          desc="   處理子網格", disable=not self.verbose):
+            # 獲取粗網格的邊界框
+            coarse_lon_0 = row['LON_0']
+            coarse_lon_1 = row['LON_1']
+            coarse_lat_0 = row['LAT_0']
+            coarse_lat_1 = row['LAT_1']
+            coarse_rate = row['RATE']
+
+            mag_0 = row['MAG_0']
+            mag_1 = row['MAG_1']
+            period = row.get('PERIOD', 1)
+
+            # 找到完全覆蓋此邊界框的 0.1° 網格範圍
+            sub_lon_start = np.floor(coarse_lon_0 * 10) / 10
+            sub_lon_end = np.ceil(coarse_lon_1 * 10) / 10
+            sub_lat_start = np.floor(coarse_lat_0 * 10) / 10
+            sub_lat_end = np.ceil(coarse_lat_1 * 10) / 10
+
+            # 生成候選子網格起點
+            sub_lons = np.arange(sub_lon_start, sub_lon_end, grid_resolution)
+            sub_lats = np.arange(sub_lat_start, sub_lat_end, grid_resolution)
+
+            # 找到質心落在粗網格邊界框內的所有子網格
+            sub_cells_in_coarse = []
+            for lon_0 in sub_lons:
+                for lat_0 in sub_lats:
+                    # 計算子網格質心
+                    lon_center = lon_0 + (grid_resolution / 2)
+                    lat_center = lat_0 + (grid_resolution / 2)
+
+                    # 檢查質心是否在粗網格內
+                    if (coarse_lon_0 <= lon_center < coarse_lon_1) and \
+                       (coarse_lat_0 <= lat_center < coarse_lat_1):
+                        sub_cells_in_coarse.append((lon_0, lat_0))
+
+            num_subcells = len(sub_cells_in_coarse)
+
+            # 平均分配 RATE
+            subcell_rate = coarse_rate / num_subcells if num_subcells > 0 else 0
+
+            if num_subcells == 0:
+                # 粗網格太小，沒有子網格質心落在內部
+                continue
+
+            # 為每個有效子網格新增資料列
+            for lon_0, lat_0 in sub_cells_in_coarse:
+                new_rows.append({
+                    'LON_0': round(lon_0, 2),
+                    'LON_1': round(lon_0 + grid_resolution, 2),
+                    'LAT_0': round(lat_0, 2),
+                    'LAT_1': round(lat_0 + grid_resolution, 2),
+                    'Z_0': self.depth_min,
+                    'Z_1': self.depth_max,
+                    'MAG_0': mag_0,
+                    'MAG_1': mag_1,
+                    'RATE': subcell_rate,
+                    'FLAG': 1,
+                    'PERIOD': period
+                })
+
+        result = pd.DataFrame(new_rows)
+        self._log(f"   原始: {len(data)} 個粗網格 → 下採樣: {len(result)} 個 0.1° 網格")
+
+        return result
+
+    def aggregate_overlaps(self, data):
+        """
+        聚合重疊的網格點（因邊界框重疊產生的重複）
+
+        Args:
+            data: 下採樣後的數據 (pd.DataFrame)
+
+        Returns:
+            pd.DataFrame: 聚合後的數據
+        """
+        self._log("\n📍 聚合重疊網格點...")
+
+        # 四捨五入避免浮點數精度問題
+        data_copy = data.copy()
+        data_copy['LON_0'] = data_copy['LON_0'].round(2)
+        data_copy['LAT_0'] = data_copy['LAT_0'].round(2)
+
+        # 按 0.1° 網格起點和震級分組
+        group_cols = ['LON_0', 'LAT_0', 'MAG_0']
+
+        agg_funcs = {
+            'RATE': 'sum',       # 累加預測率
+            'LON_1': 'first',
+            'LAT_1': 'first',
+            'Z_0': 'first',
+            'Z_1': 'first',
+            'MAG_1': 'first',
+            'FLAG': 'first',
+            'PERIOD': 'first'
+        }
+
+        aggregated = data_copy.groupby(group_cols, as_index=False).agg(agg_funcs)
+
+        self._log(f"   原始: {len(data)} 個網格點 → 聚合: {len(aggregated)} 個唯一網格點")
+
+        return aggregated
+
+    def convert_period(self, period, start_year=None, output_file=None,
+                      perform_downsampling=True, grid_resolution=0.1):
+        """
+        轉換特定週期到 PyCSEP 格式
+
+        Args:
+            period: 週期編號（從 1 開始）
+            start_year: 預測起始年份（用於計算時間範圍，可選）
+            output_file: 輸出檔案路徑（可選）
+            perform_downsampling: 是否執行空間下採樣 (default: True)
+            grid_resolution: 下採樣解析度（度）(default: 0.1)
+
+        Returns:
+            pd.DataFrame: PyCSEP 格式的預測數據
+        """
+        self._log(f"\n{'='*70}")
+        self._log(f"🔄 轉換週期 {period}")
+        self._log(f"{'='*70}")
+
+        # 1. 提取週期數據
+        period_data = self.extract_period(period)
+        self._log(f"✅ 提取完成: {len(period_data)} 個粗網格-震級 bins")
+
+        # 2. 空間下採樣（可選）
+        if perform_downsampling:
+            downsampled = self.spatial_downsampling(period_data, grid_resolution)
+            final_data = self.aggregate_overlaps(downsampled)
+        else:
+            final_data = period_data
+
+        # 3. 排序
+        final_data = final_data.sort_values(
+            by=['LON_0', 'LAT_0', 'MAG_0']
+        ).reset_index(drop=True)
+
+        # 4. 匯出檔案（可選）
+        if output_file:
+            self.export_csep_format(final_data, output_file)
+
+        self._log(f"\n✅ 週期 {period} 轉換完成！")
+        self._log(f"   最終網格點數: {len(final_data)}")
+
+        return final_data
+
+    def convert_all_periods(self, start_period=1, end_period=None,
+                           start_year=None, output_file=None,
+                           perform_downsampling=True, grid_resolution=0.1):
+        """
+        轉換所有週期並累加 RATE
+
+        Args:
+            start_period: 起始週期（from 1）
+            end_period: 結束週期（None = 全部）
+            start_year: 預測起始年份（可選）
+            output_file: 輸出檔案路徑（可選）
+            perform_downsampling: 是否執行空間下採樣
+            grid_resolution: 下採樣解析度（度）
+
+        Returns:
+            pd.DataFrame: 累加所有週期的預測數據
+        """
+        if end_period is None:
+            end_period = self.num_periods
+
+        self._log(f"\n{'='*70}")
+        self._log(f"🔄 轉換所有週期 ({start_period} - {end_period})")
+        self._log(f"{'='*70}")
+
+        all_periods_data = []
+
+        for period in range(start_period, end_period + 1):
+            self._log(f"\n處理週期 {period}/{end_period}...")
+
+            # 提取並下採樣
+            period_data = self.extract_period(period)
+
+            if perform_downsampling:
+                downsampled = self.spatial_downsampling(period_data, grid_resolution)
+                all_periods_data.append(downsampled)
+            else:
+                all_periods_data.append(period_data)
+
+        # 合併所有週期
+        self._log("\n📦 合併所有週期...")
+        combined_data = pd.concat(all_periods_data, ignore_index=True)
+
+        # 聚合：按網格和震級累加 RATE
+        self._log("\n➕ 累加各週期的預測率...")
+        combined_data['LON_0'] = combined_data['LON_0'].round(2)
+        combined_data['LAT_0'] = combined_data['LAT_0'].round(2)
+
+        group_cols = ['LON_0', 'LAT_0', 'MAG_0']
+        agg_funcs = {
+            'RATE': 'sum',
+            'LON_1': 'first',
+            'LAT_1': 'first',
+            'Z_0': 'first',
+            'Z_1': 'first',
+            'MAG_1': 'first',
+            'FLAG': 'first'
+        }
+
+        summed_data = combined_data.groupby(group_cols, as_index=False).agg(agg_funcs)
+
+        # 排序
+        summed_data = summed_data.sort_values(
+            by=['LON_0', 'LAT_0', 'MAG_0']
+        ).reset_index(drop=True)
+
+        self._log(f"\n   合併前: {len(combined_data)} 個網格點")
+        self._log(f"   累加後: {len(summed_data)} 個唯一網格點")
+
+        # 匯出檔案（可選）
+        if output_file:
+            self.export_csep_format(summed_data, output_file)
+
+        self._log(f"\n✅ 所有週期轉換完成！")
+
+        return summed_data
+
+    def export_csep_format(self, data, output_file):
+        """
+        匯出 PyCSEP 相容格式
+
+        格式: LON_0 LON_1 LAT_0 LAT_1 Z_0 Z_1 MAG_0 MAG_1 RATE FLAG
+
+        Args:
+            data: 預測數據 (pd.DataFrame)
+            output_file: 輸出檔案路徑
+        """
+        self._log(f"\n💾 匯出 PyCSEP 格式: {output_file}")
+
+        df = data.copy()
+
+        # 確保正確的數值格式
+        df['LON_0'] = df['LON_0'].astype(float)
+        df['LON_1'] = df['LON_1'].astype(float)
+        df['LAT_0'] = df['LAT_0'].astype(float)
+        df['LAT_1'] = df['LAT_1'].astype(float)
+        df['Z_0'] = df['Z_0'].astype(float)
+        df['Z_1'] = df['Z_1'].astype(float)
+        df['MAG_0'] = df['MAG_0'].astype(float)
+        df['MAG_1'] = df['MAG_1'].astype(float)
+        df['RATE'] = df['RATE'].astype(float)
+        df['FLAG'] = df['FLAG'].astype(int)
+
+        order = ['LON_0', 'LON_1', 'LAT_0', 'LAT_1', 'Z_0', 'Z_1',
+                 'MAG_0', 'MAG_1', 'RATE', 'FLAG']
+
+        with open(output_file, 'w') as f:
+            for _, row in df[order].iterrows():
+                line = (f"{row['LON_0']}\t{row['LON_1']}\t"
+                       f"{row['LAT_0']}\t{row['LAT_1']}\t"
+                       f"{row['Z_0']}\t{row['Z_1']}\t"
+                       f"{row['MAG_0']}\t{row['MAG_1']}\t"
+                       f"{row['RATE']:.16e}\t{row['FLAG']}\n")
+                f.write(line)
+
+        self._log(f"   成功匯出 {len(df)} 行數據")
+
+    def to_pycsep_forecast(self, data, start_date, end_date, name='EEPAS_Forecast'):
+        """
+        轉換為 PyCSEP GriddedForecast 物件
+
+        Args:
+            data: 預測數據 (pd.DataFrame)
+            start_date: 預測起始時間 (datetime or str)
+            end_date: 預測結束時間 (datetime or str)
+            name: 預測名稱 (str)
+
+        Returns:
+            csep.core.forecasts.GriddedForecast: PyCSEP forecast 物件
+
+        Examples:
+            >>> from datetime import datetime
+            >>> forecast = converter.to_pycsep_forecast(
+            ...     data=period_data,
+            ...     start_date=datetime(2012, 1, 1),
+            ...     end_date=datetime(2012, 3, 31),
+            ...     name='EEPAS_2012_Q1'
+            ... )
+        """
+        if csep is None:
+            raise ImportError("需要安裝 pycsep: pip install pycsep")
+
+        # 先匯出臨時檔案
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.dat', delete=False) as tmp:
+            tmp_file = tmp.name
+            self.export_csep_format(data, tmp_file)
+
+        try:
+            # 處理時間
+            if isinstance(start_date, str):
+                start_date = time_utils.strptime_to_utc_datetime(start_date)
+            if isinstance(end_date, str):
+                end_date = time_utils.strptime_to_utc_datetime(end_date)
+
+            # 載入為 PyCSEP forecast
+            forecast = csep.load_gridded_forecast(
+                tmp_file,
+                start_date=start_date,
+                end_date=end_date,
+                name=name
+            )
+
+            return forecast
+
+        finally:
+            # 清理臨時檔案
+            if os.path.exists(tmp_file):
+                os.remove(tmp_file)
+
+    def calculate_period_dates(self, period, start_year, period_length_months=3):
+        """
+        計算特定週期的起止日期
+
+        Args:
+            period: 週期編號（從 1 開始）
+            start_year: 預測起始年份
+            period_length_months: 每個週期的月數 (default: 3)
+
+        Returns:
+            tuple: (start_date, end_date) as datetime objects
+
+        Examples:
+            >>> # 3個月週期
+            >>> start, end = converter.calculate_period_dates(1, 2012, 3)
+            >>> # 1年週期
+            >>> start, end = converter.calculate_period_dates(1, 2012, 12)
+        """
+        from dateutil.relativedelta import relativedelta
+
+        # 計算起始月份
+        months_offset = (period - 1) * period_length_months
+        start_date = datetime(start_year, 1, 1) + relativedelta(months=months_offset)
+
+        # 計算結束日期
+        end_date = start_date + relativedelta(months=period_length_months)
+
+        return start_date, end_date
+
+
+# ========== 便利函數 ==========
+
+def convert_eepas_forecast(forecast_file, grid_file, output_file,
+                          period=None, **kwargs):
+    """
+    便利函數：快速轉換 EEPAS 預測
+
+    Args:
+        forecast_file: EEPAS 預測 .mat 檔案
+        grid_file: 網格定義 .mat 檔案
+        output_file: 輸出 PyCSEP 格式檔案
+        period: 週期編號（None = 所有週期）
+        **kwargs: 傳遞給 EEPASForecastConverter 的其他參數
+
+    Examples:
+        >>> # 轉換特定週期
+        >>> convert_eepas_forecast(
+        ...     'PREVISIONI_3m_EEPAS_2012_2022.mat',
+        ...     'CELLE_ter.mat',
+        ...     'forecast_period_1.dat',
+        ...     period=1
+        ... )
+        >>>
+        >>> # 轉換所有週期
+        >>> convert_eepas_forecast(
+        ...     'PREVISIONI_3m_EEPAS_2012_2022.mat',
+        ...     'CELLE_ter.mat',
+        ...     'forecast_all_periods.dat'
+        ... )
+    """
+    converter = EEPASForecastConverter(forecast_file, grid_file, **kwargs)
+
+    if period is not None:
+        converter.convert_period(period, output_file=output_file)
+    else:
+        converter.convert_all_periods(output_file=output_file)
+
+    print(f"\n✅ 轉換完成: {output_file}")
+
+
+if __name__ == '__main__':
+    # 簡單的測試範例
+    print("EEPAS Forecast Converter - 測試模式")
+    print("請使用 test_forecast_converter.py 進行完整測試")

@@ -1,0 +1,775 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.region_manager &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/region_manager';</script>
+    <link rel="icon" href="../../_static/logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.region_manager</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Region Manager - Spatial region handling for EEPAS.</span>
+
+<span class="sd">This module provides unified management of testing region and neighborhood region,</span>
+<span class="sd">supporting both grid and polygon region types.</span>
+
+<span class="sd">Region Types:</span>
+<span class="sd">    - &#39;grid&#39;: Rectangular grid (e.g., CELLE_ter format)</span>
+<span class="sd">    - &#39;polygon&#39;: Polygon boundary (e.g., CPTI15 format)</span>
+
+<span class="sd">Regional Functions:</span>
+<span class="sd">    - Testing Region (R): Used for likelihood calculation and forecast output</span>
+<span class="sd">    - Neighborhood Region (N): Used for edge effect compensation</span>
+
+<span class="sd">Examples:</span>
+<span class="sd">    Single grid region (both regions use same grid)::</span>
+
+<span class="sd">        mgr = RegionManager(celle_data, celle_data, &#39;grid&#39;, &#39;grid&#39;)</span>
+
+<span class="sd">    Testing grid with neighborhood polygon::</span>
+
+<span class="sd">        mgr = RegionManager(celle_data, cpti15_polygon, &#39;grid&#39;, &#39;polygon&#39;)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<div class="viewcode-block" id="RegionManager">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.region_manager.RegionManager">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RegionManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Region Manager - Handles spatial determination for testing and neighborhood regions</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        testing_region: Testing region data (grid or polygon)</span>
+<span class="sd">        neighborhood_region: Neighborhood region data (grid or polygon)</span>
+<span class="sd">        testing_type: &#39;grid&#39; or &#39;polygon&#39;</span>
+<span class="sd">        neighborhood_type: &#39;grid&#39; or &#39;polygon&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RegionManager.__init__">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.region_manager.RegionManager.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">testing_region_data</span><span class="p">,</span> <span class="n">neighborhood_region_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">testing_type</span><span class="o">=</span><span class="s1">&#39;grid&#39;</span><span class="p">,</span> <span class="n">neighborhood_type</span><span class="o">=</span><span class="s1">&#39;grid&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize region manager.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            testing_region_data: Testing region data</span>
+
+<span class="sd">                - If type=&#39;grid&#39;: numpy array (N×10), column format is [x_min, x_max, y_min, y_max, ..., cell_id, ...]</span>
+<span class="sd">                - If type=&#39;polygon&#39;: numpy array (M×2 or M×4), vertex coordinates</span>
+
+<span class="sd">            neighborhood_region_data: Neighborhood region data (optional)</span>
+
+<span class="sd">                - If None, then neighborhood = testing (same region for both)</span>
+<span class="sd">                - Same format as testing_region_data</span>
+
+<span class="sd">            testing_type: &#39;grid&#39; or &#39;polygon&#39;</span>
+<span class="sd">            neighborhood_type: &#39;grid&#39; or &#39;polygon&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">testing_region</span> <span class="o">=</span> <span class="n">testing_region_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span> <span class="o">=</span> <span class="n">testing_type</span>
+
+        <span class="c1"># Backward compatibility: if neighborhood region not provided, use testing region</span>
+        <span class="k">if</span> <span class="n">neighborhood_region_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_region</span> <span class="o">=</span> <span class="n">testing_region_data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_type</span> <span class="o">=</span> <span class="n">testing_type</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_region</span> <span class="o">=</span> <span class="n">neighborhood_region_data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_type</span> <span class="o">=</span> <span class="n">neighborhood_type</span>
+
+        <span class="c1"># Preprocessing: extract polygon vertices (if polygon)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span> <span class="o">==</span> <span class="s1">&#39;polygon&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">testing_polygon_vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_polygon_vertices</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">testing_region</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_type</span> <span class="o">==</span> <span class="s1">&#39;polygon&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_polygon_vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_polygon_vertices</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_region</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Preprocessing: extract grid boundaries (if grid)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span> <span class="o">==</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">testing_grid_bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_grid_bounds</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">testing_region</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_type</span> <span class="o">==</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_grid_bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_grid_bounds</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_region</span>
+            <span class="p">)</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_extract_polygon_vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">polygon_data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract vertex coordinates from polygon data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            polygon_data: numpy array</span>
+<span class="sd">                - If (N×2): directly [x, y] vertices</span>
+<span class="sd">                - If (N×4): [lon, lat, x, y], use last two columns</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy array (N×2): [x, y] vertex coordinates</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">polygon_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># Already in [x, y] format</span>
+            <span class="k">return</span> <span class="n">polygon_data</span>
+        <span class="k">elif</span> <span class="n">polygon_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="c1"># [lon, lat, x, y] format, use projected coordinates x, y</span>
+            <span class="k">return</span> <span class="n">polygon_data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unsupported polygon data format, number of columns: </span><span class="si">{</span><span class="n">polygon_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_extract_grid_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract boundary information from grid data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            grid_data: numpy array (N×10 or more)</span>
+<span class="sd">                Column format: [x_min, x_max, y_min, y_max, ...]</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy array (N×4): [x_min, x_max, y_min, y_max]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">grid_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Insufficient grid data columns, need at least 4, current: </span><span class="si">{</span><span class="n">grid_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">grid_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="RegionManager.is_in_testing_region">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.region_manager.RegionManager.is_in_testing_region">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_in_testing_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determine if point (x, y) is within testing region.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x: X coordinate (can be scalar or array)</span>
+<span class="sd">            y: Y coordinate (can be scalar or array)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool or numpy array of bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span> <span class="o">==</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_in_grid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_grid_bounds</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span> <span class="o">==</span> <span class="s1">&#39;polygon&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_in_polygon</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_polygon_vertices</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported testing region type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="RegionManager.is_in_neighborhood_region">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.region_manager.RegionManager.is_in_neighborhood_region">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_in_neighborhood_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determine if point (x, y) is within neighborhood region.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x: X coordinate (can be scalar or array)</span>
+<span class="sd">            y: Y coordinate (can be scalar or array)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool or numpy array of bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_type</span> <span class="o">==</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_in_grid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_grid_bounds</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_type</span> <span class="o">==</span> <span class="s1">&#39;polygon&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_in_polygon</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_polygon_vertices</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unsupported neighborhood region type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_type</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span></div>
+
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_is_in_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">grid_bounds</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determine if point is within rectangular grid (any cell).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x, y: Coordinates (scalar or array)</span>
+<span class="sd">            grid_bounds: numpy array (N×4) [x_min, x_max, y_min, y_max]</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool or numpy array of bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="c1"># Vectorized determination: check if each point is in any grid cell</span>
+        <span class="n">in_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+            <span class="c1"># For each point, check if it&#39;s in any grid cell</span>
+            <span class="n">in_any_cell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">grid_bounds</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span>
+                <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">grid_bounds</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&amp;</span>
+                <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">grid_bounds</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span> <span class="o">&amp;</span>
+                <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">grid_bounds</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">])</span>
+            <span class="p">)</span>
+            <span class="n">in_grid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">in_any_cell</span>
+
+        <span class="c1"># If input is scalar, return scalar</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">in_grid</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">in_grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">in_grid</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_is_in_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">polygon_vertices</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determine if point is within polygon - Ray Casting Algorithm.</span>
+
+<span class="sd">        Principle:</span>
+
+<span class="sd">            - Cast a ray from the point to the right, count intersections with polygon boundary</span>
+<span class="sd">            - Odd number of intersections → point inside polygon</span>
+<span class="sd">            - Even number of intersections → point outside polygon</span>
+
+<span class="sd">        Boundary handling:</span>
+
+<span class="sd">            - Point exactly on vertex → treat as outside</span>
+<span class="sd">            - Point exactly on edge → treat as outside</span>
+<span class="sd">            - This conservative approach avoids incorrectly including boundary earthquakes</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x, y: Coordinates (scalar or array)</span>
+<span class="sd">            polygon_vertices: numpy array (N×2) polygon vertices [x, y]</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool or numpy.ndarray: Boolean indicating if point(s) inside polygon</span>
+
+<span class="sd">        Reference:</span>
+<span class="sd">            https://en.wikipedia.org/wiki/Point_in_polygon</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="n">n_vertices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">polygon_vertices</span><span class="p">)</span>
+        <span class="n">inside</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+        <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-10</span>  <span class="c1"># Numerical tolerance for boundary detection</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+            <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+            <span class="c1"># Check if on vertex (treat as outside)</span>
+            <span class="n">is_on_vertex</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span> <span class="ow">in</span> <span class="n">polygon_vertices</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">xi</span> <span class="o">-</span> <span class="n">vx</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">eps</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">yi</span> <span class="o">-</span> <span class="n">vy</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">:</span>
+                    <span class="n">is_on_vertex</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+
+            <span class="k">if</span> <span class="n">is_on_vertex</span><span class="p">:</span>
+                <span class="n">inside</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Ray casting algorithm</span>
+            <span class="n">crosses</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_vertices</span><span class="p">):</span>
+                <span class="c1"># Two vertices of current edge</span>
+                <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">polygon_vertices</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">polygon_vertices</span><span class="p">[(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n_vertices</span><span class="p">]</span>
+
+                <span class="c1"># Check if ray intersects with edge</span>
+                <span class="c1"># Condition: point&#39;s y coordinate is within edge&#39;s y range</span>
+                <span class="k">if</span> <span class="p">((</span><span class="n">y1</span> <span class="o">&gt;</span> <span class="n">yi</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="n">y2</span> <span class="o">&gt;</span> <span class="n">yi</span><span class="p">)):</span>
+                    <span class="c1"># Calculate x coordinate of ray-edge intersection</span>
+                    <span class="n">x_intersect</span> <span class="o">=</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">yi</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span> <span class="o">+</span> <span class="n">x1</span>
+
+                    <span class="c1"># If intersection is to the right of point, count+1</span>
+                    <span class="k">if</span> <span class="n">xi</span> <span class="o">&lt;</span> <span class="n">x_intersect</span><span class="p">:</span>
+                        <span class="n">crosses</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c1"># Odd number of intersections → inside polygon</span>
+            <span class="n">inside</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">crosses</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># If input is scalar, return scalar</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inside</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">inside</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">inside</span>
+
+
+<div class="viewcode-block" id="RegionManager.filter_events_for_learning">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.region_manager.RegionManager.filter_events_for_learning">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filter_events_for_learning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">x_col</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">y_col</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filter events for learning: events within neighborhood region.</span>
+
+<span class="sd">        During PPE/EEPAS learning, use all events within neighborhood as source</span>
+<span class="sd">        events to avoid edge effects.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            catalog: numpy array (N×M) earthquake catalog</span>
+<span class="sd">            x_col: X coordinate column (default 7, HORUS format)</span>
+<span class="sd">            y_col: Y coordinate column (default 6, HORUS format)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy array: Filtered catalog</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">catalog</span><span class="p">[:,</span> <span class="n">x_col</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">catalog</span><span class="p">[:,</span> <span class="n">y_col</span><span class="p">]</span>
+
+        <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_in_neighborhood_region</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">catalog</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="RegionManager.filter_events_for_targets">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.region_manager.RegionManager.filter_events_for_targets">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filter_events_for_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">x_col</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">y_col</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filter target events: events within testing region.</span>
+
+<span class="sd">        During likelihood calculation and forecasting, only use/output events</span>
+<span class="sd">        within the testing region.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            catalog: numpy array (N×M) earthquake catalog</span>
+<span class="sd">            x_col: X coordinate column (default 7, HORUS format)</span>
+<span class="sd">            y_col: Y coordinate column (default 6, HORUS format)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy array: Filtered catalog</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">catalog</span><span class="p">[:,</span> <span class="n">x_col</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">catalog</span><span class="p">[:,</span> <span class="n">y_col</span><span class="p">]</span>
+
+        <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_in_testing_region</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">catalog</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="RegionManager.get_active_cells">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.region_manager.RegionManager.get_active_cells">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_active_cells</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get active cell list (only when testing region is grid type).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy array (N×4): [x_min, x_max, y_min, y_max] for each cell</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If testing region is not grid type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span> <span class="o">!=</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;get_active_cells() only supports grid-type testing region, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;current type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_grid_bounds</span></div>
+
+
+
+<div class="viewcode-block" id="RegionManager.get_n_active_cells">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.region_manager.RegionManager.get_n_active_cells">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_n_active_cells</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get number of active cells.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Number of cells (returns number of vertices if polygon)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span> <span class="o">==</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">testing_grid_bounds</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span> <span class="o">==</span> <span class="s1">&#39;polygon&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">testing_polygon_vertices</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="RegionManager.get_region_summary">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.region_manager.RegionManager.get_region_summary">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_region_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get region manager summary information (for debugging).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Dictionary containing region types, cell counts, and other metadata</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;testing_type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_type</span><span class="p">,</span>
+            <span class="s1">&#39;neighborhood_type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_type</span><span class="p">,</span>
+            <span class="s1">&#39;n_testing_cells&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_n_active_cells</span><span class="p">(),</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_type</span> <span class="o">==</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
+            <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;n_neighborhood_cells&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_grid_bounds</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_type</span> <span class="o">==</span> <span class="s1">&#39;polygon&#39;</span><span class="p">:</span>
+            <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;n_neighborhood_vertices&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_polygon_vertices</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">summary</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1094 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>analysis.forecast_converter &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/analysis/forecast_converter';</script>
+    <link rel="icon" href="../../_static/logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for analysis.forecast_converter</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EEPAS Forecast to PyCSEP Converter</span>
+
+<span class="sd">Complete forecast format conversion tool supporting:</span>
+<span class="sd">- EEPAS/PPE forecast MATLAB format → PyCSEP GriddedForecast</span>
+<span class="sd">- Coordinate transformation (RDN2008 → WGS84)</span>
+<span class="sd">- Spatial downsampling (coarse grids → 0.1° sub-grids)</span>
+<span class="sd">- Time period handling (3-month/1-year periods)</span>
+
+<span class="sd">Author: EEPAS Team</span>
+<span class="sd">Date: 2025-11-26</span>
+<span class="sd">Version: 1.0.0</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pyproj</span><span class="w"> </span><span class="kn">import</span> <span class="n">Transformer</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">Transformer</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: pyproj not installed. Coordinate transformation will not work.&quot;</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">csep</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">csep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">time_utils</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">csep</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: pycsep not installed. PyCSEP format export will not work.&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="EEPASForecastConverter">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.forecast_converter.EEPASForecastConverter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EEPASForecastConverter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    EEPAS Forecast Format Converter</span>
+
+<span class="sd">    Features:</span>
+
+<span class="sd">        1. Load EEPAS/PPE MATLAB forecast files</span>
+<span class="sd">        2. Load grid definitions (CELLE_ter.mat) and perform coordinate transformation</span>
+<span class="sd">        3. Extract forecasts for specific time periods</span>
+<span class="sd">        4. Spatial downsampling (coarse grids → 0.1° sub-grids)</span>
+<span class="sd">        5. Export PyCSEP-compatible format</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; # Basic usage</span>
+<span class="sd">        &gt;&gt;&gt; converter = EEPASForecastConverter(</span>
+<span class="sd">        ...     forecast_file=&#39;PREVISIONI_3m_EEPAS_2012_2022.mat&#39;,</span>
+<span class="sd">        ...     grid_file=&#39;CELLE_ter.mat&#39;</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Convert specific period</span>
+<span class="sd">        &gt;&gt;&gt; converter.convert_period(</span>
+<span class="sd">        ...     period=1,</span>
+<span class="sd">        ...     start_year=2012,</span>
+<span class="sd">        ...     output_file=&#39;forecast_period_1.dat&#39;</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Convert all periods (sum rates)</span>
+<span class="sd">        &gt;&gt;&gt; converter.convert_all_periods(</span>
+<span class="sd">        ...     start_year=2012,</span>
+<span class="sd">        ...     output_file=&#39;forecast_all_periods.dat&#39;</span>
+<span class="sd">        ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+<div class="viewcode-block" id="EEPASForecastConverter.__init__">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.forecast_converter.EEPASForecastConverter.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forecast_file</span><span class="p">,</span> <span class="n">grid_file</span><span class="p">,</span>
+                 <span class="n">num_regions</span><span class="o">=</span><span class="mi">177</span><span class="p">,</span> <span class="n">num_magnitude_steps</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+                 <span class="n">magnitude_min</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">magnitude_step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                 <span class="n">depth_min</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">depth_max</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span>
+                 <span class="n">coordinate_transform</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">source_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:7794&#39;</span><span class="p">,</span> <span class="n">target_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span>
+                 <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize converter</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            forecast_file: Path to EEPAS/PPE forecast .mat file</span>
+<span class="sd">            grid_file: Path to grid definition .mat file (CELLE_ter.mat)</span>
+<span class="sd">            num_regions: Number of spatial grids (default: 177 for Italy)</span>
+<span class="sd">            num_magnitude_steps: Number of magnitude bins (default: 25)</span>
+<span class="sd">            magnitude_min: Minimum magnitude (default: 5.0)</span>
+<span class="sd">            magnitude_step: Magnitude bin width (default: 0.1)</span>
+<span class="sd">            depth_min: Minimum depth in km (default: 0.0)</span>
+<span class="sd">            depth_max: Maximum depth in km (default: 30.0)</span>
+<span class="sd">            coordinate_transform: Enable coordinate transformation (default: True)</span>
+<span class="sd">            source_crs: Source coordinate system (default: &#39;EPSG:7794&#39; for RDN2008)</span>
+<span class="sd">            target_crs: Target coordinate system (default: &#39;EPSG:4326&#39; for WGS84)</span>
+<span class="sd">            verbose: Print verbose messages (default: True)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">forecast_file</span> <span class="o">=</span> <span class="n">forecast_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_file</span> <span class="o">=</span> <span class="n">grid_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_regions</span> <span class="o">=</span> <span class="n">num_regions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_magnitude_steps</span> <span class="o">=</span> <span class="n">num_magnitude_steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">magnitude_min</span> <span class="o">=</span> <span class="n">magnitude_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">magnitude_step</span> <span class="o">=</span> <span class="n">magnitude_step</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depth_min</span> <span class="o">=</span> <span class="n">depth_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depth_max</span> <span class="o">=</span> <span class="n">depth_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_transform</span> <span class="o">=</span> <span class="n">coordinate_transform</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_crs</span> <span class="o">=</span> <span class="n">source_crs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_crs</span> <span class="o">=</span> <span class="n">target_crs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        
+        <span class="c1"># Load data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_forecast</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_grid</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_magnitude_bins</span><span class="p">()</span></div>
+
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Internal logging function&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_forecast</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load forecast data from MATLAB file.</span>
+
+<span class="sd">        Auto-detects variable name in .mat file:</span>
+<span class="sd">            - &#39;forecast_eepas&#39;: EEPAS forecast matrix (preferred naming)</span>
+<span class="sd">            - &#39;PREVISIONI_3m_less&#39;: Legacy Italian naming for EEPAS forecast</span>
+<span class="sd">            - &#39;PREVISIONI_3m&#39;: PPE forecast matrix</span>
+<span class="sd">            - First non-metadata variable if none of above found</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None: Sets self.forecast_data and self.num_periods</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading forecast file: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">forecast_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">mat_data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">forecast_file</span><span class="p">)</span>
+
+        <span class="c1"># Auto-detect variable name (priority order)</span>
+        <span class="k">if</span> <span class="s1">&#39;forecast_eepas&#39;</span> <span class="ow">in</span> <span class="n">mat_data</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;forecast_eepas&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;PREVISIONI_3m_less&#39;</span> <span class="ow">in</span> <span class="n">mat_data</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;PREVISIONI_3m_less&#39;</span>  <span class="c1"># Legacy Italian naming</span>
+        <span class="k">elif</span> <span class="s1">&#39;PREVISIONI_3m&#39;</span> <span class="ow">in</span> <span class="n">mat_data</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;PREVISIONI_3m&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Find largest non-metadata array</span>
+            <span class="n">potential_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mat_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">potential_keys</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot find forecast data variable&quot;</span><span class="p">)</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">potential_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">forecast_data</span> <span class="o">=</span> <span class="n">mat_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Variable name: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Data shape: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">forecast_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Calculate number of periods</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_periods</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forecast_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_magnitude_steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Detected </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_periods</span><span class="si">}</span><span class="s2"> time periods&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load and transform grid definitions from MATLAB file.</span>
+
+<span class="sd">        Reads CELLESD variable containing grid boundaries and optionally</span>
+<span class="sd">        transforms coordinates from source CRS (e.g., RDN2008) to target CRS (e.g., WGS84).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None: Sets self.cell_bounds DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Loading grid definition: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="n">mat_data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_file</span><span class="p">)</span>
+        
+        <span class="c1"># Find grid data</span>
+        <span class="k">if</span> <span class="s1">&#39;CELLESD&#39;</span> <span class="ow">in</span> <span class="n">mat_data</span><span class="p">:</span>
+            <span class="n">cells_data</span> <span class="o">=</span> <span class="n">mat_data</span><span class="p">[</span><span class="s1">&#39;CELLESD&#39;</span><span class="p">][:,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span>  <span class="c1"># First 4 columns (x_min, x_max, y_min, y_max)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot find &#39;CELLESD&#39; variable&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_transform</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="s2">&quot;   Performing coordinate transformation...&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">Transformer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;pyproj required for coordinate transformation: pip install pyproj&quot;</span><span class="p">)</span>
+            
+            <span class="c1"># Convert to meters (if in kilometers)</span>
+            <span class="n">data_m</span> <span class="o">=</span> <span class="n">cells_data</span> <span class="o">*</span> <span class="mi">1000</span>
+            
+            <span class="c1"># Create transformer</span>
+            <span class="n">transformer</span> <span class="o">=</span> <span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">source_crs</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">target_crs</span><span class="p">,</span>
+                <span class="n">always_xy</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+            
+            <span class="n">cells_lonlat</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_m</span><span class="p">)),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;   Converting grids&quot;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">):</span>
+                <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">data_m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                
+                <span class="c1"># Transform four corners</span>
+                <span class="n">corners_xy</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span><span class="p">),</span> <span class="p">(</span><span class="n">x_max</span><span class="p">,</span> <span class="n">y_min</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">),</span> <span class="p">(</span><span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span>
+                <span class="p">]</span>
+                
+                <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">corners_xy</span><span class="p">],</span>
+                    <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">corners_xy</span><span class="p">]</span>
+                <span class="p">)</span>
+                
+                <span class="c1"># Create bounding box</span>
+                <span class="n">cells_lonlat</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s1">&#39;LON_0&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">lons</span><span class="p">),</span>
+                    <span class="s1">&#39;LON_1&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lons</span><span class="p">),</span>
+                    <span class="s1">&#39;LAT_0&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">lats</span><span class="p">),</span>
+                    <span class="s1">&#39;LAT_1&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lats</span><span class="p">)</span>
+                <span class="p">})</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">cell_bounds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cells_lonlat</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Use directly (assuming already in lat/lon)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cell_bounds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="n">cells_data</span><span class="p">,</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">,</span> <span class="s1">&#39;LON_1&#39;</span><span class="p">,</span> <span class="s1">&#39;LAT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;LAT_1&#39;</span><span class="p">]</span>
+            <span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Successfully loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_bounds</span><span class="p">)</span><span class="si">}</span><span class="s2"> grids&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_magnitude_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create magnitude bins for forecast matrix.</span>
+
+<span class="sd">        Generates list of (mag_min, mag_max) tuples based on magnitude_min,</span>
+<span class="sd">        magnitude_step, and num_magnitude_steps.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None: Sets self.magnitude_bins list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">magnitude_bins</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_magnitude_steps</span><span class="p">):</span>
+            <span class="n">mag_0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">magnitude_min</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">magnitude_step</span> <span class="o">*</span> <span class="n">i</span>
+            <span class="n">mag_1</span> <span class="o">=</span> <span class="n">mag_0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">magnitude_step</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">magnitude_bins</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">round</span><span class="p">(</span><span class="n">mag_0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">mag_1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Magnitude range: M</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">magnitude_min</span><span class="si">}</span><span class="s2"> - M</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">magnitude_bins</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Total </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">magnitude_bins</span><span class="p">)</span><span class="si">}</span><span class="s2"> magnitude bins&quot;</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="EEPASForecastConverter.extract_period">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.forecast_converter.EEPASForecastConverter.extract_period">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_period</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">period_idx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract forecast data for specific period</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            period_idx: Period index (starting from 1)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Coarse-grid forecast data for the period</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">period_idx</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">period_idx</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_periods</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Period index out of range: </span><span class="si">{</span><span class="n">period_idx</span><span class="si">}</span><span class="s2"> (valid: 1-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_periods</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        
+        <span class="n">start_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">period_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_magnitude_steps</span>
+        <span class="n">end_idx</span> <span class="o">=</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_magnitude_steps</span>
+        
+        <span class="n">period_rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forecast_data</span><span class="p">[</span><span class="n">start_idx</span><span class="p">:</span><span class="n">end_idx</span><span class="p">]</span>
+        
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">mag_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">period_rows</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_magnitude_steps</span><span class="p">)):</span>
+            <span class="n">mag_0</span><span class="p">,</span> <span class="n">mag_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">magnitude_bins</span><span class="p">[</span><span class="n">mag_idx</span><span class="p">]</span>
+            <span class="n">mag_row</span> <span class="o">=</span> <span class="n">period_rows</span><span class="p">[</span><span class="n">mag_idx</span><span class="p">]</span>
+            <span class="n">period_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mag_row</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            
+            <span class="k">for</span> <span class="n">region_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_regions</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_bounds</span><span class="p">))):</span>
+                <span class="n">rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">mag_row</span><span class="p">[</span><span class="n">region_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># +1 because column 0 is period number</span>
+                <span class="n">region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_bounds</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">region_idx</span><span class="p">]</span>
+                
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s1">&#39;LON_0&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">]),</span>
+                    <span class="s1">&#39;LON_1&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;LON_1&#39;</span><span class="p">]),</span>
+                    <span class="s1">&#39;LAT_0&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;LAT_0&#39;</span><span class="p">]),</span>
+                    <span class="s1">&#39;LAT_1&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="s1">&#39;LAT_1&#39;</span><span class="p">]),</span>
+                    <span class="s1">&#39;Z_0&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth_min</span><span class="p">,</span>
+                    <span class="s1">&#39;Z_1&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth_max</span><span class="p">,</span>
+                    <span class="s1">&#39;MAG_0&#39;</span><span class="p">:</span> <span class="n">mag_0</span><span class="p">,</span>
+                    <span class="s1">&#39;MAG_1&#39;</span><span class="p">:</span> <span class="n">mag_1</span><span class="p">,</span>
+                    <span class="s1">&#39;RATE&#39;</span><span class="p">:</span> <span class="n">rate</span><span class="p">,</span>
+                    <span class="s1">&#39;FLAG&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;PERIOD&#39;</span><span class="p">:</span> <span class="n">period_number</span>
+                <span class="p">})</span>
+        
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="EEPASForecastConverter.spatial_downsampling">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.forecast_converter.EEPASForecastConverter.spatial_downsampling">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spatial_downsampling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">grid_resolution</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Spatial downsampling: divide coarse grids into 0.1° × 0.1° sub-grids</span>
+<span class="sd">        </span>
+<span class="sd">        Uses &quot;centroid-in-bounding-box&quot; method for spatial downsampling</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            data: Coarse-grid forecast data (pd.DataFrame)</span>
+<span class="sd">            grid_resolution: Sub-grid resolution in degrees (default: 0.1)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Downsampled forecast data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Performing spatial downsampling (→ </span><span class="si">{</span><span class="n">grid_resolution</span><span class="si">}</span><span class="s2">° × </span><span class="si">{</span><span class="n">grid_resolution</span><span class="si">}</span><span class="s2">°)&quot;</span><span class="p">)</span>
+        
+        <span class="n">new_rows</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+                          <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;   Processing sub-grids&quot;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">):</span>
+            <span class="c1"># Get coarse grid bounding box</span>
+            <span class="n">coarse_lon_0</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">]</span>
+            <span class="n">coarse_lon_1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;LON_1&#39;</span><span class="p">]</span>
+            <span class="n">coarse_lat_0</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;LAT_0&#39;</span><span class="p">]</span>
+            <span class="n">coarse_lat_1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;LAT_1&#39;</span><span class="p">]</span>
+            <span class="n">coarse_rate</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;RATE&#39;</span><span class="p">]</span>
+            
+            <span class="n">mag_0</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;MAG_0&#39;</span><span class="p">]</span>
+            <span class="n">mag_1</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;MAG_1&#39;</span><span class="p">]</span>
+            <span class="n">period</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PERIOD&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            
+            <span class="c1"># Find 0.1° grid range that completely covers this bounding box</span>
+            <span class="n">sub_lon_start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">coarse_lon_0</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span>
+            <span class="n">sub_lon_end</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">coarse_lon_1</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span>
+            <span class="n">sub_lat_start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">coarse_lat_0</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span>
+            <span class="n">sub_lat_end</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">coarse_lat_1</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span>
+            
+            <span class="c1"># Generate candidate sub-grid starting points</span>
+            <span class="n">sub_lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">sub_lon_start</span><span class="p">,</span> <span class="n">sub_lon_end</span><span class="p">,</span> <span class="n">grid_resolution</span><span class="p">)</span>
+            <span class="n">sub_lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">sub_lat_start</span><span class="p">,</span> <span class="n">sub_lat_end</span><span class="p">,</span> <span class="n">grid_resolution</span><span class="p">)</span>
+            
+            <span class="c1"># Find all sub-grids whose centroids fall within coarse grid bounds</span>
+            <span class="n">sub_cells_in_coarse</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">lon_0</span> <span class="ow">in</span> <span class="n">sub_lons</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">lat_0</span> <span class="ow">in</span> <span class="n">sub_lats</span><span class="p">:</span>
+                    <span class="c1"># Calculate sub-grid centroid</span>
+                    <span class="n">lon_center</span> <span class="o">=</span> <span class="n">lon_0</span> <span class="o">+</span> <span class="p">(</span><span class="n">grid_resolution</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="n">lat_center</span> <span class="o">=</span> <span class="n">lat_0</span> <span class="o">+</span> <span class="p">(</span><span class="n">grid_resolution</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                    
+                    <span class="c1"># Check if centroid is within coarse grid</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">coarse_lon_0</span> <span class="o">&lt;=</span> <span class="n">lon_center</span> <span class="o">&lt;</span> <span class="n">coarse_lon_1</span><span class="p">)</span> <span class="ow">and</span> \
+                       <span class="p">(</span><span class="n">coarse_lat_0</span> <span class="o">&lt;=</span> <span class="n">lat_center</span> <span class="o">&lt;</span> <span class="n">coarse_lat_1</span><span class="p">):</span>
+                        <span class="n">sub_cells_in_coarse</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">lon_0</span><span class="p">,</span> <span class="n">lat_0</span><span class="p">))</span>
+            
+            <span class="n">num_subcells</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sub_cells_in_coarse</span><span class="p">)</span>
+            
+            <span class="c1"># Evenly distribute RATE</span>
+            <span class="n">subcell_rate</span> <span class="o">=</span> <span class="n">coarse_rate</span> <span class="o">/</span> <span class="n">num_subcells</span> <span class="k">if</span> <span class="n">num_subcells</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            
+            <span class="k">if</span> <span class="n">num_subcells</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># Coarse grid too small, no sub-grid centroids fall inside</span>
+                <span class="k">continue</span>
+            
+            <span class="c1"># Add row for each valid sub-grid</span>
+            <span class="k">for</span> <span class="n">lon_0</span><span class="p">,</span> <span class="n">lat_0</span> <span class="ow">in</span> <span class="n">sub_cells_in_coarse</span><span class="p">:</span>
+                <span class="n">new_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s1">&#39;LON_0&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">lon_0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                    <span class="s1">&#39;LON_1&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">lon_0</span> <span class="o">+</span> <span class="n">grid_resolution</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                    <span class="s1">&#39;LAT_0&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">lat_0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                    <span class="s1">&#39;LAT_1&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">lat_0</span> <span class="o">+</span> <span class="n">grid_resolution</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                    <span class="s1">&#39;Z_0&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth_min</span><span class="p">,</span>
+                    <span class="s1">&#39;Z_1&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth_max</span><span class="p">,</span>
+                    <span class="s1">&#39;MAG_0&#39;</span><span class="p">:</span> <span class="n">mag_0</span><span class="p">,</span>
+                    <span class="s1">&#39;MAG_1&#39;</span><span class="p">:</span> <span class="n">mag_1</span><span class="p">,</span>
+                    <span class="s1">&#39;RATE&#39;</span><span class="p">:</span> <span class="n">subcell_rate</span><span class="p">,</span>
+                    <span class="s1">&#39;FLAG&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;PERIOD&#39;</span><span class="p">:</span> <span class="n">period</span>
+                <span class="p">})</span>
+        
+        <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_rows</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Original: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"> coarse grids → Downsampled: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="si">}</span><span class="s2"> 0.1° grids&quot;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    
+<div class="viewcode-block" id="EEPASForecastConverter.aggregate_overlaps">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.forecast_converter.EEPASForecastConverter.aggregate_overlaps">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">aggregate_overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aggregate overlapping grid points (duplicates from bounding box overlaps)</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            data: Downsampled data (pd.DataFrame)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Aggregated data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Aggregating overlapping grid points...&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Round to avoid floating-point precision issues</span>
+        <span class="n">data_copy</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">data_copy</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_copy</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">data_copy</span><span class="p">[</span><span class="s1">&#39;LAT_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_copy</span><span class="p">[</span><span class="s1">&#39;LAT_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        
+        <span class="c1"># Group by 0.1° grid starting point and magnitude</span>
+        <span class="n">group_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">,</span> <span class="s1">&#39;LAT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;MAG_0&#39;</span><span class="p">]</span>
+        
+        <span class="n">agg_funcs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;RATE&#39;</span><span class="p">:</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span>       <span class="c1"># Sum forecast rates</span>
+            <span class="s1">&#39;LON_1&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;LAT_1&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Z_0&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Z_1&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;MAG_1&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;FLAG&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;PERIOD&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span>
+        <span class="p">}</span>
+        
+        <span class="n">aggregated</span> <span class="o">=</span> <span class="n">data_copy</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">group_cols</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">agg_funcs</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Original: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"> grid points → Aggregated: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">aggregated</span><span class="p">)</span><span class="si">}</span><span class="s2"> unique points&quot;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">aggregated</span></div>
+
+    
+<div class="viewcode-block" id="EEPASForecastConverter.convert_period">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.forecast_converter.EEPASForecastConverter.convert_period">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_period</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">start_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">perform_downsampling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid_resolution</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert specific period to PyCSEP format</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            period: Period number (starting from 1)</span>
+<span class="sd">            start_year: Forecast start year (for time range calculation, optional)</span>
+<span class="sd">            output_file: Output file path (optional)</span>
+<span class="sd">            perform_downsampling: Enable spatial downsampling (default: True)</span>
+<span class="sd">            grid_resolution: Downsampling resolution in degrees (default: 0.1)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: PyCSEP-format forecast data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converting Period </span><span class="si">{</span><span class="n">period</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># 1. Extract period data</span>
+        <span class="n">period_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_period</span><span class="p">(</span><span class="n">period</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracted: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">period_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> coarse grid-magnitude bins&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># 2. Spatial downsampling (optional)</span>
+        <span class="k">if</span> <span class="n">perform_downsampling</span><span class="p">:</span>
+            <span class="n">downsampled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spatial_downsampling</span><span class="p">(</span><span class="n">period_data</span><span class="p">,</span> <span class="n">grid_resolution</span><span class="p">)</span>
+            <span class="n">final_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_overlaps</span><span class="p">(</span><span class="n">downsampled</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">final_data</span> <span class="o">=</span> <span class="n">period_data</span>
+        
+        <span class="c1"># 3. Sort</span>
+        <span class="n">final_data</span> <span class="o">=</span> <span class="n">final_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+            <span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">,</span> <span class="s1">&#39;LAT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;MAG_0&#39;</span><span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="c1"># 4. Export file (optional)</span>
+        <span class="k">if</span> <span class="n">output_file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_csep_format</span><span class="p">(</span><span class="n">final_data</span><span class="p">,</span> <span class="n">output_file</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Period </span><span class="si">{</span><span class="n">period</span><span class="si">}</span><span class="s2"> conversion complete!&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Final grid points: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">final_data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">final_data</span></div>
+
+    
+<div class="viewcode-block" id="EEPASForecastConverter.convert_all_periods">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.forecast_converter.EEPASForecastConverter.convert_all_periods">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_all_periods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_period</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_period</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">start_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">perform_downsampling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid_resolution</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert all periods and sum RATE</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            start_period: Starting period (from 1)</span>
+<span class="sd">            end_period: Ending period (None = all)</span>
+<span class="sd">            start_year: Forecast start year (optional)</span>
+<span class="sd">            output_file: Output file path (optional)</span>
+<span class="sd">            perform_downsampling: Enable spatial downsampling</span>
+<span class="sd">            grid_resolution: Downsampling resolution in degrees</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Summed forecast data for all periods</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">end_period</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">end_period</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_periods</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converting All Periods (</span><span class="si">{</span><span class="n">start_period</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">end_period</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="n">all_periods_data</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">period</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_period</span><span class="p">,</span> <span class="n">end_period</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Processing period </span><span class="si">{</span><span class="n">period</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">end_period</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+            
+            <span class="c1"># Extract and downsample</span>
+            <span class="n">period_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_period</span><span class="p">(</span><span class="n">period</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">perform_downsampling</span><span class="p">:</span>
+                <span class="n">downsampled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spatial_downsampling</span><span class="p">(</span><span class="n">period_data</span><span class="p">,</span> <span class="n">grid_resolution</span><span class="p">)</span>
+                <span class="n">all_periods_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">downsampled</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">all_periods_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">period_data</span><span class="p">)</span>
+        
+        <span class="c1"># Combine all periods</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Combining all periods...&quot;</span><span class="p">)</span>
+        <span class="n">combined_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_periods_data</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="c1"># Aggregate: sum RATE by grid and magnitude</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Summing forecast rates across periods...&quot;</span><span class="p">)</span>
+        <span class="n">combined_data</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">combined_data</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">combined_data</span><span class="p">[</span><span class="s1">&#39;LAT_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">combined_data</span><span class="p">[</span><span class="s1">&#39;LAT_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        
+        <span class="n">group_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">,</span> <span class="s1">&#39;LAT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;MAG_0&#39;</span><span class="p">]</span>
+        <span class="n">agg_funcs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;RATE&#39;</span><span class="p">:</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;LON_1&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;LAT_1&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Z_0&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Z_1&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;MAG_1&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;FLAG&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span>
+        <span class="p">}</span>
+        
+        <span class="n">summed_data</span> <span class="o">=</span> <span class="n">combined_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">group_cols</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">agg_funcs</span><span class="p">)</span>
+        
+        <span class="c1"># Sort</span>
+        <span class="n">summed_data</span> <span class="o">=</span> <span class="n">summed_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+            <span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">,</span> <span class="s1">&#39;LAT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;MAG_0&#39;</span><span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">   Before merge: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">combined_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> grid points&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   After summing: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">summed_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> unique grid points&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Export file (optional)</span>
+        <span class="k">if</span> <span class="n">output_file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_csep_format</span><span class="p">(</span><span class="n">summed_data</span><span class="p">,</span> <span class="n">output_file</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">All periods conversion complete!&quot;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">summed_data</span></div>
+
+    
+<div class="viewcode-block" id="EEPASForecastConverter.export_csep_format">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.forecast_converter.EEPASForecastConverter.export_csep_format">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">export_csep_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">output_file</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Export PyCSEP-compatible format</span>
+<span class="sd">        </span>
+<span class="sd">        Format: LON_0 LON_1 LAT_0 LAT_1 Z_0 Z_1 MAG_0 MAG_1 RATE FLAG</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            data: Forecast data (pd.DataFrame)</span>
+<span class="sd">            output_file: Output file path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Exporting PyCSEP format: </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        
+        <span class="c1"># Ensure correct numeric format</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;LON_1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;LON_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;LAT_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;LAT_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;LAT_1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;LAT_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Z_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Z_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Z_1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Z_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MAG_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MAG_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MAG_1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MAG_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RATE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RATE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;FLAG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;FLAG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        
+        <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">,</span> <span class="s1">&#39;LON_1&#39;</span><span class="p">,</span> <span class="s1">&#39;LAT_0&#39;</span><span class="p">,</span> <span class="s1">&#39;LAT_1&#39;</span><span class="p">,</span> <span class="s1">&#39;Z_0&#39;</span><span class="p">,</span> <span class="s1">&#39;Z_1&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;MAG_0&#39;</span><span class="p">,</span> <span class="s1">&#39;MAG_1&#39;</span><span class="p">,</span> <span class="s1">&#39;RATE&#39;</span><span class="p">,</span> <span class="s1">&#39;FLAG&#39;</span><span class="p">]</span>
+        
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">order</span><span class="p">]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;LON_0&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;LON_1&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\t</span><span class="s2">&quot;</span>
+                       <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;LAT_0&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;LAT_1&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\t</span><span class="s2">&quot;</span>
+                       <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Z_0&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Z_1&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\t</span><span class="s2">&quot;</span>
+                       <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;MAG_0&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;MAG_1&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\t</span><span class="s2">&quot;</span>
+                       <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;RATE&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.16e</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;FLAG&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Successfully exported </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows&quot;</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="EEPASForecastConverter.to_pycsep_forecast">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.forecast_converter.EEPASForecastConverter.to_pycsep_forecast">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_pycsep_forecast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;EEPAS_Forecast&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert to PyCSEP GriddedForecast object</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            data: Forecast data (pd.DataFrame)</span>
+<span class="sd">            start_date: Forecast start time (datetime or str)</span>
+<span class="sd">            end_date: Forecast end time (datetime or str)</span>
+<span class="sd">            name: Forecast name (str)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            csep.core.forecasts.GriddedForecast: PyCSEP forecast object</span>
+<span class="sd">        </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; from datetime import datetime</span>
+<span class="sd">            &gt;&gt;&gt; forecast = converter.to_pycsep_forecast(</span>
+<span class="sd">            ...     data=period_data,</span>
+<span class="sd">            ...     start_date=datetime(2012, 1, 1),</span>
+<span class="sd">            ...     end_date=datetime(2012, 3, 31),</span>
+<span class="sd">            ...     name=&#39;EEPAS_2012_Q1&#39;</span>
+<span class="sd">            ... )</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">csep</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;pycsep required: pip install pycsep&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Export to temporary file</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.dat&#39;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+            <span class="n">tmp_file</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_csep_format</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tmp_file</span><span class="p">)</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Handle time</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">start_date</span> <span class="o">=</span> <span class="n">time_utils</span><span class="o">.</span><span class="n">strptime_to_utc_datetime</span><span class="p">(</span><span class="n">start_date</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">end_date</span> <span class="o">=</span> <span class="n">time_utils</span><span class="o">.</span><span class="n">strptime_to_utc_datetime</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
+            
+            <span class="c1"># Load as PyCSEP forecast</span>
+            <span class="n">forecast</span> <span class="o">=</span> <span class="n">csep</span><span class="o">.</span><span class="n">load_gridded_forecast</span><span class="p">(</span>
+                <span class="n">tmp_file</span><span class="p">,</span>
+                <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
+                <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">name</span>
+            <span class="p">)</span>
+            
+            <span class="k">return</span> <span class="n">forecast</span>
+        
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Clean up temporary file</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmp_file</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">tmp_file</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="EEPASForecastConverter.calculate_period_dates">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.forecast_converter.EEPASForecastConverter.calculate_period_dates">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_period_dates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">start_year</span><span class="p">,</span> <span class="n">period_length_months</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate start and end dates for specific period</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            period: Period number (starting from 1)</span>
+<span class="sd">            start_year: Forecast start year</span>
+<span class="sd">            period_length_months: Months per period (default: 3)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (start_date, end_date) as datetime objects</span>
+<span class="sd">        </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; # 3-month periods</span>
+<span class="sd">            &gt;&gt;&gt; start, end = converter.calculate_period_dates(1, 2012, 3)</span>
+<span class="sd">            &gt;&gt;&gt; # 1-year periods</span>
+<span class="sd">            &gt;&gt;&gt; start, end = converter.calculate_period_dates(1, 2012, 12)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">dateutil.relativedelta</span><span class="w"> </span><span class="kn">import</span> <span class="n">relativedelta</span>
+        
+        <span class="c1"># Calculate starting month</span>
+        <span class="n">months_offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">period</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">period_length_months</span>
+        <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">start_year</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">relativedelta</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="n">months_offset</span><span class="p">)</span>
+        
+        <span class="c1"># Calculate end date</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">start_date</span> <span class="o">+</span> <span class="n">relativedelta</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="n">period_length_months</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span></div>
+</div>
+
+
+
+<span class="c1"># ========== Convenience Functions ==========</span>
+
+<div class="viewcode-block" id="convert_eepas_forecast">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.forecast_converter.convert_eepas_forecast">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">convert_eepas_forecast</span><span class="p">(</span><span class="n">forecast_file</span><span class="p">,</span> <span class="n">grid_file</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span>
+                          <span class="n">period</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience function: quick EEPAS forecast conversion.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        forecast_file (str): EEPAS forecast .mat file path</span>
+<span class="sd">        grid_file (str): Grid definition .mat file path</span>
+<span class="sd">        output_file (str): Output PyCSEP format file path</span>
+<span class="sd">        period (int, optional): Period number (None = all periods)</span>
+<span class="sd">        **kwargs: Additional parameters for EEPASForecastConverter</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None: Writes PyCSEP format file to output_file</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; # Convert specific period</span>
+<span class="sd">        &gt;&gt;&gt; convert_eepas_forecast(</span>
+<span class="sd">        ...     &#39;PREVISIONI_3m_EEPAS_2012_2022.mat&#39;,</span>
+<span class="sd">        ...     &#39;CELLE_ter.mat&#39;,</span>
+<span class="sd">        ...     &#39;forecast_period_1.dat&#39;,</span>
+<span class="sd">        ...     period=1</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Convert all periods</span>
+<span class="sd">        &gt;&gt;&gt; convert_eepas_forecast(</span>
+<span class="sd">        ...     &#39;PREVISIONI_3m_EEPAS_2012_2022.mat&#39;,</span>
+<span class="sd">        ...     &#39;CELLE_ter.mat&#39;,</span>
+<span class="sd">        ...     &#39;forecast_all_periods.dat&#39;</span>
+<span class="sd">        ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">converter</span> <span class="o">=</span> <span class="n">EEPASForecastConverter</span><span class="p">(</span><span class="n">forecast_file</span><span class="p">,</span> <span class="n">grid_file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">period</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">converter</span><span class="o">.</span><span class="n">convert_period</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="n">output_file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">converter</span><span class="o">.</span><span class="n">convert_all_periods</span><span class="p">(</span><span class="n">output_file</span><span class="o">=</span><span class="n">output_file</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Conversion complete: </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Simple test example</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EEPAS Forecast Converter - Test Mode&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please use test_forecast_converter.py for complete testing&quot;</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

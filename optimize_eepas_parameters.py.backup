@@ -1,0 +1,679 @@
+#!/usr/bin/env python3
+"""
+EEPAS Parameter Optimization Engine
+
+Three-stage optimization procedure for EEPAS model parameters:
+- Stage 1: Optimize magnitude scaling (am, bm, Sm)
+- Stage 2: Optimize temporal scaling (at, bt, St)
+- Stage 3: Optimize spatial scaling (ba, Sa) and μ
+
+Supports single-stage joint optimization and multiple optimizers.
+"""
+
+import numpy as np
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from eepas_likelihood import eepas_likelihood
+from utils.data_loader import DataLoader
+from utils.fminsearchcon import fminsearchcon
+from scipy.optimize import basinhopping, minimize, differential_evolution
+
+
+def optimize_eepas_parameters(mj, xj, tj, yj, xi, yi, mi, ti,
+                              me, xe, te, ye, W, EW, B, T1, T2, m0,
+                              CELLE, params, config_file='config.json',
+                              multi_start=False, n_starts=3, single_stage=False,
+                              use_basinhopping=False, basinhopping_niter=20, optimizer='fminsearchcon',
+                              region_manager=None, use_fast_mode=False, magnitude_samples=20):
+    """
+    Main function for EEPAS model parameter optimization.
+
+    Seismological meaning:
+        Estimates 8 EEPAS parameters to best fit foreshock-mainshock relationships in the earthquake catalog.
+
+    Args:
+        mj, xj, tj, yj: Target earthquakes (M≥mT, in testing region R during learning period) - paper's j
+        xi, yi, mi, ti: Historical source earthquakes for PPE background (M≥mT, from neighborhood region N) - paper's i
+        me, xe, te, ye: EEPAS foreshocks (M≥m₀)
+        W: Aftershock de-weighting array (wᵢ, reduces aftershock foreshock status)
+        EW: Weight average (E[W])
+        B: Gutenberg-Richter b-value
+        T1, T2: Learning time window
+        m0: Completeness magnitude
+        CELLE: Spatial grid definition
+        params: Other model parameters (PPE parameters, delay, etc.)
+        config_file: Configuration file path
+        multi_start: Whether to use multi-start search (default False, enhances robustness but slower)
+        n_starts: Number of starting points (default 3)
+        single_stage: Whether to use single-stage full parameter optimization (default False, uses three-stage)
+        use_fast_mode: Whether to use fast mode (default False)
+            - True: Use Numba JIT accelerated midpoint rectangle method (fast)
+            - False: Use accurate quad_vec integration (slow but precise)
+        magnitude_samples: Number of sampling points in fast mode (default 20, increase for higher accuracy)
+
+    Returns:
+        result: Dictionary containing optimal EEPAS parameters and negative log-likelihood
+            {'am', 'bm', 'Sm', 'at', 'bt', 'St', 'ba', 'Sa', 'u', 'ln_likelihood'}
+    """
+
+    # Load configuration
+    cfg = DataLoader.load_config(config_file)
+
+    # ===== Output optimization task information =====
+    if single_stage:
+        print('\n╔══════════════════════════════════════════════════════════╗')
+        print('║      EEPAS Single-Stage Full Parameter Optimization      ║')
+        print('╠══════════════════════════════════════════════════════════╣')
+        print(f'║ Target earthquakes (paper\'s j): {len(mj):<25d} ║')
+        print(f'║ EEPAS earthquakes (M≥m₀): {len(me):<29d} ║')
+        print(f'║ PPE source earthquakes (paper\'s i, M≥mT): {len(mi):<14d} ║')
+        print('║                                                          ║')
+        print('║ 🚀 Single-stage: Joint optimization of all 8 parameters ║')
+        print('║    Optimizing: am, Sm, at, bt, St, ba, Sa, u            ║')
+        print('║    Fixed: bm = 0.86                                     ║')
+        print('╚══════════════════════════════════════════════════════════╝\n')
+    else:
+        print('\n╔══════════════════════════════════════════════════════════╗')
+        print('║      EEPAS Three-Stage Parameter Optimization            ║')
+        print('╠══════════════════════════════════════════════════════════╣')
+        print(f'║ Target earthquakes (paper\'s j): {len(mj):<25d} ║')
+        print(f'║ EEPAS earthquakes (M≥m₀): {len(me):<29d} ║')
+        print(f'║ PPE source earthquakes (paper\'s i, M≥mT): {len(mi):<14d} ║')
+        print('║                                                          ║')
+        print('║ 📈 Stage 1: Optimize am, at, Sa, u                      ║')
+        print('║    Fixed: bm=1, bt=0.3, Sm=0.2, St=0.15, ba=0.3         ║')
+        print('║ 📈 Stage 2: Optimize Sm, bt, St, ba, u                  ║')
+        print('║    Fixed: Stage 1 results for am, at, bm, Sa            ║')
+        print('║ 📈 Stage 3: Joint optimization of all 8 parameters      ║')
+        print('╚══════════════════════════════════════════════════════════╝\n')
+
+    # ===== Pre-compute and cache PPE normalization integral =====
+    # Seismological meaning: PPE background integral is invariant during optimization, pre-computation saves significant time
+    # For 8-parameter optimization (potentially hundreds of objective function evaluations), caching can save hours of computation
+    print('⚡ Pre-computing and caching PPE normalization integral...')
+    if '_ppe_integral_cached' not in params:
+        a = params['a']
+        d = params['d']
+        s = params['s']
+        delay = params['delay']
+        m0 = params['m0']
+        mT = params['mT']
+        mu = params.get('mu', 7.5)
+
+        from ppe_optimization import calculate_ppe_normalization
+        Xpol = np.column_stack([CELLE[:, 0], CELLE[:, 0], CELLE[:, 1], CELLE[:, 1]])
+        Ypol = np.column_stack([CELLE[:, 2], CELLE[:, 3], CELLE[:, 3], CELLE[:, 2]])
+        profile_opts = {'mu': mu, 'kernelMagFilter': 'mT', 'integralLower': 'mT'}
+
+        integral_PPE, _, _, _ = calculate_ppe_normalization(
+            a, d, s, B, xi, yi, mi, ti, Xpol, Ypol, CELLE, delay, m0, mT,
+            profile_opts, tj, T1, T2, spatial_samples=40
+        )
+
+        params['_ppe_integral_cached'] = integral_PPE
+        print(f'   ✓ PPE integral cached: {integral_PPE:.6f}')
+    else:
+        print(f'   ✓ Using cached PPE integral: {params["_ppe_integral_cached"]:.6f}')
+    print()
+
+    # ===== Single-stage full parameter optimization =====
+    if single_stage:
+        print('🚀 Single-stage optimization: Joint optimization of all 8 parameters')
+
+        # Read bm (fixed value) from configuration file
+        bm = cfg['optimization']['stage3']['fixedValues']['bm']
+        print(f'   Fixed parameter: bm = {bm:.2f}')
+
+        # Initial values: Combine stage1 and stage2 initial values
+        # stage1: [am, at, Sa, u]
+        # stage2: [Sm, bt, St, ba, u]
+        # stage3 order: [am, Sm, at, bt, St, ba, Sa, u]
+        stage1_init = cfg['optimization']['stage1']['initialValues']  # [am, at, Sa, u]
+        stage2_init = cfg['optimization']['stage2']['initialValues']  # [Sm, bt, St, ba, u]
+
+        x0_single = np.array([
+            stage1_init[0],  # am
+            stage2_init[0],  # Sm
+            stage1_init[1],  # at
+            stage2_init[1],  # bt
+            stage2_init[2],  # St
+            stage2_init[3],  # ba
+            stage1_init[2],  # Sa
+            stage1_init[3]   # u
+        ])
+
+        # Boundary settings: Use stage3 bounds
+        lb_single = np.array(cfg['optimization']['stage3']['lowerBounds'])
+        ub_single = np.array(cfg['optimization']['stage3']['upperBounds'])
+
+        print(f'   Initial values:')
+        print(f'     am={x0_single[0]:.2f}, Sm={x0_single[1]:.2f}, at={x0_single[2]:.2f}, bt={x0_single[3]:.2f}')
+        print(f'     St={x0_single[4]:.2f}, ba={x0_single[5]:.2f}, Sa={x0_single[6]:.2f}, u={x0_single[7]:.2f}')
+
+        iteration_count = [0]
+        def objective_single(P):
+            """
+            Single-stage objective function
+            P = [am, Sm, at, bt, St, ba, Sa, u]
+            """
+            fd, _, _, _ = eepas_likelihood(
+                P[0], bm, P[1], P[2], P[3], P[4], P[5], P[6], P[7],
+                mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
+                W, EW, B, T1, T2, m0, CELLE, params,
+                region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+            )
+            iteration_count[0] += 1
+            if iteration_count[0] % 10 == 0:
+                print(f'   Iteration {iteration_count[0]:4d}: NLL = {fd:.6f}', flush=True)
+            return fd
+
+        # === Select optimization strategy ===
+        if use_basinhopping:
+            # Select local optimizer
+            local_optimizer = optimizer if optimizer in ['L-BFGS-B', 'TNC', 'SLSQP'] else 'L-BFGS-B'
+            print(f'   🏔️  Using Basin-Hopping global optimization (iterations={basinhopping_niter}, local optimizer={local_optimizer})...')
+
+            # Basin-hopping requires boundary constraints
+            from scipy.optimize import Bounds
+            bounds = Bounds(lb_single, ub_single)
+
+            # Silent objective function (basin-hopping calls it many times)
+            def objective_silent(P):
+                fd, _, _, _ = eepas_likelihood(
+                    P[0], bm, P[1], P[2], P[3], P[4], P[5], P[6], P[7],
+                    mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
+                    W, EW, B, T1, T2, m0, CELLE, params,
+                    region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+                )
+                return fd
+
+            # Basin-hopping callback to display progress
+            bh_step = [0]
+            bh_best = [np.inf]
+            def bh_callback(x, f, accept):
+                bh_step[0] += 1
+                if f < bh_best[0]:
+                    bh_best[0] = f
+                    print(f'   → Step {bh_step[0]:3d}: NLL={f:.6f} {"✓Accepted" if accept else ""}', flush=True)
+                return False
+
+            result_bh = basinhopping(
+                objective_silent,
+                x0_single,
+                niter=basinhopping_niter,
+                minimizer_kwargs={
+                    'method': local_optimizer,
+                    'bounds': bounds,
+                    'options': {'maxiter': 500, 'ftol': 1e-6}
+                },
+                callback=bh_callback,
+                seed=42
+            )
+
+            x_final = result_bh.x
+            fval_final = result_bh.fun
+            exitflag = 0 if result_bh.lowest_optimization_result.success else 1
+            output = {
+                'iterations': bh_step[0],
+                'funcCount': result_bh.nfev,
+                'message': f'Basin-hopping completed with {bh_step[0]} steps'
+            }
+            print(f'   ✅ Basin-hopping completed: {bh_step[0]} steps, best NLL={fval_final:.6f}', flush=True)
+
+        elif multi_start:
+            print(f'   🎯 Using multi-start search ({n_starts} starting points, optimizer={optimizer})...')
+
+            # Generate multiple starting points
+            start_points = [x0_single]
+            np.random.seed(42)
+            for i in range(n_starts - 1):
+                # Perturb around initial value (±30% range)
+                perturbation = 0.3 * (2 * np.random.rand(len(x0_single)) - 1)
+                random_start = x0_single * (1 + perturbation)
+                random_start = np.clip(random_start, lb_single, ub_single)
+                start_points.append(random_start)
+
+            # Store all candidate solutions
+            candidates = []
+
+            for i, start_point in enumerate(start_points):
+                print(f'\n   Starting point {i+1}/{n_starts}:')
+                print(f'     am={start_point[0]:.2f}, Sm={start_point[1]:.2f}, at={start_point[2]:.2f}, bt={start_point[3]:.2f}')
+                print(f'     St={start_point[4]:.2f}, ba={start_point[5]:.2f}, Sa={start_point[6]:.2f}, u={start_point[7]:.2f}')
+
+                iteration_count[0] = 0  # Reset counter
+
+                if optimizer == 'fminsearchcon':
+                    x_temp, fval_temp, exitflag_temp, output_temp = fminsearchcon(
+                        objective_single, start_point,
+                        lb=lb_single, ub=ub_single,
+                        options={'maxiter': 10000, 'maxfun': 10000, 'xtol': 1e-8, 'ftol': 1e-6, 'disp': False}
+                    )
+                elif optimizer in ['L-BFGS-B', 'TNC', 'SLSQP', 'Powell']:
+                    if optimizer == 'L-BFGS-B':
+                        # L-BFGS-B: Tighten tolerances (1e-6 still too loose → 1e-7)
+                        result = minimize(
+                            objective_single, start_point,
+                            method=optimizer,
+                            bounds=list(zip(lb_single, ub_single)),
+                            options={'maxiter': 10000, 'maxfun': 10000, 'ftol': 1e-9, 'gtol': 1e-7, 'disp': False}
+                        )
+                    elif optimizer == 'TNC':
+                        # TNC: Keep original settings (performs reasonably)
+                        result = minimize(
+                            objective_single, start_point,
+                            method=optimizer,
+                            bounds=list(zip(lb_single, ub_single)),
+                            options={'maxiter': 10000, 'maxfun': 10000, 'ftol': 1e-9, 'gtol': 1e-3, 'xtol': 1e-8, 'disp': False}
+                        )
+                    elif optimizer == 'SLSQP':
+                        # SLSQP: Tighten tolerances (1e-10 still too loose → 1e-12)
+                        result = minimize(
+                            objective_single, start_point,
+                            method=optimizer,
+                            bounds=list(zip(lb_single, ub_single)),
+                            options={'maxiter': 10000, 'ftol': 1e-12, 'disp': False}
+                        )
+                    elif optimizer == 'Powell':
+                        # Powell uses absolute ftol (same as fmin)
+                        result = minimize(
+                            objective_single, start_point,
+                            method=optimizer,
+                            bounds=list(zip(lb_single, ub_single)),
+                            options={'maxiter': 10000, 'maxfev': 10000, 'ftol': 1e-6, 'xtol': 1e-8, 'disp': False}
+                        )
+                    x_temp = result.x
+                    fval_temp = result.fun
+                    exitflag_temp = 0 if result.success else 1
+                    output_temp = {
+                        'iterations': result.nit if hasattr(result, 'nit') else 0,
+                        'funcCount': result.nfev,
+                        'message': result.message
+                    }
+                else:
+                    raise ValueError(f'Unsupported optimizer: {optimizer}')
+
+                print(f'   → Completed: NLL={fval_temp:.6f}', flush=True)
+                candidates.append((x_temp, fval_temp, exitflag_temp, output_temp))
+
+            # Select the best
+            best_idx = np.argmin([c[1] for c in candidates])
+            x_final, fval_final, exitflag, output = candidates[best_idx]
+
+            print(f'\n   ✅ Best starting point: {best_idx+1}/{n_starts}, NLL={fval_final:.6f}', flush=True)
+
+        else:
+            print(f'   Starting optimization (using {optimizer})...')
+            # Standard single starting point optimization
+            if optimizer == 'fminsearchcon':
+                x_final, fval_final, exitflag, output = fminsearchcon(
+                    objective_single, x0_single,
+                    lb=lb_single, ub=ub_single,
+                    options={'maxiter': 10000, 'maxfun': 10000, 'xtol': 1e-8, 'ftol': 1e-6, 'disp': False}
+                )
+            elif optimizer in ['L-BFGS-B', 'TNC', 'SLSQP', 'Powell']:
+                if optimizer == 'L-BFGS-B':
+                    # L-BFGS-B: Tighten tolerances (1e-6 still too loose → 1e-7)
+                    result = minimize(
+                        objective_single, x0_single,
+                        method=optimizer,
+                        bounds=list(zip(lb_single, ub_single)),
+                        options={'maxiter': 10000, 'maxfun': 10000, 'ftol': 1e-9, 'gtol': 1e-7}
+                    )
+                elif optimizer == 'TNC':
+                    # TNC: Keep original settings (performs reasonably)
+                    result = minimize(
+                        objective_single, x0_single,
+                        method=optimizer,
+                        bounds=list(zip(lb_single, ub_single)),
+                        options={'maxiter': 10000, 'maxfun': 10000, 'ftol': 1e-9, 'gtol': 1e-3, 'xtol': 1e-8}
+                    )
+                elif optimizer == 'SLSQP':
+                    # SLSQP: Tighten tolerances (1e-10 still too loose → 1e-12)
+                    result = minimize(
+                        objective_single, x0_single,
+                        method=optimizer,
+                        bounds=list(zip(lb_single, ub_single)),
+                        options={'maxiter': 10000, 'ftol': 1e-12}
+                    )
+                elif optimizer == 'Powell':
+                    # Powell uses absolute ftol (same as fmin)
+                    result = minimize(
+                        objective_single, x0_single,
+                        method=optimizer,
+                        bounds=list(zip(lb_single, ub_single)),
+                        options={'maxiter': 10000, 'maxfev': 10000, 'ftol': 1e-6, 'xtol': 1e-8}
+                    )
+                x_final = result.x
+                fval_final = result.fun
+                exitflag = 0 if result.success else 1
+                output = {
+                    'iterations': result.nit if hasattr(result, 'nit') else 0,
+                    'funcCount': result.nfev,
+                    'message': result.message
+                }
+            else:
+                raise ValueError(f'Unsupported optimizer: {optimizer}')
+
+        print(f'\n   ✅ Single-stage optimization completed', flush=True)
+        print(f'   exitflag: {exitflag}', flush=True)
+        print(f'   Iterations: {output.get("iterations", "N/A")}', flush=True)
+        print(f'   Function evaluations: {output.get("funcCount", "N/A")}', flush=True)
+        print(f'   Termination reason: {output.get("message", "N/A")}', flush=True)
+        print(f'   Final parameters:', flush=True)
+        print(f'     am={x_final[0]:.6f}, bm={bm:.6f}, Sm={x_final[1]:.6f}', flush=True)
+        print(f'     at={x_final[2]:.6f}, bt={x_final[3]:.6f}, St={x_final[4]:.6f}', flush=True)
+        print(f'     ba={x_final[5]:.6f}, Sa={x_final[6]:.6f}, u={x_final[7]:.6f}', flush=True)
+        print(f'   Final NLL: {fval_final:.6f}\n', flush=True)
+
+        # Return results
+        result = {
+            'am': x_final[0],
+            'bm': bm,
+            'Sm': x_final[1],
+            'at': x_final[2],
+            'bt': x_final[3],
+            'St': x_final[4],
+            'ba': x_final[5],
+            'Sa': x_final[6],
+            'u': x_final[7],
+            'ln_likelihood': -fval_final
+        }
+
+        return result
+
+    # ===== Stage 1: Optimize am, at, Sa, u =====
+    # Seismological meaning:
+    #   - Fix slope parameters (bm, bt, ba), first determine intercepts and spatial scale
+    #   - am: Magnitude intercept (baseline for foreshock-mainshock magnitude prediction)
+    #   - at: Time intercept (baseline for foreshock-mainshock time prediction)
+    #   - Sa: Spatial standard deviation (baseline for foreshock-mainshock location prediction)
+    #   - u: failure-to-predict rate (proportion of earthquakes without foreshock signals)
+    print('🔄 Stage 1: Optimize am, at, Sa, u')
+
+    # Read fixed parameter values from configuration file
+    fixedVals = cfg['optimization']['stage1']['fixedValues']
+    bm = fixedVals['bm']  # Magnitude slope (fixed at 1, linear relationship)
+    Sm = fixedVals['Sm']  # Magnitude standard deviation (initial assumption)
+    bt = fixedVals['bt']  # Time slope (fixed at 0.3, typical empirical value)
+    St = fixedVals['St']  # Time standard deviation (initial assumption)
+    ba = fixedVals['ba']  # Spatial slope (fixed at 0.3, magnitude increase of 1 doubles spatial range)
+
+    print(f'   Fixed parameters: bm={bm:.2f}, Sm={Sm:.2f}, bt={bt:.2f}, St={St:.2f}, ba={ba:.2f}')
+
+    # Read optimization initial values and bounds
+    x0_stage1 = np.array(cfg['optimization']['stage1']['initialValues'])
+    lb_stage1 = np.array(cfg['optimization']['stage1']['lowerBounds'])
+    ub_stage1 = np.array(cfg['optimization']['stage1']['upperBounds'])
+
+    print(f'   Initial values: am={x0_stage1[0]:.2f}, at={x0_stage1[1]:.2f}, Sa={x0_stage1[2]:.2f}, u={x0_stage1[3]:.2f}')
+    print('   Starting optimization...')
+
+    # Define objective function (Stage 1)
+    iteration_count = [0]  # Iteration counter (use list to allow modification in nested function)
+    def objective_stage1(P):
+        """
+        Stage 1 objective function
+        P = [am, at, Sa, u]
+        """
+        # Call EEPAS likelihood function to compute NLL
+        fd, _, _, _ = eepas_likelihood(
+            P[0], bm, Sm, P[1], bt, St, ba, P[2], P[3],  # 8 parameters (4 optimized + 5 fixed)
+            mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
+            W, EW, B, T1, T2, m0, CELLE, params,
+            region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+        )
+        # Output progress every 10 iterations
+        iteration_count[0] += 1
+        if iteration_count[0] == 1 or iteration_count[0] % 10 == 0:
+            print(f'   Iteration {iteration_count[0]:4d}: NLL = {fd:.6f}, am={P[0]:.4f}, at={P[1]:.4f}, Sa={P[2]:.4f}, u={P[3]:.6f}', flush=True)
+        return fd
+
+    # Use constrained optimizer (Nelder-Mead with bounds)
+    # Tolerance settings consistent with MATLAB: xtol=1e-8, ftol=1e-8
+    x_stage1, fval_stage1, exitflag, output = fminsearchcon(
+        objective_stage1, x0_stage1,
+        lb=lb_stage1, ub=ub_stage1,
+        options={'maxiter': 5000, 'xtol': 1e-8, 'ftol': 1e-8, 'disp': False}
+    )
+
+    result_stage1 = type('obj', (object,), {'x': x_stage1, 'fun': fval_stage1})()
+
+    x_stage1 = result_stage1.x
+    print(f'\n   ✅ Stage 1 completed', flush=True)
+    print(f'   Best values: am={x_stage1[0]:.6f}, at={x_stage1[1]:.6f}, Sa={x_stage1[2]:.6f}, u={x_stage1[3]:.6f}', flush=True)
+    print(f'   Stage NLL: {result_stage1.fun:.6f}\n', flush=True)
+
+    am, at, Sa, u = x_stage1
+
+    # ===== Stage 2: Optimize Sm, bt, St, ba, u =====
+    # Seismological meaning:
+    #   - Fix Stage 1 results (am, at, bm, Sa), fine-tune variance and slope parameters
+    #   - Sm: Magnitude standard deviation (dispersion in foreshock-mainshock magnitude prediction)
+    #   - bt: Time slope (influence of magnitude on precursor time)
+    #   - St: Time standard deviation (dispersion in precursor time)
+    #   - ba: Spatial slope (influence of magnitude on foreshock spatial extent)
+    #   - u: Re-optimize failure-to-predict rate
+    print('🔄 Stage 2: Optimize Sm, bt, St, ba, u', flush=True)
+
+    # Initial values (u uses Stage 1 result)
+    init_vals_stage2 = cfg['optimization']['stage2']['initialValues']
+    x0_stage2 = []
+    for val in init_vals_stage2:
+        if isinstance(val, str) and 'u_from_stage1' in val:
+            x0_stage2.append(u)
+        else:
+            x0_stage2.append(float(val))
+    x0_stage2 = np.array(x0_stage2)
+
+    lb_stage2 = np.array(cfg['optimization']['stage2']['lowerBounds'])
+    ub_stage2 = np.array(cfg['optimization']['stage2']['upperBounds'])
+
+    def objective_stage2(P):
+        fd, _, _, _ = eepas_likelihood(
+            am, bm, P[0], at, P[1], P[2], P[3], Sa, P[4],
+            mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
+            W, EW, B, T1, T2, m0, CELLE, params,
+            region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+        )
+        return fd
+
+    # Use Differential Evolution global optimization (insensitive to initial values and fast)
+    use_differential_evolution = False
+
+    if use_differential_evolution:
+        print(f'   🧬 Using Differential Evolution global optimization', flush=True)
+
+        # Boundary constraints (convert to list of (min, max) tuples)
+        bounds_list = list(zip(lb_stage2, ub_stage2))
+
+        # Callback to display progress
+        de_iter = [0]
+        de_best = [np.inf]
+        def de_callback(xk, convergence):
+            de_iter[0] += 1
+            fval = objective_stage2(xk)
+            if fval < de_best[0]:
+                de_best[0] = fval
+                print(f'   → Iteration {de_iter[0]}: NLL={fval:.6f}, Sm={xk[0]:.3f}', flush=True)
+            return False
+
+        result_de = differential_evolution(
+            objective_stage2,
+            bounds_list,
+            strategy='best1bin',
+            maxiter=30,   # Reduce iterations for speed
+            popsize=10,   # Reduce population size
+            tol=1e-6,     # Relax tolerance
+            seed=42,
+            disp=False,
+            workers=1,
+            callback=de_callback
+        )
+
+        x_stage2 = result_de.x
+        fval_stage2 = result_de.fun
+        print(f'   ✅ Differential Evolution completed: {de_iter[0]} generations, best NLL={fval_stage2:.6f}', flush=True)
+        result_stage2 = type('obj', (object,), {'x': x_stage2, 'fun': fval_stage2})()
+
+    elif multi_start:
+        print(f'   🎯 Using multi-start search ({n_starts} starting points) + Stage 3 quick evaluation', flush=True)
+
+        # Prepare Stage 3 bounds in advance
+        lb_stage3 = np.array(cfg['optimization']['stage3']['lowerBounds'])
+        ub_stage3 = np.array(cfg['optimization']['stage3']['upperBounds'])
+
+        # Generate multiple starting points - perturb around initial values rather than completely random
+        start_points = [x0_stage2]
+        np.random.seed(42)  # Fix random seed to ensure reproducibility
+        for i in range(n_starts - 1):
+            # Perturb around initial values (±50% range)
+            perturbation = 0.5 * (2 * np.random.rand(len(x0_stage2)) - 1)  # [-0.5, 0.5]
+            random_start = x0_stage2 * (1 + perturbation)
+            random_start[4] = u + np.random.randn() * 0.05  # u perturbed around stage 1 result
+            random_start = np.clip(random_start, lb_stage2, ub_stage2)
+            start_points.append(random_start)
+
+        # Store all candidate solutions
+        candidates = []
+
+        for i, start_point in enumerate(start_points):
+            print(f'   Starting point {i+1}/{n_starts}: Sm={start_point[0]:.2f}, bt={start_point[1]:.2f}, St={start_point[2]:.2f}, ba={start_point[3]:.2f}, u={start_point[4]:.2f}', flush=True)
+
+            x_temp, fval_temp, _, _ = fminsearchcon(
+                objective_stage2, start_point,
+                lb=lb_stage2, ub=ub_stage2,
+                options={'maxiter': 5000, 'xtol': 1e-8, 'ftol': 1e-8, 'disp': False}
+            )
+
+            print(f'   → Stage 2 NLL={fval_temp:.6f}, Sm={x_temp[0]:.3f}', flush=True)
+
+            # Quick evaluation of Stage 3 final effect
+            x0_stage3_test = np.array([am, x_temp[0], at, x_temp[1], x_temp[2], x_temp[3], Sa, x_temp[4]])
+
+            def objective_stage3_test(P):
+                fd, _, _, _ = eepas_likelihood(
+                    P[0], bm, P[1], P[2], P[3], P[4], P[5], P[6], P[7],
+                    mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
+                    W, EW, B, T1, T2, m0, CELLE, params,
+                    region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+                )
+                return fd
+
+            # Quick 500-step optimization for evaluation (need enough steps to see difference)
+            x_test, fval_test, _, _ = fminsearchcon(
+                objective_stage3_test, x0_stage3_test,
+                lb=lb_stage3, ub=ub_stage3,
+                options={'maxiter': 500, 'xtol': 1e-6, 'ftol': 1e-6, 'disp': False}
+            )
+
+            print(f'   → Stage 3 quick evaluation NLL={fval_test:.6f}', flush=True)
+            candidates.append((x_temp, fval_temp, fval_test))
+
+        # Select best based on Stage 3 evaluation
+        best_idx = np.argmin([c[2] for c in candidates])
+        x_stage2 = candidates[best_idx][0]
+        fval_stage2 = candidates[best_idx][1]
+        print(f'   ✨ Selected starting point {best_idx+1}: Stage 2 NLL={fval_stage2:.6f}, Stage 3 evaluation NLL={candidates[best_idx][2]:.6f}', flush=True)
+
+        result_stage2 = type('obj', (object,), {'x': x_stage2, 'fun': fval_stage2})()
+    else:
+        print(f'   Initial values: Sm={x0_stage2[0]:.2f}, bt={x0_stage2[1]:.2f}, St={x0_stage2[2]:.2f}, ba={x0_stage2[3]:.2f}, u={x0_stage2[4]:.2f}', flush=True)
+        print('   Starting optimization...', flush=True)
+
+        iteration_count[0] = 0
+        def objective_stage2_verbose(P):
+            fd = objective_stage2(P)
+            iteration_count[0] += 1
+            if iteration_count[0] % 10 == 0:
+                print(f'   Iteration {iteration_count[0]:4d}: NLL = {fd:.6f}', flush=True)
+            return fd
+
+        x_stage2, fval_stage2, exitflag, output = fminsearchcon(
+            objective_stage2_verbose, x0_stage2,
+            lb=lb_stage2, ub=ub_stage2,
+            options={'maxiter': 5000, 'xtol': 1e-8, 'ftol': 1e-8, 'disp': False}
+        )
+        result_stage2 = type('obj', (object,), {'x': x_stage2, 'fun': fval_stage2})()
+
+    x_stage2 = result_stage2.x
+    print(f'   ✅ Stage 2 completed', flush=True)
+    print(f'   Best values: Sm={x_stage2[0]:.6f}, bt={x_stage2[1]:.6f}, St={x_stage2[2]:.6f}, ba={x_stage2[3]:.6f}, u={x_stage2[4]:.6f}', flush=True)
+    print(f'   Stage objective value: {result_stage2.fun:.6f}\n', flush=True)
+
+    Sm, bt, St, ba, u = x_stage2
+
+    # ===== Stage 3: Joint optimization of all 8 parameters =====
+    # Seismological meaning:
+    #   - Based on Stages 1 and 2 results, globally optimize all parameters for best fit
+    #   - Simultaneously adjust all parameters to capture parameter interactions
+    #   - P = [am, Sm, at, bt, St, ba, Sa, u] (bm fixed at 1)
+    print('🔄 Stage 3: Joint optimization of all parameters', flush=True)
+
+    # Use Stages 1 and 2 results as initial values
+    x0_stage3 = np.array([am, Sm, at, bt, St, ba, Sa, u])
+    lb_stage3 = np.array(cfg['optimization']['stage3']['lowerBounds'])
+    ub_stage3 = np.array(cfg['optimization']['stage3']['upperBounds'])
+
+    print(f'   Initial values: [{", ".join([f"{v:.2f}" for v in x0_stage3])}]', flush=True)
+    print('   Starting optimization...', flush=True)
+
+    iteration_count[0] = 0
+    def objective_stage3(P):
+        """
+        Stage 3 objective function
+        P = [am, Sm, at, bt, St, ba, Sa, u]
+        """
+        fd, _, _, _ = eepas_likelihood(
+            P[0], bm, P[1], P[2], P[3], P[4], P[5], P[6], P[7],  # 8 parameters (bm=1 fixed)
+            mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
+            W, EW, B, T1, T2, m0, CELLE, params,
+            region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+        )
+        iteration_count[0] += 1
+        if iteration_count[0] % 10 == 0:
+            print(f'   Iteration {iteration_count[0]:4d}: NLL = {fd:.6f}', flush=True)
+        return fd
+
+    # Use fminsearchcon
+    # Enhanced convergence: Increase maxiter and maxfun and reduce tolerance to match MATLAB
+    # Bug fix: Must set both maxiter and maxfun, otherwise limited by maxfun default (200*n)
+    # ftol set to 1e-6: Too small causes premature stop at local oscillations, too large causes insufficient convergence
+    # Testing shows ~3000 function evaluations needed for adequate convergence
+    x_final, fval_final, exitflag, output = fminsearchcon(
+        objective_stage3, x0_stage3,
+        lb=lb_stage3, ub=ub_stage3,
+        options={'maxiter': 10000, 'maxfun': 10000, 'xtol': 1e-8, 'ftol': 1e-6, 'disp': False}
+    )
+
+    result_stage3 = type('obj', (object,), {'x': x_final, 'fun': fval_final})()
+
+    x_final = result_stage3.x
+    print(f'   ✅ Stage 3 completed', flush=True)
+    print(f'   exitflag: {exitflag}', flush=True)
+    print(f'   Iterations: {output.get("iterations", "N/A")}', flush=True)
+    print(f'   Function evaluations: {output.get("funcCount", "N/A")}', flush=True)
+    print(f'   Termination reason: {output.get("message", "N/A")}', flush=True)
+    print(f'   Final parameters:', flush=True)
+    print(f'     am={x_final[0]:.6f}, bm={bm:.6f}, Sm={x_final[1]:.6f}', flush=True)
+    print(f'     at={x_final[2]:.6f}, bt={x_final[3]:.6f}, St={x_final[4]:.6f}', flush=True)
+    print(f'     ba={x_final[5]:.6f}, Sa={x_final[6]:.6f}, u={x_final[7]:.6f}', flush=True)
+    print(f'   Final objective value: {result_stage3.fun:.6f}\n', flush=True)
+
+    # Return results
+    result = {
+        'am': x_final[0],
+        'bm': bm,
+        'Sm': x_final[1],
+        'at': x_final[2],
+        'bt': x_final[3],
+        'St': x_final[4],
+        'ba': x_final[5],
+        'Sa': x_final[6],
+        'u': x_final[7],
+        'ln_likelihood': -result_stage3.fun
+    }
+
+    return result

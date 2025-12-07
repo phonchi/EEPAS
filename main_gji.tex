@@ -1,0 +1,1562 @@
+% gjilguid2e.tex
+% V2.0 released 1998 December 18
+% V2.1 released 2003 October 7 -- Gregor Hutton, updated the web address for the style files.
+% V2.2 released 2024 April 23 - Peter Jones (OUP), updated \pubyear to print current year.
+% V2.3 released 2025 January 20 - Peter Jones (OUP), added support for inclusion of DOI in referebce list
+
+\documentclass[extra,mreferee]{gji}
+\usepackage{timet,color}
+\usepackage[urlcolor=blue,citecolor=black,linkcolor=black]{hyperref}
+\let\proof\relax
+\let\endproof\relax
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{etoolbox}
+
+
+\graphicspath{{Figures/}}
+% Define theorem styles
+
+\newtheoremstyle{lemma}
+  {10pt} {10pt} {\itshape} {} {\bfseries} {.} {.5em} {}
+\theoremstyle{lemma}
+\newtheorem{lemma}{Lemma}
+
+\usepackage{aliascnt}
+\usepackage{cleveref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+% Define custom colors
+\definecolor{codegray}{gray}{0.95}
+\definecolor{commentgreen}{rgb}{0,0.6,0}
+\definecolor{keywordblue}{rgb}{0.2,0.2,0.8}
+\definecolor{stringred}{rgb}{0.6,0.1,0.1}
+
+% Configure listings for Python
+\lstdefinestyle{mypython}{
+    language=Python,
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\footnotesize\linespread{1.1}, 
+    keywordstyle=\color{keywordblue}\bfseries,
+    commentstyle=\color{commentgreen}\itshape,
+    stringstyle=\color{stringred},
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    keepspaces=true,
+    columns=flexible,
+    frame=single,
+    tabsize=4,
+    captionpos=b,
+    numbers=none,
+    xleftmargin=1em,
+    xrightmargin=1em,
+}
+
+% % Define a general lstlisting environment
+% \lstset{style=mypython}
+
+\def\R{\mathbb{R}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\def\ds{\displaystyle}
+\def\v{\vspace{1ex}}
+
+\newtheorem{proposition}{Proposition}
+
+\title[EEPAS Software]
+  {The EEPAS Model Revisited: Statistical Formalism and a High-Performance, Reproducible Open-Source Framework}
+\author[First Author, Second Author and Third Author]
+ {First Author$^1$\thanks{Taiwan}, 
+  Second Author$^1$ and 
+  Third Author$^1$ \\ 
+  $^1$ Taiwan
+ }
+%\date{Received 1998 December 18; in original form 1998 November 22}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+%\volume{200}
+%\pubyear{{\the\year{}}}
+
+%\def\LaTeX{L\kern-.36em\raise.3ex\hbox{{\small A}}\kern-.15em
+%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
+%\def\LATeX{L\kern-.36em\raise.3ex\hbox{{\Large A}}\kern-.15em
+%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
+% Authors with AMS fonts and mssymb.tex can comment out the following
+% line to get the correct symbol for Geophysical Journal International.
+\let\leqslant=\leq
+
+\newtheorem{theorem}{Theorem}[section]
+
+\makeatletter
+\patchcmd{\eqsecnum}
+  {\normalsize} 
+  {}            
+  {\message{Patched \string\eqsecnum (gji.cls)}} 
+  {\message{ERROR: Failed to patch \string\eqsecnum}} 
+
+\patchcmd{\eqsubsecnum}
+  {\normalsize}
+  {}
+  {\message{Patched \string\eqsubsecnum (gji.cls)}}
+  {\message{ERROR: Failed to patch \string\eqsubsecnum}}
+
+\apptocmd{\appendix}
+  {%
+    \renewcommand\theequation{\hbox{\Alph{section}.\arabic{equation}}}%
+    \message{Patched \string\appendix's \string\theequation (gji.cls)}%
+  }
+  {}
+  {\message{ERROR: Failed to patch \string\appendix}} 
+\makeatother
+
+\begin{document}
+
+\label{firstpage}
+
+\maketitle
+
+
+\begin{summary}
+While short-term models such as the Short-Term Earthquake Probability (STEP) and Epidemic-Type Aftershock Sequence (ETAS) are well established and supported by open-source software, medium- to long-term models — notably the Every Earthquake a Precursor According to Scale (EEPAS) and Proximity to Past Earthquakes (PPE) — remain underdocumented and largely inaccessible. Despite outperforming time-invariant models in regional studies, their mathematical foundations are often insufficiently formalized. This study addresses these gaps by formally deriving the EEPAS and PPE models within the framework of inhomogeneous Poisson point processes and clarifying the connection between empirical $\Psi$-scaling regressions and likelihood-based inference. We introduce a fully automated, open-source Python implementation of EEPAS that combines analytical modeling with \texttt{Numba} JIT acceleration, \texttt{NumPy} vectorization, and \texttt{joblib} parallelization, all configured via modular JSON files for usability and reproducibility. Integration with \texttt{pyCSEP} enables standardized evaluation and comparison. Applied to the Italy HORUS dataset, our system reproduces published results within an hour using the same initialization settings. It also delivers a complete pipeline from raw data to parameter estimation, achieving improved log-likelihoods and passing strict consistency tests. The automatically estimated parameters are ready for downstream use, removing the need for manual $\Psi$ identification — a major barrier to adoption. Released under the MIT license, this is the first fully documented, high-performance implementation of EEPAS, advancing reproducible earthquake forecasting.
+\end{summary}
+
+\begin{keywords}
+ EEPAS, PPE, forecasting, acceleration
+\end{keywords}
+
+\section{Introduction}
+
+Earthquake forecasting refers to the probabilistic assessment of earthquake occurrence within a defined time, region, and magnitude range. Earthquakes arise from processes that exhibit both deterministic and stochastic features, with their most predictable aspects being spatial–temporal clustering and frequency–magnitude distributions. Developing reliable forecasting models and understanding earthquake generation are central goals of statistical seismology, requiring the integration of physical and statistical insights. Core empirical laws—such as the Omori–Utsu law for aftershock decay and the Gutenberg–Richter law for magnitude distributions — were statistically derived well before their physical bases were understood. In statistical seismology, earthquake forecasting models are typically categorized as short-term, medium-term, or long-term. Well-known short-term models include the Short-Term Earthquake Probability (STEP) and the Epidemic-Type Aftershock Sequence (ETAS) models. Both are supported by publicly available, well-maintained open-source implementations \cite{jalilian2019etas,mizrahi2021effect,lombardi2017seda,field2003opensha}. In contrast, medium- to long-term models — such as the Every Earthquake a Precursor According to Scale (EEPAS) \cite{RE} and Proximity to Past Earthquakes (PPE) \cite{JK} models — remain largely inaccessible. To the best of our knowledge, no actively maintained open-source implementations of these models currently exist. The only available EEPAS implementation is a MATLAB code \cite{2023ER}, which is difficult to use and extend due to hard-coded paths, undocumented variables, and inefficient computation — issues that hinder reproducibility and large-scale experimentation.
+
+Despite these limitations, EEPAS and PPE are well-established medium- to long-term forecasting models based purely on seismicity. They have been successfully applied to several regional catalogs and consistently outperform time-invariant models in forecasting major earthquakes \cite{2023ER,RE,rhoades2011,rhoades202220}. However, their mathematical foundations are insufficiently documented. First, the EEPAS model is built on empirical linear relationships observed in seismic data, known as the $\Psi$ phenomenon. Yet, this phenomenon has been only superficially analyzed. Early studies relied on manual identification, lacking an objective procedure. Although a recent “rectangular algorithm” was proposed to automate $\Psi$ detection \cite{psi}, it has not been validated within the EEPAS end-to-end forecasting framework. Its code is incomplete, lacking support for resolving multiple $\Psi$ events, visualization routines, and derivation of initialization values for EEPAS. Second, existing studies rarely provide a formal explanation for how deterministic $\Psi$ relationships are transformed into the probabilistic distributions used in the model’s likelihood function. Third, key components of the EEPAS log-likelihood — specifically, the incompleteness correction factor $\Delta(m)$ and the normalization factor $\eta(m)$ — are often presented without formal proofs or transparent derivations. Finally, while Maximum Likelihood Estimation (MLE) of PPE parameters is known to yield models in which the total expected number of events matches the observed count, the theoretical justification for this property is seldom discussed in the literature.
+
+To address these gaps, this study clarifies the mathematical foundations of the PPE and EEPAS models. We derive analytical expressions for both $\Delta(m)$ and $\eta(m)$, revealing how the model accounts for missing data and scales precursor productivity. We formally derive the complete EEPAS log-likelihood, grounding it in the framework of inhomogeneous Poisson point processes. Furthermore, we provide a rigorous rationale linking the empirical $\Psi$ relationships to their probabilistic formulations, thereby strengthening the statistical foundation of the model. We also present a mathematical proof demonstrating that, under specific conditions, the joint MLE procedure inherently yields a model whose rate function integrates to the total number of observed events. Our analysis confirms that parameters estimated from the rectangular algorithm can be effectively incorporated into the EEPAS formulation.
+
+Building on these theoretical advances, we developed a fully automated pipeline that accepts raw earthquake catalogs as input and outputs derived initial parameter estimates. We have completely refactored the EEPAS model, providing a modern, high-performance Python implementation that adheres to the original methodology. Numerical integrations are replaced with analytical solutions wherever possible to reduce computational cost. Core numerical loops are optimized through vectorization and Numba’s just-in-time (JIT) compilation \cite{lam2015numba}, while independent computations — such as per-cell integrations — are parallelized using \texttt{joblib} \cite{joblib-software}. Model parameters, file paths, and runtime settings are managed through a centralized JSON configuration file, enhancing readability, maintainability, and extensibility. The new framework integrates seamlessly with other components of the forecasting workflow. It supports preprocessing modules (e.g., initial value estimation) and post-analysis tools such as \texttt{pyCSEP} \cite{savran2022pycsep,graham2024new}, enabling statistical testing and model comparison for end-to-end earthquake forecasting research. The entire codebase is extensively documented, explaining each module and parameter. Released under the MIT license, the implementation is freely available for academic and commercial use, fostering transparency, reproducibility, and future development in statistical seismology.
+
+
+\section{Mathematical foundation}
+
+% We remark that $\Delta(m)$ can also be written as 
+% \begin{equation}\label{deltam}
+% \Delta(m)=\frac{1}{2}\left[\mbox{erf}\left(\frac{m-a_M-b_Mm_0-\sigma_M^2\beta}{\sqrt{2}\sigma_M}\right)+1\right],
+% \end{equation}
+% where erf denotes the Error function given by 
+% \begin{equation}\label{erf}
+% \mbox{erf}(x)=\frac{2}{\sqrt{\pi}}\int_0^xe^{-t^2}dt.
+% \end{equation}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{EEPAS_model}
+\caption{Schematic illustration of the EEPAS model. The total earthquake rate is composed of a temporally invariant background rate and a summation of precursor rates. Each precursor rate consists of three independent components. All earthquakes — whether background or precursor events — follow the same magnitude distribution, as defined by the Gutenberg–Richter (GR) law.}
+\label{fig:model}
+\end{figure}
+
+% \subsection{Integration of PPE and EEPAS}
+
+The EEPAS model assumes that every earthquake is a potential precursor, with each precursor contributing to the overall rate density. Let the $i$-th earthquake (indexed by its occurrence time), observed in a data collection region $N$, occur at time $t_i \geq t_0$, with magnitude $m_i \geq m_0$ and location $(x_i, y_i)$. Each such event contributes an instantaneous increment $\lambda_i(t,m,x,y)$ to the rate density of future seismicity in its neighborhood, defined as
+\begin{equation}\label{li}
+    \lambda_i(t,m,x,y) = w_i f_i(t) g_i(m) h_i(x,y),
+\end{equation}
+where $w_i$ denotes a weighting factor determined by the aftershock model proposed in \cite{Rhoades}. Here, $t_0$ is the time from which the earthquakes data are taken into consideration and, due to the precision of the measuring instruments, $m_0$ denotes a lower bound of magnitude that earthquakes can be recorded accurately during the period $t\geq t_0$.
+
+To account for earthquakes that occur without identifiable precursors, the full EEPAS model is often combined with the PPE model and defined as
+\begin{equation}\label{ltmxy}
+    \lambda(t,m,x,y) = \mu \lambda_0(t,m,x,y) + \sum_{t_i \geq t_0;\, m_i \geq m_0}^{t - \mathrm{delay}} \eta(m_i) \frac{\lambda_i(t,m,x,y)}{\Delta(m)}.
+\end{equation}
+Here, $\lambda_0(t,m,x,y)$ represents the baseline rate density specified by the PPE model, and $\mu$ denotes the \textit{failure-to-predict rate}—the proportion of earthquakes that occur without a discernible sequence of precursory events. The full integration of these two components is illustrated in \Cref{fig:model}.
+
+Since earthquakes below $m_0$ are excluded, their contribution to the rate is unaccounted for. To compensate for this incompleteness, each $\lambda_i(t,m,x,y)$ is scaled by a factor of $1/\Delta(m)$, where
+\begin{equation*}
+\Delta(m) = \Phi\!\left(\frac{m - a_M - b_M m_0 - \sigma_M^2 \beta}{\sigma_M}\right),
+\end{equation*}
+and $\Phi(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^x e^{-t^2/2}\,dt$ is the standard normal cumulative distribution function. The parameters $a_M$, $b_M$, and $\sigma_M$ define the magnitude component of EEPAS. Meanwhile, $\eta(m)$ is a magnitude-dependent scaling function defined as
+\begin{equation}\label{emi}
+    \eta(m) = \frac{(1 - \mu) b_M}{E(w)} \exp\!\left\{ -\beta \left[ a_M + (b_M - 1)m + \frac{\sigma_M^2 \beta}{2} \right] \right\},
+\end{equation}
+where $E(w)$ denotes the expected value (mean) of the weights $w_i$ of those earthquakes occurred before the one with weight $w$, and $\beta = b_{\mathrm{GR}} \ln 10$, with $b_{\mathrm{GR}}$ denoting the Gutenberg–Richter $b$-value. The derivations of both $\Delta(m)$ and $\eta(m)$ are provided in \Cref{sec:compensation}.
+
+The superscript ${}^{t - \mathrm{delay}}$ in the summation indicates that each precursor’s contribution $\lambda_i$ becomes active only after a short exclusion window (“delay”) following its origin time $t_i$. This delay is introduced to suppress short-term clustering effects (e.g., aftershocks or immediate foreshocks) that could otherwise obscure medium-term precursory patterns. The parameter $\mu \in [0,1]$ serves as a mixture weight representing the contribution from earthquakes without detectable precursors.
+
+Accordingly, the PPE component $\lambda_0 = f_0\,g_0\,h_0$ models the expected space–time–magnitude distribution of earthquakes \emph{in the absence of medium-term precursory build-up}. It provides a baseline intensity, while the precursor component enhances the rate in regions and times where medium-term precursory scaling is evident. The scaling function $\eta(\cdot)$, normalized by $E(w)$, ensures that the integrated contribution from the precursor term averages to $(1 - \mu)$. A complete description of the EEPAS and PPE models is provided in \Cref{sec:model}.
+
+
+\section{Implementation for EEPAS}\label{sec:implementation}
+
+% The implementation of EEPAS consists of four main parts. The first part involves fitting the parameters of $\lambda_0$ in the PPE model. The second part computes the weighting coefficients $w_i$. The third part focuses on fitting the parameters of the EEPAS model, and the final part concerns forecasting.
+
+% The original procedure for fitting and testing the EEPAS model is illustrated in \Cref{fig:Periods}. The available catalog is subdivided into three periods: a warm-up period, a fitting period, and a testing period. The purpose of the warm-up period is to provide information for model fitting. This includes information on precursory earthquakes with magnitudes $M > m_0$ for calibrating the time-varying component, and earthquakes with magnitudes $M > m_T$ for calibrating the background component. 
+
+% The catalog during the warm-up period should be complete for $M > m_T$ to avoid biasing the fit of the background component. Additionally, it must be complete for $M > m_0$ throughout the fitting period, and sufficiently complete during the warm-up period so that most precursors with $M > m_0$—to target earthquakes in the fitting period—are included in the catalog. Some degree of judgment is required here, as larger target magnitudes generally have longer precursor times, as indicated by the $\Psi$ scaling relations.
+
+\subsection{PPE model fitting}
+
+In this step, we estimate the three free parameters $a$, $d$, and $s$ by maximizing the log-likelihood function of a Poisson point process:
+\begin{equation}\label{lnL0}
+\begin{aligned}
+\ln{\mathcal{L}(\lambda_0)} \equiv \sum_{\substack{t_j \in \textcolor{cyan}{[t_s,t_e)}\\ m_j \geq m_T\\ (x_j,y_j)\in R}} \ln{\lambda_0(t_j,m_j,x_j,y_j)}
+- \int_{t_s}^{t_e}\int_{m_T}^{m_u}\iint_{R} \lambda_0(t,m,x,y)\, dA\, dm\, dt,
+\end{aligned}
+\end{equation}
+where $t_s$ and $t_e$ are the starting and ending times of the fitting period, $m_T$ and $m_u$ are the lower and upper bounds of the magnitude range under consideration and $R \subseteq  N$ is the testing Region. Here, $N$ stands for the data collection area. All earthquakes occurring within $[t_s, t_e)$ with magnitudes in $[m_T, m_u]$ are considered in the fit. Therefore, we also call $[t_s,t_e)$ the learning period. A full derivation of the log-likelihood function is provided in \Cref{sec:derive_loglikelihood}.
+
+From \eqref{l0}, we have:
+\begin{equation}\label{l01}
+\begin{aligned}
+\lambda_0(t_j, m_j, x_j, y_j) = &\frac{\beta}{t_j - t_0} \exp[-\beta(m_j - m_T)] \\
+&\times \sum_{\substack{t_i \in [t_0,\,t_j - \mathrm{delay})\\ m_i \geq m_T}} \left[a(m_i - m_T) \frac{1}{\pi} \left( \frac{1}{d^2 + (x_j - x_i)^2 + (y_j - y_i)^2} \right) + s \right],
+\end{aligned}
+\end{equation}
+for all $t_j \in [t_s, t_e)$, provided $m_j \geq m_T$. The first term of \eqref{lnL0} is computed by summing over all $j$ satisfying $t_j \in [t_s, t_e)$. For the second term, we note that if an earthquake occurred before $t_s-\mathrm{delay}$ ($t_i<t_s-\mathrm{delay}$), the time integral spans $[t_s, t_e]$. If the earthquake occurred after $t_s-\mathrm{delay}$ ($t_i\geq t_s-\mathrm{delay}$) and before $t_e-\mathrm{delay}$ ($t_i<t_e-\mathrm{delay}$), the time integral spans $[t_i + \mathrm{delay}, t_e]$. Thus, the second term becomes:
+\begin{equation}\label{l02}
+\begin{aligned}
+&\int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_{R} \lambda_0(t,m,x,y)\, dA\, dm\, dt \\
+&= \sum_{\substack{t_i \in [t_0,\, t_s - \mathrm{delay})\\ m_i \geq m_T}} 
+\left[ \int_{t_s}^{t_e} f_0(t)\, dt \right] 
+\left[ \int_{m_T}^{m_u} g_0(m)\, dm \right] 
+\left[ \iint_R h_{0i}(x,y)\, dA \right] \\
+&\quad + \sum_{\substack{t_i \in [t_s - \mathrm{delay},\, t_e - \mathrm{delay})\\ m_i \geq m_T}} 
+\left[ \int_{t_i + \mathrm{delay}}^{t_e} f_0(t)\, dt \right] 
+\left[ \int_{m_T}^{m_u} g_0(m)\, dm \right] 
+\left[ \iint_R h_{0i}(x,y)\, dA \right].
+\end{aligned}
+\end{equation}
+
+\noindent Here, index $j$ refers to observed events in the fitting window $[t_s, t_e)$ with $m_j \ge m_T$, at which $\lambda_0$ is evaluated. Index $i$ refers to historical source events that contribute to the spatial proximity field via $h_{0i}$, drawn from the data collection region $N$. In \eqref{l01}, for each fixed $j$, the sum is over all $i$ with $t_i \in [t_0, t_j - \mathrm{delay})$ and $m_i \ge m_T$. In \eqref{l02}, each $i$ contributes a block whose time integral starts at $\max(t_s,\, t_i + \mathrm{delay})$. The functions $f_0$ and $g_0$ are not indexed by $i$ because they depend only on the evaluation variables $t$ and $m$. The integrals are computed as follows (noting $f_0(t) = \frac{1}{t - t_0}$ for $t > t_0$ and $g_0(m) = \beta e^{-\beta(m - m_T)}$ for $m \ge m_T$):
+\begin{equation}
+\begin{aligned}
+\int_{t_s}^{t_e} f_0(t)\, dt &= \ln(t - t_0)\bigg|_{t_s}^{t_e} 
+= \ln(t_e - t_0) - \ln(t_s - t_0), \\
+\int_{t_i + \mathrm{delay}}^{t_e} f_0(t)\, dt 
+&= \ln(t - t_0)\bigg|_{t_i + \mathrm{delay}}^{t_e} 
+= \ln(t_e - t_0) - \ln(t_i + \mathrm{delay} - t_0), \\
+\int_{m_T}^{m_u} g_0(m)\, dm 
+&= \exp[-\beta(m_T - m_0)] - \exp[-\beta(m_u - m_0)].
+\end{aligned}
+\end{equation}
+
+The spatial integral $\iint_R h_{0i}(x,y)\, dA$ is evaluated numerically on the finite region $R$. To find the optimal parameters $a$, $d$, and $s$, we minimize $-\ln \mathcal{L}(\lambda_0)$ using constrained Nelder–Mead optimization. A detailed discussion of the optimization process for the PPE model is provided in \Cref{sec:derive_ppe}.
+
+
+\subsection{Computing weighting coefficients \texorpdfstring{$w_i$}{wi}}
+% \footnotesize{\textcolor{red}{(This subsection has been rearranged.)}}
+As proposed in \cite{RE}, the weighting coefficients $w_i$ are determined by a model allowing aftershocks \eqref{l'tmxy}.
+To estimate the aftershock parameters, we fit $(\nu, \kappa)$ by maximizing the log-likelihood function in \eqref{lnL'} over all earthquakes with $m \ge m_T$ that occurred within region $R$ during the interval $[t_s, t_e)$, \emph{conditional on a fixed} Bath-type lower bound $\delta$.
+
+\begin{equation}\label{lnL'}
+\begin{aligned}
+\ln{\mathcal{L}(\lambda')} \equiv \sum_{\substack{t_j \in [t_s,t_e)\\ m_j \ge m_T\\ (x_j,y_j) \in R}} \!\! \ln{\lambda'(t_j,m_j,x_j,y_j)} 
+- \int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_{R} \lambda'(t,m,x,y)\, dA\, dm\, dt.
+\end{aligned}
+\end{equation}
+
+Let $(t_j, m_j, x_j, y_j)$ denote the time, magnitude, and location of the $j$-th earthquake that occurred in the learning period $[t_s,t_e)$. For the first term in \eqref{lnL'}, since PPE model has been fitted in the previous step, $\lambda_0(t_j, m_j, x_j, y_j)$ can now be computed by \eqref{l01}. Besides, based on \eqref{l'itmxy}--\eqref{h2ixy}, the aftershock density function $\lambda_i'(t_j, m_j, x_j, y_j)$, where $t_i < t_j$, is given by:
+\begin{equation*}
+\begin{aligned}
+\lambda_i'(t_j, m_j, x_j, y_j) ={} & \frac{p - 1}{(t_j - t_i + c)^p} \, H(m_i - \delta - m_j)\, \beta \exp\!\left[ -\beta(m_j - m_i) \right] \\
+& \times \frac{1}{2\pi \sigma_U^2 10^{m_i}} \exp\!\left[ -\frac{(x_j - x_i)^2 + (y_j - y_i)^2}{2 \sigma_U^2 10^{m_i}} \right]
+\end{aligned}
+\end{equation*}
+Here, the parameter $\delta$ is fixed at $0.7$ as was used in \cite{2023ER,RE}.  
+
+For the second term in \eqref{lnL'}, the triple integral corresponding to the PPE background component is approximated as:
+\begin{equation*}
+\begin{aligned}
+\int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_R \lambda_0(t, m, x, y)\, dA\, dm\, dt 
+&= \int_{t_s}^{t_e} f_0(t)\, dt \int_{m_T}^{m_u} g_0(m)\, dm \iint_R h_0(x, y)\, dA \\
+&= \ln \frac{t_e - t_0}{t_s - t_0} \left[ \exp\!\big[-\beta(m_T - m_0)\big] - \exp\!\big[-\beta(m_u - m_0)\big] \right] \\
+& \times \iint_R h_0(x, y)\, dA
+\end{aligned}
+\end{equation*}
+See Appendix E for the detail. On the other hand, the triple integral for each $\lambda_i'$ can be calculated as follows:
+\begin{equation*}
+\begin{aligned}
+    \int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_R \nu\, \lambda_i'(t, m, x, y)\, dA\, dm\, dt 
+    & = \int_{t_s}^{t_e} f_i'(t)\, dt \int_{m_T}^{m_u} g_i'(m)\, dm \iint_R h_i'(x, y)\, dA \\
+    & = I_t(t_s, t_e \mid t_i)I_m(m_T, m_u \mid m_i, \delta)\iint_R h_i'(x, y),
+\end{aligned}
+\end{equation*}
+where
+\begin{align}    
+I_t(t_s, t_e \mid t_i) 
+= \int_{\max\{t_s, t_i\}}^{t_e} \frac{p - 1}{(t - t_i + c)^p}\, dt \notag 
+= \left(\max\{t_s, t_i\} - t_i + c \right)^{1 - p} - (t_e - t_i + c)^{1 - p},
+%\label{Itj} 
+\end{align}
+and
+\begin{align}
+I_m(m_T, m_u \mid m_i, \delta) 
+= \int_{m_T}^{\min\{m_u, m_i - \delta\}} \beta\, e^{-\beta(m - m_i)}\, dm \notag 
+= e^{-\beta(m_T - m_i)} - e^{-\beta(\min\{m_u, m_i - \delta\} - m_i)}.
+\label{Imj}
+\end{align}
+For the integral of $h_i'$, we compute the exact integral of the bivariate Gaussian over each rectangular tile $[X_1, X_2] \times [Y_1, Y_2]$ (in km) covering $R$. With $\sigma_i = \sigma_U\, 10^{m_i/2}$, the integral is:
+\begin{equation*}
+\begin{aligned}
+\iint_{[X_1, X_2] \times [Y_1, Y_2]} h'_i(x, y)\, dA 
+&= \iint_{[X_1, X_2] \times [Y_1, Y_2]} \frac{1}{2\pi \sigma_i^2} \exp\!\left( -\frac{(x - x_i)^2 + (y - y_i)^2}{2\sigma_i^2} \right)\, dx\, dy \\
+&= \frac{1}{4} \left[ \operatorname{erf}\!\left( \frac{X_2 - x_i}{\sqrt{2} \sigma_i} \right) - \operatorname{erf}\!\left( \frac{X_1 - x_i}{\sqrt{2} \sigma_i} \right) \right] \times \left[ \operatorname{erf}\!\left( \frac{Y_2 - y_i}{\sqrt{2} \sigma_i} \right) - \operatorname{erf}\!\left( \frac{Y_1 - y_i}{\sqrt{2} \sigma_i} \right) \right].
+\end{aligned}
+\end{equation*}
+where erf$(x)$ denotes the error function defined by
+\begin{align*}
+%\Phi(z) = \frac{1}{2} \left[1 + \mathrm{erf}\left(\frac{z}{\sqrt{2}}\right)\right], \quad 
+\mathrm{erf}(x) = \frac{2}{\sqrt{\pi}} \int_0^x e^{-t^2} dt.
+\end{align*}
+If region $R$ is composed of multiple rectangles, we sum this expression over all such tiles. 
+
+The parameters $\nu$ and $\kappa$ are constrained to be non-negative, i.e., $\nu \ge 0$ and $\kappa \ge 0$, when fitting. Once $(\nu, \kappa)$ are estimated, the weighting coefficients $w_i$ can be computed via \eqref{wi}. Furthermore, when evaluating $\eta(m_i)$ in \eqref{ltmxy}, the term  $E(w_i)$ as defined in \eqref{emi}, which is computed over all events up to time $t_i$ with $m \ge m_0$,
+\begin{equation*}
+E(w_i) = \frac{1}{i} \sum_{k = 1}^{i} w_k,
+\end{equation*}
+is also obtained.
+
+
+\subsection{Fitting parameters in EEPAS model}
+We estimate the parameters \textcolor{red}{appeared in the EEPAS model \eqref{ltmxy}} by maximizing the log-likelihood function:
+\begin{equation}\label{lnL}
+\begin{aligned}
+\ln{\mathcal{L}(\lambda)} \equiv \sum_{\substack{t_j \in [t_s, t_e)\\ m_j \ge m_T\\ (x_j, y_j) \in R}} \ln{\lambda(t_j, m_j, x_j, y_j)} 
+- \int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_{R} \lambda(t, m, x, y)\, dA\, dm\, dt.
+\end{aligned}
+\end{equation}
+While the likelihood targets events with $m \ge m_T$, events with $m \in [m_0, m_T)$ still contribute as precursors in the summation term $\sum_i$ via \eqref{ltmxy}.
+
+The second term in \eqref{lnL} becomes:
+\begin{equation*}
+\begin{aligned}
+\int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_{R} \lambda(t, m, x, y)\, dA\, dm\, dt 
+={}& \mu \int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_{R} \lambda_0(t, m, x, y)\, dA\, dm\, dt \\
+& + \sum_{t_i \ge t_0,\, m_i \ge m_0}^{t - \text{delay}} 
+\left( \int_{t_s}^{t_e} f_i(t)\, dt \right) \\
+& \times \left( \int_{m_T}^{m_u} \frac{\eta(m_i)\, w_i}{\Delta(m)}\, g_i(m)\, dm \right) \\
+& \times \left( \iint_{R} h_i(x, y)\, dA \right).
+\end{aligned}
+\end{equation*}
+
+The first term is computed exactly as in the PPE section, using the magnitude range $[m_T, m_u]$. For the second term, we first evaluate the time integral $\int_{t_s}^{t_e} f_i(t)\, dt$.
+
+Due to the ${}^{t - \text{delay}}$ convention, the lower limit becomes $\max(t_s,\, t_i + \text{delay})$. Letting $s = \log_{10}(t - t_i)$ (base-10, so $ds = \frac{dt}{(t - t_i)\ln 10}$), and defining $\mu_i = a_T + b_T m_i$, we have two cases:
+
+\paragraph{Case 1: $t_i \le t_s - \text{delay}$.}
+\begin{eqnarray}\label{intfi_case1}
+\int_{t_s}^{t_e} f_i(t)\, dt 
+&=& \int_{\log_{10}(t_s - t_i)}^{\log_{10}(t_e - t_i)} \frac{1}{\sigma_T \sqrt{2\pi}} 
+\exp\!\left[-\frac{1}{2} \left( \frac{s - \mu_i}{\sigma_T} \right)^2 \right] ds \notag \\
+&=& \frac{1}{2} \left[ \operatorname{erf}\!\left( \frac{\log_{10}(t_e - t_i) - \mu_i}{\sqrt{2}\sigma_T} \right)
+- \operatorname{erf}\!\left( \frac{\log_{10}(t_s - t_i) - \mu_i}{\sqrt{2}\sigma_T} \right) \right].
+\end{eqnarray}
+
+\paragraph{Case 2: $t_s - \text{delay} < t_i < t_e - \text{delay}$.}
+\begin{eqnarray}\label{intfi_case2}
+\int_{t_s}^{t_e} f_i(t)\, dt 
+&=& \int_{t_i + \text{delay}}^{t_e} \frac{1}{(t - t_i)\ln 10\, \sigma_T \sqrt{2\pi}} 
+\exp\!\left[-\frac{1}{2} \left( \frac{\log_{10}(t - t_i) - \mu_i}{\sigma_T} \right)^2 \right] dt \notag \\
+&=& \frac{1}{2} \left[ \operatorname{erf}\!\left( \frac{\log_{10}(t_e - t_i) - \mu_i}{\sqrt{2}\sigma_T} \right)
+- \operatorname{erf}\!\left( \frac{\log_{10}(\text{delay}) - \mu_i}{\sqrt{2}\sigma_T} \right) \right].
+\end{eqnarray}
+\textcolor{red}{Therefore, the time integral can be written in a unified form
+\[
+\int_{t_s}^{t_e} f_i(t)\, dt
+= \frac{1}{2} \left[
+\operatorname{erf}\!\left( \frac{\log_{10}(t_e - t_i) - \mu_i}{\sqrt{2} \sigma_T} \right)
+- \operatorname{erf}\!\left( \frac{\log_{10}(\max\{t_s,\, t_i + \text{delay}\} - t_i) - \mu_i}{\sqrt{2} \sigma_T} \right)
+\right],
+\]
+which reduces to \eqref{intfi_case1} or \eqref{intfi_case2} in the respective cases. If $t_i \ge t_e - \text{delay}$, then $\int_{t_s}^{t_e} f_i(t)\, dt = 0$. (content rearranged.)}
+
+Next, the magnitude integral
+\[
+\int_{m_T}^{m_u} \frac{\eta(m_i)}{\Delta(m)}\, g_i(m)\, dm
+\]
+is computed numerically. \textcolor{red}{(Add some statements about the numerical method?) }
+
+For the spatial integral $\iint_R h_i(x, y)\, dA$, since the number of events with $m \ge m_0$ is large, direct quadrature over $R$ may be computationally expensive. To accelerate, we divide $R$ into rectangular subregions $[X_\ell, X_r] \times [Y_d, Y_u]$ and exploit the separability of $h_i(x, y)$:
+\begin{eqnarray}
+\iint_{R} h_i(x, y)\, dA 
+&=& \sum_{\text{subregions}} \left\{ \int_{X_\ell}^{X_r} \frac{1}{\sqrt{2\pi} \sigma_A 10^{\frac{b_A m_i}{2}}} 
+\exp\!\left[ -\frac{(x - x_i)^2}{2 \sigma_A^2 10^{b_A m_i}} \right] dx \right. \notag \\
+&& \hspace{2cm} \times \left. \int_{Y_d}^{Y_u} \frac{1}{\sqrt{2\pi} \sigma_A 10^{\frac{b_A m_i}{2}}} 
+\exp\!\left[ -\frac{(y - y_i)^2}{2 \sigma_A^2 10^{b_A m_i}} \right] dy \right\} \notag \\
+&=& \frac{1}{4} \sum_{\text{subregions}} \left[ \operatorname{erf}\!\left( \frac{X_r - x_i}{\sqrt{2}\, \sigma_A 10^{b_A m_i / 2}} \right) 
+- \operatorname{erf}\!\left( \frac{X_\ell - x_i}{\sqrt{2}\, \sigma_A 10^{b_A m_i / 2}} \right) \right] \notag \\
+&& \times \left[ \operatorname{erf}\!\left( \frac{Y_u - y_i}{\sqrt{2}\, \sigma_A 10^{b_A m_i / 2}} \right) 
+- \operatorname{erf}\!\left( \frac{Y_d - y_i}{\sqrt{2}\, \sigma_A 10^{b_A m_i / 2}} \right) \right].
+\label{inth1i}
+\end{eqnarray}
+
+
+
+
+\subsection{Optimization of EEPAS}
+
+We are now in a position to fit the parameters of the EEPAS model. In our simulations, we consider earthquakes with magnitudes no smaller than $m_0$ and focal depths shallower than 40 kilometers.
+
+The initial estimate for the $\Psi$ phenomenon is obtained following the method described in \cite{psi}. For parameter optimization, we apply constrained Nelder–Mead optimization to search for a local minimum of $-\ln \mathcal{L}(\lambda)$ under box constraints. Following the procedure outlined in \cite{2023ER} and \cite{RE}, we fit the parameters in three steps:
+
+\begin{itemize}
+    \item \textbf{Step 1:} Fix the values of $b_M$, $\sigma_M$, $b_T$, $\sigma_T$, and $b_A$, and fit the four parameters $a_M$, $a_T$, $\sigma_A$, and $\mu$.
+    
+    \item \textbf{Step 2:} Using the estimates obtained in Step 1, we proceed to fit $\sigma_M$, $b_T$, $\sigma_T$, $b_A$, and $\mu$, with their initial values taken from Step 1.
+    
+    \item \textbf{Step 3:} Fit all eight parameters jointly—$a_M$, $a_T$, $\sigma_A$, $\sigma_M$, $b_T$, $\sigma_T$, $b_A$, and $\mu$—while keeping $b_M$ fixed. The initial values for $a_M$, $a_T$, and $\sigma_A$ are taken from Step 1, and the initial values for $\sigma_M$, $b_T$, $\sigma_T$, $b_A$, and $\mu$ are taken from Step 2.
+\end{itemize}
+
+Throughout the procedure, all geographic coordinates (longitude and latitude) are projected into kilometers for consistency with the model’s spatial components.
+
+\textcolor{red}{We remark that the procedure of fitting those parameters can be chosen in our algorithm according to the users' needs. In fact, according to our experiments, a different optimization order might possibly lead to a larger log-likelyhood. Also, in addition to the constrained Nelder-Mead optimization, our algorithm  also provides other choices of optimization methods for fitting. For the detail, see Section ?. (Describe some advantages of our code?)}
+
+
+
+\subsection{Forecasting via EEPAS model}
+\textcolor{red}{We are now in a position to discuss the forecast via the optimized EEPAS model. To compute the forecast rate density $\lambda(t, m, x, y)$ in \eqref{ltmxy}, we evaluate integrals over specified time periods $[t_e,t_f)$, magnitude intervals $[M_1,M_2]$, and region $S$. That is, we sum up all the rate density in the set $[t_e,t_f)\times [M_1,M_2]\times S$:
+\begin{align*}
+    &\int_{t_e}^{t_f} \!\int_{M_1}^{M_2} \!\iint_S (t, m, x, y)\, dA\, dm\, dt \\[1ex]
+    &= \mu \left( \int_{t_e}^{t_f} f_0(t)\, dt \right) \left( \int_{M_1}^{M_2} g_0(m)\, dm \right) 
+       \iint_S h_0(x, y)\, dA \\[1ex]
+    &\quad + \sum_{\substack{t_i \le t_e-{\footnotesize\mbox{delay}}\\ m_i \ge m_0}} \eta(m_i)\, w_i
+       \left( \int_{t_e}^{t_f} f_i(t)\, dt \right)
+       \left( \int_{M_1}^{M_2} \tfrac{g_i(m)}{\Delta(m)}\, dm \right)
+       \left( \iint_S h_i(x, y)\, dA \right).
+\end{align*}
+Here $h_0(x,y)$ sums those earthquakes which occurred in the data collection region $N$ with $t_i<t_e-$delay and $m_i\geq m_T$. For convenience, we set $S$ to be a rectangular region $[X_\ell,X_r]\times [Y_d,Y_u]$. The integrals of $f_0,g_0,f_i,h_i$ are computed explicitly as
+\begin{align*}
+&\int_{t_e}^{t_f} f_0(t)\, dt = \ln(t_f - t_0) - \ln(t_e - t_0), \\
+&\int_{M_1}^{M_2} g_0(m)\, dm = \exp\!\left[-\beta(M_1 - m_T)\right] - \exp\!\left[-\beta(M_2 - m_T)\right],\\
+&\int_{t_e}^{t_f} f_i(t)\, dt
+ = \frac{1}{2} \left[
+  \operatorname{erf}\!\left( \frac{\log_{10}(t_f - t_i) - a_T - b_T m_i}{\sqrt{2}\, \sigma_T} \right)
+- \operatorname{erf}\!\left( \frac{\log_{10}(t_e - t_i) - a_T - b_T m_i}{\sqrt{2}\, \sigma_T} \right)
+\right].
+\end{align*}
+and
+\begin{align*}
+\iint_S h_i(x, y)\, dA
+&= \frac{1}{4}
+\left[
+  \operatorname{erf}\!\left( \frac{X_r - x_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+- \operatorname{erf}\!\left( \frac{X_\ell - x_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+\right] \\
+&\quad \times
+\left[
+  \operatorname{erf}\!\left( \frac{Y_u - y_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+- \operatorname{erf}\!\left( \frac{Y_d - y_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+\right],
+\end{align*}
+and the integrals $\iint_S h_0^{\,T_c}(x, y)\, dA$ and $\int_{m_1}^{m_2} \tfrac{g_i(m)}{\Delta(m)}\, dm$ are computed numerically.}
+
+
+
+%To compute the forecast rate density $\lambda^{(\tau)}(t, m, x, y)$ in \eqref{ltmxy}, we evaluate integrals over specified time periods, magnitude intervals, and regions. Let the \emph{issue time} be $\tau = s_1$ and define the \emph{knowledge cutoff} as $T_c = \tau - \mathrm{delay}$. In a prospective forecast, the catalog is \emph{frozen at $T_c$}: only events with $t_j \le T_c$ in the testing region $R$, and precursor events with $t_i \le T_c$ in the neighborhood region $N$, are allowed to contribute. Events occurring in the forecast window $(s_1, s_2)$ are \emph{not} used to construct this snapshot; they are used only later for verification.
+
+%For a forecast window $(s_1, s_2)$, magnitude interval $(m_1, m_2)$, and spatial region $S = [X_\ell, X_r] \times [Y_d, Y_u]$, we compute:
+%\begin{align*}
+%    &\int_{s_1}^{s_2} \!\int_{m_1}^{m_2} \!\iint_S \lambda^{(\tau)}(t, m, x, y)\, dA\, dm\, dt \\[1ex]
+%    &= \mu \left( \int_{m_1}^{m_2} g_0(m)\, dm \right) \left( \int_{s_1}^{s_2} f_0(t)\, dt \right)
+%       \underbrace{\iint_R h_0^{\,T_c}(x, y)\, dA}_{\mathrm{baseline field frozen at } T_c} \\[1ex]
+%    &\quad + \sum_{\substack{t_i \le T_c\\ m_i \ge m_0}} \eta(m_i)\, w_i
+%       \left( \int_{s_1}^{s_2} f_i(t)\, dt \right)
+%       \left( \int_{m_1}^{m_2} \tfrac{g_i(m)}{\Delta(m)}\, dm \right)
+%       \left( \iint_R h_i(x, y)\, dA \right).
+%\end{align*}
+
+%We define the frozen baseline field by
+%\[
+%h_0^{\,T_c}(x, y) := \sum_{i:\, t_i \le T_c} h_{0i}(x, y),
+%\]
+%so that
+%\[
+%\iint_R h_0^{\,T_c}(x, y)\, dA = \sum_{i:\, t_i \le T_c} \iint_R h_{0i}(x, y)\, dA.
+%\]
+%This construction \emph{freezes} the information set and prevents any look-ahead bias or data leakage into the forecast window.
+
+%\smallskip
+%All scalar terms are evaluated either in closed form or numerically as follows:
+%\begin{align*}
+%\int_{s_1}^{s_2} f_0(t)\, dt &= \ln(s_2 - t_0) - \ln(s_1 - t_0), \\
+%\int_{m_1}^{m_2} g_0(m)\, dm &= \exp\!\left[-\beta(m_1 - m_T)\right] - \exp\!\left[-\beta(m_2 - m_T)\right],
+%\end{align*}
+%and the integrals $\iint_R h_0^{\,T_c}(x, y)\, dA$ and $\int_{m_1}^{m_2} \tfrac{g_i(m)}{\Delta(m)}\, dm$ are computed numerically.
+
+%\smallskip
+%For the precursor time component, since $t_i \le T_c = s_1 - \mathrm{delay}$ implies $t_i + \mathrm{delay} \le s_1$, we have:
+%\begin{align*}
+%\int_{s_1}^{s_2} f_i(t)\, dt
+%= \frac{1}{2} \left[
+%  \operatorname{erf}\!\left( \frac{\log_{10}(s_2 - t_i) - a_T - b_T m_i}{\sqrt{2}\, \sigma_T} \right)
+%- \operatorname{erf}\!\left( \frac{\log_{10}(s_1 - t_i) - a_T - b_T m_i}{\sqrt{2}\, \sigma_T} \right)
+%\right].
+%\end{align*}
+
+%The spatial component over a rectangle $S = [X_\ell, X_r] \times [Y_d, Y_u]$ has the closed form:
+%\begin{align*}
+%\iint_R h_i(x, y)\, dA
+%&= \frac{1}{4}
+%\left[
+%  \operatorname{erf}\!\left( \frac{X_r - x_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+%- \operatorname{erf}\!\left( \frac{X_\ell - x_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+%\right] \\
+%&\quad \times
+%\left[
+%  \operatorname{erf}\!\left( \frac{Y_u - y_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+%- \operatorname{erf}\!\left( \frac{Y_d - y_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+%\right].
+%\end{align*}
+
+%\medskip
+%\noindent\emph{Notes.}
+%\begin{enumerate}
+%    \item[(i)] In forecasting mode, $h_0(x, y)$ is evaluated using the frozen field $h_0^{\,T_c}$ (i.e., using events up to $T_c$).
+%    \item[(ii)] The two-piece time-splitting strategy used during parameter fitting is \emph{not} employed here, since no seed event is %allowed to “enter” the forecast window. All contributions are finalized at issue time $\tau$.
+%\end{enumerate}
+
+
+
+\section{The Framework}
+
+The framework is illustrated in \Cref{fig:framework}. It is built upon Python and the \texttt{SciPy} ecosystem \cite{virtanen2020scipy}, allowing seamless integration with visualization tools such as \texttt{Matplotlib} \cite{Hunter:2007} and \texttt{CartoPy} \cite{Cartopy}, and enabling interactive analysis within \texttt{Jupyter Notebook} \cite{kluyver2016jupyter}. In addition, we leverage numerical packages such as \texttt{NumPy} \cite{harris2020array}, \texttt{Numba}, and \texttt{Joblib} to support vectorization, parallelization, and just-in-time (JIT) compilation. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{framework_overview.png}
+    \caption{The proposed framework and software stack. (a) Perform exploratory data analysis and estimate seismological parameters. The framework integrates seamlessly with parameter estimation packages and is built upon widely used plotting libraries. (b) Fit the EEPAS and PPE models. Model fitting and forecasting are accelerated using vectorization, parallelization, and just-in-time (JIT) compilation. (c) Generate forecasts and conduct analysis and visualization. (d) The module can be seamlessly integrated with popular statistical testing tools.}
+    \label{fig:framework}
+\end{figure}
+
+All model parameters, file paths, and runtime settings are controlled through a centralized JSON configuration file. This eliminates hard-coded values and allows users to easily adapt the model to different datasets, initialization strategies, or optimization algorithms without modifying the source code. The code is organized into distinct, well-defined modules, enhancing readability, maintainability, and extensibility for both developers and end users.
+
+The framework is designed to integrate smoothly with other essential tools in the earthquake forecasting workflow. We provide connectors for preprocessing modules such as \texttt{SeismoStats} \cite{Mirwald2025}, as well as post-analysis tools such as \texttt{pyCSEP}, which support statistical testing and model comparison—enabling a complete end-to-end research pipeline. The entire codebase is thoroughly documented, with clear explanations of the function of each module and parameter.
+
+\begin{figure}
+\centering
+\includegraphics[width=.9\textwidth]{Format}
+\caption{(a) Example of catalog data. (b) Diagram illustrating warm-up, learning, and testing periods. (c) Definition of the cell-based or polygonal two-dimensional study region.}
+\label{fig:format}
+\end{figure}
+
+
+\subsection{Data Preparation and Seismological Parameter Estimation}
+
+To initiate the workflow, the user first provides a standard earthquake catalog containing essential information. Let the $i$-th earthquake (indexed by its occurrence time), observed in a data collection region $N$, occur at time $t_i$, with magnitude $m_i \geq m_0$ and location $(x_i, y_i)$. A typical earthquake catalog is shown in \Cref{fig:format}(a). The catalog is divided into three periods: a warm-up period, a learning period, and a testing period, as illustrated in \Cref{fig:format}(b). The user must specify the start and end times of the learning period, denoted by $t_s$ and $t_e$, respectively. By default, $t_0$ is set to the time of the first event in the catalog \textcolor{red}{(there might be a problem on the influence of the first earthquake since $f_0(t_0)$ does not exist and, to be consistent with our setting, the time of the first earthquake should be $t_1$?)}, and $t_f$ is set to the time of the last event. The warm-up period provides critical information for model learning. This includes precursory earthquakes with magnitude $M > m_0$, which inform the time-varying component of EEPAS, and earthquakes with magnitude $M > m_T$, which inform the background component of PPE.
+
+To specify the study region, the geographical setup includes two regions: the neighborhood region $N$ and the testing region $R$, both defined using either a rectangular grid or an irregular polygonal boundary, as shown in \Cref{fig:format}(c). For cell-based regions, the user must specify the bounding box using $x_{\min}, x_{\max}, y_{\min}, y_{\max}$. For polygonal regions, the area is defined by the coordinates of the polygon’s vertices in clockwise order, with no repetitions. The neighborhood region $N$ must strictly contain the testing region $R$ to avoid boundary effects—namely, the truncation of precursor events outside $R$ that may influence target events near the edge. Similarly, the difference between $m_T$ and $m_0$ should be at least 2.0. This follows from the first $\Psi$ scaling relation, which suggests that the largest precursors are typically one magnitude unit smaller than the mainshock, with many even smaller. To support this setup, we provide a robust projection module that performs geographically appropriate transformations. This replaces naive latitude/longitude-to-kilometer conversions, ensuring that the coordinates are suitable for subsequent spatial analysis.
+
+Once the data are prepared and the relevant parameters and regions are specified, users can apply \texttt{SeismoStats}, which offers various b-value estimators for quantifying the relative frequency of small versus large earthquakes. Additionally, we provide a fully automated pipeline that takes raw earthquake catalogs as input and outputs initial parameter estimates to initialize the EEPAS model. Specifically, the rectangular algorithm described in \cite{psi} has been implemented to detect the $\Psi$ phenomenon, identifying all sets of precursory variables $\{M_p, T_p, A_p\}$ for each mainshock. Deriving the $\Psi$ scaling relations requires addressing a significant statistical challenge inherent in the data structure. The dataset contains multiple $\Psi$ identifications (observations) nested within each mainshock (group), introducing a within-group negative correlation between precursory area ($A_P$) and precursory time ($T_P$)—the so-called “space-time trade-off.” A naive Ordinary Least Squares (OLS) regression applied to the pooled data fails to distinguish this \textit{within-mainshock} trade-off from the true \textit{between-mainshock} scaling relationship of interest, resulting in biased and inconsistent estimators.
+
+To resolve this issue, a two-stage estimation procedure is employed. First, the common $A_P$–$T_P$ trade-off slope ($b$) is estimated using a fixed-effects (or “within”) estimator. This model isolates the variation \textit{within} each mainshock by demeaning the variables relative to their group-specific means, providing a robust estimate of the shared trade-off slope across mainshocks. In the second stage, this estimated slope is used to remove the confounding effect. Rather than relying on simple arithmetic means—which would be biased—we compute "projected representative points" for each mainshock. This statistical projection adjusts each mainshock’s mean $\log A_P$ and $\log T_P$ along the common trade-off slope ($b$) to a single reference point (the global mean $\overline{\log A_P}$ or $\overline{\log T_P}$). The result is a purified dataset in which each mainshock is represented by a single observation corrected for the internal trade-off. In the third step, standard OLS regression is applied to this projected dataset to obtain unbiased estimates of the true \textit{between-mainshock} scaling relations among $\log A_P$, $\log T_P$, and $M_P$. The resulting regression coefficients serve as the initial parameter estimates. For example, in estimating the time–magnitude relation $\log T_P = a_T + b_T M_P$, the initial values for the intercept ($a_T$) and slope ($b_T$) are taken directly from the regression output, while the standard deviation $\sigma_T$ is set to the residual standard error (RSE), which quantifies the spread of residuals around the fitted line.
+
+Finally, users can perform exploratory data analysis and visualization using modules built on top of \texttt{Matplotlib} and \texttt{CartoPy}, and conduct interactive analysis within \texttt{Jupyter Notebook}.
+
+
+
+\subsection{Model Fitting and Acceleration}
+
+Acceleration is achieved through a multi-faceted approach targeting key computational bottlenecks, primarily by leveraging analytical simplifications, vectorization, and parallelization.
+
+Core numerical loops are first optimized using \texttt{NumPy} vectorization and \texttt{Numba}’s Just-In-Time (JIT) compilation. JIT compilation significantly speeds up computationally intensive low-level loops when operations are implemented with \texttt{NumPy}. For example, the log-likelihood evaluation involves deeply nested loops over thousands of events, which is inefficient in pure Python. By implementing these calculations using \texttt{NumPy} and applying \texttt{Numba}’s \texttt{@njit} decorator, the functions are compiled into efficient machine code, substantially reducing runtime, as illustrated in \Cref{lst:numba}.
+
+
+\begin{figure}
+\begin{lstlisting}[style=mypython]
+from numba import njit, prange
+import numpy as np
+
+@njit(parallel=True, fastmath=True)
+def compute_event_terms_fast(num_targets):
+    log_lambda_values = np.zeros(num_targets)
+    for i in prange(num_targets):
+        # Complex calculations for each event
+        log_lambda_values[i] = np.log(i + 1.0)
+    return np.sum(log_lambda_values)
+\end{lstlisting}
+\caption{Accelerating event term computation using Numba}
+\label{lst:numba}
+\end{figure}
+
+Process-based parallelism is also used to distribute independent high-level tasks across multiple CPU cores. This is especially effective when the implementation depends on pure Python or SciPy routines. For example, the forecast module requires performing hundreds of independent 2D numerical integrals (one per grid cell), each of which is computationally expensive. A serial implementation is prohibitively slow. We employ Joblib to parallelize such embarrassingly parallel tasks. With \texttt{joblib.Parallel}, independent calls to \texttt{dblquad} are distributed across CPU cores, bypassing Python’s Global Interpreter Lock (GIL), as shown in \Cref{lst:joblib}.
+
+\begin{figure}
+\begin{lstlisting}[style=mypython]
+from joblib import Parallel, delayed
+from scipy.integrate import dblquad
+
+def compute_cell_integral(i):
+    result, _ = dblquad(...)
+    return result
+
+ExpE = np.array(Parallel(n_jobs=-1)(
+    delayed(compute_cell_integral)(i)
+    for i in range(celln)
+))
+\end{lstlisting}
+\caption{Parallelizing integrals using \texttt{joblib}}
+\label{lst:joblib}
+\end{figure}
+
+At a lower level, algorithmic substitution was employed to replace numerical integration with analytical solutions wherever possible. For example, one- and two-dimensional Gaussian integrals are evaluated using the error function, as discussed previously. Although \texttt{erf} is itself defined via an integral, standard libraries implement it using fast polynomial approximations or rational expansions. As a result, replacing numerical quadrature with \texttt{erf} calls offers substantial performance gains.
+
+For integrals that cannot be evaluated analytically — such as the spatial kernel integral $\iint_R h_{0i}(x,y)\,dA$ and the EEPAS magnitude integral
+\[
+\int_{m_T}^{m_u} \frac{\eta(m_i)}{\Delta(m)}\, g_i(m)\,dm,
+\]
+a hybrid integration strategy is adopted. Two modes are available. In \emph{accuracy mode}, adaptive quadrature is applied using SciPy’s \texttt{dblquad} or the vectorized \texttt{quad\_vec} routine, when vectorization is feasible. The \texttt{quad\_vec} algorithm adaptively subdivides subintervals with the largest estimated errors, enabling partial parallelization while preserving accuracy. In \emph{fast mode}, fixed-grid trapezoidal integration with user-defined resolution is used. This method is considerably faster and can be further accelerated with Numba.
+
+The trade-off between accuracy and speed is user-configurable. For instance, during the learning phase, fixed-grid integration is typically sufficient for smooth normalization terms and intermediate optimization steps where ultra-high precision is not required. In contrast, during the forecasting phase, adaptive methods may be preferable for final evaluations where numerical precision is critical, albeit with greater computational cost.
+
+
+
+
+
+% Finally, we also provide a Gauss–Legendre quadrature option, which achieves higher accuracy than trapezoidal integration for the same number of points. This method is implemented in Numba to eliminate the overhead associated with SciPy's integration routines.
+
+
+
+
+% \begin{table*}
+% \tbl{Table caption goes here. This is a model two-column table.\label{tab01}}
+%     {\begin{tabular}{p{0.3\textwidth} p{0.3\textwidth} p{0.35\textwidth}}
+%         \toprule
+%         \textbf{Method} & \textbf{Where Used} & \textbf{Rationale (The Trade-off)} \\
+%         \midrule
+%         \textbf{Adaptive Quadrature} \newline (\texttt{dblquad}) & General forecasting, e.g., \texttt{ppe\_make\_forecast.py} & \textbf{High Precision, High Cost.} Best for final calculations where accuracy is paramount, but too slow for iterative optimization. \\
+%         \midrule
+%         \textbf{Fixed-Grid Trapezoidal} & PPE Normalization \newline (\texttt{ppe\_optimization.py}) & \textbf{High Speed, Lower Precision.} Much faster and easily accelerated by Numba. Sufficient for smooth functions in the normalization term where extreme precision is not critical. \\
+%         \midrule
+%         \textbf{Gauss-Legendre Quadrature} & Aftershock Cauchy Kernel  & \textbf{High Efficiency.} Offers higher accuracy than trapezoidal for the same number of points. Implemented in Numba to avoid SciPy overhead entirely. \\
+%         \bottomrule
+%     \end{tabular}}
+% \end{table*}
+
+
+On the other hand, in constrained optimization, if the true optimal value of a parameter lies outside the predefined search space, the optimizer can only converge to a suboptimal point on the boundary, resulting in biased parameter estimates. To address this issue, we implement an automated workflow that iteratively adjusts parameter boundaries. The procedure is as follows: run the full EEPAS optimization; identify parameters that have converged too close to their specified bounds; if any such cases are detected, automatically expand the corresponding boundaries and re-run the optimization.  A parameter is considered to be hitting a boundary if its estimated value lies within a small fraction (default: 1\%) of the total boundary range. For small-valued parameters, such as variances, a more robust absolute tolerance is used instead. When a problematic boundary is detected, it is widened by an expansion factor (default: 2.0), while strictly respecting the physical constraints of the EEPAS model. In particular, variance terms and slope parameters are constrained to remain strictly positive (e.g., lower bounds floored at $10^{-6}$), and the proportion parameter $u$ is constrained to the interval $[0,1]$. The boundary adjustment loop terminates when no parameters are hitting their bounds, or when the improvement in the negative log-likelihood (NLL) becomes negligible.
+
+By default, we use the constrained Nelder–Mead simplex algorithm as the primary optimizer. However, users are free to select alternative methods, such as the Truncated Newton Constrained (TNC) algorithm, the Limited-memory Broyden–Fletcher–Goldfarb–Shanno algorithm with bound constraints (L-BFGS-B), or the Sequential Least Squares Quadratic Programming (SLSQP) algorithm. In addition, users may enable Basin-Hopping or multistart optimization strategies to escape local minima.
+
+
+
+% These results conﬁrm the different characteristics of the models ETAS and EEPAS. The latter model seems more appropriate than the ETAS model for making forecasts of the long-term seismicity, even if the small number of target shocks suggest some caution. The reason of such different behaviours can be that ETAS model is focused on short time clustering while EEPAS model to long time cluster
+
+% The Every Earthquake a Precursor According to Scale (EEPAS) model was introduced by Evison and Rhoades (2004) and Rhoades and Evison (2004).  Although it shares the key principle of the ETAS model of describing earthquake rate as the sum of a background term and the sum of rate contributions of prior events, the specific way in which prior events contribute to the forecasted rate differs substantially from the ETAS formulation. There is no suggestion that each earthquake may trigger its own offspring. Rather, each earthquake is regarded as evidence of a medium‐term seismogenic process taking place on the scale indicated by its magnitude (Rhoades, 2007). The probabilistic distribution of an earthquake's contribution is lognormal in time, isotropic bivariate normal in space and normal in magnitude (Rhoades & Evison, 2004).  The EEPAS model is underpinned by the observation that prior to most large earthquakes the rate and magnitude of smaller earthquakes increases in the source region of the large earthquake. This precursory scale increase ($\Psi$‐phenomenon) takes place within a precursor time T P and precursory area A P . Evison and Rhoades (2004) showed that T P , A P , and the mainshock magnitude M m all scale with the precursor magnitude M P (defined as the average of the three largest precursory earthquake magnitudes). Thus, M P is predictive of the time, magnitude and location of forthcoming mainshocks. The assumption behind EEPAS is that the three Ψ predictive relations are pervasive at all scales in the seismogenic process. The model regards every earthquake as a precursor, according to scale, of larger earthquakes expected to follow it in the coming months, years, or decades, depending on its magnitude and the regional earthquake rate. The EEPAS model is a well‐established medium‐term earthquake forecast model that is purely based on seismicity. When fitting the model, earthquake catalog data are considered from a time when the catalog is mostly complete above a minimum magnitude threshold. The model attempts to forecast earthquakes above a target magnitude threshold about two units higher than the minimum magnitude threshold. The contribution of each
+% earthquake is only included 50 days after its occurrence to prevent aftershock clustering from skewing the fitting of the model. For forecasting, EEPAS uses fixed, previously optimized parameters.
+%
+
+\subsection{Forecasting}
+Our platform implements a Pseudo-prospective Mode to generate forecasts, simulating a realistic operational environment. This approach rigorously evaluates the model by applying it to historical data that were not used during calibration \cite{rhoades2011, rhoades202220, 2023ER}. A core principle of this mode is its “one-time calibration” strategy: model parameters are calibrated once using a designated historical learning period and are then held fixed throughout the entire test period. As emphasized by \cite{rhoades202220}, this fixed-parameter approach ensures forecast stability and prevents overfitting to the test data, enabling a robust assessment of predictive performance.
+
+Forecast generation operates on a 3-month rolling mechanism, which balances parameter stability with the incorporation of new seismic data. While model parameters remain fixed, the forecasts are updated by including newly observed earthquakes from the test period as they occur (after a processing delay). Specifically, an initial 3-month forecast is generated using the calibrated parameters. For each subsequent 3-month window, the expected rates ($\lambda$) are recomputed by integrating the newly occurred events. This rolling process allows the model to account for the dynamic influence of recent seismicity—crucial for capturing precursory effects \cite{rhoades2011}—while maintaining the forecast stability advocated by \cite{christophersen2010}.
+
+Finally, the platform produces forecasts in the form of a gridded base forecast. Predictions are discretized into spatial cells of $0.1^\circ \times 0.1^\circ$ (longitude/latitude) and magnitude bins of width 0.1. The final output specifies the expected number of earthquakes within each space–magnitude bin, providing a standardized format suitable for evaluation.
+
+
+\subsection{Tests for Grid-Based Forecasts}
+
+Our platform streamlines forecast evaluation by generating gridded base forecasts that are directly compatible with the \texttt{pyCSEP} toolkit. This seamless integration allows users to rigorously assess forecast performance using \texttt{pyCSEP}'s comprehensive suite of statistical tests.
+
+These evaluations are broadly categorized into consistency tests and comparative scoring rules. Consistency tests evaluate whether the observed seismicity is statistically consistent with the forecast. This includes fundamental checks such as the log-likelihood test (L-test) and the number test (N-test), both of which can be applied using either Poisson or Negative Binomial distributions—the latter accommodating the overdispersion commonly observed due to earthquake clustering. \texttt{pyCSEP} also supports domain-specific tests, including the spatial test (S-test) and magnitude test (M-test), which assess whether the forecast accurately captures the spatial and magnitude distributions of observed events.
+
+Beyond consistency, \texttt{pyCSEP} facilitates the comparison and ranking of different models through scoring rules. These include the log-likelihood score for overall model fit, the Brier score \cite{glenn1950verification} — which is particularly suitable for evaluating rare events—and the Kagan information score \cite{kagan2009testing}, which quantifies the forecast's spatial informativeness relative to a reference model.
+
+By producing \texttt{pyCSEP}-ready outputs, our platform enables researchers to efficiently validate, compare, and refine their earthquake forecast models using established statistical benchmarks.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Italy_region.png}
+    \caption{The testing region ($R$) within the larger neighborhood region ($N$).}
+    \label{fig:italy_region}
+\end{figure}
+
+\section{Evaluations}
+
+\subsection{Reproducing the Results from Literature}
+
+To demonstrate the efficacy of our framework in real-world applications and its ability to reproduce results from the literature, we first apply it to the Italy region and attempt to replicate the results presented in \cite{2023ER}. Following \cite{2023ER}, the testing region $R$ consists of a regular grid of $30\sqrt{2}$ km square cells covering Italy. Only those cells that contain at least one earthquake with $M \ge 4.0$ occurring inland between 1600 and 1959 (according to the CPTI15 catalog \cite{rovida2020italian}) or between 1960 and 2021 (according to the Homogenized Instrumental Seismic [HORUS] catalog \cite{lolli2020homogenized}) are included, in order to ensure catalog completeness. Cells that are not contiguous with the main analysis polygon are also excluded, yielding a total of 177 square cells. The neighborhood region $N$ is defined by the CPTI15 polygon, as in \cite{rovida2020italian}, to avoid edge effects. These two regions are illustrated in \Cref{fig:italy_region}.
+
+The HORUS catalog from 1960 to 2021 is used in the following analysis. The learning period spans from 1990 to 2011 for fitting the EEPAS model, while the pseudo-prospective testing period is from 2012 to 2021. Consistent with \cite{2023ER}, the minimum magnitude threshold is set to $m_0 = 2.45$, the target magnitude threshold to $m_T = 4.95$, and the delay time to 50 days. Only shallow earthquakes with depth $Z \le 40$ km are included. 
+
+Other seismological parameters are also set to match those in \cite{2023ER}: the $b$-value in the Gutenberg–Richter law is fixed at 1.084; the Omori–Utsu parameters are set to $p = 1.2$ and $c = 0.03$; the standard deviation $\sigma_U$ used in the aftershock model is set to 0.006; and the Bath law offset $\delta$ is set to 0.7. The initial values for the $\Psi$ phenomenon are also adopted from \cite{2023ER}, as shown in \Cref{tbl:reproducing}. Finally, longitude and latitude coordinates are projected into the RDN2008 Italy Zone (East–North) system using our projection module.
+
+
+\begin{table}
+\centering
+\caption{Reproduction of the results from \cite{2023ER} using the same parameter settings and reporting the resulting optimized values. Parameters are set according to \cite{2023ER} whenever explicitly specified; otherwise, default values are taken from the original MATLAB implementation. During optimization, the magnitude–frequency slope parameter $b_m$ is fixed at 1.} \label{tbl:reproducing}. 
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Parameter} & \textbf{Bounds} & \textbf{Initial values} & \textbf{Our results} & \textbf{Paper \cite{2023ER}} \\
+\midrule
+$a_m$         & 1.0--2.0 & 1.50 & 1.23                 & 1.23                    \\
+$b_m$         & - & 1.00 & 1.00                  & 1.00                    \\
+$\sigma_m$    & 0.2--0.65 & 0.32 & 0.24                  & 0.24                    \\
+$a_t$         & 1.0--3.0 & 1.50 & 2.59                 & 2.71                    \\
+$b_t$         & 0.3--0.65 & 0.40 & 0.35                  & 0.32                    \\
+$\sigma_t$    & 0.15--0.6 & 0.23 & 0.15                  & 0.15                    \\
+$b_a$         & 0.2--0.6 & 0.35& 0.50                  & 0.51                    \\
+$\sigma_a$    & 1.0--30.0 & 2.0 & 1.00                  & 1.00                    \\
+$u$           & 0--1 & 0.2 & 0.17                  & 0.16                    \\
+$a$           & $\ge 0$& 0.005 & 0.62                  & 0.62               \\
+$d$           & $\ge 1$& 10.0 & 29.64                 & 30                   \\
+$s$           & $\ge 1e-15$& 0.1 & 1e-15                  & $9\times1e-13$                   \\
+$\nu$           & 0--1& 0.5 & 0.58                  & 0.61                    \\
+$k$           & $\ge 0$ & 0.1 & 0.21                  & 0.13	                    \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+We first perform PPE learning and apply joint optimization to estimate the parameters $a$, $d$, and $s$, as summarized in \Cref{tbl:reproducing}. The optimized values of $a$ and $d$ closely match those reported in \cite{2023ER}, while $s$ converges to a very small value near its lower bound. The triple integral of $\lambda_0$ over the learning period using the optimized $a$, $d$, and $s$ yields a value of 27, which is consistent with the number of observed target events with $M \ge 4.95$ from 1990 to 2011. The resulting log-likelihood is $-514.105$, which closely aligns with the reported value of $-514.11$ in the original experiments.
+
+Next, we use the fitted values of $a$, $d$, and $s$ to estimate the aftershock model by maximizing the likelihood of earthquakes with $m \ge m_T$ occurring within region $R$ during the same learning period (1990–2011). The optimized value of $\nu$, representing the proportion of earthquakes that are not aftershocks, is 0.58 — closely matching the 0.61 reported in \cite{2023ER}. The normalization constant $k$ shows a slight deviation from the original result, which may be attributed to minor differences in the filtering criteria applied to the HORUS dataset that were not explicitly reported, or to unmentioned initialization settings in the original implementation.
+
+We then use the parameters $a$, $d$, $s$, $\nu$, and $k$ to compute the weights for each earthquake and proceed with EEPAS model fitting. Following the three-stage fitting procedure described in \cite{2023ER}, we obtain the final parameter estimates shown in \Cref{tbl:reproducing}. Again, all parameter values are in close agreement with those from the original experiment. The largest deviations occur in $b_t$ and $a_t$, but these are within $5$–$10\%$. The resulting log-likelihood is $-495.394$, which also closely matches the original value of $-496.06$.
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Italy_paper_CLtest.png}
+        \caption{cL-test}
+        \label{fig:italy_cltest}
+    \end{subfigure}
+    \hfill 
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Italy_paper_Ntest.png}
+        \caption{N-test}
+        \label{fig:italy_ntest}
+    \end{subfigure}
+   
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Italy_paper_Mtest.png}
+        \caption{M-test}
+        \label{fig:italy_mtest}
+    \end{subfigure}
+    \hfill 
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Italy_paper_Stest.png}
+        \caption{S-test}
+        \label{fig:italy_stest}
+    \end{subfigure}
+    \caption{The results of the consistency tests in the testing set (2012–2021). 
+    (a) Conditional likelihood consistency test (cL-test). 
+    (b) Number consistency test (N-test). 
+    (c) Magnitude consistency test (M-test). 
+    (d) Spatial consistency test (S-test).}
+    \label{fig:italy_paper_tests}
+\end{figure}
+
+We then set the prediction intervals to 3 months and generate the 3-month rolling forecasts in gridded forecast format. A set of new CSEP consistency tests, based on a binary likelihood function, is applied to the forecasts during the testing period. For the $\sigma$ parameter in the Negative Binomial Distribution (NBD), we use $\sqrt{67.76}$, consistent with the setting in \cite{2023ER}. The results are shown in \Cref{fig:italy_paper_tests}. As observed, the output passes all consistency tests, including the Negative Binomial N-test, the binary conditional likelihood (CL) test, and the binary spatial (S) test. Since the model assumes a Gutenberg–Richter frequency–magnitude distribution, it also passes the Poisson M-test.
+
+Overall, this experiment confirms that our framework can be readily used to reproduce results reported in the literature when provided with the same initial parameters. Furthermore, the entire pipeline completes within one hour on a typical notebook equipped with 8 CPU cores, demonstrating the framework’s computational efficiency.
+
+
+
+\begin{figure}
+    \centering
+    
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{final_scaling_ap_mp.png}
+        \caption{$A_P$ versus $M_p$}
+        \label{fig:ApMp}
+    \end{subfigure}
+    \hfill 
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{final_scaling_tp_mp.png}
+        \caption{$T_P$ versus $M_p$}
+        \label{fig:TpMp}
+    \end{subfigure}
+    \hfill 
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{final_scaling_mm_mp.png}
+        \caption{$M_m$ versus $M_p$}
+        \label{fig:MmMp}
+    \end{subfigure}
+    \caption{Scatterplot and fitted scaling relations derived from the algorithmic identification of the $\Psi$ phenomenon using the rectangular algorithm. Each point represents a precursor–mainshock pair, and the fitted lines illustrate the empirical scaling relationships between precursory time, area, and mainshock magnitude.}
+    \label{fig:scaling_italy}
+\end{figure}
+
+\subsection{An End-to-End Workflow}
+
+Here, we conduct a full end-to-end analysis for the Italy region. The study regions $R$ and $N$, the learning and testing periods, the catalog used, and the depth filtering criteria are all identical to those described in the previous subsection. The target magnitude is set to $m_T = 4.95$. Following general recommendations from \cite{rhoades202220}, we set the minimum magnitude threshold to $m_0 = 2.95$, approximately two units below $m_T$.
+
+After determining the above parameters, we estimate the $b$-value using the b-more-positive method \cite{lippiello2024b} via the \texttt{SeismoStats} package, yielding a value of 1.036. The values for $\sigma_U$, $p$, $c$, and the delay parameter are kept consistent with those in the previous subsection. For initializing the EEPAS model, the original procedure in \cite{2023ER} relied on a manual and labor-intensive process for identifying $\Psi$ patterns in earthquake catalogs. Here, we replace this with our automated pipeline, using a search radius of 400 km. The resulting scaling relationships are shown in \Cref{fig:scaling_italy}, with $R^2$ values of 0.70, 0.68, and 0.77, respectively—indicating strong empirical correlations. Initial parameter values are derived from the slopes, intercepts, and residual standard errors obtained through linear regression; the results are summarized in \Cref{tbl:parameters_opt}.
+
+We then perform PPE learning to estimate the parameters $a$, $d$, and $s$, and verify that the triple integral of $\lambda_0$ over the learning period matches the observed number of events. Following this, we conduct aftershock fitting to obtain the parameters $\nu$ and $k$. Finally, we perform EEPAS fitting using the above parameters and initial values. The results are also reported in \Cref{tbl:parameters_opt}. Notably, we enable the automatic boundary adjustment method during optimization, ensuring that the optimal solution typically lies in the interior of the feasible region rather than on its boundary. The resulting log-likelihood is $-483$, which is better than the result obtained in the previous subsection, demonstrating the improved efficacy of the complete pipeline.
+
+
+
+\begin{table}
+\centering
+ \caption{Initial and optimized parameter values for the end-to-end pipeline. Initial EEPAS parameters are computed using the rectangular algorithm and estimated via fixed-effects regression.}  \label{tbl:parameters_opt}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Parameter} & \textbf{Initial Value} & \textbf{Optimized Value} \\
+\midrule
+$a_m$         & 2.322                 & 3.506                    \\
+$b_m$         & 0.764                  & 0.764                    \\
+$\sigma_m$    & 0.143                  & 0.339                    \\
+$a_t$         & -1.061                 & 2.004                    \\
+$b_t$         & 0.852                  & 0.006                    \\
+$\sigma_t$    & 0.202                  & 0.614                    \\
+$b_a$         & 0.926                  & 5.609                    \\
+$\sigma_a$    & 0.481                  & 0.0002                    \\
+$u$           & 0.200                  & 0.423                    \\
+$a$           & 0.005                  & 0.62               \\
+$d$           & 10.000                 & 29.64                   \\
+$s$           & 0.100                  & 1e-15                    \\
+$v$           & 0.500                  & 0.909                    \\
+$k$           & 0.100                  & 0.042	                    \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Italy_pipe_CLtest.png}
+        \caption{cL-test}
+        \label{fig:italy_p_cltest}
+    \end{subfigure}
+    \hfill 
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Italy_pipe_Ntest.png}
+        \caption{N-test}
+        \label{fig:italy_p_ntest}
+    \end{subfigure}
+   
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Italy_pipe_Mtest.png}
+        \caption{M-test}
+        \label{fig:italy_p_mtest}
+    \end{subfigure}
+    \hfill 
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Italy_pipe_Stest.png}
+        \caption{S-test}
+        \label{fig:italy_p_stest}
+    \end{subfigure}
+    \caption{The results of the consistency tests in the testing set (2012–2021) using the full pipeline. 
+    (a) Conditional likelihood consistency test (cL-test). 
+    (b) Number consistency test (N-test). 
+    (c) Magnitude consistency test (M-test). 
+    (d) Spatial consistency test (S-test).}
+    \label{fig:italy_pipe_tests}
+\end{figure}
+
+We then set the prediction intervals to 3 months and generate a 3-month rolling forecast in gridded forecast format. As in the previous section, we apply a set of new CSEP consistency tests based on a binary likelihood function to evaluate forecasts over the testing period. The results are shown in \Cref{fig:italy_pipe_tests}. As observed, the forecasts pass all consistency tests, including the Negative Binomial N-test, binary conditional likelihood (CL) test, and binary spatial (S) test. Since the model assumes a Gutenberg–Richter frequency–magnitude distribution, it also passes the Poisson M-test.
+
+\begin{table}
+\centering
+ \caption{Performance of PPE and EEPAS models evaluated using scoring rules from \texttt{pyCSEP}.} \label{tbl:score}
+\begin{tabular}{rlllll}
+\toprule
+       & Poisson Likelihood & Binary Likelihood & Kagan Information Score & Brier Score & \\ \hline
+PPE    & -168.26            & -110.16           & 1.20                    & -0.011129   & \\ \hline
+EEPAS  & -167.79            & -109.70           & 1.33                    & -0.011127   & \\ \hline
+\end{tabular}
+\end{table}
+
+In \Cref{tbl:score}, we present a quantitative comparison of the PPE and EEPAS models using Poisson and binary joint log-likelihood scores, Kagan information scores, and Brier scores. Binary (spatial) joint log-likelihood values are generally higher than Poisson counterparts because the binary likelihood is less sensitive to clustering effects in seismicity. Nevertheless, both scoring systems indicate that EEPAS outperforms the PPE model. In particular, the higher Kagan information and Brier scores obtained by EEPAS suggest a better agreement between the model and observed data. These scores reflect how much more informative a spatially localized seismicity model is compared to the Spatially Uniform Poisson (SUP) model, which assumes earthquakes are independently and uniformly distributed in space and time.
+
+
+\section{Conclusion}
+This work addresses long-standing gaps in the formulation, implementation, and accessibility of medium- to long-term earthquake forecasting models — particularly EEPAS and PPE — which, despite their strong empirical performance, remain underdocumented and computationally opaque. We present a mathematically rigorous foundation for these models by deriving analytical expressions for key components such as the incompleteness correction $\Delta(m)$ and normalization factor $\eta(m)$, and by formally situating the EEPAS log-likelihood within the framework of inhomogeneous Poisson point processes. We further clarify the probabilistic basis of precursor scaling by connecting empirical $\Psi$ regressions to likelihood-based inference, and we provide a proof that joint maximum likelihood estimation yields rate normalization under appropriate conditions.
+
+Building on this theoretical groundwork, we introduce the first fully documented, high-performance Python implementation of EEPAS. The framework features JIT acceleration with Numba, modular configuration via JSON, vectorized operations using \texttt{NumPy}, and parallel processing with \texttt{joblib}, and is fully compatible with \texttt{pyCSEP} for standardized testing and comparison. Applied to the Italy HORUS dataset, the system successfully replicates published results within one hour using the same initial parameters. More importantly, it also supports a complete end-to-end workflow that autonomously estimates model parameters from raw data. Our experiments show that this automated pipeline not only yields better log-likelihood scores but also passes statistical consistency tests, demonstrating the robustness and generalizability of the approach. The initial parameters estimated by the framework can be directly used for downstream forecasting, offering a scalable alternative to the manual identification of $\Psi$ trends in regional catalogs — a process that can be a barrier to broader adoption.
+
+Released under the MIT license, this open-source package makes EEPAS models accessible, reproducible, and extensible, and paves the way for more transparent, data-driven advancements in probabilistic seismic forecasting.
+
+\begin{acknowledgments}
+The authors acknowledge support from the National Science and Technology Council under grants...
+\end{acknowledgments}
+
+
+\begin{dataavailability}
+The seismic catalogs employed in this study are publicly available. The HORUS catalog \cite{lolli2020homogenized} is available from \url{https://horus.bo.ingv.it}, and the Italian Parametric Earthquake Catalog (CPTI15, \textit{Catalogo Parametrico dei Terremoti Italiani}) \cite{rovida2020italian} is available from \url{https://emidius.mi.ingv.it/CPTI15-DBMI15/}. The 177 cells and polygon defining the testing and neighborhood region are sourced from \cite{2023ER}. The code developed for this research is provided as supplementary material and will be made publicly available on GitHub upon manuscript acceptance.
+\end{dataavailability}
+
+\bibliographystyle{gji}
+\bibliography{ref}
+
+\appendix
+\section{The PPE and EEPAS model} 
+\label{sec:model}
+\subsection{EEPAS model}
+The EEPAS model is based on empirical linear regression relationships observed in earthquake data. These relationships link the characteristics of precursor earthquakes to the properties of subsequent mainshocks. Evison and Rhoades \cite{ER} studied long-term seismogenesis in four regions and proposed the following predictive relations:
+\begin{eqnarray}
+\label{am}    M_m = a_M + b_M M_p,\\
+\label{at}    \log_{10}(T_p) = a_T + b_T M_p,\\
+\label{aa}    \log_{10}(A_p) = a_A + b_A M_p,
+\end{eqnarray}
+where $M_m$ is the mainshock magnitude, $M_p$ is the mean magnitude of the largest three precursors, $T_p$ is the time interval between the onset of the precursory scale increase and the mainshock, $A_p$ is the spatial extent of the precursors, and $a_M, b_M, a_T, b_T, a_A, b_A$ are regression coefficients obtained by fitting empirical data. Equations \eqref{am}--\eqref{aa} describe the relationships in time, magnitude, and space between major earthquakes and their precursory shocks.
+
+To reduce noise from minor events, earthquakes with magnitudes smaller than $m_0$ are excluded due to instrument precision limitations. Let the $i$-th earthquake (indexed by its occurrence time), observed in a data collection region $N$, occur at time $t_i$, with magnitude $m_i \geq m_0$ and location $(x_i, y_i)$. Each such event contributes an instantaneous increment $\lambda_i(t,m,x,y)$ to the rate density of future seismicity in its neighborhood, defined as
+\begin{equation}\label{li}
+    \lambda_i(t,m,x,y) = w_i f_i(t) g_i(m) h_i(x,y),
+\end{equation}
+where $w_i$ denotes a weighting factor determined by the aftershock model proposed in \cite{Rhoades}. Recognizing that real-world data exhibit variability due to the complex and chaotic nature of seismic processes, the EEPAS model generalizes these deterministic relations into probabilistic formulations.
+
+The temporal component $f_i(t)$ is modeled using a log-normal probability density function:
+\begin{equation}\label{ft}
+    f_i(t) = \frac{H(t - t_i)}{(t - t_i)\ln 10\, \sigma_T \sqrt{2\pi}} \exp{\left[ -\frac{1}{2} \left( \frac{\log_{10}(t - t_i) - a_T - b_T m_i}{\sigma_T} \right)^2 \right]},
+\end{equation}
+the magnitude component $g_i(m)$ is given by
+\begin{equation}\label{gm}
+    g_i(m) = \frac{1}{\sigma_M \sqrt{2\pi}} \exp{\left[ -\frac{1}{2} \left( \frac{m - a_M - b_M m_i}{\sigma_M} \right)^2 \right]},
+\end{equation}
+and the spatial component $h_i(x,y)$ is defined as
+\begin{equation}\label{hxy}
+    h_i(x,y) = \frac{1}{2\pi \sigma_A^2 10^{b_A m_i}} \exp{\left[ -\frac{(x - x_i)^2 + (y - y_i)^2}{2 \sigma_A^2 10^{b_A m_i}} \right]}.
+\end{equation}
+Here, $H$ denotes the Heaviside function. A complete derivation of these probabilistic expressions is provided in \Cref{sec:derive_eepas_model}.
+
+
+\subsection{PPE model}
+
+The PPE model \cite{JK} describes the long-term background rate of earthquake occurrence and is formulated as
+\begin{equation}\label{l0}
+    \lambda_0(t,m,x,y) = f_0(t)\, g_0(m)\, h_0(x,y),
+\end{equation}
+where $f_0(t)$, $g_0(m)$, and $h_0(x,y)$ represent the temporal, magnitude, and spatial components, respectively.  
+The temporal function $f_0(t)$ takes the form
+\begin{equation}\label{f0}
+    f_0(t) = \frac{1}{t - t_0},
+\end{equation}
+where $t_0$ is the initial time from which the earthquakes are considered.  
+The magnitude function $g_0(m)$ is defined as
+\begin{equation}\label{g0}
+    g_0(m) = \beta \exp\!\left[-\beta(m - m_T)\right],
+\end{equation}
+where $m_T$ is the target magnitude threshold, and $\beta = b_{\mathrm{GR}}\ln 10$, with $b_{\mathrm{GR}}$ denoting the Gutenberg--Richter $b$-value.  
+The spatial component $h_0(x,y)$ is expressed as a summation over past events:
+\begin{eqnarray}\label{h0}
+ \nonumber h_0(x,y) & = & \sum\nolimits^{\,t-\mathrm{delay}}_{\;t_i \in [t_0,t),\,m_i \ge m_T} h_{0i}(x,y) \\
+& \equiv & \sum\nolimits^{\,t-\mathrm{delay}}_{\;t_i \in [t_0,t),\,m_i \ge m_T} \!\left[a(m_i - m_T)\frac{1}{\pi}\!\left(\frac{1}{d^2 + (x - x_i)^2 + (y - y_i)^2}\right) + s\right].
+\end{eqnarray}
+Here, $d$ is a smoothing parameter that controls the spatial influence of nearby past earthquakes, and $s$ is a constant that ensures a nonzero probability of events occurring far from previous epicenters. $a$ is a normalization factor chosen to satisfy
+\begin{equation}\label{nc}
+\iint_R h_0(x,y)\,dA
+= \frac{n_c(t)}{\displaystyle\int_{t_{(1)}}^{\,t-\mathrm{delay}}\! f_0(u)\,du},
+\end{equation}
+where $n_c(t)$ is the number of earthquakes with magnitudes exceeding $m_T$ within the target region $R$ during the catalog window $[t_0,\,t-\mathrm{delay})$. The term $t_{(1)} = \min\{\,t_i \in [t_0, t) : m_i \ge m_T\,\}$ denotes the time of the first counted event, used to avoid the singularity at $t_0$. The physical interpretation of the model can be understood by deriving the instantaneous background rate of $M \ge m_T$ events over the entire region $R$, denoted as $\mathrm{Rate}(t)$:
+\begin{eqnarray*}
+\mathrm{Rate}(t) & \equiv & \int_{m_T}^{m_u}\!\!\iint_R \lambda_0(t,m,x,y)\,dA\,dm  =  f_0(t)\!\left(\int_{m_T}^{m_u}\! g_0(m)\,dm\right)\!\left(\iint_R h_0(x,y)\,dA\right) \\
+& = & f_0(t)\,\frac{n_c(t)}{\displaystyle\int_{t_{(1)}}^{\,t-\mathrm{delay}}\! f_0(u)\,du}.
+\end{eqnarray*}
+Between successive events, $n_c(t)$ remains constant while $f_0(t) = 1/(t - t_0)$ decreases, causing the rate to decay gradually. When a new earthquake with $M \ge m_T$ occurs, $n_c(t)$ increases by one, leading to a discrete upward step in the rate.  
+The normalization term $\int_{t_{(1)}}^{t-\mathrm{delay}} f_0(u)\,du$ ensures that integrating $\mathrm{Rate}(u)$ over the catalog window yields $n_c(t)$.  
+
+In summary, $h_0$ encodes long-term spatial memory of past epicenters (with the ${}^{t-\mathrm{delay}}$ exclusion to suppress short-term clustering), $g_0$ distributes magnitudes according to the Gutenberg--Richter law, and $f_0$ accounts for temporal evolution consistent with the observed cumulative counts.
+
+\subsection{Forecasting model allowing for aftershocks}
+
+As mentioned in \cite{RE}, there are two ways to determine the weight parameter $w_i$. One approach is to set $w_i = 1$, meaning that every earthquake contributes equally to the model. The other approach assigns lower weights to earthquakes that are likely aftershocks of previous events. To implement this second strategy, an aftershock model is required. The authors of \cite{RE} adopted the framework from \cite{CM,Ogata1,Ogata2,Ogata3} and proposed the following model:
+\begin{equation}\label{l'tmxy}
+    \lambda'(t,m,x,y) = \nu \lambda_0(t,m,x,y) + \kappa \sum_{t_i \geq t_0} \lambda_i'(t,m,x,y),
+\end{equation}
+where $\nu$ denotes the proportion of earthquakes that are not aftershocks, $\lambda_0$ is the baseline rate density given by the PPE model in \eqref{l0}--\eqref{h0} (with the ${}^{t-\mathrm{delay}}$ convention as above), $\kappa$ is a normalization constant, and $\lambda_i'(t,m,x,y)$ is the aftershock rate density contributed by the $i$-th earthquake, defined as
+\begin{equation}\label{l'itmxy}
+    \lambda_i'(t,m,x,y) = f'_i(t)\, g'_i(m)\, h'_i(x,y).
+\end{equation}
+
+Here, $f'_i(t)$ is the temporal density function given by the modified Omori law:
+\begin{equation}\label{f2it}
+    f'_i(t) = H(t - t_i)\, \frac{p - 1}{(t - t_i + c)^p},
+\end{equation}
+where $t_i$ is the origin time of the $i$-th earthquake, and $c, p$ are Omori law parameters.  
+
+The magnitude component $g'_i(m)$ is defined as
+\begin{equation}\label{g2im}
+    g'_i(m) = H(m_i - \delta - m)\, \beta \exp\left[ -\beta (m - m_i) \right],
+\end{equation}
+where $m_i$ is the magnitude of the $i$-th earthquake, and $\delta$ is a threshold parameter based on Bath’s law, determining whether a subsequent event can be classified as an aftershock.  
+
+The spatial component $h'_i(x,y)$ is assumed to follow a bivariate normal distribution:
+\begin{equation}\label{h2ixy}
+    h'_i(x,y) = \frac{1}{2\pi \sigma_U^2 10^{m_i}} \exp\left[ -\frac{(x - x_i)^2 + (y - y_i)^2}{2 \sigma_U^2 10^{m_i}} \right],
+\end{equation}
+where $\sigma_U$ is a parameter calibrated to satisfy Utsu’s regional relation.
+
+Using the aftershock model above, the weight $w_i$ assigned to the $i$-th earthquake is defined by
+\begin{equation}\label{wi}
+    w_i = \frac{\nu\, \lambda_0(t_i, m_i, x_i, y_i)}{\lambda'(t_i, m_i, x_i, y_i)},
+\end{equation}
+implying that an earthquake receives a weight close to zero if it is likely an aftershock, and a weight close to one if it appears not to be an aftershock.
+
+\section{Rationale behind the EEPAS model} \label{sec:derive_eepas_model}
+
+\subsection{Linear Regression Model}
+
+Consider a simple linear regression model that relates a dependent variable \( Y \) to an independent variable \( X \):
+\begin{equation*}
+Y = a + bX + \epsilon,
+\end{equation*}
+where:
+\begin{itemize}
+    \item \( Y \): Dependent variable.
+    \item \( X \): Independent variable.
+    \item \( a \): Intercept.
+    \item \( b \): Slope coefficient.
+    \item \( \epsilon \): Error term, assumed to be normally distributed with mean 0 and variance \( \sigma^2 \), i.e., \( \epsilon \sim \mathcal{N}(0, \sigma^2) \).
+\end{itemize}
+Given the normality of the error term \( \epsilon \), the conditional distribution of \( Y \) given \( X = x \) is also normal:
+\begin{equation*}
+Y \mid X = x \sim \mathcal{N}(a + b x, \sigma^2).
+\end{equation*}
+This implies that:
+\begin{equation*}
+f_{Y\mid X}(y \mid x) = \frac{1}{\sigma \sqrt{2\pi}} \exp\!\left( -\frac{(y - a - b x)^2}{2\sigma^2} \right).
+\end{equation*}
+
+\subsection{Linear Regression Relations in the EEPAS Model}
+
+The EEPAS model is based on empirical linear regression relationships observed in earthquake data.\footnote{In statistical seismology, fundamental laws such as the Omori--Utsu law for aftershock decay and the Gutenberg--Richter magnitude--frequency law were initially derived empirically and only later connected to physical mechanisms. The EEPAS model is similarly rooted in empirical relationships; its deeper physical basis remains under active investigation.} 
+These relationships link precursor earthquake characteristics to subsequent mainshock properties:
+\begin{align}
+M_m &= a_M + b_M M_p, \label{mag_r}\\
+\log_{10}(T_p) &= a_T + b_T M_p, \label{time_r}\\
+\log_{10}(A_p) &= a_A + b_A M_p, \label{spatial_r}
+\end{align}
+where:
+\begin{itemize}
+    \item \( M_m \): Mainshock magnitude.
+    \item \( M_p \): Precursor magnitude.
+    \item \( T_p \): Time between the precursor and the mainshock.
+    \item \( A_p \): Spatial extent of the precursor.
+    \item \( a_M, b_M, a_T, b_T, a_A, b_A \): Regression coefficients obtained by fitting empirical data.
+\end{itemize}
+It is noted that given $M_m$, the corresponding $A_p, T_p, M_p$ can be estimated using \cite{psi}.
+
+\subsection{Components of the Rate Density}
+
+Real-world data inherently contain variability around these average relationships due to the complex and chaotic nature of seismic processes. To account for this variability, the EEPAS model transitions from deterministic equations to probabilistic descriptions.
+
+\subsubsection{(a) Magnitude Density (\texorpdfstring{$g_i(m)$}{gi(m)})}
+
+We stochasticize the relationship \eqref{mag_r} by introducing a random error term:
+\[
+M_m = a_M + b_M M_p + \epsilon_M.
+\]
+Assuming this error is normally distributed, $\epsilon_M \sim \mathcal{N}(0, \sigma_M^2)$, the conditional magnitude distribution for a mainshock \(m\), given a precursor \(i\) with magnitude \(m_i\), becomes:
+\begin{equation}
+g_i(m) = \frac{1}{\sigma_M \sqrt{2\pi}} \exp\!\left( -\frac{(m - (a_M + b_M m_i))^2}{2\sigma_M^2} \right),
+\end{equation}
+which is the Gaussian PDF with mean \(\mu_M = a_M + b_M m_i\) and variance \(\sigma_M^2\), matching the $g_i$ used earlier in \eqref{gm}.
+
+\subsubsection{(b) Time Density (\texorpdfstring{$f_i(t)$}{fi(t)})}
+
+Similarly, we introduce variability to the time relationship \eqref{time_r}:
+\[
+\log_{10}(T_p) = a_T + b_T M_p + \epsilon_T
+\]
+Assume $\epsilon_T \sim \mathcal{N}(0,\sigma_T^2)$. Let $Z = \log_{10}(T_p)$. Given a precursor with magnitude $m_i$, $Z \sim \mathcal{N}(\mu_T,\sigma_T^2)$ with $\mu_T = a_T+b_T m_i$. The PDF for $Z$ is
+\[
+f_Z(z) = \frac{1}{\sqrt{2\pi}\,\sigma_T}\exp\!\left[-\frac{(z-\mu_T)^2}{2\sigma_T^2}\right].
+\]
+Using the change of variables $T_p=10^{Z}$, the Jacobian is $\left|\frac{dZ}{dT_p}\right|=\frac{1}{T_p\ln 10}$ (see \href{https://en.wikipedia.org/wiki/Probability_density_function#Function_of_random_variables_and_change_of_variables_in_the_probability_density_function}{discussion here}). The resulting PDF for $T_p$ is the log-normal distribution:
+\[
+f_{T_p}(t_p) = f_Z(\log_{10} t_p) \left|\frac{dZ}{dT_p}\right| = \frac{1}{t_p\,\ln 10\,\sqrt{2\pi}\,\sigma_T}\exp\!\left[-\frac{(\log_{10} t_p-\mu_T)^2}{2\sigma_T^2}\right].
+\]
+To express this as a density over absolute time $t$, we set the time lag $t_p = t-t_i$ (where $t_i$ is the time the precursor occurs) and enforce causality with the Heaviside step function $H(t-t_i)$:
+\begin{equation}
+f_i(t) = \frac{H(t - t_i)}{(t - t_i)\,\ln 10\,\sigma_T \sqrt{2\pi}}
+\exp\!\left[-\frac{1}{2}\left(\frac{\log_{10}(t - t_i) - (a_T + b_T m_i)}{\sigma_T}\right)^2\right],
+\end{equation}
+which is identical to \eqref{ft}.
+
+\subsubsection{(c) Spatial Density (\texorpdfstring{$h_i(x,y)$}{hi(x,y)})}
+
+We interpret the regression \eqref{spatial_r} as a scaling law for a precursor’s \emph{characteristic area} of influence, \(A_p\). Given a precursor \(i\) with magnitude \(m_i\), this area is:
+\[
+\log_{10}(A_p)=a_A+b_A m_i
+\quad\Longrightarrow\quad
+A_p \;=\; 10^{a_A}\,10^{b_A m_i} \;=\; C\,10^{b_A m_i},\qquad C:=10^{a_A}.
+\]
+To convert this area scale into a spatial probability density, we model the mainshock location $(x,y)$ relative to the precursor \((x_i,y_i)\) as an isotropic bivariate normal distribution with variance \(\sigma^2\):
+\[
+\tilde h_i(x,y;\sigma^2)
+=
+\frac{1}{2\pi\,\sigma^2}
+\exp\!\left[-\frac{(x-x_i)^2+(y-y_i)^2}{2\,\sigma^2}\right].
+\]
+
+A key property of the isotropic bivariate normal distribution is that the area of any \(p\)-probability disc is directly proportional to the variance \(\sigma^2\).
+Let $r=\sqrt{(x-x_i)^2+(y-y_i)^2}$. The radial density is $p_R(r)=\frac{r}{\sigma^2}\,\exp(-\frac{r^2}{2\sigma^2})$.
+The radius \(r_p\) of the disc containing probability \(p\) satisfies:
+\[
+\mathbb{P}(R\le r_p) = \int_0^{r_p} p_R(r)\,dr = 1-\exp\!\left(-\frac{r_p^2}{2\sigma^2}\right)=p.
+\]
+Solving for the area $A_p^{(\mathrm{prob})}=\pi r_p^2$ gives:
+\[
+A_p^{(\mathrm{prob})}
+= \pi \bigl[-2\,\sigma^2\ln(1-p)\bigr]
+= \bigl[-2\pi\ln(1-p)\bigr]\;\sigma^2
+= k_p\,\sigma^2,
+\]
+where $k_p:=-2\pi\ln(1-p)$ is a constant for a fixed \(p\). Thus, $A_p^{(\mathrm{prob})} \propto \sigma^2$.
+
+This proportionality justifies linking the empirical area $A_p$ to the model variance $\sigma^2$. We assume $\sigma^2 \propto A_p$: $\sigma^2 \propto A_p = C\,10^{b_A m_i}.$
+We define a new "base variance" parameter $\sigma_A^2$ that absorbs all constants (e.g., $C=10^{a_A}$ and the proportionality factor $1/k_p$):
+$ \sigma^2 \;:=\; \sigma_A^2\,10^{b_A m_i}.$
+This definition ensures that a larger \(m_i\) yields a larger variance \(\sigma^2\) and thus a broader spatial spread. Substituting this expression for $\sigma^2 = \sigma_A^2\,10^{b_A m_i}$ into the bivariate normal PDF gives the final spatial kernel:
+\[
+h_i(x,y)
+=
+\frac{1}{2\pi\,\sigma_A^2\,10^{b_A m_i}}
+\exp\!\left[-\frac{(x-x_i)^2+(y-y_i)^2}{2\,\sigma_A^2\,10^{b_A m_i}}\right].
+\]
+
+The units of $h_i(x,y)$ are $(\mathrm{area})^{-1}$, representing a probability density per unit area. As $m_i$ increases, the variance term $\sigma_A^2\,10^{b_A m_i}$ increases. This causes the density surface $h_i(x,y)$ to become "flatter" and more spread out, distributing the total probability of 1 over a wider region. This matches the intuition that larger-magnitude precursors influence a wider area.
+
+\section{Weight function \texorpdfstring{$\eta(m)$}{eta(m)} and completeness factor \texorpdfstring{$\Delta(m)$}{Delta(m)}.} \label{sec:compensation}
+
+
+We determine the precursor-weight function $\eta(\cdot)$ and the completeness factor $\Delta(\cdot)$ so that the EEPAS superposition preserves the Gutenberg--Richter (G--R) marginal in magnitude and remains unbiased when the catalog is truncated at $m_0$.
+
+
+
+\subsection[Derivation of the Magnitude Weight Function eta(m)]{Derivation of the Magnitude Weight Function \(\eta(m)\)}
+Our objective is to find the precursor-weight function $\eta(\cdot)$ that preserves the Gutenberg--Richter (G--R) marginal $r(m)=C\,e^{-\beta m}$. This requires the expected precursor rate, $\E[\Lambda_{\mathrm{prec}}(m)]$, to equal the non-background fraction $(1-\mu)$ of the total rate, $\E[\Lambda_{\mathrm{bg}}(m)] = \mu \, r(m)$, such that $\E[\Lambda_{\mathrm{prec}}(m)] = (1-\mu)r(m)$.
+The precursor magnitude rate, $\Lambda_{\mathrm{prec}}(m)$, is obtained by marginalizing the full point-process intensity $\lambda_{\mathrm{prec}}(t,m,x,y) = \sum_i w_i \, \eta(m_i) \, f_i(t) \, g(m \mid m_i) \, h_i(x,y)$ over time and space. Assuming $\int f_i dt = 1$ and $\iint h_i dx dy = 1$, this yields: $\Lambda_{\mathrm{prec}}(m) = \sum_i w_i \, \eta(m_i) \, g(m \mid m_i)$. The conditional magnitude kernel $g(m \mid m_p)$, representing the probability of a target magnitude $m$ given a precursor $m_p$, is a Gaussian:
+\begin{equation}\label{eq:g-kernel}
+g(m \mid m_p) = \frac{1}{s\sqrt{2\pi}} \exp\!\left[-\frac{(m-a-b m_p)^2}{2s^2}\right]
+\end{equation}
+where $a=a_M$, $b=b_M$, and $s=\sigma_M$ are parameters.
+
+\begin{proposition}[Expected Precursor Magnitude Rate]
+Assume the precursor catalogue (source) distribution is \(r(m_p) = C e^{-\beta m_p}\), and assume the mean precursor weight \(E(w) = \E[w_i]\) is independent of magnitude \(m_p\). The expected precursor magnitude rate is then given by:
+\[
+\E[\Lambda_{\mathrm{prec}}(m)] = E(w) \int_{-\infty}^{\infty} \eta(m_p) \, g(m \mid m_p) \, r(m_p) \, dm_p
+\]
+\end{proposition}
+
+\begin{proof}
+Taking the expectation of \(\Lambda_{\mathrm{prec}}(m)\) over the precursor catalogue and applying Campbell's Theorem yields an integral over the precursor rate \(r(m_p)\):
+\[
+\E[\Lambda_{\mathrm{prec}}(m)] = \int_{-\infty}^{\infty} \E[w_i \, \eta(m_i) \mid m_p] \cdot g(m \mid m_p) \cdot r(m_p) \, dm_p
+\]
+Since \(\eta(m_p)\) is a deterministic function of \(m_p\), it can be factored out of the expectation:
+\[
+\E[\Lambda_{\mathrm{prec}}(m)] = \int_{-\infty}^{\infty} \eta(m_p) \cdot \E[w_i \mid m_p] \cdot g(m \mid m_p) \cdot r(m_p) \, dm_p
+\]
+Using the assumption that the mean weight is independent of magnitude, \(\E[w_i \mid m_p] = \E[w_i] = E(w)\):
+\[
+\E[\Lambda_{\mathrm{prec}}(m)] = \int_{-\infty}^{\infty} \eta(m_p) \cdot E(w) \cdot g(m \mid m_p) \cdot r(m_p) \, dm_p
+\]
+Factoring out the constant \(E(w)\) yields the proposition.
+\end{proof}
+
+Substituting the result from \textbf{Proposition 1}, we arrive at the \emph{Matching Condition}, which is the integral equation we must solve for $\eta(m)$:
+\begin{equation}\label{eq:eta-match}
+E(w)\int_{-\infty}^{\infty} r(m_p)\,\eta(m_p)\,g(m\mid m_p)\,dm_p=(1-\mu)\,r(m).
+\end{equation}
+To solve this, we require the solution to the core Gaussian convolution.
+
+\begin{lemma}[Gaussian Convolution Identity]
+Let \(g(m \mid m_p)\) be the Gaussian kernel defined in \eqref{eq:g-kernel} (with \(a, b, s\)). The integral of this kernel against the exponential function \(e^{-\beta b m_p}\) (assuming \(b>0\)) is:
+\[
+I(m) := \int_{-\infty}^{\infty} e^{-\beta b\,m_p} \, g(m\mid m_p) \,dm_p = \frac{1}{b}\exp\!\Big(-\beta(m-a)+\tfrac{1}{2}\beta^2 s^2\Big)
+\]
+\end{lemma}
+
+\begin{proof}
+Apply the change of variables \(y=b m_p\), so \(dm_p=dy/b\):
+\[
+I(m) = \int_{-\infty}^{\infty} e^{-\beta y} \frac{1}{s\sqrt{2\pi}}\exp\!\left[-\frac{(m-a-y)^2}{2s^2}\right]\,\frac{dy}{b}
+\]
+\[
+I(m) = \frac{1}{b} \int_{-\infty}^{\infty} \frac{1}{s\sqrt{2\pi}} \exp\!\left[ -\frac{(m-a-y)^2}{2s^2} - \beta y \right] \,dy
+\]
+We now complete the square for the terms in the exponent with respect to \(y\):
+\begin{align*}
+\mathrm{Exponent} &= -\frac{(m-a-y)^2}{2s^2} - \frac{2s^2\beta y}{2s^2} \\
+&= -\frac{1}{2s^2}\Big[ \big((m-a)-y\big)^2 + 2s^2\beta y \Big] \\
+&= -\frac{1}{2s^2}\Big[ (m-a)^2 - 2(m-a)y + y^2 + 2s^2\beta y \Big] \\
+&= -\frac{1}{2s^2}\Big[ y^2 - 2\big( (m-a) - s^2\beta \big)y + (m-a)^2 \Big]
+\end{align*}
+Let \(\mu_y = (m-a-s^2\beta)\). The term in brackets is \(y^2 - 2\mu_y y + (m-a)^2\). To complete the square \((y-\mu_y)^2 = y^2 - 2\mu_y y + \mu_y^2\), we add and subtract \(\mu_y^2\):
+\[
+\mathrm{Exponent} = -\frac{1}{2s^2}\Big[ \big(y - \mu_y\big)^2 - \mu_y^2 + (m-a)^2 \Big]
+\]
+This expression separates into a \(y\)-dependent part (Part 1) and a constant part (Part 2):
+\[
+\mathrm{Exponent} = \underbrace{-\frac{(y - \mu_y)^2}{2s^2}}_{\mathrm{Part 1}} + \underbrace{\frac{\mu_y^2 - (m-a)^2}{2s^2}}_{\mathrm{Part 2}}
+\]
+The integral \(I(m)\) can now be factored. The constant term (Part 2) is pulled out:
+\[
+I(m) = \frac{1}{b} \exp\!\left[ \frac{\mu_y^2 - (m-a)^2}{2s^2} \right] \cdot \int_{-\infty}^{\infty} \frac{1}{s\sqrt{2\pi}} \exp\!\left( -\frac{(y - \mu_y)^2}{2s^2} \right) \,dy
+\]
+The remaining integral is the total area under a Gaussian PDF \(\N(\mu_y, s^2)\), which is exactly 1. We now simplify the constant exponent term (Part 2) by substituting \(\mu_y = (m-a-s^2\beta)\):
+\begin{align*}
+\mathrm{Part 2} &= \frac{(m-a-s^2\beta)^2 - (m-a)^2}{2s^2} \\
+&= \frac{\big( (m-a)^2 - 2s^2\beta(m-a) + (s^2\beta)^2 \big) - (m-a)^2}{2s^2} \\
+&= \frac{-2s^2\beta(m-a) + s^4\beta^2}{2s^2} \\
+&= -\beta(m-a) + \frac{1}{2}\beta^2 s^2
+\end{align*}
+Substituting this back, and using the fact that the integral is 1, yields the lemma's result:
+\[
+I(m) = \frac{1}{b}\exp\!\Big(-\beta(m-a)+\tfrac{1}{2}\beta^2 s^2\Big).
+\]
+\end{proof}
+
+Armed with \textbf{Lemma 1}, we can solve the matching condition \eqref{eq:eta-match}. The RHS is $(1-\mu)r(m) = (1-\mu)C e^{-\beta m}$. \textbf{Lemma 1} shows that the convolution $I(m)$ produces the desired $e^{-\beta m}$ term (from $-\beta(m-a) = -\beta m + \beta a$), but also introduces a set of extraneous, non-$m$-dependent factors: $\frac{1}{b} e^{\beta a} e^{\frac{1}{2}\beta^2 s^2}$. To ensure the LHS exactly matches the RHS, the remainder of the integrand, $r(m_p)\eta(m_p)$, must be structured to: (1) provide the required $e^{-\beta b m_p}$ term, and (2) contain the exact inverse of the extraneous factors $\left(\frac{1}{b} e^{\beta a} e^{\frac{1}{2}\beta^2 s^2}\right)$ to ensure cancellation.
+This motivates selecting an ansatz for the product $r(m_p)\eta(m_p)$ that contains these precise components, where $K'$ is a constant to be determined:
+\[
+r(m_p)\eta(m_p) := K' \cdot \left( b \cdot e^{-\beta a} \cdot e^{-\frac{1}{2}\beta^2 s^2} \right) \cdot e^{-\beta b m_p}
+\]
+We now solve for $\eta(m_p)$ algebraically, using $r(m_p) = C e^{-\beta m_p}$:
+\[
+(C e^{-\beta m_p}) \cdot \eta(m_p) = K' b \cdot \exp\!\Big(-\beta a - \frac{1}{2}\beta^2 s^2 - \beta b m_p \Big)
+\]
+\[
+\eta(m_p) = \frac{K' b}{C} \cdot \exp\!\Big(-\beta a - \frac{1}{2}\beta^2 s^2 - \beta b m_p + \beta m_p \Big)
+\]
+Let $K_0 = K' b / C$. Grouping the exponents yields the functional form of $\eta$:
+\[
+\eta(m_p) = K_0 \cdot \exp\!\Big( -\beta[a + (b - 1)m_p] - \frac{1}{2}\beta^2 s^2 \Big)
+\]
+We substitute our constructed integrand $r(m_p)\eta(m_p)$ back into the LHS of \eqref{eq:eta-match}:
+\[
+\mathrm{LHS} = E(w) \int \left( K' b e^{-\beta a} e^{-\frac{1}{2}\beta^2 s^2} e^{-\beta b m_p} \right) \cdot g(m\mid m_p) dm_p
+\]
+Factoring out constants and applying \textbf{Lemma 1}:
+\[
+\mathrm{LHS} = E(w) \cdot \left( K' b e^{-\beta a} e^{-\frac{1}{2}\beta^2 s^2} \right) \cdot \int e^{-\beta b m_p} g(m\mid m_p) dm_p
+\]
+\[
+\mathrm{LHS} = E(w) \cdot \left( K' b e^{-\beta a} e^{-\frac{1}{2}\beta^2 s^2} \right) \cdot \left( \frac{1}{b} e^{\beta a} e^{\frac{1}{2}\beta^2 s^2} e^{-\beta m} \right)
+\]
+By construction, all $a, b, s$ terms cancel out:
+\[
+\mathrm{LHS} = E(w) \cdot K' \cdot e^{-\beta m}
+\]
+Equating this to the RHS of \eqref{eq:eta-match}:
+\[
+E(w) \cdot K' \cdot e^{-\beta m} = (1-\mu) C e^{-\beta m}
+\]
+Solving for $K'$ gives $K' = \frac{(1-\mu)C}{E(w)}$. We use this to find $K_0$ (assuming $b=b_M > 0$):
+\[
+K_0 = \frac{K' b}{C} = \frac{(1-\mu)C}{E(w)} \cdot \frac{b}{C} = \frac{b(1-\mu)}{E(w)}.
+\]
+Substituting this \(K_0\) into the derived form of \(\eta(m_p)\) (and restoring the original \(a_M, b_M, \sigma_M\) notation):
+\begin{equation}\label{eq:eta-final}
+\boxed{\quad
+\eta(m)=\frac{b_M(1-\mu)}{E(w)}\,
+\exp\!\Big(-\beta\,[a_M+(b_M-1)m]-\tfrac{1}{2}\beta^2\sigma_M^2\Big).\quad}
+\end{equation}
+
+
+\medskip
+\subsection{Completeness correction under catalog threshold \texorpdfstring{$m_0$}{m0}}
+When only precursors with $m_p\ge m_0$ are included in the superposition, the resulting contribution is a fraction of the untruncated (ideal) contribution. This surviving fraction for a target magnitude $m$ is the ratio of the truncated integral to the full integral:
+\begin{equation}\label{eq:Delta-def}
+  \Delta(m):=
+  \frac{\displaystyle\int_{m_0}^{\infty} r(m_p)\,\eta(m_p)\,g(m\mid m_p)\,dm_p}
+       {\displaystyle\int_{-\infty}^{\infty} r(m_p)\,\eta(m_p)\,g(m\mid m_p)\,dm_p}\in(0,1].
+\end{equation}
+To make this ratio tractable, we first establish that it can be interpreted as a conditional probability.
+
+\begin{lemma}[Probabilistic Interpretation of the Ratio]
+The integrand $f(m_p, m) = r(m_p)\,\eta(m_p)\,g(m\mid m_p)$ is proportional to the product of $e^{-\beta b_M m_p}$ and $g(m\mid m_p)$, where the proportionality constant cancels in the ratio \eqref{eq:Delta-def}. Therefore, $\Delta(m)$ is equivalent to a conditional tail probability:
+\[
+\Delta(m) = \Pr(m_p\ge m_0\mid m)
+\]
+where the conditional density $p(m_p \mid m)$ is proportional to $e^{-\beta b_M m_p}\,g(m\mid m_p)$.
+\end{lemma}
+
+\begin{proof}
+From the previous section (derivation of $\eta(m)$), the product $r(m_p)\eta(m_p)$ was shown to be:
+\[
+r(m_p)\eta(m_p) = K' \cdot \left( b_M e^{-\beta a_M} e^{-\frac{1}{2}\beta^2 \sigma_M^2} \right) \cdot e^{-\beta b_M m_p}
+\]
+where $K' = (1-\mu)C / E(w)$. Let us define $C(m)$ as the full integrand:
+\[
+C(m_p, m) = r(m_p)\eta(m_p)g(m\mid m_p) = \underbrace{K' \left( b_M e^{-\beta a_M} e^{-\frac{1}{2}\beta^2 \sigma_M^2} \right)}_{\mathrm{Constant } K_{\mathrm{full}}} \cdot e^{-\beta b_M m_p} g(m\mid m_p)
+\]
+The constant $K_{\mathrm{full}}$ is independent of the integration variable $m_p$ (and also independent of $m$). When placed in the ratio \eqref{eq:Delta-def}, it cancels:
+\[
+\Delta(m) = \frac{\displaystyle K_{\mathrm{full}} \int_{m_0}^{\infty} e^{-\beta b_M m_p}\,g(m\mid m_p)\,dm_p}
+          {\displaystyle K_{\mathrm{full}} \int_{-\infty}^{\infty} e^{-\beta b_M m_p}\,g(m\mid m_p)\,dm_p}
+\]
+Let us define an unnormalized density $\tilde{p}(m_p\mid m) := e^{-\beta b_M m_p}\,g(m\mid m_p)$ and its normalization constant $Z(m) := \int_{-\infty}^{\infty}\tilde{p}(u\mid m)\,du$. The ratio becomes:
+\[
+\Delta(m) = \frac{\displaystyle\int_{m_0}^{\infty} \tilde{p}(m_p\mid m)\,dm_p}{Z(m)} = \int_{m_0}^{\infty} \frac{\tilde{p}(m_p\mid m)}{Z(m)}\,dm_p
+\]
+Since $p(m_p \mid m) = \tilde{p}(m_p\mid m) / Z(m)$ is, by definition, a valid probability density function, $\Delta(m)$ is the integral of this density from $m_0$ to $\infty$, which is $\Pr(m_p\ge m_0\mid m)$.
+\end{proof}
+
+To evaluate this probability, we must find the parameters of the density $p(m_p \mid m)$.
+
+\begin{lemma}[Gaussian Form of the Conditional Density]
+The conditional density $p(m_p \mid m)$ is Gaussian, $m_p\mid m \sim \N\!\left(\mu_{m_p\mid m},\,\sigma_{m_p\mid m}^2\right)$, with parameters:
+\[
+\mu_{m_p\mid m}=\frac{m-a_M-\beta\sigma_M^2}{b_M} \qquad \mathrm{and} \qquad \sigma_{m_p\mid m}=\frac{\sigma_M}{|b_M|}
+\]
+\end{lemma}
+
+\begin{proof}
+The density is Gaussian if its logarithm is a quadratic function of $m_p$. We analyze $\log \tilde{p}(m_p\mid m)$:
+\[
+\log \tilde{p}(m_p\mid m) = \log(e^{-\beta b_M m_p}) + \log(g(m\mid m_p))
+\]
+\[
+\log \tilde{p}(m_p\mid m) = -\beta b_M m_p + \log\left(\frac{1}{\sigma_M\sqrt{2\pi}}\right) -\frac{\big(m-a_M-b_M m_p\big)^2}{2\sigma_M^2}
+\]
+Ignoring all terms that are constant with respect to $m_p$:
+\[
+\log \tilde{p}(m_p\mid m) = -\beta b_M m_p -\frac{1}{2\sigma_M^2}\Big( (m-a_M)^2 - 2(m-a_M)b_M m_p + b_M^2 m_p^2 \Big) + \mathrm{const}
+\]
+We collect terms in $m_p^2$ and $m_p$:
+\[
+\log \tilde{p}(m_p\mid m) = \left(-\frac{b_M^2}{2\sigma_M^2}\right)m_p^2 + \left(-\beta b_M + \frac{2(m-a_M)b_M}{2\sigma_M^2}\right)m_p + \mathrm{const}
+\]
+This is a quadratic function, $Am_p^2 + Bm_p + C$. The standard log-Gaussian form is $-\frac{(m_p-\mu)^2}{2\sigma^2} = -\frac{1}{2\sigma^2}(m_p^2 - 2\mu m_p + \mu^2)$.
+By matching the $m_p^2$ coefficient:
+\[
+A = -\frac{b_M^2}{2\sigma_M^2} = -\frac{1}{2\sigma_{m_p\mid m}^2} \quad \implies \quad \sigma_{m_p\mid m}^2 = \frac{\sigma_M^2}{b_M^2} \quad \implies \quad \sigma_{m_p\mid m} = \frac{\sigma_M}{|b_M|}
+\]
+By matching the $m_p$ coefficient:
+\[
+B = -\frac{1}{2\sigma_{m_p\mid m}^2}(-2\mu_{m_p\mid m}) = \frac{\mu_{m_p\mid m}}{\sigma_{m_p\mid m}^2} = \mu_{m_p\mid m} \left(\frac{b_M^2}{\sigma_M^2}\right)
+\]
+We also have $B$ from our expansion:
+\[
+B = -\beta b_M + \frac{(m-a_M)b_M}{\sigma_M^2} = \frac{-\beta b_M \sigma_M^2 + (m-a_M)b_M}{\sigma_M^2}
+\]
+Equating the two expressions for $B$:
+\[
+\mu_{m_p\mid m} \left(\frac{b_M^2}{\sigma_M^2}\right) = \frac{b_M(m-a_M-\beta \sigma_M^2)}{\sigma_M^2}
+\]
+\[
+\mu_{m_p\mid m} = \frac{m-a_M-\beta\sigma_M^2}{b_M}
+\]
+This proves the parameters given in the lemma.
+\end{proof}
+
+Using the results of \textbf{Lemma 2} and \textbf{Lemma 3}, we can now evaluate $\Delta(m) = \Pr(m_p\ge m_0\mid m)$, where $m_p \sim \N(\mu_{m_p\mid m}, \sigma_{m_p\mid m}^2)$. This is the upper tail of a Gaussian, which is computed using the standard normal CDF $\Phi$:
+\begin{align}
+  \Delta(m) &= 1 - \Phi\!\left(\frac{m_0 - \mu_{m_p\mid m}}{\sigma_{m_p\mid m}}\right)
+          = \Phi\!\left(\frac{\mu_{m_p\mid m}-m_0}{\sigma_{m_p\mid m}}\right) \nonumber \\
+\intertext{Substituting the parameters from Lemma 3 (and assuming $b_M > 0$, so $|b_M|=b_M$):}
+  \Delta(m) &= \Phi\!\left(\frac{ \frac{m-a_M-\beta\sigma_M^2}{b_M} - m_0}{\sigma_M / b_M}\right) 
+          = \Phi\!\left( \left[ \frac{m-a_M-\beta\sigma_M^2 - b_M m_0}{b_M} \right] \cdot \frac{b_M}{\sigma_M} \right) \nonumber \\
+          &= \Phi\!\left(\frac{m-a_M-b_M m_0-\beta\sigma_M^2}{\sigma_M}\right) \nonumber
+\end{align}
+This leads to the final expression:
+\begin{equation}\label{eq:Delta-final}
+  \boxed{\quad
+  \Delta(m) = \Phi\!\left(\frac{m-a_M-b_M m_0-\beta\sigma_M^2}{\sigma_M}\right).\quad}
+\end{equation}
+
+Under truncation, the expected precursor-only marginal from \eqref{eq:eta-match} is reduced by this fraction:
+\[
+  \mathbb{E}\!\left[\sum_{i:\,m_i\ge m_0} w_i\,\eta(m_i)\,g(m\mid m_i)\right]
+  =E(w)\int_{m_0}^{\infty} r(m_p)\,\eta(m_p)\,g(m\mid m_p)\,dm_p
+  =\Delta(m)\,(1-\mu)\,r(m).
+\]
+The model's expected output is now $\Delta(m)$ times the target rate $(1-\mu)r(m)$. To compensate for this multiplicative loss and ensure the model remains unbiased (i.e., still sums to $(1-\mu)r(m)$), the contribution from each precursor $i$ must be inflated by $1/\Delta(m)$. The final superposed intensity is thus:
+\begin{equation}\label{eq:lambda-superpose}
+  \lambda(t,m,x,y)=\mu\,\lambda_0(t,m,x,y)+
+  \sum_{i:\,m_i\ge m_0}\eta(m_i)\,
+  \frac{\lambda_i(t,m,x,y)}{\Delta(m)}.
+\end{equation}
+Since $f$, $g$, and $h$ are densities (or normalized shape functions), $\lambda$ has units of
+events/(time$\cdot$magnitude$\cdot$area). Both $\eta$ and $\Delta$ are dimensionless. 
+
+\section{Derivation of the Log-Likelihood Function for an Inhomogeneous Poisson Point Process in Earthquake Modeling} \label{sec:derive_loglikelihood}
+
+In seismology, earthquake occurrences can be effectively modeled using a point process framework. Specifically, an inhomogeneous Poisson point process is suitable for capturing the nonstationary nature of seismic activity, where the intensity of earthquakes varies over time, magnitude, and spatial location.
+
+Let us consider an observed seismic catalog containing \( N \) earthquake events occurring at times \( \mathcal{D} = \{(t_j, m_j, x_j, y_j)\}_{j=1}^N \) within a defined observation window
+\[
+\mathcal{W} = [t_a, t_b] \times [m_T, m_u] \times [x_{\mathrm{min}}, x_{\mathrm{max}}] \times [y_{\mathrm{min}}, y_{\mathrm{max}}].
+\]
+Each earthquake event \( i \) is assumed to occur within an infinitesimal region
+\[
+\tau_j = [t_j - \delta t, t_j + \delta t] \times [m_j - \delta m, m_j + \delta m] \times [x_j - \delta x, x_j + \delta x] \times [y_j - \delta y, y_j + \delta y],
+\]
+where \( \delta t \), \( \delta m \), \( \delta x \), and \( \delta y \) are infinitesimally small intervals in time, magnitude, and spatial coordinates, respectively. The infinitesimal volume \( \delta V \) of \( \tau_j \) is given by
+\[
+\delta V = 16 \,\delta t \cdot \delta m \cdot \delta x \cdot \delta y.
+\]
+The process is characterized by a nonstationary Poisson intensity function \( \lambda(t, m, x, y) \), which encapsulates the varying rate of earthquake occurrences as a function of time \( t \), magnitude \( m \), and spatial coordinates \( (x, y) \). This intensity function allows the model to account for temporal \textit{variation} (nonstationarity), spatial heterogeneity, and variations in earthquake magnitudes. The likelihood function \( \mathcal{L}(\lambda) \) for the observed earthquake data comprises two main components:
+\begin{enumerate}
+    \item \textbf{The probability of observing each earthquake} within its respective infinitesimal region \( \tau_j \).
+    \item \textbf{The probability of observing no earthquakes} in the regions between consecutive events.
+\end{enumerate}
+
+For each observed earthquake event \( i \), the probability of exactly one event occurring within the infinitesimal region \( \tau_j \) is
+\[
+P\{n(\tau_j) = 1\} \;=\; \lambda(t_j, m_j, x_j, y_j)\,\delta V \;+\; o(\delta V),
+\]
+where \( n(\tau_j) \) denotes the number of events in \( \tau_j \). This expression holds under the assumption that \( \delta V \) is sufficiently small, ensuring that the probability of multiple events within \( \tau_j \) is negligible. Between any two consecutive earthquake events \( t_j \) and \( t_{i+1} \), the probability of observing zero events in the region
+\[
+\mathcal{R}_{i,i+1} = (t_j, t_{i+1}) \times [m_T, m_u] \times [x_{\mathrm{min}}, x_{\mathrm{max}}] \times [y_{\mathrm{min}}, y_{\mathrm{max}}]
+\]
+is given by
+\[
+P\{n(\mathcal{R}_{i,i+1}) = 0\} = \exp\left(-\int_{t_j}^{t_{i+1}} \int_{m_T}^{m_u} \int_{x_{\mathrm{min}}}^{x_{\mathrm{max}}} \int_{y_{\mathrm{min}}}^{y_{\mathrm{max}}} \lambda(t, m, x, y) \, dy \, dx \, dm \, dt\right).
+\]
+For completeness, the initial region \( [t_a,t_1) \times [m_T,m_u] \times [x_{\min},x_{\max}] \times [y_{\min},y_{\max}] \) and the terminal region \( (t_N,t_b] \times [m_T,m_u] \times [x_{\min},x_{\max}] \times [y_{\min},y_{\max}] \) also contribute zero-event probabilities of the same exponential form.
+
+Using independence on disjoint regions, the overall likelihood function is the product of the probabilities of observing each earthquake in its respective region and the probabilities of observing no earthquakes in the complementary regions. Neglecting terms \(o(\delta V)\) and constants that do not depend on the intensity (e.g., the factor \(\delta V^N\)), we obtain the standard Poisson likelihood
+\[
+\mathcal{L}(\lambda) = \prod_{j=1}^N  \lambda(t_j, m_j, x_j, y_j) \prod_{i=0}^{N} \exp\left(-\int_{\mathcal{R}_{i,i+1}} \lambda(t, m, x, y) \, dy \, dx \, dm \, dt\right),
+\]
+where by convention \(\mathcal{R}_{0,1}\) and \(\mathcal{R}_{N,N+1}\) denote the initial and terminal regions above. Simplifying this expression by noting that the union of all zero-event regions equals the whole observation window \( \mathcal{W} \), we obtain
+\[
+\mathcal{L}(\lambda) = \prod_{j=1}^N \lambda(t_j, m_j, x_j, y_j) \,\exp\left(-\int_{\mathcal{W}} \lambda(t, m, x, y) \, dy \, dx \, dm \, dt\right).
+\]
+
+To facilitate parameter estimation through algebraic manipulation and maximization, we take the natural logarithm of the likelihood function, yielding the log-likelihood function:
+\begin{align*}
+\ln \mathcal{L}(\lambda) &=  \sum_{j=1}^N \ln \lambda(t_j, m_j, x_j, y_j) - \int_{\mathcal{W}} \lambda(t, m, x, y) \, dy \, dx \, dm \, dt\\
+& = \sum_{j=1}^N \ln \lambda(t_j, m_j, x_j, y_j) - \int_{t_a}^{t_b} \int_{m_T}^{m_u} \int_{x_{\mathrm{min}}}^{x_{\mathrm{max}}} \int_{y_{\mathrm{min}}}^{y_{\mathrm{max}}} \lambda(t, m, x, y) \, dy \, dx \, dm \, dt.
+\end{align*}
+
+% e.g.\ $(\mathrm{day})^{-1}\,(\mathrm{mag})^{-1}\,(\mathrm{km}^2)^{-1}$ when $t$ is in days and $(x,y)$ are in kilometers. 
+Note that the intensity $\lambda(t,m,x,y)$ has units$ [\lambda]=(\mathrm{time})^{-1}\,(\mathrm{magnitude})^{-1}\,(\mathrm{area})^{-1}$.
+The infinitesimal volume is $\,\delta V=(2\delta t)(2\delta m)(2\delta x)(2\delta y)=16\,\delta t\,\delta m\,\delta x\,\delta y\,$ if $\delta t,\delta m,\delta x,\delta y$ are half-widths of the symmetric intervals; using full widths would drop the factor $16$ and only add a parameter-free constant in the log-likelihood. 
+Consequently, $\lambda\,\delta V$ is dimensionless (an expected count over $\tau_j$), as required. 
+
+
+\section{The justification of the PPE model} \label{sec:derive_ppe}
+
+\begin{proposition}[IPPP Log-Likelihood Framework]
+Let $D\subset\mathbb{R}^4$ be the observation window (time $\times$ magnitude $\times$ space), and write $u=(t,m,x,y)\in D$. For an inhomogeneous Poisson point process (IPPP) with intensity function $\lambda(u;\vartheta)$, the cumulative intensity for any measurable $B\subset D$ is $\Lambda(B;\vartheta)=\int_{B}\lambda(u;\vartheta)\,\mathrm{d}u$.
+This process is characterized by two main properties: the number of events $N(B)$ in any set $B$ follows a Poisson distribution, $N(B)\sim \mathrm{Poisson}(\Lambda(B;\vartheta))$, and the counts in disjoint sets are independent. A direct consequence is that the total expected number of events in the window is $\mathbb{E}[N(D)]=\Lambda(D;\vartheta)$.
+
+Given observed events $\{u_j\}_{j=1}^N\subset D$, the likelihood and log-likelihood are:
+\[
+L(\vartheta)
+= \exp\!\big(-\Lambda(D;\vartheta)\big)\prod_{j=1}^N \lambda(u_j;\vartheta),
+\qquad
+\ell(\vartheta)=\log L(\vartheta)
+= \sum_{j=1}^N \log \lambda(u_j;\vartheta)\;-\;\Lambda(D;\vartheta).
+\]
+\end{proposition}
+
+A key theoretical property of the Maximum Likelihood Estimator (MLE) for the PPE model is that the total expected event count must equal the total observed event count. This result stems from a general lemma for Poisson point process models whose intensity function is linear in some of its parameters.
+
+\begin{lemma}[MLE Identity for Linearly Parameterized Poisson Models]
+We assume the model is an inhomogeneous Poisson point process on a domain $D$, with an intensity $\lambda(u; \vartheta)$ and log-likelihood $\ell(\vartheta)$ as defined in \textbf{Proposition 2}. We also assume the parameter vector $\vartheta$ can be partitioned as $(\theta, \eta)$, where $\theta = (\theta_1, \dots, \theta_K)$ is a vector of linear coefficients, and $\eta$ is a vector of non-linear (nuisance) parameters. Finally, we assume the intensity function $\lambda$ is a linear combination of basis functions $\phi_k$, with the linear parameters $\theta_k$ as the coefficients:
+\[
+\lambda(u;\theta,\eta)\;=\;\sum_{k=1}^{K}\theta_k\,\phi_k(u;\eta).
+\]
+If $(\hat\theta, \hat\eta)$ is an interior solution for the MLE that maximizes $\ell(\vartheta)$, then the first-order optimality conditions $\partial \ell / \partial \theta_k = 0$ for all $k$ necessarily imply that the total expected count equals the total observed count:
+\[
+\boxed{\;\Lambda(D;\hat\theta,\hat\eta)=N.\;}
+\]
+where $\Lambda(D;\theta,\eta) = \int_D \lambda(u;\theta,\eta)\,\mathrm{d}u$ and $N$ is the number of observed events.
+\end{lemma}
+
+\begin{proof}
+The proof proceeds by first computing the score (the partial derivative of the log-likelihood) with respect to a linear parameter $\theta_k$.
+Differentiate the log-likelihood $\ell(\theta,\eta)=\sum_{j=1}^N \log \lambda(u_j;\theta,\eta)-\Lambda(D;\theta,\eta)$ with respect to $\theta_k$:
+\begin{align*}
+\frac{\partial \ell}{\partial \theta_k}
+&= \sum_{j=1}^N \frac{1}{\lambda(u_j;\theta,\eta)} \frac{\partial \lambda(u_j;\theta,\eta)}{\partial \theta_k}
+     \;-\; \frac{\partial}{\partial \theta_k}\!\left(\int_D \lambda(u;\theta,\eta)\, \mathrm{d}u\right)
+     && \text{(definition of $\ell$ and chain rule)}\\[2pt]
+&= \sum_{j=1}^N \frac{1}{\lambda(u_j;\theta,\eta)} \,\phi_k(u_j;\eta)
+     \;-\; \int_D \frac{\partial \lambda(u;\theta,\eta)}{\partial \theta_k}\, \mathrm{d}u
+     && \text{(since $\partial \lambda/\partial \theta_k=\phi_k$)}\\[2pt]
+&= \sum_{j=1}^N \frac{\phi_k(u_j;\eta)}{\lambda(u_j;\theta,\eta)}
+     \;-\; \int_D \phi_k(u;\eta)\, \mathrm{d}u\\[2pt]
+&= \sum_{j=1}^N \frac{\phi_k(u_j;\eta)}{\lambda(u_j;\theta,\eta)} \;-\; \Phi_k(\eta),
+\end{align*}
+where $\displaystyle \Phi_k(\eta):=\int_D \phi_k(u;\eta)\, \mathrm{d}u$.
+
+Next, we use this result to derive the central identity by multiplying each score by its corresponding parameter $\theta_k$ and summing over all $k=1,\dots,K$:
+\begin{align*}
+\sum_{k=1}^{K}\theta_k \frac{\partial \ell}{\partial \theta_k}
+&= \sum_{k=1}^{K}\theta_k \left[
+     \sum_{j=1}^{N}\frac{\phi_k(u_j;\eta)}{\lambda(u_j;\theta,\eta)} \;-\; \Phi_k(\eta)
+   \right]
+     && \text{(substitute result)}\\[2pt]
+&= \sum_{j=1}^{N} \sum_{k=1}^{K}\frac{\theta_k \phi_k(u_j;\eta)}{\lambda(u_j;\theta,\eta)}
+   \;-\; \sum_{k=1}^{K}\theta_k \Phi_k(\eta)
+     && \text{(reorder finite sums)}\\[2pt]
+&= \sum_{j=1}^{N} \frac{\sum_{k=1}^{K}\theta_k \phi_k(u_j;\eta)}{\lambda(u_j;\theta,\eta)}
+   \;-\; \int_D \sum_{k=1}^K \theta_k \phi_k(u;\eta)\, \mathrm{d}u
+     && \text{(linearity of integral)}\\[2pt]
+&= \sum_{j=1}^{N} \frac{\lambda(u_j;\theta,\eta)}{\lambda(u_j;\theta,\eta)}
+   \;-\; \int_D \lambda(u;\theta,\eta)\, \mathrm{d}u
+     && \text{(since $\sum_k \theta_k \phi_k=\lambda$)}\\[2pt]
+&= \sum_{j=1}^{N} 1 \;-\; \Lambda(D;\theta,\eta)
+     \;=\; N - \Lambda(D;\theta,\eta).
+\end{align*}
+At an interior MLE $(\hat\theta,\hat\eta)$ (i.e.\ all $\hat\theta_k>0$), the first-order optimality conditions require $\partial \ell/\partial \theta_k=0$ for all $k$. Therefore, the weighted sum must also be zero, $\sum_k \hat\theta_k(\partial \ell/\partial \theta_k)=0$, which forces
+\[
+N-\Lambda(D;\hat\theta,\hat\eta)=0
+\quad\Longrightarrow\quad
+\boxed{\;\Lambda(D;\hat\theta,\hat\eta)=N.\;}
+\]
+\end{proof}
+
+Having formally proven the lemma, we now apply this result to the PPE background model.
+We first give definitions of the spatial kernel and the catalog counters used below.
+Let $r_i^2(x,y)=(x-x_i)^2+(y-y_i)^2$ and
+$
+\kappa_{d,i}(x,y)\;=\;\frac{1}{\pi}\,\frac{1}{d^2+r_i^2(x,y)}
+$
+be an isotropic, integrable kernel centered at event $i$.
+Let the magnitude weight be $w(m):=m-m_T$. Define the \emph{weighted} spatial kernel and the catalog counter
+\[
+K_d(t;x,y)\;=\!\!\sum_{i:\,t_i+\mathrm{delay}<t,\,m_i\ge m_T}\! w(m_i)\,\kappa_{d,i}(x,y),
+\qquad
+n_c(t)\;=\!\!\sum_{i:\,t_i+\mathrm{delay}<t,\,m_i\ge m_T}\! 1.
+\]
+For spatial integrals over a forecasting region $R$, set
+\[
+J_i(d):=\iint_R \kappa_{d,i}(x,y)\,\mathrm{d}A,
+\qquad
+A_R:=\iint_R 1\,\mathrm{d}A .
+\]
+Note that by linearity,
+$
+\iint_R K_d(t;x,y)\,\mathrm{d}A
+=\sum_{i:\,t_i+\mathrm{delay}<t,\,m_i\ge m_T} w(m_i)\,J_i(d).
+$
+
+Throughout this section we fix the observation window $D := [t_s,t_e)\times[m_T,m_u]\times R$, and let $N := N(D)$. The past events summaries $K_d(t;\cdot)$ and $n_c(t)$ use history from $t_0$ up to $t-\mathrm{delay}$ to form the integrand, but the outer time integral and the observed count $N$ are always over $[t_s,t_e)$. We write the PPE background intensity as
+\[
+\lambda_0(t,m,x,y; a,d,s)\;=\; f_0(t)\,g_0(m)\,\Big[a\,K_d(t;x,y)\;+\;s\,n_c(t)\Big].
+\]
+This intensity function is linear in the two coefficients $(a,s)$, with the (nuisance) shape parameter $\eta=d$.
+Matching \textbf{Lemma 4}, we identify the parameters and basis functions:
+\[
+\theta_1=a,\ \theta_2=s,
+\]
+\[
+\phi_1(u;d)=f_0(t)g_0(m)K_d(t;x,y)\,\mathbf{1}_R(x,y),
+\]
+\[
+\phi_2(u;d)=f_0(t)g_0(m)n_c(t)\,\mathbf{1}_R(x,y).
+\]
+The intensity is thus $\lambda_0=a\phi_1+s\phi_2$ (assuming $K_d(t;x,y)=0$ outside $R$). Therefore, \textbf{Lemma 4} applies, and any interior MLE $(\hat a,\hat d,\hat s)$ must satisfy
+\[
+\boxed{\Lambda(D;\hat a,\hat d,\hat s)=N}.
+\]
+
+% \bsp % ``This paper has been produced using the Blackwell
+%      %   Publishing GJI \LaTeXe\ class file.''
+
+\label{lastpage}
+
+
+\end{document}

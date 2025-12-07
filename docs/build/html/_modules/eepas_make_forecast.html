@@ -1,0 +1,910 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eepas_make_forecast &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/eepas_make_forecast';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for eepas_make_forecast</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EEPAS Earthquake Forecasting</span>
+
+<span class="sd">Generate EEPAS model forecasts combining PPE background rate with</span>
+<span class="sd">precursory signals from historical earthquakes.</span>
+
+<span class="sd">Final forecast: λ = μ·λ₀ + Σ wᵢ·ηᵢ·λᵢ</span>
+
+<span class="sd">Each historical earthquake contributes a precursory kernel with temporal</span>
+<span class="sd">(lognormal), magnitude (Gaussian), and spatial (exponential) distributions.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">erf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">quad</span><span class="p">,</span> <span class="n">quad_vec</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numba</span><span class="w"> </span><span class="kn">import</span> <span class="n">jit</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.data_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.catalog_processor</span><span class="w"> </span><span class="kn">import</span> <span class="n">CatalogProcessor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.region_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">RegionManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.get_paths</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_paths</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">calculate_earthquake_weights</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_earthquake_weights</span>
+
+
+<div class="viewcode-block" id="compute_spatial_contribution_fast">
+<a class="viewcode-back" href="../api_reference/core.html#eepas_make_forecast.compute_spatial_contribution_fast">[docs]</a>
+<span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_spatial_contribution_fast</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Y1</span><span class="p">,</span> <span class="n">Y2</span><span class="p">,</span> <span class="n">xee</span><span class="p">,</span> <span class="n">yee</span><span class="p">,</span> <span class="n">sigma_spatial</span><span class="p">,</span>
+                                       <span class="n">qq_other</span><span class="p">,</span> <span class="n">W_use</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute spatial contributions for all grid cells using Numba acceleration.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X1, X2, Y1, Y2: Grid boundary arrays (celln,)</span>
+<span class="sd">        xee, yee: Event coordinate arrays (n_events,)</span>
+<span class="sd">        sigma_spatial: Spatial standard deviation array (n_events,)</span>
+<span class="sd">        qq_other: Product of other contribution terms (scale×magnitude×time×weight) (n_events,)</span>
+<span class="sd">        W_use: Weight array (n_events,)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray: Expected number of events in each grid cell (celln,)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">celln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+    <span class="n">n_events</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xee</span><span class="p">)</span>
+    <span class="n">ExpE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">celln</span><span class="p">)</span>
+    <span class="n">sqrt_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">celln</span><span class="p">):</span>
+        <span class="c1"># For each grid cell, compute spatial contribution from all events</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_events</span><span class="p">):</span>
+            <span class="c1"># EEPAS spatial distribution: 2D Gaussian integral over rectangle</span>
+            <span class="c1"># Use erf function to compute cumulative distribution function differences</span>
+            <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma_spatial</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+            <span class="c1"># erf function is available in Numba</span>
+            <span class="n">F</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">erf</span><span class="p">((</span><span class="n">X1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">xee</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt_2</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">))</span> <span class="o">*</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">erf</span><span class="p">((</span><span class="n">Y1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">yee</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt_2</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">))</span> <span class="o">-</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">erf</span><span class="p">((</span><span class="n">X1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">xee</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt_2</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">))</span> <span class="o">*</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">erf</span><span class="p">((</span><span class="n">Y2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">yee</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt_2</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">))</span> <span class="o">-</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">erf</span><span class="p">((</span><span class="n">X2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">xee</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt_2</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">))</span> <span class="o">*</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">erf</span><span class="p">((</span><span class="n">Y1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">yee</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt_2</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">))</span> <span class="o">+</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">erf</span><span class="p">((</span><span class="n">X2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">xee</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt_2</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">))</span> <span class="o">*</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">erf</span><span class="p">((</span><span class="n">Y2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">yee</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt_2</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">))</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="mf">4.0</span>
+
+            <span class="n">total</span> <span class="o">+=</span> <span class="n">qq_other</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">F</span>
+
+        <span class="n">ExpE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">total</span>
+
+    <span class="k">return</span> <span class="n">ExpE</span></div>
+
+
+
+<span class="c1"># ===== Shared functions moved to unified module =====</span>
+<span class="c1"># fast_magnitude_integral moved to utils/numerical_integration.py</span>
+<span class="c1"># Import shared function to avoid code duplication</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.numerical_integration</span><span class="w"> </span><span class="kn">import</span> <span class="n">fast_magnitude_integral</span>
+
+
+<div class="viewcode-block" id="eepas_make_forecast">
+<a class="viewcode-back" href="../api_reference/core.html#eepas_make_forecast.eepas_make_forecast">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">eepas_make_forecast</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="s1">&#39;config.json&#39;</span><span class="p">,</span> <span class="n">catalog_start_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                       <span class="n">forecast_start_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">forecast_end_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                       <span class="n">celln</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">m0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weight_flag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                       <span class="n">use_causal_ew</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">forecast_period_days</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                       <span class="n">use_fast_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">magnitude_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">ppe_ref_mag</span><span class="o">=</span><span class="s1">&#39;mT&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main function for EEPAS model earthquake forecasting.</span>
+
+<span class="sd">    Workflow:</span>
+
+<span class="sd">        1. Load all parameters from three learning stages:</span>
+
+<span class="sd">           - PPE parameters (a,d,s): Step 1</span>
+<span class="sd">           - Aftershock parameters (ν,κ): Step 2</span>
+<span class="sd">           - EEPAS parameters (am,bm,Sm,at,bt,St,ba,Sa,u): Step 3</span>
+
+<span class="sd">        2. Calculate weights wᵢ for each historical earthquake (aftershock down-weighting)</span>
+<span class="sd">        3. For each forecast time window:</span>
+
+<span class="sd">           - Calculate precursory signal contribution for each grid cell</span>
+<span class="sd">           - Add PPE background rate</span>
+<span class="sd">           - Generate complete seismicity rate map</span>
+
+<span class="sd">        4. Save in MATLAB format</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        config_file: Path to configuration file</span>
+<span class="sd">        catalog_start_year: Starting year of earthquake catalog</span>
+<span class="sd">        forecast_start_year: Starting year of forecast period</span>
+<span class="sd">        forecast_end_year: Ending year of forecast period</span>
+<span class="sd">        celln: Number of spatial grid cells (uses CELLE count if not specified)</span>
+<span class="sd">        m0: Completeness magnitude</span>
+<span class="sd">        weight_flag: Weight calculation mode</span>
+<span class="sd">            0 = Uniform weights (wᵢ=1, no aftershock consideration)</span>
+<span class="sd">            1 = Compute weights (aftershock down-weighting using ETAS model)</span>
+<span class="sd">        delay: Delay in days (how long after an earthquake before counting precursory signal)</span>
+<span class="sd">        use_causal_ew: EW weight calculation mode</span>
+<span class="sd">            1 (dynamic): Each period uses all events up to (t1-delay) to compute EW</span>
+<span class="sd">            0 (fixed): Each period uses all events up to (t2) to compute EW (fixed within period)</span>
+<span class="sd">            Both modes are causal, source events restricted to before t1-delay</span>
+<span class="sd">        forecast_period_days: Length of each forecast window (days, default 91.31≈3 months)</span>
+<span class="sd">        use_fast_mode: Whether to use fast mode (default True)</span>
+<span class="sd">            True: Use Numba JIT-accelerated midpoint rectangle method (fast)</span>
+<span class="sd">            False: Use exact quad_vec integration (slow but precise)</span>
+<span class="sd">        magnitude_samples: Number of samples for fast mode (default 20, increase for higher accuracy)</span>
+<span class="sd">        ppe_ref_mag: PPE reference magnitude selection (&#39;m0&#39; or &#39;mT&#39;, default uses mT)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: EEPAS forecast rate matrix with shape (N_rows, N_cols+1) where:</span>
+
+<span class="sd">            - N_rows = num_time_windows × num_magnitude_bins (e.g., 40 periods × 25 mag bins = 1000)</span>
+<span class="sd">            - N_cols = num_spatial_cells (e.g., 177 grid cells for Italy)</span>
+<span class="sd">            - Column 0: Time window index (1, 2, 3, ...)</span>
+<span class="sd">            - Columns 1 to N_cols: Earthquake rate for each spatial cell</span>
+
+<span class="sd">            Each rate value represents expected number of earthquakes in that</span>
+<span class="sd">            spatiotemporal-magnitude bin during the forecast period.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Load configuration and parameters</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_model_params</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+    <span class="n">catalog_start_year</span> <span class="o">=</span> <span class="n">catalog_start_year</span> <span class="ow">or</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;catalogStartYear&#39;</span><span class="p">]</span>
+    <span class="n">forecast_start_year</span> <span class="o">=</span> <span class="n">forecast_start_year</span> <span class="ow">or</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;forecastStartYear&#39;</span><span class="p">]</span>
+    <span class="n">forecast_end_year</span> <span class="o">=</span> <span class="n">forecast_end_year</span> <span class="ow">or</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;forecastEndYear&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Get file paths</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="n">get_paths</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;learnStartYear&#39;</span><span class="p">],</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;learnEndYear&#39;</span><span class="p">],</span>
+                      <span class="n">forecast_start_year</span><span class="p">,</span> <span class="n">forecast_end_year</span><span class="p">)</span>
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">paths</span><span class="p">[</span><span class="s1">&#39;dataPath&#39;</span><span class="p">]</span>
+    <span class="n">eepas_out</span> <span class="o">=</span> <span class="n">paths</span><span class="p">[</span><span class="s1">&#39;eepasOut&#39;</span><span class="p">]</span>
+    <span class="n">ppe_out</span> <span class="o">=</span> <span class="n">paths</span><span class="p">[</span><span class="s1">&#39;ppeOut&#39;</span><span class="p">]</span>
+    <span class="n">eepas_param</span> <span class="o">=</span> <span class="n">paths</span><span class="p">[</span><span class="s1">&#39;eepasParam&#39;</span><span class="p">]</span>
+    <span class="n">ppe_param</span> <span class="o">=</span> <span class="n">paths</span><span class="p">[</span><span class="s1">&#39;ppeParam&#39;</span><span class="p">]</span>
+
+    <span class="n">m0</span> <span class="o">=</span> <span class="n">m0</span> <span class="ow">or</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;m0&#39;</span><span class="p">]</span>
+    <span class="n">weight_flag</span> <span class="o">=</span> <span class="n">weight_flag</span> <span class="k">if</span> <span class="n">weight_flag</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;weightFlag&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">delay</span> <span class="o">=</span> <span class="n">delay</span> <span class="ow">or</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;delay&#39;</span><span class="p">]</span>
+    <span class="n">use_causal_ew</span> <span class="o">=</span> <span class="n">use_causal_ew</span> <span class="k">if</span> <span class="n">use_causal_ew</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;useCausalEW&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">forecast_period_days</span> <span class="o">=</span> <span class="n">forecast_period_days</span> <span class="ow">or</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;forecastPeriodDays&#39;</span><span class="p">,</span> <span class="mf">91.31</span><span class="p">)</span>
+
+    <span class="c1"># Handle PPE reference magnitude</span>
+    <span class="k">if</span> <span class="n">ppe_ref_mag</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;ppe_ref_mag_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;mT&#39;</span><span class="p">]</span>  <span class="c1"># Default to mT</span>
+    <span class="k">elif</span> <span class="n">ppe_ref_mag</span> <span class="o">==</span> <span class="s1">&#39;m0&#39;</span><span class="p">:</span>
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;ppe_ref_mag_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;m0&#39;</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using PPE reference magnitude: m0 = </span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;m0&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">ppe_ref_mag</span> <span class="o">==</span> <span class="s1">&#39;mT&#39;</span><span class="p">:</span>
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;ppe_ref_mag_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;mT&#39;</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using PPE reference magnitude: mT = </span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;mT&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;ppe_ref_mag_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ppe_ref_mag</span>  <span class="c1"># Use numerical value directly</span>
+
+    <span class="c1"># Validate parameter logic</span>
+    <span class="k">if</span> <span class="n">forecast_start_year</span> <span class="o">&lt;=</span> <span class="n">catalog_start_year</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Forecast start year must be greater than catalog start year&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">forecast_end_year</span> <span class="o">&lt;=</span> <span class="n">forecast_start_year</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Forecast end year must be greater than forecast start year&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Load earthquake catalogs</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loading earthquake catalogs...&#39;</span><span class="p">)</span>
+    <span class="n">HORUS</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">CELLE</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_catalogs</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+    <span class="c1"># Load spatial region configuration (optional for spatial filtering)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">regions</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_spatial_regions</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+        <span class="c1"># Create RegionManager</span>
+        <span class="n">region_manager</span> <span class="o">=</span> <span class="n">RegionManager</span><span class="p">(</span>
+            <span class="n">regions</span><span class="p">[</span><span class="s1">&#39;testing_region&#39;</span><span class="p">],</span>
+            <span class="n">regions</span><span class="p">[</span><span class="s1">&#39;neighborhood_region&#39;</span><span class="p">],</span>
+            <span class="n">regions</span><span class="p">[</span><span class="s1">&#39;testing_type&#39;</span><span class="p">],</span>
+            <span class="n">regions</span><span class="p">[</span><span class="s1">&#39;neighborhood_type&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Spatial region configuration:&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Testing Region: </span><span class="si">{</span><span class="n">regions</span><span class="p">[</span><span class="s2">&quot;testing_type&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Neighborhood Region: </span><span class="si">{</span><span class="n">regions</span><span class="p">[</span><span class="s2">&quot;neighborhood_type&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># CELLE is the grid for testing region</span>
+        <span class="k">if</span> <span class="n">regions</span><span class="p">[</span><span class="s1">&#39;testing_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
+            <span class="n">celln</span> <span class="o">=</span> <span class="n">celln</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">CELLE</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Testing region must be in grid format&#39;</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># Backward compatibility: if region configuration cannot be loaded, no spatial filtering applied</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Region configuration not loaded (no spatial filtering): </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">region_manager</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">celln</span> <span class="o">=</span> <span class="n">celln</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">CELLE</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Debug: Using </span><span class="si">{</span><span class="n">celln</span><span class="si">}</span><span class="s1"> regions for EEPAS forecast&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Preprocessing: quality control, time conversion, magnitude filtering</span>
+    <span class="n">HORUS</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">CatalogProcessor</span><span class="o">.</span><span class="n">preprocess_catalog</span><span class="p">(</span>
+        <span class="n">HORUS</span><span class="p">,</span> <span class="n">catalog_start_year</span><span class="p">,</span> <span class="n">catalog_start_year</span><span class="p">,</span> <span class="n">forecast_end_year</span><span class="p">,</span>
+        <span class="n">completeness_threshold</span><span class="o">=</span><span class="n">m0</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Apply spatial filtering (if region_manager exists)</span>
+    <span class="c1"># Use events within neighborhood region to compute forecasts (boundary compensation)</span>
+    <span class="k">if</span> <span class="n">region_manager</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Applying spatial filtering (neighborhood region) for historical events...&#39;</span><span class="p">)</span>
+        <span class="n">HORUS_filtered</span> <span class="o">=</span> <span class="n">CatalogProcessor</span><span class="o">.</span><span class="n">filter_by_region</span><span class="p">(</span>
+            <span class="n">HORUS</span><span class="p">,</span> <span class="n">region_manager</span><span class="p">,</span> <span class="n">region_type</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Filtered event count: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">HORUS_filtered</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">HORUS</span> <span class="o">=</span> <span class="n">HORUS_filtered</span>
+
+    <span class="c1"># Create model-specific catalogs</span>
+    <span class="n">CatE</span> <span class="o">=</span> <span class="n">HORUS</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># EEPAS complete catalog</span>
+    <span class="n">CatI_filter</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;mT&#39;</span><span class="p">]</span>  <span class="c1"># PPE catalog filter condition (note: Python is 0-based)</span>
+    <span class="n">CatI</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[</span><span class="n">CatI_filter</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># PPE catalog (M≥mT)</span>
+
+    <span class="c1"># Ensure time series is strictly increasing (required for prospective calculation)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">CatE</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">CatE</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">sort_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">CatE</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">])</span>
+        <span class="n">CatE</span> <span class="o">=</span> <span class="n">CatE</span><span class="p">[</span><span class="n">sort_idx</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: EEPAS catalog not time-sorted, sorted by time column&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">CatI</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">CatI</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">CatI</span> <span class="o">=</span> <span class="n">CatI</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">CatI</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">]),</span> <span class="p">:]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: PPE catalog not time-sorted, sorted by time column&#39;</span><span class="p">)</span>
+
+    <span class="n">bin_width</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># Magnitude bin width</span>
+
+    <span class="c1"># Load fitted model parameters</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loading EEPAS parameters...&#39;</span><span class="p">)</span>
+    <span class="n">fitted_par</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">eepas_param</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">am</span> <span class="o">=</span> <span class="n">fitted_par</span><span class="p">[</span><span class="s1">&#39;am&#39;</span><span class="p">]</span>  <span class="c1"># Magnitude distribution mean parameter</span>
+    <span class="n">bm</span> <span class="o">=</span> <span class="n">fitted_par</span><span class="p">[</span><span class="s1">&#39;bm&#39;</span><span class="p">]</span>  <span class="c1"># Magnitude distribution slope parameter</span>
+    <span class="n">Sm</span> <span class="o">=</span> <span class="n">fitted_par</span><span class="p">[</span><span class="s1">&#39;Sm&#39;</span><span class="p">]</span>  <span class="c1"># Magnitude distribution standard deviation</span>
+    <span class="n">at</span> <span class="o">=</span> <span class="n">fitted_par</span><span class="p">[</span><span class="s1">&#39;at&#39;</span><span class="p">]</span>  <span class="c1"># Time distribution constant</span>
+    <span class="n">bt</span> <span class="o">=</span> <span class="n">fitted_par</span><span class="p">[</span><span class="s1">&#39;bt&#39;</span><span class="p">]</span>  <span class="c1"># Time distribution slope</span>
+    <span class="n">St</span> <span class="o">=</span> <span class="n">fitted_par</span><span class="p">[</span><span class="s1">&#39;St&#39;</span><span class="p">]</span>  <span class="c1"># Time distribution standard deviation</span>
+    <span class="n">ba</span> <span class="o">=</span> <span class="n">fitted_par</span><span class="p">[</span><span class="s1">&#39;ba&#39;</span><span class="p">]</span>  <span class="c1"># Spatial decay parameter</span>
+    <span class="n">Sa</span> <span class="o">=</span> <span class="n">fitted_par</span><span class="p">[</span><span class="s1">&#39;Sa&#39;</span><span class="p">]</span>  <span class="c1"># Spatial distribution standard deviation</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">fitted_par</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span>    <span class="c1"># EEPAS-PPE mixing weight</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loading PPE parameters...&#39;</span><span class="p">)</span>
+    <span class="n">fitted_par_ppe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">ppe_param</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">fitted_par_ppe</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>  <span class="c1"># Magnitude-dependent intensity</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">fitted_par_ppe</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span>  <span class="c1"># Spatial decay parameter</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">fitted_par_ppe</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span>  <span class="c1"># Background seismicity rate</span>
+
+    <span class="n">B</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># Gutenberg-Richter β parameter</span>
+
+    <span class="c1"># Calculate earthquake weights</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculating earthquake weights...&#39;</span><span class="p">)</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+    <span class="n">W</span><span class="p">,</span> <span class="n">EW</span><span class="p">,</span> <span class="n">CatE</span> <span class="o">=</span> <span class="n">calculate_earthquake_weights</span><span class="p">(</span><span class="n">CatE</span><span class="p">,</span> <span class="n">CatI</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">weight_flag</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">config_file</span><span class="p">,</span> <span class="n">ppe_ref_mag</span><span class="p">)</span>
+
+    <span class="c1"># Ensure catalog and weights are aligned</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">CatE</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">CatE</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">sort_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">CatE</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">])</span>
+        <span class="n">CatE</span> <span class="o">=</span> <span class="n">CatE</span><span class="p">[</span><span class="n">sort_idx</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">W</span><span class="p">[</span><span class="n">sort_idx</span><span class="p">]</span>
+
+    <span class="c1"># Extract earthquake attribute vectors (Python is 0-based, so index-1)</span>
+    <span class="n">me</span> <span class="o">=</span> <span class="n">CatE</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span>   <span class="c1"># Magnitude</span>
+    <span class="n">te</span> <span class="o">=</span> <span class="n">CatE</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">]</span>  <span class="c1"># Time</span>
+    <span class="n">ye</span> <span class="o">=</span> <span class="n">CatE</span><span class="p">[:,</span> <span class="mi">6</span><span class="p">]</span>   <span class="c1"># Y coordinate</span>
+    <span class="n">xe</span> <span class="o">=</span> <span class="n">CatE</span><span class="p">[:,</span> <span class="mi">7</span><span class="p">]</span>   <span class="c1"># X coordinate</span>
+
+    <span class="c1"># EEPAS magnitude conditional distribution g(m|me): conditional Gaussian, normalized to [m0,∞)</span>
+    <span class="c1"># Formula: N(am+bm*me, Sm²) / [1 - Φ((m0-am-bm*me)/Sm)]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fGme</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">mee_val</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Magnitude conditional distribution function - truncated Gaussian&quot;&quot;&quot;</span>
+        <span class="c1"># Numerator: Gaussian PDF</span>
+        <span class="n">numerator</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">Sm</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)))</span> <span class="o">*</span> \
+                   <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">m</span> <span class="o">-</span> <span class="n">am</span> <span class="o">-</span> <span class="n">bm</span> <span class="o">*</span> <span class="n">mee_val</span><span class="p">)</span> <span class="o">/</span> <span class="n">Sm</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Denominator: normalization factor = P(m &gt;= m0 | me)</span>
+        <span class="c1"># Note: MATLAB&#39;s erf implementation is consistent with scipy</span>
+        <span class="c1"># 0.5 * (erf(x) + 1) = Φ(x * sqrt(2)), where Φ is standard normal CDF</span>
+        <span class="n">denominator</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">erf</span><span class="p">((</span><span class="n">m</span> <span class="o">-</span> <span class="n">am</span> <span class="o">-</span> <span class="n">bm</span> <span class="o">*</span> <span class="n">m0</span> <span class="o">-</span> <span class="n">Sm</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">B</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">Sm</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>
+
+    <span class="c1"># Spatial grid boundaries</span>
+    <span class="n">X1</span> <span class="o">=</span> <span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">X2</span> <span class="o">=</span> <span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">Y1</span> <span class="o">=</span> <span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">Y2</span> <span class="o">=</span> <span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span>
+
+    <span class="c1"># Flexible time window forecast settings</span>
+    <span class="n">T3dec</span> <span class="o">=</span> <span class="p">(</span><span class="n">forecast_start_year</span> <span class="o">-</span> <span class="n">catalog_start_year</span><span class="p">)</span> <span class="o">*</span> <span class="mf">365.2425</span>  <span class="c1"># Forecast start time (relative days)</span>
+    <span class="n">Time_test</span> <span class="o">=</span> <span class="p">(</span><span class="n">forecast_end_year</span> <span class="o">-</span> <span class="n">forecast_start_year</span><span class="p">)</span> <span class="o">*</span> <span class="mf">365.2425</span>  <span class="c1"># Total forecast duration</span>
+    <span class="n">Tre_M</span> <span class="o">=</span> <span class="n">forecast_period_days</span>  <span class="c1"># Forecast window length</span>
+    <span class="n">N_tre_M</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">Time_test</span> <span class="o">/</span> <span class="n">Tre_M</span><span class="p">)</span>  <span class="c1"># Total number of forecast windows</span>
+
+    <span class="n">ExpE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">celln</span><span class="p">)</span>  <span class="c1"># Expected events per grid cell</span>
+    <span class="n">PREVISIONI_3m_less</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">N_tre_M</span> <span class="o">*</span> <span class="mi">25</span><span class="p">),</span> <span class="n">celln</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Result matrix</span>
+
+    <span class="n">Nrow</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Result matrix row index</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Starting forecast: </span><span class="si">{</span><span class="n">N_tre_M</span><span class="si">}</span><span class="s1"> time windows, </span><span class="si">{</span><span class="n">Tre_M</span><span class="si">}</span><span class="s1"> days each&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Main loop for time window forecasting</span>
+    <span class="k">for</span> <span class="n">time_s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N_tre_M</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Processing forecast window </span><span class="si">{</span><span class="n">time_s</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">N_tre_M</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Current window time range [t1, t2)</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">T3dec</span> <span class="o">+</span> <span class="p">(</span><span class="n">time_s</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">Tre_M</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">T3dec</span> <span class="o">+</span> <span class="n">time_s</span> <span class="o">*</span> <span class="n">Tre_M</span>
+
+        <span class="c1"># Prospective constraint: only use source events before t1-delay (snapshot mode)</span>
+        <span class="n">sources_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">te</span> <span class="o">&lt;</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sources_idx</span><span class="p">)</span>
+
+        <span class="n">m1</span> <span class="o">=</span> <span class="mf">5.0</span>  <span class="c1"># Lower magnitude bound for forecast</span>
+
+        <span class="c1"># If no historical sources: all magnitude bins for current window forecast to zero</span>
+        <span class="k">if</span> <span class="n">L</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span>
+                <span class="n">PREVISIONI_3m_less</span><span class="p">[</span><span class="n">Nrow</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_s</span>
+                <span class="n">PREVISIONI_3m_less</span><span class="p">[</span><span class="n">Nrow</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">celln</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">Nrow</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Weight calculation mode selection</span>
+        <span class="k">if</span> <span class="n">use_causal_ew</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Causal mode: both EW and W based only on past events, ensuring strict prospectiveness</span>
+            <span class="n">past_filter</span> <span class="o">=</span> <span class="n">sources_idx</span>
+            <span class="n">W_past</span> <span class="o">=</span> <span class="n">W</span><span class="p">[</span><span class="n">past_filter</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">W_past</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span>
+                    <span class="n">PREVISIONI_3m_less</span><span class="p">[</span><span class="n">Nrow</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_s</span>
+                    <span class="n">PREVISIONI_3m_less</span><span class="p">[</span><span class="n">Nrow</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">celln</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">Nrow</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+
+            <span class="n">EW_use</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">W_past</span><span class="p">)</span>  <span class="c1"># Empirical average of past weights</span>
+            <span class="n">CatE_past</span> <span class="o">=</span> <span class="n">CatE</span><span class="p">[</span><span class="n">past_filter</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">me_past</span> <span class="o">=</span> <span class="n">CatE_past</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span>
+            <span class="n">te_past</span> <span class="o">=</span> <span class="n">CatE_past</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">]</span>
+            <span class="n">ye_past</span> <span class="o">=</span> <span class="n">CatE_past</span><span class="p">[:,</span> <span class="mi">6</span><span class="p">]</span>
+            <span class="n">xe_past</span> <span class="o">=</span> <span class="n">CatE_past</span><span class="p">[:,</span> <span class="mi">7</span><span class="p">]</span>
+
+            <span class="c1"># Ensure past events are time-sorted</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">te_past</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">ordE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">te_past</span><span class="p">)</span>
+                <span class="n">me_past</span> <span class="o">=</span> <span class="n">me_past</span><span class="p">[</span><span class="n">ordE</span><span class="p">]</span>
+                <span class="n">te_past</span> <span class="o">=</span> <span class="n">te_past</span><span class="p">[</span><span class="n">ordE</span><span class="p">]</span>
+                <span class="n">ye_past</span> <span class="o">=</span> <span class="n">ye_past</span><span class="p">[</span><span class="n">ordE</span><span class="p">]</span>
+                <span class="n">xe_past</span> <span class="o">=</span> <span class="n">xe_past</span><span class="p">[</span><span class="n">ordE</span><span class="p">]</span>
+                <span class="n">W_past</span> <span class="o">=</span> <span class="n">W_past</span><span class="p">[</span><span class="n">ordE</span><span class="p">]</span>
+
+            <span class="c1"># Use past data for forecasting</span>
+            <span class="n">mee</span> <span class="o">=</span> <span class="n">me_past</span>
+            <span class="n">past_te</span> <span class="o">=</span> <span class="n">te_past</span>
+            <span class="n">xee</span> <span class="o">=</span> <span class="n">xe_past</span>
+            <span class="n">yee</span> <span class="o">=</span> <span class="n">ye_past</span>
+            <span class="n">W_use</span> <span class="o">=</span> <span class="n">W_past</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Revised causal mode: EW uses all events up to current period end (fixed within period)</span>
+            <span class="c1"># Select all events before current period end (t2) to compute EW</span>
+            <span class="n">period_filter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">te</span> <span class="o">&lt;</span> <span class="n">t2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">W_period</span> <span class="o">=</span> <span class="n">W</span><span class="p">[</span><span class="n">period_filter</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">W_period</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># If no events before current period, skip this period</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span>
+                    <span class="n">PREVISIONI_3m_less</span><span class="p">[</span><span class="n">Nrow</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_s</span>
+                    <span class="n">PREVISIONI_3m_less</span><span class="p">[</span><span class="n">Nrow</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">celln</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">Nrow</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Use weight average up to current period (causal, fixed within period)</span>
+            <span class="n">EW_use</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">W_period</span><span class="p">)</span>
+
+            <span class="c1"># Source events still use before t1-delay (maintain original logic)</span>
+            <span class="n">mee</span> <span class="o">=</span> <span class="n">me</span><span class="p">[</span><span class="n">sources_idx</span><span class="p">]</span>
+            <span class="n">past_te</span> <span class="o">=</span> <span class="n">te</span><span class="p">[</span><span class="n">sources_idx</span><span class="p">]</span>
+            <span class="n">xee</span> <span class="o">=</span> <span class="n">xe</span><span class="p">[</span><span class="n">sources_idx</span><span class="p">]</span>
+            <span class="n">yee</span> <span class="o">=</span> <span class="n">ye</span><span class="p">[</span><span class="n">sources_idx</span><span class="p">]</span>
+            <span class="n">W_use</span> <span class="o">=</span> <span class="n">W</span><span class="p">[</span><span class="n">sources_idx</span><span class="p">]</span>
+
+        <span class="c1"># Prospective consistency check: ensure all seed events satisfy delay condition</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">past_te</span> <span class="o">+</span> <span class="n">delay</span> <span class="o">&lt;=</span> <span class="n">t1</span><span class="p">),</span> <span class="s1">&#39;Prospectiveness violation: found seed events initiated within window&#39;</span>
+
+        <span class="c1"># Precompute matrix: store various contributions [scale term, magnitude integral, time integral, spatial integral, weight, total contribution]</span>
+        <span class="n">qq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">mee</span><span class="p">),</span> <span class="mi">7</span><span class="p">))</span>
+
+        <span class="c1"># EEPAS time distribution integral: lognormal probability mass on [t1,t2]</span>
+        <span class="c1"># f(τ|te,me) = lognormal distribution, parameters μ=at+bt*me, σ=St</span>
+        <span class="n">tau_l</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">past_te</span>  <span class="c1"># Lower integration limit (guaranteed &gt; delay)</span>
+        <span class="n">tau_u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">t2</span> <span class="o">-</span> <span class="n">past_te</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>  <span class="c1"># Upper integration limit</span>
+        <span class="n">mu_t</span> <span class="o">=</span> <span class="n">at</span> <span class="o">+</span> <span class="n">bt</span> <span class="o">*</span> <span class="n">mee</span>  <span class="c1"># Time distribution location parameter</span>
+
+        <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">tau_u</span> <span class="o">&gt;</span> <span class="n">tau_l</span><span class="p">)</span>
+        <span class="n">IT1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">past_te</span><span class="p">))</span>
+        <span class="n">IT1</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="n">erf</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">tau_u</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span> <span class="o">-</span> <span class="n">mu_t</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">St</span><span class="p">))</span> <span class="o">-</span>
+            <span class="n">erf</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">tau_l</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span> <span class="o">-</span> <span class="n">mu_t</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">St</span><span class="p">))</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Magnitude binning loop: compute forecast rate for each 0.1 magnitude bin</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span>
+            <span class="n">m2</span> <span class="o">=</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">bin_width</span>  <span class="c1"># Current magnitude bin [m1, m2)</span>
+
+            <span class="c1"># EEPAS scale contribution term: includes mixing weight (1-u) and normalization factor</span>
+            <span class="n">qq</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">bm</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">))</span> <span class="o">/</span> <span class="n">EW_use</span><span class="p">)</span> <span class="o">*</span> \
+                      <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">B</span> <span class="o">*</span> <span class="p">(</span><span class="n">am</span> <span class="o">+</span> <span class="p">(</span><span class="n">bm</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">mee</span> <span class="o">+</span> <span class="p">(</span><span class="n">B</span> <span class="o">*</span> <span class="n">Sm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+
+            <span class="c1"># Magnitude conditional distribution integral: probability mass of g(m|me) on [m1,m2]</span>
+            <span class="c1"># Use vectorized integration (corresponds to MATLAB&#39;s &#39;ArrayValued&#39;, true)</span>
+            <span class="c1"># ∫[m1,m2] fGme(m, me) dm, computed simultaneously for all me</span>
+
+            <span class="k">if</span> <span class="n">use_fast_mode</span><span class="p">:</span>
+                <span class="c1"># Fast mode: use Numba-accelerated midpoint rectangle method</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">fast_magnitude_integral</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">mee</span><span class="p">,</span> <span class="n">am</span><span class="p">,</span> <span class="n">bm</span><span class="p">,</span> <span class="n">Sm</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">magnitude_samples</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Exact mode: use scipy.quad_vec numerical integration</span>
+                <span class="c1"># Define vectorized integrand: m is scalar, returns vector of length len(mee)</span>
+                <span class="k">def</span><span class="w"> </span><span class="nf">fGme_vec</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+                    <span class="c1"># Numerator: Gaussian PDF, m is scalar, mee is vector, result is vector</span>
+                    <span class="n">numerator</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">Sm</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)))</span> <span class="o">*</span> \
+                               <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">m</span> <span class="o">-</span> <span class="n">am</span> <span class="o">-</span> <span class="n">bm</span> <span class="o">*</span> <span class="n">mee</span><span class="p">)</span> <span class="o">/</span> <span class="n">Sm</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="c1"># Denominator: normalization factor, computed for each me</span>
+                    <span class="n">denominator</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">erf</span><span class="p">((</span><span class="n">m</span> <span class="o">-</span> <span class="n">am</span> <span class="o">-</span> <span class="n">bm</span> <span class="o">*</span> <span class="n">m0</span> <span class="o">-</span> <span class="n">Sm</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">B</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">Sm</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>
+
+                <span class="c1"># Use quad_vec for vectorized integration, compute all me integrals at once</span>
+                <span class="n">result</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">quad_vec</span><span class="p">(</span><span class="n">fGme_vec</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">)</span>
+
+            <span class="n">qq</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+
+            <span class="c1"># Time distribution contribution</span>
+            <span class="n">qq</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">IT1</span>
+
+            <span class="c1"># Spatial contribution calculation</span>
+            <span class="c1"># Precompute spatial standard deviation</span>
+            <span class="n">sigma_spatial</span> <span class="o">=</span> <span class="n">Sa</span> <span class="o">/</span> <span class="p">(</span><span class="mf">10.0</span> <span class="o">**</span> <span class="p">(</span><span class="n">ba</span> <span class="o">*</span> <span class="n">mee</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">))</span>
+
+            <span class="c1"># Precompute product of other contribution terms (scale×magnitude×time×weight)</span>
+            <span class="n">qq_other</span> <span class="o">=</span> <span class="n">qq</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">qq</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">qq</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">W_use</span>
+
+            <span class="c1"># Use Numba-accelerated function to compute spatial contribution for all grid cells</span>
+            <span class="k">if</span> <span class="n">use_fast_mode</span><span class="p">:</span>
+                <span class="n">ExpE</span> <span class="o">=</span> <span class="n">compute_spatial_contribution_fast</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Y1</span><span class="p">,</span> <span class="n">Y2</span><span class="p">,</span> <span class="n">xee</span><span class="p">,</span> <span class="n">yee</span><span class="p">,</span>
+                                                          <span class="n">sigma_spatial</span><span class="p">,</span> <span class="n">qq_other</span><span class="p">,</span> <span class="n">W_use</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Original Python loop version (retained for verification)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">celln</span><span class="p">):</span>
+                    <span class="n">F</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">erf</span><span class="p">((</span><span class="n">X1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">xee</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma_spatial</span><span class="p">))</span> <span class="o">*</span>
+                        <span class="n">erf</span><span class="p">((</span><span class="n">Y1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">yee</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma_spatial</span><span class="p">))</span> <span class="o">-</span>
+                        <span class="n">erf</span><span class="p">((</span><span class="n">X1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">xee</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma_spatial</span><span class="p">))</span> <span class="o">*</span>
+                        <span class="n">erf</span><span class="p">((</span><span class="n">Y2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">yee</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma_spatial</span><span class="p">))</span> <span class="o">-</span>
+                        <span class="n">erf</span><span class="p">((</span><span class="n">X2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">xee</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma_spatial</span><span class="p">))</span> <span class="o">*</span>
+                        <span class="n">erf</span><span class="p">((</span><span class="n">Y1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">yee</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma_spatial</span><span class="p">))</span> <span class="o">+</span>
+                        <span class="n">erf</span><span class="p">((</span><span class="n">X2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">xee</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma_spatial</span><span class="p">))</span> <span class="o">*</span>
+                        <span class="n">erf</span><span class="p">((</span><span class="n">Y2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">yee</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma_spatial</span><span class="p">))</span>
+                    <span class="p">)</span> <span class="o">/</span> <span class="mf">4.0</span>
+                    <span class="n">ExpE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">qq_other</span> <span class="o">*</span> <span class="n">F</span><span class="p">)</span>
+
+            <span class="c1"># Record forecast results for current magnitude bin</span>
+            <span class="n">PREVISIONI_3m_less</span><span class="p">[</span><span class="n">Nrow</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_s</span>
+            <span class="n">PREVISIONI_3m_less</span><span class="p">[</span><span class="n">Nrow</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">celln</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ExpE</span>
+            <span class="n">Nrow</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">m1</span> <span class="o">=</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">bin_width</span>  <span class="c1"># Move to next magnitude bin</span>
+
+    <span class="c1"># Combine EEPAS-PPE hybrid model</span>
+    <span class="c1"># Mixing formula: λ_total = (1-u)×λ_EEPAS + u×λ_PPE</span>
+    <span class="c1"># Current matrix stores (1-u)×λ_EEPAS, need to add u×λ_PPE</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mixing EEPAS and PPE forecast results...&#39;</span><span class="p">)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">ppe_out</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;PREVISIONI_3m&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">S</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PPE output file </span><span class="si">{</span><span class="n">ppe_out</span><span class="si">}</span><span class="s1"> missing variable PREVISIONI_3m&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Perform mixing: current result already includes (1-u) weight, add u×PPE result</span>
+    <span class="n">PREVISIONI_3m_less</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="s1">&#39;PREVISIONI_3m&#39;</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">*</span> <span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="n">PREVISIONI_3m_less</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+
+    <span class="c1"># Create output directory and save results</span>
+    <span class="n">output_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">eepas_out</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_dir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Created output directory: </span><span class="si">{</span><span class="n">output_dir</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">sio</span><span class="o">.</span><span class="n">savemat</span><span class="p">(</span><span class="n">eepas_out</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;PREVISIONI_3m_less&#39;</span><span class="p">:</span> <span class="n">PREVISIONI_3m_less</span><span class="p">})</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;EEPAS forecast results saved to: </span><span class="si">{</span><span class="n">eepas_out</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">PREVISIONI_3m_less</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;EEPAS Earthquake Forecasting&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--config&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;../src/config_decluster_include921.json&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--test&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Test mode (forecast only 1 month)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--accurate&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use accurate mode (quad_vec integration, slower but more precise)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--magnitude-samples&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Number of samples for fast mode (default 50, increase for higher accuracy)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--ppe-ref-mag&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;m0&#39;</span><span class="p">,</span> <span class="s1">&#39;mT&#39;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;mT&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;PPE reference magnitude: m0 or mT (default: mT, paper version)&#39;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="c1"># Determine which mode to use</span>
+    <span class="n">use_fast_mode</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">accurate</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">accurate</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using accurate mode (quad_vec), slower but higher precision&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using fast mode (magnitude_samples=</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">magnitude_samples</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using PPE reference magnitude: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">ppe_ref_mag</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">test</span><span class="p">:</span>
+        <span class="c1"># Test mode: forecast only 1 month in 2016</span>
+        <span class="n">eepas_make_forecast</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">forecast_start_year</span><span class="o">=</span><span class="mi">2016</span><span class="p">,</span> <span class="n">forecast_end_year</span><span class="o">=</span><span class="mf">2016.08</span><span class="p">,</span>
+                          <span class="n">use_fast_mode</span><span class="o">=</span><span class="n">use_fast_mode</span><span class="p">,</span> <span class="n">magnitude_samples</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">magnitude_samples</span><span class="p">,</span> <span class="n">ppe_ref_mag</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">ppe_ref_mag</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">eepas_make_forecast</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">use_fast_mode</span><span class="o">=</span><span class="n">use_fast_mode</span><span class="p">,</span> <span class="n">magnitude_samples</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">magnitude_samples</span><span class="p">,</span> <span class="n">ppe_ref_mag</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">ppe_ref_mag</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

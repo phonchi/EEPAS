@@ -1,0 +1,852 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Installation Guide &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/installation';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Complete Workflows" href="workflows.html" />
+    <link rel="prev" title="Quick Start Guide" href="quickstart.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/user_guide/installation.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Installation Guide</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#system-requirements">System Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-installation">Quick Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies-overview">Dependencies Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-dependencies-required">Core Dependencies (Required)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-computing-stack">Scientific Computing Stack</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-libraries">Performance Libraries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-dependencies">Optional Dependencies</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geospatial-tools">Geospatial Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-visualization-notebooks">Analysis &amp; Visualization (Notebooks)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-building">Documentation Building</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-installation-scenarios">Complete Installation Scenarios</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minimal-core-functionality-only">Minimal (Core Functionality Only)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#italy-dataset-minimal-geospatial">Italy Dataset (Minimal + Geospatial)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#full-development-environment">Full Development Environment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-core-installation">Test Core Installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-eepas-functionality">Test EEPAS Functionality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-optional-tools">Test Optional Tools</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting">Troubleshooting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numba-installation-issues">Numba Installation Issues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cartopy-installation-issues">Cartopy Installation Issues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pycsep-installation">PyCSEP Installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-errors">Import Errors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="installation-guide">
+<h1>Installation Guide<a class="headerlink" href="#installation-guide" title="Link to this heading">#</a></h1>
+<section id="system-requirements">
+<h2>System Requirements<a class="headerlink" href="#system-requirements" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Python</strong>: 3.8 or higher</p></li>
+<li><p><strong>Operating System</strong>: Linux, macOS, or Windows with WSL2</p></li>
+<li><p><strong>Memory</strong>: Minimum 8GB RAM (16GB+ recommended for large datasets)</p></li>
+<li><p><strong>Disk Space</strong>: ~500MB for dependencies + data storage</p></li>
+</ul>
+</section>
+<section id="quick-installation">
+<h2>Quick Installation<a class="headerlink" href="#quick-installation" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-repo/EEPAS.git
+<span class="nb">cd</span><span class="w"> </span>EEPAS/src/python_src
+
+<span class="c1"># Install core dependencies (required)</span>
+pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>scipy<span class="w"> </span>pandas<span class="w"> </span>h5py<span class="w"> </span>numba<span class="w"> </span>joblib
+
+<span class="c1"># Install optional dependencies (recommended)</span>
+pip<span class="w"> </span>install<span class="w"> </span>pyproj<span class="w"> </span>jupyter<span class="w"> </span>matplotlib<span class="w"> </span>cartopy
+
+<span class="c1"># Verify installation</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import numpy, scipy, numba, joblib; print(&#39;✓ Core installation successful&#39;)&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="dependencies-overview">
+<h2>Dependencies Overview<a class="headerlink" href="#dependencies-overview" title="Link to this heading">#</a></h2>
+<p>EEPAS dependencies are categorized by usage:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 15.0%" />
+<col style="width: 35.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Category</p></th>
+<th class="head"><p>Package</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Core</strong></p></td>
+<td><p>numpy, scipy, pandas</p></td>
+<td><p>Required</p></td>
+<td><p>Scientific computing</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Core</strong></p></td>
+<td><p>h5py</p></td>
+<td><p>Required</p></td>
+<td><p>MATLAB file I/O</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Core</strong></p></td>
+<td><p>numba</p></td>
+<td><p>Required</p></td>
+<td><p>JIT acceleration</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Core</strong></p></td>
+<td><p>joblib</p></td>
+<td><p>Required</p></td>
+<td><p>Parallel computing</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Geospatial</strong></p></td>
+<td><p>pyproj</p></td>
+<td><p>Optional</p></td>
+<td><p>Coordinate transformation (Italy)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Analysis</strong></p></td>
+<td><p>jupyter, matplotlib</p></td>
+<td><p>Optional</p></td>
+<td><p>Interactive notebooks</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Analysis</strong></p></td>
+<td><p>SeismoStats</p></td>
+<td><p>Optional</p></td>
+<td><p>b-value estimation</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Analysis</strong></p></td>
+<td><p>pycsep</p></td>
+<td><p>Optional</p></td>
+<td><p>Forecast evaluation</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Analysis</strong></p></td>
+<td><p>cartopy</p></td>
+<td><p>Optional</p></td>
+<td><p>Map visualization</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Documentation</strong></p></td>
+<td><p>sphinx, sphinx_book_theme</p></td>
+<td><p>Optional</p></td>
+<td><p>Build docs</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="core-dependencies-required">
+<h2>Core Dependencies (Required)<a class="headerlink" href="#core-dependencies-required" title="Link to this heading">#</a></h2>
+<p>These packages are <strong>essential</strong> for running EEPAS:</p>
+<section id="scientific-computing-stack">
+<h3>Scientific Computing Stack<a class="headerlink" href="#scientific-computing-stack" title="Link to this heading">#</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>numpy&gt;=1.21.0          # Array operations, linear algebra
+scipy&gt;=1.7.0           # Optimization (minimize, dblquad)
+pandas&gt;=1.3.0          # DataFrame operations, CSV I/O
+h5py&gt;=3.0.0            # MATLAB .mat file support
+</pre></div>
+</div>
+<p><strong>Used in</strong>: All scripts (<code class="docutils literal notranslate"><span class="pre">ppe_learning.py</span></code>, <code class="docutils literal notranslate"><span class="pre">eepas_learning.py</span></code>, <code class="docutils literal notranslate"><span class="pre">*_forecast.py</span></code>)</p>
+<p><strong>Installation</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;numpy&gt;=1.21&quot;</span><span class="w"> </span><span class="s2">&quot;scipy&gt;=1.7&quot;</span><span class="w"> </span><span class="s2">&quot;pandas&gt;=1.3&quot;</span><span class="w"> </span><span class="s2">&quot;h5py&gt;=3.0&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="performance-libraries">
+<h3>Performance Libraries<a class="headerlink" href="#performance-libraries" title="Link to this heading">#</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>numba&gt;=0.54.0          # JIT compilation for likelihood functions
+joblib&gt;=1.0.0          # Parallel processing for optimization
+</pre></div>
+</div>
+<p><strong>Used in</strong>:
+- <code class="docutils literal notranslate"><span class="pre">numba</span></code>: <code class="xref py py-func docutils literal notranslate"><span class="pre">eepas_likelihood()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">neg_log_like_aftershock()</span></code>, <a class="reference internal" href="../api_reference/utils.html#module-utils.numerical_integration" title="utils.numerical_integration"><code class="xref py py-func docutils literal notranslate"><span class="pre">utils.numerical_integration()</span></code></a>
+- <code class="docutils literal notranslate"><span class="pre">joblib</span></code>: <code class="xref py py-func docutils literal notranslate"><span class="pre">optimize_eepas_parameters()</span></code> (multi-start search)</p>
+<p><strong>Installation</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;numba&gt;=0.54&quot;</span><span class="w"> </span><span class="s2">&quot;joblib&gt;=1.0&quot;</span>
+</pre></div>
+</div>
+<p><strong>Performance Impact</strong>:
+- <code class="docutils literal notranslate"><span class="pre">numba</span></code> provides <strong>10-100x</strong> speedup for likelihood calculations
+- <code class="docutils literal notranslate"><span class="pre">joblib</span></code> enables parallel optimization (3x faster for multi-start)</p>
+</section>
+</section>
+<section id="optional-dependencies">
+<h2>Optional Dependencies<a class="headerlink" href="#optional-dependencies" title="Link to this heading">#</a></h2>
+<section id="geospatial-tools">
+<h3>Geospatial Tools<a class="headerlink" href="#geospatial-tools" title="Link to this heading">#</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pyproj&gt;=3.0.0          # Coordinate system transformations
+</pre></div>
+</div>
+<p><strong>Used in</strong>: <a class="reference internal" href="../api_reference/utils.html#module-utils.coordinate_transform" title="utils.coordinate_transform"><code class="xref py py-mod docutils literal notranslate"><span class="pre">utils.coordinate_transform</span></code></a> (coordinate system transformations)</p>
+<p><strong>When needed</strong>: For converting seismic data between coordinate systems (WGS84 → RDN2008, TWD97, etc.)</p>
+<p><strong>Installation</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pyproj
+</pre></div>
+</div>
+</section>
+<section id="analysis-visualization-notebooks">
+<h3>Analysis &amp; Visualization (Notebooks)<a class="headerlink" href="#analysis-visualization-notebooks" title="Link to this heading">#</a></h3>
+<p>Required for running Jupyter notebooks in <code class="docutils literal notranslate"><span class="pre">analysis/</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>jupyter&gt;=1.0.0         # Interactive notebook environment
+matplotlib&gt;=3.5.0      # Plotting and visualization
+SeismoStats&gt;=0.5.0     # b-value estimation (Utsu, B-positive)
+pycsep&gt;=0.6.0          # Forecast evaluation (N-test, M-test)
+cartopy&gt;=0.20.0        # Geospatial plotting
+tqdm&gt;=4.60.0           # Progress bars
+decimal-time           # Datetime to decimal year conversion
+</pre></div>
+</div>
+<p><strong>Used in</strong>:
+- <code class="docutils literal notranslate"><span class="pre">Estimate_mc_b_Italy_clean.ipynb</span></code>: b-value analysis (SeismoStats)
+- <code class="docutils literal notranslate"><span class="pre">Examine_Psi_Italy_clean.ipynb</span></code>: Parameter optimization visualization
+- <code class="docutils literal notranslate"><span class="pre">earth_viz_Italy_clean.ipynb</span></code>: Map plotting (cartopy), forecast evaluation (pycsep)</p>
+<p><strong>Installation</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualization basics</span>
+pip<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>matplotlib<span class="w"> </span>tqdm
+
+<span class="c1"># Seismology-specific (may require additional steps)</span>
+pip<span class="w"> </span>install<span class="w"> </span>SeismoStats<span class="w"> </span>pycsep<span class="w"> </span>cartopy<span class="w"> </span>decimal-time
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Cartopy Installation</strong>: May require system libraries (GEOS, PROJ). See
+<a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/installing.html">Cartopy installation guide</a>.</p>
+</div>
+</section>
+<section id="documentation-building">
+<h3>Documentation Building<a class="headerlink" href="#documentation-building" title="Link to this heading">#</a></h3>
+<p>Required only for building Sphinx documentation:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sphinx&gt;=4.0.0          # Documentation generator
+sphinx_book_theme      # Theme for HTML docs
+myst-parser            # Markdown support in Sphinx
+</pre></div>
+</div>
+<p><strong>Installation</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>docs
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+make<span class="w"> </span>html
+</pre></div>
+</div>
+</section>
+</section>
+<section id="complete-installation-scenarios">
+<h2>Complete Installation Scenarios<a class="headerlink" href="#complete-installation-scenarios" title="Link to this heading">#</a></h2>
+<section id="minimal-core-functionality-only">
+<h3>Minimal (Core Functionality Only)<a class="headerlink" href="#minimal-core-functionality-only" title="Link to this heading">#</a></h3>
+<p>For running EEPAS learning and forecasting only:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>scipy<span class="w"> </span>pandas<span class="w"> </span>h5py<span class="w"> </span>numba<span class="w"> </span>joblib
+</pre></div>
+</div>
+<p><strong>Use case</strong>: Headless servers, production environments</p>
+</section>
+<section id="italy-dataset-minimal-geospatial">
+<h3>Italy Dataset (Minimal + Geospatial)<a class="headerlink" href="#italy-dataset-minimal-geospatial" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>scipy<span class="w"> </span>pandas<span class="w"> </span>h5py<span class="w"> </span>numba<span class="w"> </span>joblib<span class="w"> </span>pyproj
+</pre></div>
+</div>
+<p><strong>Use case</strong>: Working with CPTI/HORUS Italian catalogs</p>
+</section>
+<section id="full-development-environment">
+<h3>Full Development Environment<a class="headerlink" href="#full-development-environment" title="Link to this heading">#</a></h3>
+<p>For development, analysis, and documentation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Core dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>scipy<span class="w"> </span>pandas<span class="w"> </span>h5py<span class="w"> </span>numba<span class="w"> </span>joblib<span class="w"> </span>pyproj
+
+<span class="c1"># Analysis tools</span>
+pip<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>matplotlib<span class="w"> </span>SeismoStats<span class="w"> </span>pycsep<span class="w"> </span>cartopy<span class="w"> </span>tqdm<span class="w"> </span>decimal-time
+
+<span class="c1"># Documentation</span>
+<span class="nb">cd</span><span class="w"> </span>docs<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+</section>
+<section id="verification">
+<h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
+<section id="test-core-installation">
+<h3>Test Core Installation<a class="headerlink" href="#test-core-installation" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">import numpy as np</span>
+<span class="s">import scipy</span>
+<span class="s">import pandas as pd</span>
+<span class="s">import h5py</span>
+<span class="s">import numba</span>
+<span class="s">import joblib</span>
+<span class="s">print(&quot;✓ All core dependencies installed successfully&quot;)</span>
+<span class="s">print(f&quot;  NumPy: {np.__version__}&quot;)</span>
+<span class="s">print(f&quot;  SciPy: {scipy.__version__}&quot;)</span>
+<span class="s">print(f&quot;  Pandas: {pd.__version__}&quot;)</span>
+<span class="s">print(f&quot;  Numba: {numba.__version__}&quot;)</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+</section>
+<section id="test-eepas-functionality">
+<h3>Test EEPAS Functionality<a class="headerlink" href="#test-eepas-functionality" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test data loading</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from utils.data_loader import DataLoader; print(&#39;✓ Data loader OK&#39;)&quot;</span>
+
+<span class="c1"># Test JIT compilation</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from eepas_likelihood import eepas_likelihood; print(&#39;✓ Numba JIT OK&#39;)&quot;</span>
+
+<span class="c1"># Test basic workflow</span>
+python3<span class="w"> </span>ppe_learning.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--help
+</pre></div>
+</div>
+</section>
+<section id="test-optional-tools">
+<h3>Test Optional Tools<a class="headerlink" href="#test-optional-tools" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test pyproj (geospatial)</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import pyproj; print(&#39;✓ PyProj available&#39;)&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✗ PyProj not installed&quot;</span>
+
+<span class="c1"># Test SeismoStats (b-value)</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import SeismoStats; print(&#39;✓ SeismoStats available&#39;)&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✗ SeismoStats not installed&quot;</span>
+
+<span class="c1"># Test pycsep (evaluation)</span>
+python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import csep; print(&#39;✓ PyCSEP available&#39;)&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✗ PyCSEP not installed&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
+<section id="numba-installation-issues">
+<h3>Numba Installation Issues<a class="headerlink" href="#numba-installation-issues" title="Link to this heading">#</a></h3>
+<p>If Numba fails to install:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Try installing llvmlite first</span>
+pip<span class="w"> </span>install<span class="w"> </span>llvmlite
+pip<span class="w"> </span>install<span class="w"> </span>numba
+</pre></div>
+</div>
+</section>
+<section id="cartopy-installation-issues">
+<h3>Cartopy Installation Issues<a class="headerlink" href="#cartopy-installation-issues" title="Link to this heading">#</a></h3>
+<p>Cartopy requires GEOS and PROJ system libraries:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ubuntu/Debian</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libgeos-dev<span class="w"> </span>libproj-dev
+pip<span class="w"> </span>install<span class="w"> </span>cartopy
+
+<span class="c1"># macOS (Homebrew)</span>
+brew<span class="w"> </span>install<span class="w"> </span>geos<span class="w"> </span>proj
+pip<span class="w"> </span>install<span class="w"> </span>cartopy
+
+<span class="c1"># Conda (recommended for Cartopy)</span>
+conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>cartopy
+</pre></div>
+</div>
+</section>
+<section id="pycsep-installation">
+<h3>PyCSEP Installation<a class="headerlink" href="#pycsep-installation" title="Link to this heading">#</a></h3>
+<p>PyCSEP may have specific version requirements:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pycsep&gt;<span class="o">=</span><span class="m">0</span>.6.0
+
+<span class="c1"># If issues persist, check compatibility:</span>
+<span class="c1"># https://github.com/SCECcode/pycsep</span>
+</pre></div>
+</div>
+</section>
+<section id="import-errors">
+<h3>Import Errors<a class="headerlink" href="#import-errors" title="Link to this heading">#</a></h3>
+<p>If you encounter <code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError</span></code>:</p>
+<ol class="arabic simple">
+<li><p>Verify Python version: <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">--version</span></code> (must be ≥3.8)</p></li>
+<li><p>Check installation: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">&lt;package&gt;</span></code></p></li>
+<li><p>Ensure correct Python environment (venv/conda)</p></li>
+</ol>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="quickstart.html"><span class="doc">Quick Start Guide</span></a> - Quick start guide</p></li>
+<li><p><a class="reference internal" href="workflows.html"><span class="doc">Complete Workflows</span></a> - Complete workflow examples</p></li>
+<li><p><a class="reference internal" href="configuration.html"><span class="doc">Configuration Reference</span></a> - Configuration file format</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="quickstart.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Quick Start Guide</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="workflows.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Complete Workflows</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#system-requirements">System Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-installation">Quick Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies-overview">Dependencies Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-dependencies-required">Core Dependencies (Required)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-computing-stack">Scientific Computing Stack</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-libraries">Performance Libraries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-dependencies">Optional Dependencies</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geospatial-tools">Geospatial Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-visualization-notebooks">Analysis &amp; Visualization (Notebooks)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-building">Documentation Building</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-installation-scenarios">Complete Installation Scenarios</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minimal-core-functionality-only">Minimal (Core Functionality Only)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#italy-dataset-minimal-geospatial">Italy Dataset (Minimal + Geospatial)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#full-development-environment">Full Development Environment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-core-installation">Test Core Installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-eepas-functionality">Test EEPAS Functionality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-optional-tools">Test Optional Tools</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting">Troubleshooting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numba-installation-issues">Numba Installation Issues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cartopy-installation-issues">Cartopy Installation Issues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pycsep-installation">PyCSEP Installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-errors">Import Errors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

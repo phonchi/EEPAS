@@ -1,0 +1,792 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>EEPAS - Earthquake Forecasting System &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=6512192e"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <link rel="icon" href="_static/logo.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start Guide" href="user_guide/quickstart.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/index.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>EEPAS - Earthquake Forecasting System</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">EEPAS - Earthquake Forecasting System</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-updates-v1-3-0">Latest Updates (v1.3.0)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-links">Quick Links</a><ul class="visible nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-background">Scientific Background</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-framework">Mathematical Framework</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-application-italy-dataset">Example Application: Italy Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">Citation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-and-contributing">Support and Contributing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#indices-and-tables">Indices and Tables</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="eepas-earthquake-forecasting-system">
+<h1>EEPAS - Earthquake Forecasting System<a class="headerlink" href="#eepas-earthquake-forecasting-system" title="Link to this heading">#</a></h1>
+<p><strong>Version:</strong> 1.3.0</p>
+<p><strong>EEPAS</strong> (Every Earthquake a Precursor According to Scale) is a state-of-the-art earthquake forecasting model that combines the PPE (Proximity to Past Earthquakes) background seismicity model with the EEPAS short-term aftershock triggering model. This implementation provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.</p>
+<a class="reference external image-reference" href="https://github.com/your-repo/EEPAS"><img alt="Version" src="https://img.shields.io/badge/version-1.3.0-blue.svg" />
+</a>
+<a class="reference external image-reference" href="https://www.python.org/downloads/"><img alt="Python Version" src="https://img.shields.io/badge/python-3.8+-blue.svg" />
+</a>
+<a class="reference external image-reference" href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/license-MIT-green.svg" />
+</a>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h2>
+<dl class="simple">
+<dt>🌍 <strong>Universal Application</strong></dt><dd><ul class="simple">
+<li><p>Applicable to any seismic region worldwide</p></li>
+<li><p>Tutorial examples using Italy earthquake data</p></li>
+<li><p>Flexible configuration for different catalogs and spatial grids</p></li>
+</ul>
+</dd>
+<dt>🎯 <strong>Complete EEPAS Implementation</strong></dt><dd><ul class="simple">
+<li><p>PPE Model: Background seismicity with spatial and magnitude decay</p></li>
+<li><p>EEPAS Model: Short-term earthquake triggering</p></li>
+<li><p>Aftershock Parameters: Triggering intensity calibration</p></li>
+</ul>
+</dd>
+<dt>⚡ <strong>Performance Optimized</strong></dt><dd><ul class="simple">
+<li><p>FAST mode: Trapezoidal rule integration (default, 1.75x faster)</p></li>
+<li><p>ACCURATE mode: scipy.dblquad integration (&lt; 0.2% difference)</p></li>
+<li><p>Numba JIT compilation for critical paths</p></li>
+</ul>
+</dd>
+<dt>🔬 <strong>Scientifically Validated</strong></dt><dd><ul class="simple">
+<li><p>Validated against Biondini et al. (2023) paper methodology</p></li>
+<li><p>Comprehensive numerical integration verification (v1.3.0)</p></li>
+</ul>
+</dd>
+<dt>🚀 <strong>Production Ready</strong></dt><dd><ul class="simple">
+<li><p>Automatic boundary adjustment for parameter optimization</p></li>
+<li><p>Automated workflows for batch processing</p></li>
+<li><p>Extensive documentation and examples</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="latest-updates-v1-3-0">
+<h2>Latest Updates (v1.3.0)<a class="headerlink" href="#latest-updates-v1-3-0" title="Link to this heading">#</a></h2>
+<p><strong>Numerical Integration Refactoring and Validation</strong></p>
+<p>This release focuses on unifying and validating numerical integration across all modules:</p>
+<ul class="simple">
+<li><p><strong>Unified Interface</strong>: All numerical integration now uses <code class="docutils literal notranslate"><span class="pre">utils/numerical_integration.py</span></code></p></li>
+<li><p><strong>Dual Modes</strong>: ACCURATE (scipy.dblquad) and FAST (trapezoidal rule)</p></li>
+<li><p><strong>Validation Results</strong>: All parameter differences &lt; 0.2% between modes</p></li>
+<li><p><strong>Performance</strong>: FAST mode provides significant speedup, especially for forecasting</p></li>
+</ul>
+</section>
+<section id="quick-links">
+<h2>Quick Links<a class="headerlink" href="#quick-links" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/quickstart.html#tutorial-example-italy-workflow-5-steps">Tutorial Example: Italy Workflow (5 Steps)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/quickstart.html#verifying-results">Verifying Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/quickstart.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/quickstart.html#performance-tips">Performance Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/quickstart.html#resources">Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/installation.html#system-requirements">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/installation.html#quick-installation">Quick Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/installation.html#dependencies-overview">Dependencies Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/installation.html#core-dependencies-required">Core Dependencies (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/installation.html#optional-dependencies">Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/installation.html#complete-installation-scenarios">Complete Installation Scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/installation.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/workflows.html">Complete Workflows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/workflows.html#tutorial-example-workflow">Tutorial Example Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/workflows.html#applying-to-your-region">Applying to Your Region</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/workflows.html#advanced-workflows">Advanced Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/workflows.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/workflows.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/configuration.html">Configuration Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/configuration.html#configuration-file-structure">Configuration File Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/configuration.html#directory-and-file-paths">Directory and File Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/configuration.html#time-range-configuration">Time Range Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/configuration.html#input-files">Input Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/configuration.html#output-files">Output Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/configuration.html#optimization-configuration">Optimization Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/configuration.html#model-parameters">Model Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/configuration.html#configuration-examples">Configuration Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/configuration.html#creating-custom-configurations">Creating Custom Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/configuration.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/configuration.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/results.html">Interpreting Results</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/results.html#output-file-overview">Output File Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/results.html#parameter-files">Parameter Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/results.html#forecast-files">Forecast Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/results.html#validation-and-quality-checks">Validation and Quality Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/results.html#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/index.html#module-organization">Module Organization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/index.html#quick-reference">Quick Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/index.html#common-usage-patterns">Common Usage Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/index.html#detailed-api-documentation">Detailed API Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/index.html#module-index">Module Index</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples and Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/index.html#notebooks">Notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/index.html#complete-workflow-summary">Complete Workflow Summary</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="technical/mathematical_foundation.html">Mathematical Foundation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="technical/mathematical_foundation.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/mathematical_foundation.html#the-total-rate-density">The Total Rate Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/mathematical_foundation.html#ppe-model">PPE Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/mathematical_foundation.html#correction-factors">Correction Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/mathematical_foundation.html#log-likelihood-function">Log-Likelihood Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/mathematical_foundation.html#analytical-integration">Analytical Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/mathematical_foundation.html#model-parameters">Model Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/mathematical_foundation.html#physical-interpretation">Physical Interpretation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/mathematical_foundation.html#computational-complexity">Computational Complexity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/mathematical_foundation.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="technical/numerical_integration.html">Numerical Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="technical/numerical_integration.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/numerical_integration.html#integration-methods">Integration Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/numerical_integration.html#integration-in-different-modules">Integration in Different Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/numerical_integration.html#validation-and-verification">Validation and Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/numerical_integration.html#technical-implementation-details">Technical Implementation Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/numerical_integration.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="technical/optimization.html">Optimization Strategies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="technical/optimization.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/optimization.html#optimization-algorithms">Optimization Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/optimization.html#single-stage-optimization">Single-Stage Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/optimization.html#three-stage-optimization">Three-Stage Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/optimization.html#auto-boundary-adjustment">Auto Boundary Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/optimization.html#custom-stages-optimization">Custom Stages Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/optimization.html#multi-start-optimization">Multi-Start Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/optimization.html#optimization-mode-comparison">Optimization Mode Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/optimization.html#quick-start-guide">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/optimization.html#understanding-nll-values">Understanding NLL Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical/optimization.html#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="development/changelog.html">Changelog</a></li>
+</ul>
+</div>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<p>For a quick introduction, see the <a class="reference internal" href="user_guide/quickstart.html"><span class="doc">Quick Start Guide</span></a> guide.</p>
+<p>For detailed installation instructions, see <a class="reference internal" href="user_guide/installation.html"><span class="doc">Installation Guide</span></a>.</p>
+<p>For complete workflow examples, see <a class="reference internal" href="user_guide/workflows.html"><span class="doc">Complete Workflows</span></a>.</p>
+</section>
+<section id="scientific-background">
+<h2>Scientific Background<a class="headerlink" href="#scientific-background" title="Link to this heading">#</a></h2>
+<p>EEPAS is grounded in the <strong>:math:`Psi` phenomenon</strong> - the empirical observation that most large earthquakes are preceded by increased seismicity in their source region. This precursory activity exhibits systematic scaling relationships:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\log_{10} T_p &amp;= a_T + b_T M_p \\
+\log_{10} A_p &amp;= b_A M_p \\
+M_m &amp;= a_M + b_M M_p\end{split}\]</div>
+<dl class="simple">
+<dt>where:</dt><dd><ul class="simple">
+<li><p><strong>T_p</strong>: Precursor time (lead time to mainshock)</p></li>
+<li><p><strong>A_p</strong>: Precursor area (spatial extent)</p></li>
+<li><p><strong>M_m</strong>: Mainshock magnitude</p></li>
+<li><p><strong>M_p</strong>: Precursor magnitude</p></li>
+</ul>
+</dd>
+</dl>
+<p>The EEPAS model treats <strong>every earthquake as a potential precursor</strong>, with contribution determined by these scaling relations.</p>
+<section id="mathematical-framework">
+<h3>Mathematical Framework<a class="headerlink" href="#mathematical-framework" title="Link to this heading">#</a></h3>
+<p>The complete rate density combines two components:</p>
+<div class="math notranslate nohighlight">
+\[\lambda(t,m,x,y) = \mu \lambda_0 + (1-\mu) \sum_i \eta(m_i) \frac{\lambda_i}{\Delta(m)}\]</div>
+<dl class="simple">
+<dt>where:</dt><dd><ul class="simple">
+<li><p><strong>μ</strong>: Failure-to-predict rate (background proportion)</p></li>
+<li><p><strong>λ₀</strong>: PPE baseline (proximity to past earthquakes)</p></li>
+<li><p><strong>λᵢ</strong>: Precursor contribution from event i</p></li>
+<li><p><strong>η(m)</strong>: Magnitude-dependent scaling</p></li>
+<li><p><strong>Δ(m)</strong>: Catalog incompleteness correction</p></li>
+</ul>
+</dd>
+</dl>
+<p>Each precursor contribution decomposes into:</p>
+<div class="math notranslate nohighlight">
+\[\lambda_i(t,m,x,y) = w_i \cdot f_i(t) \cdot g_i(m) \cdot h_i(x,y)\]</div>
+<dl class="simple">
+<dt>with:</dt><dd><ul class="simple">
+<li><p><strong>f(t)</strong>: Lognormal time distribution</p></li>
+<li><p><strong>g(m)</strong>: Gaussian magnitude distribution</p></li>
+<li><p><strong>h(x,y)</strong>: Bivariate Gaussian spatial distribution</p></li>
+</ul>
+</dd>
+</dl>
+<p>For mathematical details and derivations, see <a class="reference internal" href="technical/mathematical_foundation.html"><span class="doc">Mathematical Foundation</span></a>.</p>
+</section>
+</section>
+<section id="example-application-italy-dataset">
+<h2>Example Application: Italy Dataset<a class="headerlink" href="#example-application-italy-dataset" title="Link to this heading">#</a></h2>
+<p>This documentation demonstrates EEPAS using the Italy earthquake catalog:</p>
+<dl class="simple">
+<dt><strong>Spatial Configuration</strong></dt><dd><ul class="simple">
+<li><p>Testing Region: 177 grid cells covering Italy</p></li>
+<li><p>Neighborhood Region: CPTI15 polygon (avoids boundary effects)</p></li>
+<li><p>Demonstrates best practices for regional applications</p></li>
+</ul>
+</dd>
+<dt><strong>Temporal Configuration</strong></dt><dd><ul class="simple">
+<li><p>Learning Period: 1990-2011 (22 years)</p></li>
+<li><p>Forecast Period: 2012-2021 (10 years)</p></li>
+</ul>
+</dd>
+<dt><strong>Model Parameters</strong></dt><dd><ul class="simple">
+<li><p>Catalog: CPTI15 (Parametric Catalog of Italian Earthquakes)</p></li>
+<li><p>Completeness magnitude: m₀ = 2.45</p></li>
+<li><p>Target magnitude: mT = 5.0</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Adapting to Other Regions</strong></p>
+<dl class="simple">
+<dt>To apply EEPAS to a different seismic region, you will need:</dt><dd><ol class="arabic simple">
+<li><p>Earthquake catalog in MATLAB .mat format (lon, lat, mag, time)</p></li>
+<li><p>Spatial grid definition for your testing region</p></li>
+<li><p>Neighborhood region definition (grid or polygon)</p></li>
+<li><p>Configuration file with appropriate time ranges and model parameters</p></li>
+</ol>
+</dd>
+</dl>
+<p>See <a class="reference internal" href="user_guide/configuration.html"><span class="doc">Configuration Reference</span></a> for detailed guidance on creating custom configurations.</p>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading">#</a></h2>
+<p>If you use EEPAS in your research, please cite:</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">eepas2024</span><span class="p">,</span>
+<span class="w">  </span><span class="na">title</span><span class="p">=</span><span class="s">{EEPAS: Every Earthquake a Precursor According to Scale}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">author</span><span class="p">=</span><span class="s">{Author Names}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">journal</span><span class="p">=</span><span class="s">{Journal Name}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">year</span><span class="p">=</span><span class="s">{2024}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">volume</span><span class="p">=</span><span class="s">{XX}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">pages</span><span class="p">=</span><span class="s">{XX-XX}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="support-and-contributing">
+<h2>Support and Contributing<a class="headerlink" href="#support-and-contributing" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Issues</strong>: Report bugs at <a class="reference external" href="https://github.com/your-repo/EEPAS/issues">GitHub Issues</a></p></li>
+<li><p><strong>Discussions</strong>: Ask questions at <a class="reference external" href="https://github.com/your-repo/EEPAS/discussions">GitHub Discussions</a></p></li>
+<li><p><strong>Contributing</strong>: Contact the development team for contribution guidelines</p></li>
+</ul>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
+<p>This project is licensed under the MIT License - see the LICENSE file for details.</p>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="user_guide/quickstart.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Quick Start Guide</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">EEPAS - Earthquake Forecasting System</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-updates-v1-3-0">Latest Updates (v1.3.0)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-links">Quick Links</a><ul class="visible nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-background">Scientific Background</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-framework">Mathematical Framework</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-application-italy-dataset">Example Application: Italy Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">Citation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-and-contributing">Support and Contributing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#indices-and-tables">Indices and Tables</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

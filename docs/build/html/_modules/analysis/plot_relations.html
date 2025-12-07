@@ -1,0 +1,834 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>analysis.plot_relations &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/analysis/plot_relations';</script>
+    <link rel="icon" href="../../_static/logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for analysis.plot_relations</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Ψ Phenomenon Scaling Relations Analysis</span>
+
+<span class="sd">This module analyzes the scaling relations from Ψ identifications using</span>
+<span class="sd">fixed-effects regression to remove within-mainshock AP-TP trade-offs.</span>
+
+<span class="sd">Based on:</span>
+<span class="sd">    - Christophersen et al. (2024, SRL 95(6):3464-3481) Section 2.4</span>
+<span class="sd">    - The paper Section 5.2 (two-stage estimation)</span>
+
+<span class="sd">Scaling Relations:</span>
+<span class="sd">    1. log₁₀(AP) vs MP  (precursor area vs precursor magnitude)</span>
+<span class="sd">    2. log₁₀(TP) vs MP  (precursor time vs precursor magnitude)</span>
+<span class="sd">    3. Mm vs MP         (mainshock magnitude vs precursor magnitude)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="c1"># Matplotlib: use basic interface only</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Use scipy.stats.linregress if available; fallback to numpy version</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># ---- Shared: Column names ----</span>
+<span class="n">CANONICAL_14</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;eq_name&quot;</span><span class="p">,</span><span class="s2">&quot;mm&quot;</span><span class="p">,</span><span class="s2">&quot;mp&quot;</span><span class="p">,</span><span class="s2">&quot;mminus&quot;</span><span class="p">,</span><span class="s2">&quot;sloperatio&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tmin&quot;</span><span class="p">,</span><span class="s2">&quot;time_onset&quot;</span><span class="p">,</span><span class="s2">&quot;tmax&quot;</span><span class="p">,</span><span class="s2">&quot;tp&quot;</span><span class="p">,</span><span class="s2">&quot;ap&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rn_max&quot;</span><span class="p">,</span><span class="s2">&quot;rn_min&quot;</span><span class="p">,</span><span class="s2">&quot;re_max&quot;</span><span class="p">,</span><span class="s2">&quot;re_min&quot;</span>
+<span class="p">]</span>
+
+<span class="c1"># ---- Utility: Check if string is numeric ----</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_isfloat</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if value can be converted to float.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">);</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="c1"># ---- File reading: Compatible with 14 or wider columns ----</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_read_psi_any_layout</span><span class="p">(</span><span class="n">psi_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read Ψ identification file with 14 or more columns.</span>
+
+<span class="sd">    Compatible with 14-column (canonical) and wider .ou4 files.</span>
+<span class="sd">    Only keeps first 14 columns, converts to standard names, filters out ap&lt;=0 or tp&lt;=0.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        psi_file: Path to .ou4 file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        DataFrame with 14 standardized columns</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If file has fewer than 14 columns</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">psi_file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">ncol</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">ncol</span> <span class="o">&lt;</span> <span class="mi">14</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">psi_file</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="n">ncol</span><span class="si">}</span><span class="s2"> columns &lt; 14, incorrect format.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Assume first 14 columns are canonical</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">CANONICAL_14</span>
+
+    <span class="c1"># If eq_name is mostly numeric, find least numeric column for name</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">num_ratio</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sample</span> <span class="k">if</span> <span class="n">_isfloat</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">num_ratio</span> <span class="o">&gt;</span> <span class="mf">0.95</span><span class="p">:</span>
+        <span class="n">best_j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">best_nonnum</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">ncol</span><span class="p">,</span> <span class="mi">20</span><span class="p">)):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+            <span class="n">nonnum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">s</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">_isfloat</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">nonnum</span> <span class="o">&gt;</span> <span class="n">best_nonnum</span><span class="p">:</span>
+                <span class="n">best_nonnum</span> <span class="o">=</span> <span class="n">nonnum</span><span class="p">;</span> <span class="n">best_j</span> <span class="o">=</span> <span class="n">j</span>
+        <span class="n">name_col</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">best_j</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+        <span class="n">num_cols</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">best_j</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">13</span><span class="p">]</span>
+        <span class="n">num_cols</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CANONICAL_14</span> <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="s2">&quot;eq_name&quot;</span><span class="p">]</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">name_col</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">CANONICAL_14</span>
+
+    <span class="c1"># Type conversion</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CANONICAL_14</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Filter invalid rows</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;ap&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;tp&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="c1"># ---- Fixed-effects (common slope) estimation; fallback to pooled OLS if denominator is 0 ----</span>
+<div class="viewcode-block" id="_fixed_effects_slope_safe">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.plot_relations._fixed_effects_slope_safe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_fixed_effects_slope_safe</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">min_group_size</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Estimate common slope using fixed-effects regression (within-group demeaning).</span>
+
+<span class="sd">    Removes within-mainshock trade-off by demeaning x and y within each mainshock,</span>
+<span class="sd">    then computing pooled slope across all demeaned observations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x: Independent variable (array-like)</span>
+<span class="sd">        y: Dependent variable (array-like)</span>
+<span class="sd">        group: Group identifiers (mainshock names, array-like)</span>
+<span class="sd">        min_group_size: Minimum group size to include (default: 2)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Common slope estimate (b_AT or b_TA). Falls back to pooled OLS if</span>
+<span class="sd">        denominator is zero or no groups meet minimum size.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">:</span> <span class="n">group</span><span class="p">})</span>
+    <span class="n">sz</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">)[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="n">sz</span> <span class="o">&gt;=</span> <span class="n">min_group_size</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Fallback to pooled OLS</span>
+        <span class="n">x_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">);</span> <span class="n">y_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">den</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x_all</span> <span class="o">-</span> <span class="n">x_all</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x_all</span> <span class="o">-</span> <span class="n">x_all</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">*</span><span class="p">(</span><span class="n">y_all</span> <span class="o">-</span> <span class="n">y_all</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span> <span class="o">/</span> <span class="n">den</span><span class="p">)</span> <span class="k">if</span> <span class="n">den</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="n">x_dm</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">tmp</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">)[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">y_dm</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">tmp</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">)[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">den</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x_dm</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">den</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">x_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">);</span> <span class="n">y_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">den2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x_all</span> <span class="o">-</span> <span class="n">x_all</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x_all</span> <span class="o">-</span> <span class="n">x_all</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">*</span><span class="p">(</span><span class="n">y_all</span> <span class="o">-</span> <span class="n">y_all</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span> <span class="o">/</span> <span class="n">den2</span><span class="p">)</span> <span class="k">if</span> <span class="n">den2</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x_dm</span> <span class="o">*</span> <span class="n">y_dm</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">num</span> <span class="o">/</span> <span class="n">den</span></div>
+
+
+<span class="c1"># ---- Numpy version of linregress (if no SciPy) ----</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_linregress_np</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple linear regression using NumPy (fallback when SciPy unavailable).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x: Independent variable (array-like)</span>
+<span class="sd">        y: Dependent variable (array-like)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Result object with slope, intercept, rvalue attributes.</span>
+<span class="sd">        Returns None if insufficient data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">);</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">];</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">xm</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">();</span> <span class="n">ym</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">xm</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">ym</span><span class="p">))</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">xm</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">var</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">slope</span> <span class="o">=</span> <span class="n">cov</span> <span class="o">/</span> <span class="n">var</span>
+    <span class="n">intercept</span> <span class="o">=</span> <span class="n">ym</span> <span class="o">-</span> <span class="n">slope</span><span class="o">*</span><span class="n">xm</span>
+    <span class="n">r_num</span> <span class="o">=</span> <span class="n">cov</span>
+    <span class="n">r_den</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">ym</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">r_num</span> <span class="o">/</span> <span class="n">r_den</span> <span class="k">if</span> <span class="n">r_den</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Res</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">Res</span><span class="p">()</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">slope</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">slope</span><span class="p">)</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">intercept</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">intercept</span><span class="p">)</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">rvalue</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">pvalue</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="c1"># ---- For plotting: 95% prediction interval (accurate version) ----</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">prediction_interval</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">x_plot_range</span><span class="p">,</span> <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">std_err</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 95% prediction interval for linear regression.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x_data: Original x values used for fitting (array-like)</span>
+<span class="sd">        x_plot_range: X coordinates for plotting (array-like)</span>
+<span class="sd">        slope: Regression slope (float)</span>
+<span class="sd">        intercept: Regression intercept (float)</span>
+<span class="sd">        std_err: Standard error of residuals, sigma = sqrt(SSE/(n-2)) (float)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple (y_pred, y_low, y_high) - predicted values and 95% prediction</span>
+<span class="sd">        interval bounds. Returns (y_pred, None, None) if insufficient data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="n">x_plot_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_plot_range</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="n">x_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x_plot_range</span>
+    <span class="n">denom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x_data</span> <span class="o">-</span> <span class="n">x_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">denom</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">y_pred</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="n">se_pred</span> <span class="o">=</span> <span class="n">std_err</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">n</span> <span class="o">+</span> <span class="p">((</span><span class="n">x_plot_range</span> <span class="o">-</span> <span class="n">x_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">denom</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="mf">1.96</span>  <span class="c1"># 95% confidence level</span>
+    <span class="k">return</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">-</span> <span class="n">z</span><span class="o">*</span><span class="n">se_pred</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">+</span> <span class="n">z</span><span class="o">*</span><span class="n">se_pred</span>
+
+<span class="c1"># ---- Main function: File reading, fixed-effects projection, regression, plotting ----</span>
+<div class="viewcode-block" id="analyze_scaling_relations">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.plot_relations.analyze_scaling_relations">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">analyze_scaling_relations</span><span class="p">(</span><span class="n">psi_file</span><span class="o">=</span><span class="s2">&quot;optimized_psi.ou4&quot;</span><span class="p">,</span> <span class="n">output_prefix</span><span class="o">=</span><span class="s2">&quot;scaling_final&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Analyze Ψ phenomenon scaling relations using fixed-effects regression.</span>
+
+<span class="sd">    This function implements the two-stage estimation procedure to estimate initial</span>
+<span class="sd">    values for EEPAS model parameters. It removes the within-mainshock AP-TP trade-off</span>
+<span class="sd">    using fixed-effects regression, then fits scaling relations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        psi_file: Input file with deduplicated Ψ identifications (.ou4 format)</span>
+<span class="sd">        output_prefix: Prefix for output files (plots and CSV)</span>
+
+<span class="sd">    Algorithm:</span>
+<span class="sd">        1. Read all Ψ identifications from file</span>
+<span class="sd">        2. Convert units (years → days, km²) and compute logarithms</span>
+<span class="sd">        3. Estimate fixed-effects common slopes (b_AT, b_TA) to remove trade-off</span>
+<span class="sd">        4. Project each mainshock&#39;s identifications to representative point</span>
+<span class="sd">        5. Fit linear regressions on representative points:</span>
+<span class="sd">           - log₁₀(AP) vs MP → b_A (spatial scaling), sigma_A</span>
+<span class="sd">           - log₁₀(TP) vs MP → b_T, a_T (temporal scaling), sigma_T</span>
+<span class="sd">           - Mm vs MP → b_M, a_M (magnitude scaling), sigma_M</span>
+<span class="sd">        6. Generate plots with 95% prediction intervals</span>
+
+<span class="sd">    Output Files:</span>
+<span class="sd">        - {output_prefix}_projected_points.csv: Representative points per mainshock</span>
+<span class="sd">        - {output_prefix}_mp_relations.png: Plots of AP and TP vs MP (semi-log)</span>
+<span class="sd">        - {output_prefix}_mm_mp.png: Plot of Mm vs MP (linear scale)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None (writes output files directly)</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Estimated parameters (b_A, sigma_A, a_T, b_T, sigma_T, a_M, b_M, sigma_M)</span>
+<span class="sd">        can be used as initial values for EEPAS learning.</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Christophersen et al. (2024). Algorithmic Identification of the Precursory</span>
+<span class="sd">        Scale Increase Phenomenon in Earthquake Catalogs. SRL 95(6):3464-3481.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Ψ Scaling Relations Analysis (Projected Means + Plots) ===&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 1) Read file (all identifications)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_read_psi_any_layout</span><span class="p">(</span><span class="n">psi_file</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Successfully read </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2"> total Ψ identification records.&quot;</span><span class="p">)</span>
+    <span class="n">n_eq</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;eq_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ℹ️  Number of mainshocks (unique eq_name) = </span><span class="si">{</span><span class="n">n_eq</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ℹ️  Number of identifications per mainshock (top 10):&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;eq_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+    <span class="c1"># 2) Unit conversion and logarithms</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tp_days&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="mf">365.25</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ap&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tp_days&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">1.0</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;⚠️  All rows filtered out (ap&lt;=0 or tp_days&lt;1).&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;log_ap_km2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;log_tp&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tp_days&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span>
+
+    <span class="c1"># 3) Fixed-effects common slope (remove trade-off)</span>
+    <span class="n">b_AT</span> <span class="o">=</span> <span class="n">_fixed_effects_slope_safe</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;log_tp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;log_ap_km2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;eq_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                     <span class="n">min_group_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">b_TA</span> <span class="o">=</span> <span class="n">_fixed_effects_slope_safe</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;log_ap_km2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;log_tp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;eq_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                     <span class="n">min_group_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">xbar</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;log_tp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+    <span class="n">ybar</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;log_ap_km2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+    <span class="c1"># 4) Generate representative points per mainshock (projected means) using Eqs (13)(14)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">mm_first</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;eq_name&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="n">mp_mean</span>  <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;eq_name&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s1">&#39;mp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">g</span><span class="p">,</span> <span class="n">dfg</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;eq_name&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">x_i</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">dfg</span><span class="p">[</span><span class="s1">&#39;log_tp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+        <span class="n">y_i</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">dfg</span><span class="p">[</span><span class="s1">&#39;log_ap_km2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+        <span class="n">a_i</span>    <span class="o">=</span> <span class="n">y_i</span> <span class="o">-</span> <span class="n">b_AT</span> <span class="o">*</span> <span class="n">x_i</span>
+        <span class="n">logA_p</span> <span class="o">=</span> <span class="n">a_i</span> <span class="o">+</span> <span class="n">b_AT</span> <span class="o">*</span> <span class="n">xbar</span>   <span class="c1"># Eq (13): projected mean of log10(A)</span>
+        <span class="n">a_i_p</span>  <span class="o">=</span> <span class="n">x_i</span> <span class="o">-</span> <span class="n">b_TA</span> <span class="o">*</span> <span class="n">y_i</span>
+        <span class="n">logT_p</span> <span class="o">=</span> <span class="n">a_i_p</span> <span class="o">+</span> <span class="n">b_TA</span> <span class="o">*</span> <span class="n">ybar</span> <span class="c1"># Eq (14): projected mean of log10(T)</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;eq_name&#39;</span><span class="p">:</span> <span class="n">g</span><span class="p">,</span>
+            <span class="s1">&#39;mm&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">mm_first</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">g</span><span class="p">]),</span>
+            <span class="s1">&#39;mp&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">mp_mean</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">g</span><span class="p">]),</span>
+            <span class="s1">&#39;log_ap_km2_proj&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">logA_p</span><span class="p">),</span>
+            <span class="s1">&#39;log_tp_proj&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">logT_p</span><span class="p">),</span>
+        <span class="p">})</span>
+    <span class="n">proj</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Generated </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">proj</span><span class="p">)</span><span class="si">}</span><span class="s2"> mainshock representative points with trade-off removed (should equal number of mainshocks).&quot;</span><span class="p">)</span>
+    <span class="n">proj</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_prefix</span><span class="si">}</span><span class="s2">_projected_points.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># 5) Linear regression (using projected representative points)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_linreg</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform linear regression and compute residual standard error.&quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">);</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">];</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">stats</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">linregress</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">slope</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">intercept</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">rvalue</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;pvalue&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">_linregress_np</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">slope</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">intercept</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">rvalue</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="c1"># Residual standard deviation (for prediction interval)</span>
+        <span class="n">yhat</span> <span class="o">=</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x</span>
+        <span class="n">sse</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">yhat</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">std_err</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sse</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">pval</span><span class="p">,</span> <span class="n">std_err</span><span class="p">),</span> <span class="n">mask</span>
+
+    <span class="c1"># A: log10(A[km2]) vs MP</span>
+    <span class="n">regA</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_linreg</span><span class="p">(</span><span class="n">proj</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="s1">&#39;log_ap_km2_proj&#39;</span><span class="p">])</span>
+    <span class="c1"># T: log10(T[days]) vs MP</span>
+    <span class="n">regT</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_linreg</span><span class="p">(</span><span class="n">proj</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="s1">&#39;log_tp_proj&#39;</span><span class="p">])</span>
+    <span class="c1"># M: Mm vs MP</span>
+    <span class="n">regM</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_linreg</span><span class="p">(</span><span class="n">proj</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Initial Value Estimates for MLE ---&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">regA</span><span class="p">:</span>
+        <span class="n">slope_A</span><span class="p">,</span> <span class="n">intercept_A</span><span class="p">,</span> <span class="n">r2_A</span><span class="p">,</span> <span class="n">p_A</span><span class="p">,</span> <span class="n">std_err_A</span> <span class="o">=</span> <span class="n">regA</span>
+        <span class="c1"># Calculate sigma_A initial value using simplified estimation method</span>
+        <span class="n">c_for_sigma_A</span> <span class="o">=</span> <span class="mf">0.33</span>
+        <span class="n">a_A</span> <span class="o">=</span> <span class="n">intercept_A</span>
+        <span class="n">sigma_A_initial</span> <span class="o">=</span> <span class="n">c_for_sigma_A</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">a_A</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relation 1 (Area): log10(A_P[km²]) = </span><span class="si">{</span><span class="n">intercept_A</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">slope_A</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">*M_P &quot;</span>
+              <span class="sa">f</span><span class="s2">&quot;(R² = </span><span class="si">{</span><span class="n">r2_A</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, p-value = </span><span class="si">{</span><span class="n">p_A</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sigma_A initial value (from simplified estimation): </span><span class="si">{</span><span class="n">sigma_A_initial</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  (Formula: 0.33 * 10^(a_A / 2), where a_A = </span><span class="si">{</span><span class="n">a_A</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sigma_A initial value: Insufficient samples.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">regT</span><span class="p">:</span>
+        <span class="n">slope_T</span><span class="p">,</span> <span class="n">intercept_T</span><span class="p">,</span> <span class="n">r2_T</span><span class="p">,</span> <span class="n">p_T</span><span class="p">,</span> <span class="n">std_err_T</span> <span class="o">=</span> <span class="n">regT</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relation 2 (Time): log10(T_P[days]) = </span><span class="si">{</span><span class="n">intercept_T</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">slope_T</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">*M_P &quot;</span>
+              <span class="sa">f</span><span class="s2">&quot;(R² = </span><span class="si">{</span><span class="n">r2_T</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, p-value = </span><span class="si">{</span><span class="n">p_T</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sigma_T initial value (residual std from log(T_p) vs M_P): </span><span class="si">{</span><span class="n">std_err_T</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sigma_T initial value: Insufficient samples.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">regM</span><span class="p">:</span>
+        <span class="n">slope_M</span><span class="p">,</span> <span class="n">intercept_M</span><span class="p">,</span> <span class="n">r2_M</span><span class="p">,</span> <span class="n">p_M</span><span class="p">,</span> <span class="n">std_err_M</span> <span class="o">=</span> <span class="n">regM</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relation 3 (Mag):  M_m = </span><span class="si">{</span><span class="n">intercept_M</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">slope_M</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">*M_P &quot;</span>
+              <span class="sa">f</span><span class="s2">&quot;(R² = </span><span class="si">{</span><span class="n">r2_M</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, p-value = </span><span class="si">{</span><span class="n">p_M</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sigma_M initial value (residual std from M_m vs M_P): </span><span class="si">{</span><span class="n">std_err_M</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sigma_M initial value: Insufficient samples.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 6) Prepare plotting data</span>
+    <span class="c1"># All identifications: use original df</span>
+    <span class="n">data_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;mp&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;mp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+        <span class="s2">&quot;ap_1000km2&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;ap&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span>   <span class="c1"># Convert to 10^3 km²</span>
+        <span class="s2">&quot;tp_days&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;tp_days&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+        <span class="s2">&quot;mm&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;mm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="c1"># Representative points per mainshock (after projection): convert from proj back to linear scale</span>
+    <span class="n">mean_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;eq_name&quot;</span><span class="p">:</span> <span class="n">proj</span><span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="s2">&quot;mp&quot;</span><span class="p">:</span> <span class="n">proj</span><span class="p">[</span><span class="s2">&quot;mp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="s2">&quot;ap_1000km2&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">10.0</span><span class="o">**</span><span class="n">proj</span><span class="p">[</span><span class="s2">&quot;log_ap_km2_proj&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span>
+        <span class="s2">&quot;tp_days&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="o">**</span><span class="n">proj</span><span class="p">[</span><span class="s2">&quot;log_tp_proj&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="s2">&quot;mm&quot;</span><span class="p">:</span> <span class="n">proj</span><span class="p">[</span><span class="s2">&quot;mm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+    <span class="p">})</span>
+
+    <span class="c1"># 7) X range for prediction interval (based on MP range of representative points)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mean_data</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">x_range_mp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">mean_data</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span>
+                                 <span class="n">mean_data</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x_range_mp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span>
+                                 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="c1"># 8) Plot (a), (b): semi-log y (fixed colors: gray=all, blue=representative, black=line)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+    <span class="c1"># (a) MP vs AP (10^3 km²) — log y-axis</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data_all</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">data_all</span><span class="p">[</span><span class="s1">&#39;ap_1000km2&#39;</span><span class="p">],</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;All Identifications&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mean_data</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">mean_data</span><span class="p">[</span><span class="s1">&#39;ap_1000km2&#39;</span><span class="p">],</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mean per Mainshock&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">regA</span><span class="p">:</span>
+        <span class="n">y_fit_A</span><span class="p">,</span> <span class="n">lower_A</span><span class="p">,</span> <span class="n">upper_A</span> <span class="o">=</span> <span class="n">prediction_interval</span><span class="p">(</span><span class="n">mean_data</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">x_range_mp</span><span class="p">,</span>
+                                                        <span class="n">slope_A</span><span class="p">,</span> <span class="n">intercept_A</span><span class="p">,</span> <span class="n">std_err_A</span><span class="p">)</span>
+        <span class="c1"># Regression plotted on linear scale (original regression on log10(A[km²]))</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_range_mp</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="n">y_fit_A</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">log_</span><span class="se">{{</span><span class="s1">10</span><span class="se">}}</span><span class="s1">A_P = </span><span class="si">{</span><span class="n">intercept_A</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">slope_A</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">M_P$&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lower_A</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_range_mp</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="n">lower_A</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span>
+                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;95% PI&#39;</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_range_mp</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="n">upper_A</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span>
+                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$M_P$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$A_P$ (10³ km²)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;(a) $A_P$ vs $M_P$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+    <span class="c1"># (b) MP vs TP (days) — log y-axis</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data_all</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">data_all</span><span class="p">[</span><span class="s1">&#39;tp_days&#39;</span><span class="p">],</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;All Identifications&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mean_data</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">mean_data</span><span class="p">[</span><span class="s1">&#39;tp_days&#39;</span><span class="p">],</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mean per Mainshock&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">regT</span><span class="p">:</span>
+        <span class="n">y_fit_T</span><span class="p">,</span> <span class="n">lower_T</span><span class="p">,</span> <span class="n">upper_T</span> <span class="o">=</span> <span class="n">prediction_interval</span><span class="p">(</span><span class="n">mean_data</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">x_range_mp</span><span class="p">,</span>
+                                                        <span class="n">slope_T</span><span class="p">,</span> <span class="n">intercept_T</span><span class="p">,</span> <span class="n">std_err_T</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_range_mp</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="n">y_fit_T</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">log_</span><span class="se">{{</span><span class="s1">10</span><span class="se">}}</span><span class="s1">T_P = </span><span class="si">{</span><span class="n">intercept_T</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">slope_T</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">M_P$&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lower_T</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_range_mp</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="n">lower_T</span><span class="p">,</span>
+                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;95% PI&#39;</span><span class="p">)</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_range_mp</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="n">upper_T</span><span class="p">,</span>
+                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$M_P$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$T_P$ (days)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;(b) $T_P$ vs $M_P$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_prefix</span><span class="si">}</span><span class="s2">_mp_relations.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Saved M_P relation plots to </span><span class="si">{</span><span class="n">output_prefix</span><span class="si">}</span><span class="s2">_mp_relations.png&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 9) Plot (c): Mm vs MP (linear y)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">ax3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data_all</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">data_all</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">],</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;All Identifications&#39;</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mean_data</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">mean_data</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">],</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mean per Mainshock&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">regM</span><span class="p">:</span>
+        <span class="c1"># Extract regression parameters from regM tuple</span>
+        <span class="n">slope_M</span><span class="p">,</span> <span class="n">intercept_M</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">std_err_M</span> <span class="o">=</span> <span class="n">regM</span>
+        <span class="n">y_fit_M</span><span class="p">,</span> <span class="n">lower_M</span><span class="p">,</span> <span class="n">upper_M</span> <span class="o">=</span> <span class="n">prediction_interval</span><span class="p">(</span><span class="n">mean_data</span><span class="p">[</span><span class="s1">&#39;mp&#39;</span><span class="p">],</span> <span class="n">x_range_mp</span><span class="p">,</span>
+                                                        <span class="n">slope_M</span><span class="p">,</span> <span class="n">intercept_M</span><span class="p">,</span> <span class="n">std_err_M</span><span class="p">)</span>
+        <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range_mp</span><span class="p">,</span> <span class="n">y_fit_M</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;$M_m = </span><span class="si">{</span><span class="n">intercept_M</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">slope_M</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">M_P$&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lower_M</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range_mp</span><span class="p">,</span> <span class="n">lower_M</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;95% PI&#39;</span><span class="p">)</span>
+            <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range_mp</span><span class="p">,</span> <span class="n">upper_M</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$M_P$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$M_m$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;(c) $M_m$ vs $M_P$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_prefix</span><span class="si">}</span><span class="s2">_mm_mp.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved M_m vs M_P plot to </span><span class="si">{</span><span class="n">output_prefix</span><span class="si">}</span><span class="s2">_mm_mp.png&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

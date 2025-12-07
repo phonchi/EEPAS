@@ -1,0 +1,411 @@
+#!/usr/bin/env python3
+"""
+Optimization Strategy Definitions for EEPAS Parameter Learning
+
+Provides predefined optimization strategies and configuration loaders.
+"""
+
+# 標準參數邊界（來自文獻和實踐經驗）
+STANDARD_BOUNDS = {
+    'am': [1.0, 2.0],
+    'bm': [0.8, 1.2],
+    'Sm': [0.2, 0.65],
+    'at': [1.0, 3.0],
+    'bt': [0.3, 0.65],
+    'St': [0.15, 0.6],
+    'ba': [0.2, 0.6],
+    'Sa': [1.0, 30.0],
+    'u': [0.0, 1.0]
+}
+
+# 預定義優化策略
+PREDEFINED_STRATEGIES = {
+    'biondini2023': {
+        'description': '標準三階段優化（Biondini et al., 2023）',
+        'citation': 'Biondini, D., Console, R., & Murru, M. (2023). Geophys. J. Int.',
+        'stages': [
+            {
+                'name': 'stage1_mean_scaling',
+                'description': '優化平均尺度參數和混合參數',
+                'optimize': ['am', 'at', 'Sa', 'u'],
+                'fix': {
+                    'bm': 1.0,
+                    'Sm': 0.32,
+                    'bt': 0.4,
+                    'St': 0.23,
+                    'ba': 0.35
+                },
+                'initial': {
+                    'am': 1.5,
+                    'at': 1.5,
+                    'Sa': 2.0,
+                    'u': 0.2
+                },
+                'bounds': {
+                    'am': STANDARD_BOUNDS['am'],
+                    'at': STANDARD_BOUNDS['at'],
+                    'Sa': STANDARD_BOUNDS['Sa'],
+                    'u': STANDARD_BOUNDS['u']
+                }
+            },
+            {
+                'name': 'stage2_uncertainty',
+                'description': '優化不確定性和斜率參數',
+                'optimize': ['Sm', 'bt', 'St', 'ba', 'u'],
+                'fix': {
+                    'bm': 1.0
+                },
+                'inherit': ['am', 'at', 'Sa'],
+                'initial': {
+                    'Sm': 0.32,
+                    'bt': 0.4,
+                    'St': 0.23,
+                    'ba': 0.35
+                },
+                'bounds': {
+                    'Sm': STANDARD_BOUNDS['Sm'],
+                    'bt': STANDARD_BOUNDS['bt'],
+                    'St': STANDARD_BOUNDS['St'],
+                    'ba': STANDARD_BOUNDS['ba'],
+                    'u': STANDARD_BOUNDS['u']
+                }
+            },
+            {
+                'name': 'stage3_joint',
+                'description': '聯合優化所有參數',
+                'optimize': ['am', 'Sm', 'at', 'bt', 'St', 'ba', 'Sa', 'u'],
+                'fix': {
+                    'bm': 1.0
+                },
+                'inherit': 'all',
+                'bounds': {k: STANDARD_BOUNDS[k] for k in ['am', 'Sm', 'at', 'bt', 'St', 'ba', 'Sa', 'u']}
+            }
+        ]
+    },
+
+    'single_stage': {
+        'description': '單階段優化（適合大數據集或良好初值）',
+        'stages': [
+            {
+                'name': 'full',
+                'description': '直接優化所有參數',
+                'optimize': ['am', 'Sm', 'at', 'bt', 'St', 'ba', 'Sa', 'u'],
+                'fix': {
+                    'bm': 1.0
+                },
+                'initial': {
+                    'am': 1.5,
+                    'Sm': 0.32,
+                    'at': 1.5,
+                    'bt': 0.4,
+                    'St': 0.23,
+                    'ba': 0.35,
+                    'Sa': 2.0,
+                    'u': 0.2
+                },
+                'bounds': {k: STANDARD_BOUNDS[k] for k in ['am', 'Sm', 'at', 'bt', 'St', 'ba', 'Sa', 'u']}
+            }
+        ]
+    }
+}
+
+
+def get_strategy(strategy_name):
+    """
+    Get predefined optimization strategy.
+
+    Args:
+        strategy_name (str): Strategy name ('biondini2023', 'magnitude_first',
+                            'conservative', 'single_stage')
+
+    Returns:
+        dict: Strategy configuration
+
+    Raises:
+        ValueError: If strategy name is not found
+    """
+    if strategy_name not in PREDEFINED_STRATEGIES:
+        available = ', '.join(PREDEFINED_STRATEGIES.keys())
+        raise ValueError(
+            f"未知的策略: '{strategy_name}'。\n"
+            f"可用策略: {available}"
+        )
+
+    return PREDEFINED_STRATEGIES[strategy_name]
+
+
+def load_optimization_config(config):
+    """
+    Load optimization configuration with strategy support.
+
+    Supports both old format and new strategy-based format.
+
+    Args:
+        config (dict): Configuration dictionary
+
+    Returns:
+        dict: Processed optimization configuration with stages
+
+    Examples:
+        # Old format (backward compatible)
+        config = {
+            'optimization': {
+                'stage1': {'parameters': [...], ...},
+                'stage2': {...},
+                'stage3': {...}
+            }
+        }
+
+        # New format with strategy
+        config = {
+            'optimization': {
+                'strategy': 'biondini2023'
+            }
+        }
+
+        # New format with custom
+        config = {
+            'optimization': {
+                'strategy': 'custom',
+                'custom': {
+                    'stages': [...]
+                }
+            }
+        }
+    """
+    opt_config = config.get('optimization', {})
+
+    # Check if new strategy-based format
+    if 'strategy' in opt_config:
+        strategy_name = opt_config['strategy']
+
+        if strategy_name == 'custom':
+            # Use custom configuration
+            if 'custom' not in opt_config:
+                raise ValueError("strategy='custom' 但未提供 'custom' 配置")
+            return opt_config['custom']
+
+        else:
+            # Load predefined strategy
+            strategy = get_strategy(strategy_name)
+            return {
+                'description': strategy.get('description', ''),
+                'citation': strategy.get('citation', ''),
+                'stages': strategy['stages']
+            }
+
+    # Old format: check for stage1, stage2, stage3
+    elif 'stage1' in opt_config or 'stage2' in opt_config or 'stage3' in opt_config:
+        # Convert old format to new format
+        return convert_old_format(opt_config)
+
+    else:
+        raise ValueError(
+            "無效的 optimization 配置格式。\n"
+            "請使用 'strategy' (新格式) 或 'stage1/stage2/stage3' (舊格式)"
+        )
+
+
+def convert_old_format(opt_config):
+    """
+    Convert old configuration format to new format.
+
+    Old format:
+        stage1: {parameters: [...], lowerBounds: [...], upperBounds: [...], fixedValues: {...}}
+
+    New format:
+        stages: [{optimize: [...], fix: {...}, bounds: {...}}]
+
+    Args:
+        opt_config (dict): Old format optimization config
+
+    Returns:
+        dict: New format configuration
+    """
+    stages = []
+
+    for stage_key in ['stage1', 'stage2', 'stage3']:
+        if stage_key not in opt_config:
+            continue
+
+        old_stage = opt_config[stage_key]
+
+        # Extract information from old format
+        optimize = old_stage.get('parameters', [])
+        fix = old_stage.get('fixedValues', {})
+
+        # Build bounds dictionary
+        bounds = {}
+        lower = old_stage.get('lowerBounds', [])
+        upper = old_stage.get('upperBounds', [])
+
+        for i, param in enumerate(optimize):
+            if i < len(lower) and i < len(upper):
+                bounds[param] = [lower[i], upper[i]]
+
+        # Create new format stage
+        new_stage = {
+            'name': stage_key,
+            'optimize': optimize,
+            'fix': fix,
+            'bounds': bounds
+        }
+
+        # Preserve old format fields for backward compatibility
+        if 'parameters' in old_stage:
+            new_stage['parameters'] = old_stage['parameters']
+        if 'initialValues' in old_stage:
+            new_stage['initialValues'] = old_stage['initialValues']
+        if 'lowerBounds' in old_stage:
+            new_stage['lowerBounds'] = old_stage['lowerBounds']
+        if 'upperBounds' in old_stage:
+            new_stage['upperBounds'] = old_stage['upperBounds']
+
+        # Handle inherit logic for stage2 and stage3
+        if stage_key == 'stage2':
+            # Stage2 inherits from stage1
+            if 'stage1' in opt_config:
+                new_stage['inherit'] = opt_config['stage1'].get('parameters', [])
+
+        elif stage_key == 'stage3':
+            # Stage3 inherits all from stage2
+            new_stage['inherit'] = 'all'
+
+        stages.append(new_stage)
+
+    return {
+        'description': '從舊格式轉換（向後相容）',
+        'stages': stages
+    }
+
+
+def validate_stage_config(stage, all_params=None):
+    """
+    Validate stage configuration.
+
+    Args:
+        stage (dict): Stage configuration
+        all_params (list): List of all possible parameters
+
+    Raises:
+        ValueError: If configuration is invalid
+    """
+    if all_params is None:
+        all_params = ['am', 'bm', 'Sm', 'at', 'bt', 'St', 'ba', 'Sa', 'u']
+
+    # Check required fields
+    if 'optimize' not in stage:
+        raise ValueError(f"Stage '{stage.get('name', 'unknown')}' 缺少 'optimize' 欄位")
+
+    optimize = stage['optimize']
+    fix = stage.get('fix', {})
+    inherit = stage.get('inherit', [])
+
+    # Check for unknown parameters
+    for param in optimize:
+        if param not in all_params:
+            raise ValueError(f"未知參數: {param}")
+
+    for param in fix.keys():
+        if param not in all_params:
+            raise ValueError(f"未知參數: {param}")
+
+    # Check for conflicts
+    optimize_set = set(optimize)
+    fix_set = set(fix.keys())
+
+    if optimize_set & fix_set:
+        conflict = optimize_set & fix_set
+        raise ValueError(f"參數衝突（同時在 optimize 和 fix 中）: {conflict}")
+
+    # Check bounds for optimized parameters
+    bounds = stage.get('bounds', {})
+    for param in optimize:
+        if param not in bounds:
+            print(f"⚠️  警告: 參數 '{param}' 缺少 bounds，將使用預設邊界")
+
+    return True
+
+
+def print_strategy_info(strategy_name=None, strategy_config=None):
+    """
+    Print information about optimization strategy.
+
+    Args:
+        strategy_name (str): Name of predefined strategy
+        strategy_config (dict): Custom strategy configuration
+    """
+    if strategy_name:
+        if strategy_name not in PREDEFINED_STRATEGIES:
+            print(f"❌ 未知策略: {strategy_name}")
+            return
+
+        strategy = PREDEFINED_STRATEGIES[strategy_name]
+        print(f"\n{'='*80}")
+        print(f"策略: {strategy_name}")
+        print(f"{'='*80}")
+        print(f"描述: {strategy.get('description', 'N/A')}")
+        if 'citation' in strategy:
+            print(f"引用: {strategy['citation']}")
+        print(f"階段數: {len(strategy['stages'])}")
+        print(f"{'='*80}\n")
+
+        for i, stage in enumerate(strategy['stages'], 1):
+            print(f"階段 {i}: {stage.get('name', 'unknown')}")
+            print(f"  描述: {stage.get('description', 'N/A')}")
+            print(f"  優化參數: {', '.join(stage['optimize'])}")
+            print(f"  固定參數: {', '.join(stage.get('fix', {}).keys())}")
+            if 'inherit' in stage:
+                inherit = stage['inherit']
+                if inherit == 'all':
+                    print(f"  繼承: 所有前階段參數")
+                else:
+                    print(f"  繼承: {', '.join(inherit)}")
+            print()
+
+    elif strategy_config:
+        print(f"\n{'='*80}")
+        print(f"自訂策略")
+        print(f"{'='*80}")
+        print(f"描述: {strategy_config.get('description', 'N/A')}")
+        print(f"階段數: {len(strategy_config.get('stages', []))}")
+        print(f"{'='*80}\n")
+
+        for i, stage in enumerate(strategy_config.get('stages', []), 1):
+            print(f"階段 {i}: {stage.get('name', 'unknown')}")
+            print(f"  優化參數: {', '.join(stage['optimize'])}")
+            print(f"  固定參數: {', '.join(stage.get('fix', {}).keys())}")
+            if 'inherit' in stage:
+                print(f"  繼承: {stage['inherit']}")
+            print()
+
+
+def list_available_strategies():
+    """Print all available predefined strategies."""
+    print("\n可用的預定義策略:\n")
+    print(f"{'策略名稱':<20} {'描述':<50} {'階段數':<10}")
+    print("=" * 80)
+
+    for name, strategy in PREDEFINED_STRATEGIES.items():
+        desc = strategy.get('description', '')
+        n_stages = len(strategy.get('stages', []))
+        print(f"{name:<20} {desc:<50} {n_stages:<10}")
+
+    print("\n使用範例:")
+    print('  config["optimization"]["strategy"] = "biondini2023"')
+    print("\n自訂策略:")
+    print('  config["optimization"]["strategy"] = "custom"')
+    print('  config["optimization"]["custom"] = {...}')
+    print()
+
+
+if __name__ == '__main__':
+    # Test and demo
+    print("EEPAS 優化策略模組")
+    print("=" * 80)
+
+    # List available strategies
+    list_available_strategies()
+
+    # Show example strategy
+    print_strategy_info('biondini2023')

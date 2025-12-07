@@ -1,0 +1,159 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Logs
+*.log
+*.log.*
+logs/
+*.out
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.orig
+*.round*.bak
+*Zone.Identifier
+*_autoadjusted_round*.json
+
+# Results (too large for GitHub)
+results/
+results_*/
+!results_italy_causal_ew0/.gitkeep
+!results_italy_causal_ew0_accurate/.gitkeep
+
+# Analysis outputs
+analysis_outputs/
+analysis_plots/
+analysis_data/
+
+# Test data and outputs
+test_data/
+test_output/
+
+# Large text catalog files (use .mat instead)
+data/*.txt
+data/*_Catalog.txt
+data/*_DataOrigin.txt
+
+# Large data files (over 10MB)
+data/HORUS_Italy_polygon_filtered.mat
+data/HORUS_Italy_RDN2008_polygon_filtered.mat
+data/HORUS_Italy_filtered.mat
+data/HORUS_Italy_RDN2008_filtered.mat
+
+# Large PDF files
+analysis/*.pdf
+*.pdf
+
+# Zip archives
+*.zip
+docs/build.zip
+
+# Doctrees (Sphinx cache)
+docs/build/doctrees/
+
+# OS
+Thumbs.db
+.DS_Store
+.Spotlight-V100
+.Trashes
+
+# Archive and backup directories
+archive/
+.archive/
+*_BACKUP_*/
+*_backup/
+*_original/
+archive_test_files/
+
+# Non-Sphinx development docs
+CUSTOM_STAGES_USAGE.md
+OPTIMIZATION_MODES_GUIDE.md
+STAGE1_SINGLE_STAGE_IMPLEMENTATION.md
+STAGE1_VERIFICATION_REPORT.md
+ACCURATE_VS_FAST_COMPARISON_REPORT.md
+NUMERICAL_INTEGRATION_USAGE.md
+INTERNATIONALIZATION_AND_SPHINX_PLAN.md
+USAGE_EN.md
+CHANGELOG_EN.md
+INTERNATIONALIZATION_COMPLETE.md
+SPHINX_DOCUMENTATION_GUIDE.md
+DOCUMENTATION_DEPLOYMENT_SUMMARY.md
+DOCUMENTATION_UPDATE_SUMMARY.md
+
+# Test and temporary config files
+config_test_*.json
+config_*_new.json
+config_*_new_*.json
+config_*_old_format.json
+config_*_autoadjusted_*.json
+*.json.round*.bak
+
+# Utility scripts not referenced by Sphinx (測試/開發用)
+add_bounds_to_strategies.py
+auto_monitor_and_compare.py
+batch_fix_docstrings.py
+cleanup_docstrings.py
+compare_forecast_matrices.py
+compare_new_vs_old_results.py
+compare_results.py
+start_new_strategy_verification.py
+
+# Non-Sphinx referenced analysis scripts (測試/開發用)
+analysis/run_distribution_analysis.py
+analysis/run_weight_analysis.py
+analysis/region_subdivision.py
+analysis/distribution_analysis.py
+analysis/weight_analysis.py
+
+# Note: 以下檔案是核心依賴，必須保留（不要加到 .gitignore）：
+# - eepas_learning.py (被 eepas_learning_auto_boundary.py 引用)
+# - eepas_likelihood.py (被 eepas_learning.py 引用)
+# - optimize_eepas_parameters.py (被 eepas_learning.py 引用)
+# - ppe_optimization.py (被 ppe_learning.py 引用)
+# - neg_log_like_aftershock.py (被 fit_aftershock_params.py 引用)
+# - calculate_earthquake_weights.py (被 eepas_learning.py 和 eepas_make_forecast.py 引用)
+# - utils/auto_boundary_adjustment.py (被 eepas_learning_auto_boundary.py 引用)
+# - utils/catalog_processor_extensions.py (擴展功能)
+# - utils/numerical_integration.py (被多個模組引用)

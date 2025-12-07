@@ -1,0 +1,2648 @@
+\pdfoutput=1
+\documentclass[linenum,doublespace,onecolumn]{SSA-SRL}
+
+%\documentclass[linenum]{SSA-SRL}
+
+\makeatletter
+% 如果 class 沒有定義 chapter，就先定義一個乾淨的 chapter counter
+\@ifundefined{c@chapter}{%
+  \newcounter{chapter}%
+}{}
+\DeclareFontFamily{LS1}{stix2bb}{\skewchar\font127 }
+\DeclareFontShape{LS1}{stix2bb}{m}{n} {<-> stix2-mathbb}{}
+\DeclareFontShape{LS1}{stix2bb}{m}{it}{<-> stix2-mathbbit}{}
+\DeclareFontShape{LS1}{stix2bb}{b}{n} {<->ssub * stix2bb/m/n}{}
+\DeclareFontShape{LS1}{stix2bb}{b}{it}{<->ssub * stix2bb/m/it}{}
+
+\DeclareFontFamily{LS2}{stix2ex}{}
+\DeclareFontShape{LS2}{stix2ex}{m}{n} {<-> stix2-mathex}{}
+\DeclareFontShape{LS2}{stix2ex}{b}{n} {<->ssub * stix2ex/m/n}{}
+
+\DeclareFontFamily{LS2}{stix2cal}{\skewchar\font127 }
+\DeclareFontShape{LS2}{stix2cal}{m}{n} {<-> stix2-mathcal}{}
+\DeclareFontShape{LS2}{stix2cal}{b}{n} {<->ssub * stix2cal/m/n}{}
+
+\DeclareFontFamily{LS2}{stix2tt}{\skewchar\font127 }
+\DeclareFontShape{LS2}{stix2tt}{m}{n} {<-> stix2-mathtt}{}
+\DeclareFontShape{LS2}{stix2tt}{b}{n} {<->ssub * stix2tt/m/n}{}
+% Define theorem styles
+
+\newtheoremstyle{lemma}
+  {10pt} {10pt} {\itshape} {} {\bfseries} {.} {.5em} {}
+\theoremstyle{lemma}
+\newtheorem{lemma}{Lemma}
+
+\usepackage{aliascnt}
+\usepackage{cleveref}
+
+\def\R{\mathbb{R}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\def\ds{\displaystyle}
+\def\v{\vspace{1ex}}
+
+
+\citethisauthor{First~A., A.~Second, and A.~Third}
+% \vol{0}
+% \iss{0}
+\doi{00.0000/000000000}
+\recdate{00 Month 0000}
+
+\newtheorem{proposition}{Proposition}
+
+\graphicspath{
+{./Figures/}
+{./Logos/}
+}
+
+\begin{document}
+
+\title{Article Title Goes Here}
+
+\author[*1\orc{0000-0000-0000-0001}]{First Author}
+\author[1\orc{0000-0000-0000-0002}]{Second Author}
+\author[2\orc{0000-0000-0000-0003}]{Third Author}
+
+\affil[1]{First Affiliation, Institute, City, Country}{\auorc[https:// orcid.org/]{0000-0000-0000-0001}{(FA)}\auorc{0000-0000-0000-0002}{(SA)}}
+\affil[2]{Second Affiliation, Institute, Department, City, Country}{\auorc[https://orcid.org/]{0000-0000-0000-0003}{(TA)}}
+\corau{*Corresponding author: auname@abc.org}
+
+
+\begin{abstract}
+Earthquake forecasting aims to estimate the probability of future earthquake occurrences within a specified time, space, and magnitude range. While short-term models such as the Short-Term Earthquake Probability (STEP) and Epidemic-Type Aftershock Sequence (ETAS) models are well established and supported by open-source software, medium- to long-term models—most notably the Every Earthquake a Precursor According to Scale (EEPAS) and Proximity to Past Earthquakes (PPE) models — remain poorly documented and largely inaccessible. Despite their demonstrated ability to outperform time-invariant models in regional applications, the mathematical foundations of EEPAS and PPE are also often lacking. To address these gaps, this study provides a rigorous mathematical formulation of the EEPAS and PPE models. We derive analytical expressions for the incompleteness correction factor, $\Delta(m)$, and normalization factor, $\eta(m)$, formally grounding the EEPAS log-likelihood within the framework of inhomogeneous Poisson point processes. We further establish the probabilistic interpretation that links empirical linear regressions of the $\psi$ phenomenon to the likelihood-based model, thereby clarifying the statistical assumptions underlying precursor scaling. A mathematical proof is also presented showing that, under specific conditions, the joint maximum likelihood estimation ensures that the integral of the rate function equals the total number of observed events. Building on this theoretical foundation, we introduce a fully automated, open-source Python implementation of EEPAS. The framework incorporates an analytical formulation, JIT-accelerated computation with Numba, vectorized operations, and parallel processing with \texttt{joblib}. A modular design with centralized JSON configuration enhances usability and reproducibility. The implementation integrates seamlessly with \textbf{pyCSEP} for standardized evaluation and model comparison. Released under the MIT license, this work provides the first fully documented, high-performance EEPAS implementation, promoting transparent and reproducible research in earthquake forecasting.
+
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+The term earthquake forecasting refers to the probabilistic assessment of earthquake occurrence within a specified time frame, region, and magnitude range. Earthquakes arise from processes that lie between deterministic and stochastic behavior. Their most predictable components include the clustering of events in time and space and the characteristic frequency–magnitude distribution within clusters. Understanding the earthquake generation process and developing reliable forecasting models are central goals of statistical seismology. Achieving these goals requires integrating physical insights with statistical modeling. Many of the field’s fundamental empirical laws — such as the Omori–Utsu law for aftershock decay and the Gutenberg–Richter law for magnitude–frequency distributions—were first established statistically, long before their underlying physical mechanisms were fully understood.
+
+In statistical seismology, earthquake forecasting models are typically categorized as short-term, medium-term, or long-term. Well-known short-term models include the Short-Term Earthquake Probability (STEP) and Epidemic-Type Aftershock Sequence (ETAS) models. Both have publicly available, well-maintained open-source implementations. In contrast, medium- to long-term models—such as the Every Earthquake a Precursor According to Scale (EEPAS) and Proximity to Past Earthquakes (PPE) models — remain largely inaccessible. To the best of our knowledge, no actively maintained open-source versions of these models exist. The only available EEPAS implementation is a MATLAB code \cite{2023ER}, which is difficult to use and extend due to hard-coded paths, undocumented variables, and slow computational efficiency — issues that impede reproducibility and large-scale experimentation.
+
+Despite these limitations, EEPAS and PPE are well-established medium to long term forecasting models based purely on seismicity. They have been successfully applied to several regional catalogs and consistently outperform time-invariant models in forecasting major earthquakes. However, their mathematical foundations are insufficiently documented. First, the EEPAS model is built on empirical linear relationships observed in seismic data, known as the $\psi$ phenomenon. Yet, this phenomenon has been only superficially analyzed. Early studies relied on manual identification, lacking an objective procedure. Although a recent “rectangular algorithm” was proposed to automate $\psi$ detection, it has not been validated within the EEPAS end-to-end forecasting framework, and its code is poorly maintained and incomplete, lacking procedures for handling multiple $\psi$ events, visualization routines, and the derivation of initialization value for EEPAS. Second, existing studies rarely provide a formal explanation for how deterministic $\psi$ relationships are transformed into the probabilistic distributions used in the model’s likelihood function. Third, key components of the EEPAS log-likelihood—specifically, the incompleteness correction factor $\Delta(m)$ and the normalization factor $\eta(m)$—are often presented without formal proofs or clear derivations. Finally, while Maximum Likelihood Estimation (MLE) of PPE parameters is known to yield models where the total expected number of events matches the observed count, the theoretical basis for this property is seldom discussed in the literature.
+
+To address these gaps, this study clarifies the mathematical foundations of the PPE and EEPAS models. We derive analytical expressions for both $\Delta(m)$ and $\eta(m)$, revealing how the model accounts for missing data and scales precursor productivity. We formally derive the complete EEPAS log-likelihood, grounding it in the framework of inhomogeneous Poisson point processes. Furthermore, we provide a rigorous rationale linking the empirical $\psi$ relationships to their probabilistic formulations, thereby strengthening the statistical foundation of the model. We also present a mathematical proof demonstrating that, under specific conditions, the joint MLE procedure inherently yields a model whose rate function integrates to the total number of observed events. Our analysis confirms that parameters estimated from the rectangular algorithm can be effectively incorporated into the EEPAS formulation.
+
+Building on these theoretical advances, we developed a fully automated pipeline that accepts raw earthquake catalogs as input and outputs derived initial parameter estimates.  We have completely refactored the EEPAS model, providing a modern, high-performance Python implementation that adheres to the original methodology. Numerical integrations are replaced with analytical solutions where possible to reduce computational cost. Core numerical loops are optimized through vectorization and Numba’s just-in-time (JIT) compilation, while independent computations—such as per-cell integrations—are parallelized with \texttt{joblib}. Model parameters, file paths, and runtime settings are managed through a centralized JSON configuration file, enhancing readability, maintainability, and extensibility. The new framework integrates seamlessly with other components of the forecasting workflow. It supports preprocessing modules (e.g., initial value estimation) and post-analysis tools such as \textbf{pyCSEP}, enabling statistical testing and model comparison for end-to-end earthquake forecasting research. The entire codebase is extensively documented, explaining each module and parameter. Released under the MIT license, the implementation is freely available for academic and commercial use, fostering transparency, reproducibility, and future development in statistical seismology.
+
+% Note: EEPAS traditionally models 2D location (x,y); depth is usually handled by selecting a depth range rather than entering h_i directly.
+\section{Mathematical foundation}
+\subsection{EEPAS model}
+The EEPAS model is based on empirical linear regression relationships observed in earthquake data. These relationships link the characteristics of precursor earthquakes to the properties of subsequent mainshocks. Evison and Rhoades \cite{ER} studied long-term seismogenesis in four regions and proposed the following predictive relations:
+\begin{eqnarray}
+\label{am}    M_m = a_M + b_M M_p,\\
+\label{at}    \log_{10}(T_p) = a_T + b_T M_p,\\
+\label{aa}    \log_{10}(A_p) = a_A + b_A M_p,
+\end{eqnarray}
+where $M_m$ is the mainshock magnitude, $M_p$ is the mean magnitude of the largest three precursors, $T_p$ is the time interval between the onset of the precursory scale increase and the mainshock, $A_p$ is the spatial extent of the precursors, and $a_M, b_M, a_T, b_T, a_A, b_A$ are regression coefficients obtained by fitting empirical data. Equations \eqref{am}--\eqref{aa} describe the relationships in time, magnitude, and space between major earthquakes and their precursory shocks.
+
+To reduce noise from minor events, earthquakes with magnitudes smaller than $m_0$ are excluded due to instrument precision limitations. Let the $i$-th earthquake (indexed by its occurrence time), observed in a data collection region $N$, occur at time $t_i$, with magnitude $m_i \geq m_0$ and location $(x_i, y_i)$. Each such event contributes an instantaneous increment $\lambda_i(t,m,x,y)$ to the rate density of future seismicity in its neighborhood, defined as
+\begin{equation}\label{li}
+    \lambda_i(t,m,x,y) = w_i f_i(t) g_i(m) h_i(x,y),
+\end{equation}
+where $w_i$ denotes a weighting factor determined by the aftershock model proposed in \cite{Rhoades}. Recognizing that real-world data exhibit variability due to the complex and chaotic nature of seismic processes, the EEPAS model generalizes these deterministic relations into probabilistic formulations.
+
+The temporal component $f_i(t)$ is modeled using a log-normal probability density function:
+\begin{equation}\label{ft}
+    f_i(t) = \frac{H(t - t_i)}{(t - t_i)\ln 10\, \sigma_T \sqrt{2\pi}} \exp{\left[ -\frac{1}{2} \left( \frac{\log_{10}(t - t_i) - a_T - b_T m_i}{\sigma_T} \right)^2 \right]},
+\end{equation}
+the magnitude component $g_i(m)$ is given by
+\begin{equation}\label{gm}
+    g_i(m) = \frac{1}{\sigma_M \sqrt{2\pi}} \exp{\left[ -\frac{1}{2} \left( \frac{m - a_M - b_M m_i}{\sigma_M} \right)^2 \right]},
+\end{equation}
+and the spatial component $h_i(x,y)$ is defined as
+\begin{equation}\label{hxy}
+    h_i(x,y) = \frac{1}{2\pi \sigma_A^2 10^{b_A m_i}} \exp{\left[ -\frac{(x - x_i)^2 + (y - y_i)^2}{2 \sigma_A^2 10^{b_A m_i}} \right]}.
+\end{equation}
+Here, $H$ denotes the Heaviside function. A complete derivation of these probabilistic expressions is provided in \Cref{sec:derive_eepas_model}.
+
+
+\subsection{PPE model}
+
+The PPE model \cite{JK,RE} aims to describe the long-term background rate of earthquake occurrence and is formulated as
+\begin{equation}\label{l0}
+    \lambda_0(t,m,x,y) = f_0(t)\, g_0(m)\, h_0(x,y),
+\end{equation}
+where $f_0(t)$, $g_0(m)$, and $h_0(x,y)$ represent the temporal, magnitude, and spatial components, respectively.  
+The temporal function $f_0(t)$ takes the form
+\begin{equation}\label{f0}
+    f_0(t) = \frac{1}{t - t_0},
+\end{equation}
+where $t_0$ is the initial time from which the earthquakes are considered.  
+The magnitude function $g_0(m)$ is defined as
+\begin{equation}\label{g0}
+    g_0(m) = \beta \exp\!\left[-\beta(m - m_T)\right],
+\end{equation}
+where $m_T$ is the target magnitude threshold, and $\beta = b_{\mathrm{GR}}\ln 10$, with $b_{\mathrm{GR}}$ denoting the Gutenberg--Richter $b$-value.  
+The spatial component $h_0(x,y)$ is expressed as a summation over past events:
+\begin{eqnarray}\label{h0}
+ \nonumber h_0(x,y) & = & \sum\nolimits^{\,t-\text{delay}}_{\;t_i \in [t_0,t),\,m_i \ge m_T} h_{0i}(x,y) \\
+& \equiv & \sum\nolimits^{\,t-\text{delay}}_{\;t_i \in [t_0,t),\,m_i \ge m_T} \!\left[a(m_i - m_T)\frac{1}{\pi}\!\left(\frac{1}{d^2 + (x - x_i)^2 + (y - y_i)^2}\right) + s\right].
+\end{eqnarray}
+Here, $d$ is a smoothing parameter that controls the spatial influence of nearby past earthquakes, and $s$ is a small constant that ensures a nonzero probability of events occurring far from previous epicenters. The coefficient $a$ is a normalization factor chosen to satisfy
+\begin{equation}\label{nc}
+\iint_R h_0(x,y)\,dA
+= \frac{n_c(t)}{\displaystyle\int_{t_{(1)}}^{\,t-\text{delay}}\! f_0(u)\,du},
+\end{equation}
+where $n_c(t)$ is the number of earthquakes with magnitudes exceeding $m_T$ within the target region $R$ during the catalog window $[t_0,\,t-\text{delay})$. The term $t_{(1)} = \min\{\,t_i \in [t_0, t) : m_i \ge m_T\,\}$ denotes the time of the first counted event, used to avoid the singularity at $t_0$.
+
+The physical interpretation of the model can be understood by deriving the instantaneous background rate of $M \ge m_T$ events over the entire region $R$, denoted as $\text{Rate}(t)$:
+\begin{eqnarray*}
+\text{Rate}(t) & \equiv & \int_{m_T}^{m_u}\!\!\iint_R \lambda_0(t,m,x,y)\,dA\,dm \\
+& = & f_0(t)\!\left(\int_{m_T}^{m_u}\! g_0(m)\,dm\right)\!\left(\iint_R h_0(x,y)\,dA\right) \\
+& = & f_0(t)\,\frac{n_c(t)}{\displaystyle\int_{t_{(1)}}^{\,t-\text{delay}}\! f_0(u)\,du}.
+\end{eqnarray*}
+Between successive events, $n_c(t)$ remains constant while $f_0(t) = 1/(t - t_0)$ decreases, causing the rate to decay gradually. When a new earthquake with $M \ge m_T$ occurs, $n_c(t)$ increases by one, leading to a discrete upward step in the rate.  
+The normalization term $\int_{t_{(1)}}^{t-\text{delay}} f_0(u)\,du$ ensures that integrating $\text{Rate}(u)$ over the catalog window yields $n_c(t)$.  
+
+In summary, $h_0$ encodes long-term spatial memory of past epicenters (with the ${}^{t-\text{delay}}$ exclusion to suppress short-term clustering), $g_0$ distributes magnitudes according to the Gutenberg--Richter law, and $f_0$ accounts for temporal evolution consistent with the observed cumulative counts.
+
+
+% We remark that $\Delta(m)$ can also be written as 
+% \begin{equation}\label{deltam}
+% \Delta(m)=\frac{1}{2}\left[\mbox{erf}\left(\frac{m-a_M-b_Mm_0-\sigma_M^2\beta}{\sqrt{2}\sigma_M}\right)+1\right],
+% \end{equation}
+% where erf denotes the Error function given by 
+% \begin{equation}\label{erf}
+% \mbox{erf}(x)=\frac{2}{\sqrt{\pi}}\int_0^xe^{-t^2}dt.
+% \end{equation}
+
+\subsection{Integration of PPE and EEPAS}
+
+The EEPAS model assumes that every earthquake is a potential precursor, and each precursor contributes to the overall rate density. To incorporate the possibility of earthquakes that occur without precursors, the full EEPAS model is often combined with the PPE model and defined as
+\begin{equation}\label{ltmxy}
+    \lambda(t,m,x,y) = \mu \lambda_0(t,m,x,y) + \sum_{t_i \geq t_0;\, m_i \geq m_0}^{t - \text{delay}} \eta(m_i) \frac{\lambda_i(t,m,x,y)}{\Delta(m)}.
+\end{equation}
+Here, $\lambda_0(t,m,x,y)$ is the baseline rate density given by the PPE model, and $\mu$ denotes the \textit{failure-to-predict rate}—the proportion of earthquakes that occur without a noticeable sequence of precursory shocks.
+
+Since earthquakes below $m_0$ are excluded, the contribution of such events is missing. To compensate for this incompleteness, each $\lambda_i(t,m,x,y)$ is inflated by a factor of $1/\Delta(m)$, where
+\begin{equation*}
+\Delta(m) = \Phi\!\left(\frac{m - a_M - b_M m_0 - \sigma_M^2 \beta}{\sigma_M}\right),
+\end{equation*}
+and $\Phi(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^x e^{-t^2/2}\,dt$ is the standard normal cumulative distribution function (CDF).
+
+On the other hand, $\eta(m)$ is a magnitude-dependent scaling function defined by
+\begin{equation}\label{emi}
+    \eta(m) = \frac{(1 - \mu) b_M}{E(w)} \exp\!\left\{ -\beta \left[ a_M + (b_M - 1)m + \frac{\sigma_M^2 \beta}{2} \right] \right\},
+\end{equation}
+where $E(w)$ denotes the mean of the weights $w_i$. The derivations of $\Delta(m)$ and $\eta(m)$ are provided in \Cref{sec:compensation}.
+
+The superscript ${}^{t - \text{delay}}$ in the summation indicates that, for each precursor event, its contribution $\lambda_i$ becomes active only after a short exclusion window (“delay”) following its origin time $t_i$. This delay is introduced to prevent very short-term clustering (e.g., aftershocks or immediate foreshocks) from overwhelming the medium-term precursory signal. The parameter $\mu \in [0,1]$ serves as a mixture weight representing the ``no-detectable-precursor'' mechanism.
+
+Accordingly, the PPE field $\lambda_0 = f_0\,g_0\,h_0$ models the expected spatial-temporal-magnitude distribution of earthquakes \emph{in the absence of medium-term precursory build-up}. It does not pre-classify individual events. The forecast uses the superposed rate:
+\[
+\lambda = \mu \lambda_0 + \sum \eta(m_i)\,\lambda_i / \Delta(m),
+\]
+where the PPE component provides a baseline intensity (based on $M \ge m_T$ spatial memory), while the precursor component enhances intensity in regions and times where medium-term precursory scaling is evident. The normalization factor $\eta(\cdot)$, scaled by $E(w)$, ensures that the integrated contribution of the precursor term averages to $(1 - \mu)$.
+
+
+\subsection{Forecasting model allowing for aftershocks}
+
+As mentioned in \cite{RE}, there are two ways to determine the weight parameter $w_i$. One approach is to set $w_i = 1$, meaning that every earthquake contributes equally to the model. The other approach assigns lower weights to earthquakes that are likely aftershocks of previous events. To implement this second strategy, an aftershock model is required. The authors of \cite{RE} adopted the framework from \cite{CM,Ogata1,Ogata2,Ogata3} and proposed the following model:
+\begin{equation}\label{l'tmxy}
+    \lambda'(t,m,x,y) = \nu \lambda_0(t,m,x,y) + \kappa \sum_{t_i \geq t_0} \lambda_i'(t,m,x,y),
+\end{equation}
+where $\nu$ denotes the proportion of earthquakes that are not aftershocks, $\lambda_0$ is the baseline rate density given by the PPE model in \eqref{l0}--\eqref{h0} (with the ${}^{t-\text{delay}}$ convention as above), $\kappa$ is a normalization constant, and $\lambda_i'(t,m,x,y)$ is the aftershock rate density contributed by the $i$-th earthquake, defined as
+\begin{equation}\label{l'itmxy}
+    \lambda_i'(t,m,x,y) = f'_i(t)\, g'_i(m)\, h'_i(x,y).
+\end{equation}
+
+Here, $f'_i(t)$ is the temporal density function given by the modified Omori law:
+\begin{equation}\label{f2it}
+    f'_i(t) = H(t - t_i)\, \frac{p - 1}{(t - t_i + c)^p},
+\end{equation}
+where $t_i$ is the origin time of the $i$-th earthquake, and $c, p$ are Omori law parameters.  
+
+The magnitude component $g'_i(m)$ is defined as
+\begin{equation}\label{g2im}
+    g'_i(m) = H(m_i - \delta - m)\, \beta \exp\left[ -\beta (m - m_i) \right],
+\end{equation}
+where $m_i$ is the magnitude of the $i$-th earthquake, and $\delta$ is a threshold parameter based on Bath’s law, determining whether a subsequent event can be classified as an aftershock.  
+
+The spatial component $h'_i(x,y)$ is assumed to follow a bivariate normal distribution:
+\begin{equation}\label{h2ixy}
+    h'_i(x,y) = \frac{1}{2\pi \sigma_U^2 10^{m_i}} \exp\left[ -\frac{(x - x_i)^2 + (y - y_i)^2}{2 \sigma_U^2 10^{m_i}} \right],
+\end{equation}
+where $\sigma_U$ is a parameter calibrated to satisfy Utsu’s regional relation.
+
+Using the aftershock model above, the weight $w_i$ assigned to the $i$-th earthquake is defined by
+\begin{equation}\label{wi}
+    w_i = \frac{\nu\, \lambda_0(t_i, m_i, x_i, y_i)}{\lambda'(t_i, m_i, x_i, y_i)},
+\end{equation}
+implying that an earthquake receives a weight close to zero if it is likely an aftershock, and a weight close to one if it appears not to be an aftershock.
+
+
+\section{Implementation for EEPAS}
+
+The implementation of EEPAS consists of four main parts. The first part involves fitting the parameters of $\lambda_0$ in the PPE model. The second part computes the weighting coefficients $w_i$. The third part focuses on fitting the parameters of the EEPAS model, and the final part concerns forecasting.
+
+The original procedure for fitting and testing the EEPAS model is illustrated in \Cref{fig:Periods}. The available catalog is subdivided into three periods: a warm-up period, a fitting period, and a testing period. The purpose of the warm-up period is to provide information for model fitting. This includes information on precursory earthquakes with magnitudes $M > m_0$ for calibrating the time-varying component, and earthquakes with magnitudes $M > m_T$ for calibrating the background component. 
+
+The catalog during the warm-up period should be complete for $M > m_T$ to avoid biasing the fit of the background component. Additionally, it must be complete for $M > m_0$ throughout the fitting period, and sufficiently complete during the warm-up period so that most precursors with $M > m_0$—to target earthquakes in the fitting period—are included in the catalog. Some degree of judgment is required here, as larger target magnitudes generally have longer precursor times, as indicated by the $\Psi$ scaling relations.
+
+\subsection{PPE model fitting}
+
+In this step, we estimate the three free parameters $a$, $d$, and $s$ by maximizing the log-likelihood function of a Poisson point process:
+\begin{equation}\label{lnL0}
+\begin{aligned}
+\ln{\mathcal{L}(\lambda_0)} \equiv \sum_{\substack{t_j \in [t_s,t_e)\\ m_j \geq m_T\\ (x_j,y_j)\in R}} \ln{\lambda_0(t_j,m_j,x_j,y_j)}
+- \int_{t_s}^{t_e}\int_{m_T}^{m_u}\iint_{R} \lambda_0(t,m,x,y)\, dA\, dm\, dt,
+\end{aligned}
+\end{equation}
+where $t_s$ and $t_e$ are the starting and ending times of the fitting period, and $m_T$ and $m_u$ are the lower and upper bounds of the magnitude range under consideration. All earthquakes occurring within $[t_s, t_e)$ with magnitudes in $[m_T, m_u]$ are considered in the fit. A full derivation of the log-likelihood function is provided in \Cref{sec:derive_loglikelihood}.
+
+From \eqref{l0}, we have:
+\begin{equation}\label{l01}
+\begin{aligned}
+\lambda_0(t_j, m_j, x_j, y_j) = &\frac{\beta}{t_j - t_0} \exp[-\beta(m_j - m_T)] \\
+&\times \sum_{\substack{t_i \in [t_0,\,t_j - \text{delay})\\ m_i \geq m_T}} \left[a(m_i - m_T) \frac{1}{\pi} \left( \frac{1}{d^2 + (x_j - x_i)^2 + (y_j - y_i)^2} \right) + s \right],
+\end{aligned}
+\end{equation}
+for all $t_j \in [t_s, t_e)$, provided $m_j \geq m_T$.
+
+The first term of \eqref{lnL0} is computed by summing over all $j$ satisfying $t_j \in [t_s, t_e)$. For the second term, we note that if an earthquake occurred before $t_s$ ($t_i < t_s$), the time integral spans $[t_s, t_e]$. If the earthquake occurred after $t_s$ ($t_i \geq t_s$), the time integral spans $[t_i + \text{delay}, t_e]$. Thus, the second term becomes:
+\begin{equation}\label{l02}
+\begin{aligned}
+&\int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_{R} \lambda_0(t,m,x,y)\, dA\, dm\, dt \\
+&= \sum_{\substack{t_i \in [t_0,\, t_s - \text{delay})\\ m_i \geq m_T}} 
+\left[ \int_{t_s}^{t_e} f_0(t)\, dt \right] 
+\left[ \int_{m_T}^{m_u} g_0(m)\, dm \right] 
+\left[ \iint_R h_{0i}(x,y)\, dA \right] \\
+&\quad + \sum_{\substack{t_i \in [t_s - \text{delay},\, t_e - \text{delay})\\ m_i \geq m_T}} 
+\left[ \int_{t_i + \text{delay}}^{t_e} f_0(t)\, dt \right] 
+\left[ \int_{m_T}^{m_u} g_0(m)\, dm \right] 
+\left[ \iint_R h_{0i}(x,y)\, dA \right].
+\end{aligned}
+\end{equation}
+
+Here, index $j$ refers to observed events in the fitting window $[t_s, t_e)$ with $m_j \ge m_T$, at which $\lambda_0$ is evaluated. Index $i$ refers to historical source events that contribute to the spatial proximity field via $h_{0i}$, drawn from the data collection region $N$. In \eqref{l01}, for each fixed $j$, the sum is over all $i$ with $t_i \in [t_0, t_j - \text{delay})$ and $m_i \ge m_T$. In \eqref{l02}, each $i$ contributes a block whose time integral starts at $\max(t_s,\, t_i + \text{delay})$. The functions $f_0$ and $g_0$ are not indexed by $i$ because they depend only on the evaluation variables $t$ and $m$.
+
+The integrals are computed as follows (noting $f_0(t) = \frac{1}{t - t_0}$ for $t > t_0$ and $g_0(m) = \beta e^{-\beta(m - m_T)}$ for $m \ge m_T$):
+\begin{equation}
+\begin{aligned}
+\int_{t_s}^{t_e} f_0(t)\, dt &= \ln(t - t_0)\bigg|_{t_s}^{t_e} 
+= \ln(t_e - t_0) - \ln(t_s - t_0), \\
+\int_{t_i + \text{delay}}^{t_e} f_0(t)\, dt 
+&= \ln(t - t_0)\bigg|_{t_i + \text{delay}}^{t_e} 
+= \ln(t_e - t_0) - \ln(t_i + \text{delay} - t_0), \\
+\int_{m_T}^{m_u} g_0(m)\, dm 
+&= \exp[-\beta(m_T - m_0)] - \exp[-\beta(m_u - m_0)].
+\end{aligned}
+\end{equation}
+
+The spatial integral $\iint_R h_{0i}(x,y)\, dA$ is evaluated numerically on the finite region $R$ (e.g., using \texttt{dblquad} in SciPy).
+
+To find the optimal parameters $a$, $d$, and $s$, we minimize $-\ln \mathcal{L}(\lambda_0)$ using constrained Nelder–Mead optimization. A detailed discussion of the optimization process for the PPE model is provided in \Cref{sec:derive_ppe}.
+
+
+\subsection{Computing weighting coefficients}
+
+To estimate the aftershock parameters, we fit $(\nu, \kappa)$ by maximizing the log-likelihood function in \eqref{lnL'} over all earthquakes with $m \ge m_T$ that occurred within region $R$ during the interval $[t_s, t_e)$, \emph{conditional on a fixed} Bath-type lower bound $\delta$.
+
+\begin{equation}\label{lnL'}
+\begin{aligned}
+\ln{\mathcal{L}(\lambda')} \equiv \sum_{\substack{t_j \in [t_s,t_e)\\ m_j \ge m_T\\ (x_j,y_j) \in R}} \!\! \ln{\lambda'(t_j,m_j,x_j,y_j)} 
+- \int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_{R} \lambda'(t,m,x,y)\, dA\, dm\, dt
+\end{aligned}
+\end{equation}
+
+Let $(t_j, m_j, x_j, y_j)$ denote the time, magnitude, and location of the $j$-th earthquake that occurred in the learning period. Then, $\lambda_0(t_j, m_j, x_j, y_j)$ in \eqref{wi} is computed similarly to \eqref{l01}:
+
+\begin{equation}\label{l20}
+\begin{aligned}
+\lambda_0(t_j, m_j, x_j, y_j) = &\frac{\beta}{t_j - t_0} \exp\!\left[-\beta(m_j - m_T)\right] \\
+&\times \left\{ \sum_{\substack{t_i \in [t_0,\,t_j - \text{delay}) \\ m_i \ge m_T}} 
+a(m_j - m_T) \left[ \frac{1}{\pi} \left( \frac{1}{d^2 + (x_i - x_j)^2 + (y_i - y_j)^2} \right) + s \right] \right\}
+\end{aligned}
+\end{equation}
+
+On the other hand, based on \eqref{l'itmxy}--\eqref{h2ixy}, the aftershock density function $\lambda_i'(t_j, m_j, x_j, y_j)$, where $t_i < t_j$, is given by:
+
+\begin{equation*}
+\begin{aligned}
+\lambda_i'(t_j, m_j, x_j, y_j) = &\frac{p - 1}{(t_j - t_i + c)^p} \, H(m_i - \delta - m_j)\, \beta \exp\!\left[ -\beta(m_j - m_i) \right] \\
+&\times \frac{1}{2\pi \sigma_U^2 10^{m_i}} \exp\!\left[ -\frac{(x_j - x_i)^2 + (y_j - y_i)^2}{2 \sigma_U^2 10^{m_i}} \right]
+\end{aligned}
+\end{equation*}
+
+Here, the parameter $\delta$ is fixed at $1.2$. The parameters $\nu$ and $\kappa$ are constrained to be non-negative, i.e., $\nu \ge 0$ and $\kappa \ge 0$. Once $(\nu, \kappa)$ are estimated, the weighting coefficients $w_i$ can be computed via \eqref{wi} using these parameter values and the fixed $\delta$.
+
+Furthermore, to evaluate $\eta(m_i)$ in \eqref{ltmxy}, we need $E(w_i)$ as defined in \eqref{emi}, which is computed over all events up to time $t_i$ with $m \ge m_0$:
+\begin{equation*}
+E(w_i) = \frac{1}{i} \sum_{k = 1}^{i} w_k.
+\end{equation*}
+
+We now record two closed-form expressions used in the evaluation of the integrals in \eqref{lnL'}:
+
+\begin{align}
+I^{(j)}_t(t_s, t_e \mid t_i) 
+&= \int_{\max\{t_s, t_i\}}^{t_e} \frac{p - 1}{(t - t_i + c)^p}\, dt \notag \\
+&= \left(\max\{t_s, t_i\} - t_i + c \right)^{1 - p} - (t_e - t_i + c)^{1 - p},
+\label{Itj} \\[6pt]
+I^{(j)}_m(m_T, m_u \mid m_i, \delta) 
+&= \int_{m_T}^{\min\{m_u, m_i - \delta\}} \beta\, e^{-\beta(m - m_i)}\, dm \notag \\
+&= e^{-\beta(m_T - m_i)} - e^{-\beta(\min\{m_u, m_i - \delta\} - m_i)}.
+\label{Imj}
+\end{align}
+
+In evaluating the total log-likelihood \eqref{lnL'}, the triple integral corresponding to the PPE background component is approximated as:
+\begin{equation*}
+\begin{aligned}
+\int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_R \nu\, \lambda_0(t, m, x, y)\, dA\, dm\, dt 
+&= \nu \int_{t_s}^{t_e} f_0(t)\, dt \int_{m_T}^{m_u} g_0(m)\, dm \iint_R h_0(x, y)\, dA \\
+&\approx \nu \ln \frac{t_e - t_0}{t_s - t_0} \left[ \exp\!\big[-\beta(m_T - m_0)\big] - \exp\!\big[-\beta(m_u - m_0)\big] \right] n_{\text{all}},
+\end{aligned}
+\end{equation*}
+where $n_{\text{all}}$ denotes the number of all target events within the period $[t_s, t_e]$.
+
+For the spatial normalization of the aftershock component, we compute the exact integral of the bivariate Gaussian over each rectangular tile $[X_1, X_2] \times [Y_1, Y_2]$ (in km) covering $R$. With $\sigma_i = \sigma_U\, 10^{m_i/2}$, the integral is:
+\begin{equation*}
+\begin{aligned}
+\iint_{[X_1, X_2] \times [Y_1, Y_2]} h'_i(x, y)\, dA 
+&= \iint_{[X_1, X_2] \times [Y_1, Y_2]} \frac{1}{2\pi \sigma_i^2} \exp\!\left( -\frac{(x - x_i)^2 + (y - y_i)^2}{2\sigma_i^2} \right)\, dx\, dy \\
+&= \frac{1}{4} \left[ \operatorname{erf}\!\left( \frac{X_2 - x_i}{\sqrt{2} \sigma_i} \right) - \operatorname{erf}\!\left( \frac{X_1 - x_i}{\sqrt{2} \sigma_i} \right) \right] \\
+&\quad \times \left[ \operatorname{erf}\!\left( \frac{Y_2 - y_i}{\sqrt{2} \sigma_i} \right) - \operatorname{erf}\!\left( \frac{Y_1 - y_i}{\sqrt{2} \sigma_i} \right) \right].
+\end{aligned}
+\end{equation*}
+
+If region $R$ is composed of multiple rectangles, we sum this expression over all such tiles. The time integral \eqref{Itj} and magnitude integral \eqref{Imj} are both evaluated in closed form as shown above.
+
+
+\subsection{Fitting parameters in EEPAS model}
+
+We estimate the parameters introduced in the previous sections by maximizing the log-likelihood function:
+\begin{equation}\label{lnL}
+\begin{aligned}
+\ln{\mathcal{L}(\lambda)} \equiv \sum_{\substack{t_j \in [t_s, t_e)\\ m_j \ge m_T\\ (x_j, y_j) \in R}} \ln{\lambda(t_j, m_j, x_j, y_j)} 
+- \int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_{R} \lambda(t, m, x, y)\, dA\, dm\, dt,
+\end{aligned}
+\end{equation}
+as in the PPE model. While the likelihood targets events with $m \ge m_T$, events with $m \in [m_0, m_T)$ still contribute as precursors in the summation term $\sum_i$ via \eqref{ltmxy}.
+
+The second term in \eqref{lnL} becomes:
+\begin{eqnarray*}
+\int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_{R} \lambda(t, m, x, y)\, dA\, dm\, dt 
+&=& \mu \int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_{R} \lambda_0(t, m, x, y)\, dA\, dm\, dt \\
+&& + \sum_{t_i \ge t_0,\, m_i \ge m_0}^{t - \text{delay}} 
+\left( \int_{t_s}^{t_e} f_i(t)\, dt \right)
+\left( \int_{m_T}^{m_u} \frac{\eta(m_i)\, w_i}{\Delta(m)}\, g_i(m)\, dm \right)
+\left( \iint_{R} h_i(x, y)\, dA \right).
+\end{eqnarray*}
+
+The first term is computed exactly as in the PPE section, using the magnitude range $[m_T, m_u]$. For the second term, we first evaluate the time integral $\int_{t_s}^{t_e} f_i(t)\, dt$.
+
+Due to the ${}^{t - \text{delay}}$ convention, the lower limit becomes $\max(t_s,\, t_i + \text{delay})$. Letting $s = \log_{10}(t - t_i)$ (base-10, so $ds = \frac{dt}{(t - t_i)\ln 10}$), and defining $\mu_i = a_T + b_T m_i$, we have two cases:
+
+\paragraph{Case 1: $t_i \le t_s - \text{delay}$.}
+\begin{eqnarray}\label{intfi_case1}
+\int_{t_s}^{t_e} f_i(t)\, dt 
+&=& \int_{\log_{10}(t_s - t_i)}^{\log_{10}(t_e - t_i)} \frac{1}{\sigma_T \sqrt{2\pi}} 
+\exp\!\left[-\frac{1}{2} \left( \frac{s - \mu_i}{\sigma_T} \right)^2 \right] ds \notag \\
+&=& \frac{1}{2} \left[ \operatorname{erf}\!\left( \frac{\log_{10}(t_e - t_i) - \mu_i}{\sqrt{2}\sigma_T} \right)
+- \operatorname{erf}\!\left( \frac{\log_{10}(t_s - t_i) - \mu_i}{\sqrt{2}\sigma_T} \right) \right].
+\end{eqnarray}
+
+\paragraph{Case 2: $t_s - \text{delay} < t_i < t_e - \text{delay}$.}
+\begin{eqnarray}\label{intfi_case2}
+\int_{t_s}^{t_e} f_i(t)\, dt 
+&=& \int_{t_i + \text{delay}}^{t_e} \frac{1}{(t - t_i)\ln 10\, \sigma_T \sqrt{2\pi}} 
+\exp\!\left[-\frac{1}{2} \left( \frac{\log_{10}(t - t_i) - \mu_i}{\sigma_T} \right)^2 \right] dt \notag \\
+&=& \frac{1}{2} \left[ \operatorname{erf}\!\left( \frac{\log_{10}(t_e - t_i) - \mu_i}{\sqrt{2}\sigma_T} \right)
+- \operatorname{erf}\!\left( \frac{\log_{10}(\text{delay}) - \mu_i}{\sqrt{2}\sigma_T} \right) \right].
+\end{eqnarray}
+
+If $t_i \ge t_e - \text{delay}$, then $\int_{t_s}^{t_e} f_i(t)\, dt = 0$.
+
+Next, the magnitude integral
+\[
+\int_{m_T}^{m_u} \frac{\eta(m_i)}{\Delta(m)}\, g_i(m)\, dm
+\]
+is computed numerically.
+
+For the spatial integral $\iint_R h_i(x, y)\, dA$, since the number of events with $m \ge m_0$ is large, direct quadrature over $R$ may be computationally expensive. To accelerate, we divide $R$ into rectangular subregions $[X_\ell, X_r] \times [Y_d, Y_u]$ and exploit the separability of $h_i(x, y)$:
+\begin{eqnarray}
+\iint_{R} h_i(x, y)\, dA 
+&=& \sum_{\text{subregions}} \left\{ \int_{X_\ell}^{X_r} \frac{1}{\sqrt{2\pi} \sigma_A 10^{\frac{b_A m_i}{2}}} 
+\exp\!\left[ -\frac{(x - x_i)^2}{2 \sigma_A^2 10^{b_A m_i}} \right] dx \right. \notag \\
+&& \hspace{2cm} \times \left. \int_{Y_d}^{Y_u} \frac{1}{\sqrt{2\pi} \sigma_A 10^{\frac{b_A m_i}{2}}} 
+\exp\!\left[ -\frac{(y - y_i)^2}{2 \sigma_A^2 10^{b_A m_i}} \right] dy \right\} \notag \\
+&=& \frac{1}{4} \sum_{\text{subregions}} \left[ \operatorname{erf}\!\left( \frac{X_r - x_i}{\sqrt{2}\, \sigma_A 10^{b_A m_i / 2}} \right) 
+- \operatorname{erf}\!\left( \frac{X_\ell - x_i}{\sqrt{2}\, \sigma_A 10^{b_A m_i / 2}} \right) \right] \notag \\
+&& \times \left[ \operatorname{erf}\!\left( \frac{Y_u - y_i}{\sqrt{2}\, \sigma_A 10^{b_A m_i / 2}} \right) 
+- \operatorname{erf}\!\left( \frac{Y_d - y_i}{\sqrt{2}\, \sigma_A 10^{b_A m_i / 2}} \right) \right].
+\label{inth1i}
+\end{eqnarray}
+
+Finally, using the substitution $s = \log_{10}(t - t_i)$, the time integral can be written in a unified form:
+\[
+\int_{t_s}^{t_e} f_i(t)\, dt
+= \frac{1}{2} \left[
+\operatorname{erf}\!\left( \frac{\log_{10}(t_e - t_i) - \mu_i}{\sqrt{2} \sigma_T} \right)
+- \operatorname{erf}\!\left( \frac{\log_{10}(\max\{t_s,\, t_i + \text{delay}\} - t_i) - \mu_i}{\sqrt{2} \sigma_T} \right)
+\right],
+\]
+which reduces to \eqref{intfi_case1} or \eqref{intfi_case2} in the respective cases. If $\max\{t_s, t_i + \text{delay}\} \ge t_e$, the value is zero.
+
+
+\subsection{Optimization of EEPAS}
+
+We are now in a position to fit the parameters of the EEPAS model. In our simulations, we consider earthquakes with magnitudes no smaller than $m_0$ and focal depths shallower than 40 kilometers.
+
+The initial estimate for the $\Psi$ phenomenon is obtained following the method described in \cite{psi}. For parameter optimization, we apply constrained Nelder–Mead optimization to search for a local minimum of $-\ln \mathcal{L}(\lambda)$ under box constraints. Following the procedure outlined in \cite{2023ER} and \cite{RE}, we fit the parameters in three steps:
+
+\begin{itemize}
+    \item \textbf{Step 1:} Fix the values of $b_M$, $\sigma_M$, $b_T$, $\sigma_T$, and $b_A$, and fit the four parameters $a_M$, $a_T$, $\sigma_A$, and $\mu$.
+    
+    \item \textbf{Step 2:} Using the estimates obtained in Step 1, we proceed to fit $\sigma_M$, $b_T$, $\sigma_T$, $b_A$, and $\mu$, with their initial values taken from Step 1.
+    
+    \item \textbf{Step 3:} Fit all eight parameters jointly—$a_M$, $a_T$, $\sigma_A$, $\sigma_M$, $b_T$, $\sigma_T$, $b_A$, and $\mu$—while keeping $b_M$ fixed. The initial values for $a_M$, $a_T$, and $\sigma_A$ are taken from Step 1, and the initial values for $\sigma_M$, $b_T$, $\sigma_T$, $b_A$, and $\mu$ are taken from Step 2.
+\end{itemize}
+
+Throughout the procedure, all geographic coordinates (longitude and latitude) are projected into kilometers for consistency with the model’s spatial components.
+
+
+\subsection{Forecasting via EEPAS model}
+
+To compute the forecast rate density $\lambda^{(\tau)}(t, m, x, y)$ in \eqref{ltmxy}, we evaluate integrals over specified time periods, magnitude intervals, and regions. Let the \emph{issue time} be $\tau = s_1$ and define the \emph{knowledge cutoff} as $T_c = \tau - \mathrm{delay}$. In a prospective forecast, the catalog is \emph{frozen at $T_c$}: only events with $t_j \le T_c$ in the testing region $R$, and precursor events with $t_i \le T_c$ in the neighborhood region $N$, are allowed to contribute. Events occurring in the forecast window $(s_1, s_2)$ are \emph{not} used to construct this snapshot; they are used only later for verification.
+
+For a forecast window $(s_1, s_2)$, magnitude interval $(m_1, m_2)$, and spatial region $S = [X_\ell, X_r] \times [Y_d, Y_u]$, we compute:
+\begin{align*}
+    &\int_{s_1}^{s_2} \!\int_{m_1}^{m_2} \!\iint_S \lambda^{(\tau)}(t, m, x, y)\, dA\, dm\, dt \\[1ex]
+    &= \mu \left( \int_{m_1}^{m_2} g_0(m)\, dm \right) \left( \int_{s_1}^{s_2} f_0(t)\, dt \right)
+       \underbrace{\iint_R h_0^{\,T_c}(x, y)\, dA}_{\text{baseline field frozen at } T_c} \\[1ex]
+    &\quad + \sum_{\substack{t_i \le T_c\\ m_i \ge m_0}} \eta(m_i)\, w_i
+       \left( \int_{s_1}^{s_2} f_i(t)\, dt \right)
+       \left( \int_{m_1}^{m_2} \tfrac{g_i(m)}{\Delta(m)}\, dm \right)
+       \left( \iint_R h_i(x, y)\, dA \right).
+\end{align*}
+
+We define the frozen baseline field by
+\[
+h_0^{\,T_c}(x, y) := \sum_{i:\, t_i \le T_c} h_{0i}(x, y),
+\]
+so that
+\[
+\iint_R h_0^{\,T_c}(x, y)\, dA = \sum_{i:\, t_i \le T_c} \iint_R h_{0i}(x, y)\, dA.
+\]
+This construction \emph{freezes} the information set and prevents any look-ahead bias or data leakage into the forecast window.
+
+\smallskip
+All scalar terms are evaluated either in closed form or numerically as follows:
+\begin{align*}
+\int_{s_1}^{s_2} f_0(t)\, dt &= \ln(s_2 - t_0) - \ln(s_1 - t_0), \\
+\int_{m_1}^{m_2} g_0(m)\, dm &= \exp\!\left[-\beta(m_1 - m_T)\right] - \exp\!\left[-\beta(m_2 - m_T)\right],
+\end{align*}
+and the integrals $\iint_R h_0^{\,T_c}(x, y)\, dA$ and $\int_{m_1}^{m_2} \tfrac{g_i(m)}{\Delta(m)}\, dm$ are computed numerically.
+
+\smallskip
+For the precursor time component, since $t_i \le T_c = s_1 - \mathrm{delay}$ implies $t_i + \mathrm{delay} \le s_1$, we have:
+\begin{align*}
+\int_{s_1}^{s_2} f_i(t)\, dt
+= \frac{1}{2} \left[
+  \operatorname{erf}\!\left( \frac{\log_{10}(s_2 - t_i) - a_T - b_T m_i}{\sqrt{2}\, \sigma_T} \right)
+- \operatorname{erf}\!\left( \frac{\log_{10}(s_1 - t_i) - a_T - b_T m_i}{\sqrt{2}\, \sigma_T} \right)
+\right].
+\end{align*}
+
+The spatial component over a rectangle $S = [X_\ell, X_r] \times [Y_d, Y_u]$ has the closed form:
+\begin{align*}
+\iint_R h_i(x, y)\, dA
+&= \frac{1}{4}
+\left[
+  \operatorname{erf}\!\left( \frac{X_r - x_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+- \operatorname{erf}\!\left( \frac{X_\ell - x_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+\right] \\
+&\quad \times
+\left[
+  \operatorname{erf}\!\left( \frac{Y_u - y_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+- \operatorname{erf}\!\left( \frac{Y_d - y_i}{\sqrt{2}\, \sigma_A 10^{\frac{b_A m_i}{2}}} \right)
+\right].
+\end{align*}
+
+\medskip
+\noindent\emph{Notes.}
+\begin{enumerate}
+    \item[(i)] In forecasting mode, $h_0(x, y)$ is evaluated using the frozen field $h_0^{\,T_c}$ (i.e., using events up to $T_c$).
+    \item[(ii)] The two-piece time-splitting strategy used during parameter fitting is \emph{not} employed here, since no seed event is allowed to “enter” the forecast window. All contributions are finalized at issue time $\tau$.
+\end{enumerate}
+
+
+% These results conﬁrm the different characteristics of the models ETAS and EEPAS. The latter model seems more appropriate than the ETAS model for making forecasts of the long-term seismicity, even if the small number of target shocks suggest some caution. The reason of such different behaviours can be that ETAS model is focused on short time clustering while EEPAS model to long time cluster
+
+% The Every Earthquake a Precursor According to Scale (EEPAS) model was introduced by Evison and Rhoades (2004) and Rhoades and Evison (2004).  Although it shares the key principle of the ETAS model of describing earthquake rate as the sum of a background term and the sum of rate contributions of prior events, the specific way in which prior events contribute to the forecasted rate differs substantially from the ETAS formulation. There is no suggestion that each earthquake may trigger its own offspring. Rather, each earthquake is regarded as evidence of a medium‐term seismogenic process taking place on the scale indicated by its magnitude (Rhoades, 2007). The probabilistic distribution of an earthquake's contribution is lognormal in time, isotropic bivariate normal in space and normal in magnitude (Rhoades & Evison, 2004).  The EEPAS model is underpinned by the observation that prior to most large earthquakes the rate and magnitude of smaller earthquakes increases in the source region of the large earthquake. This precursory scale increase ($\psi$‐phenomenon) takes place within a precursor time T P and precursory area A P . Evison and Rhoades (2004) showed that T P , A P , and the mainshock magnitude M m all scale with the precursor magnitude M P (defined as the average of the three largest precursory earthquake magnitudes). Thus, M P is predictive of the time, magnitude and location of forthcoming mainshocks. The assumption behind EEPAS is that the three Ψ predictive relations are pervasive at all scales in the seismogenic process. The model regards every earthquake as a precursor, according to scale, of larger earthquakes expected to follow it in the coming months, years, or decades, depending on its magnitude and the regional earthquake rate. The EEPAS model is a well‐established medium‐term earthquake forecast model that is purely based on seismicity. When fitting the model, earthquake catalog data are considered from a time when the catalog is mostly complete above a minimum magnitude threshold. The model attempts to forecast earthquakes above a target magnitude threshold about two units higher than the minimum magnitude threshold. The contribution of each
+% earthquake is only included 50 days after its occurrence to prevent aftershock clustering from skewing the fitting of the model. For forecasting, EEPAS uses fixed, previously optimized parameters.
+%
+
+\section{Dataset and Evaluations}
+
+
+
+\begin{datres}%[CUSTOM HEAD]
+Here is the content of Data and Resources.
+\end{datres}
+
+
+\section{Declaration of Competing Interests}
+
+The authors acknowledge that there are no conflicts of interest recorded.\footnote{The authors acknowledge that there are no conflicts of interest recorded.}
+
+\begin{ack}%[CUSTOM ACK HEAD]
+Acknowledgements text goes here. Acknowledgements text goes here. Acknowledgements text goes here. Acknowledgements text goes here. Acknowledgements text goes here. Acknowledgements text goes here. Acknowledgements text goes here. Acknowledgements text goes here.
+\end{ack}
+
+\bibliography{ref}
+
+\clearpage
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\figurename}{Supplementary Fig.}
+\renewcommand{\tablename}{Supplementary Table}
+\renewcommand{\theequation}{S.\arabic{equation}}
+
+%\onecolumn % Switches to one-column layout
+\appendix
+%\begin{appendices}
+
+\crefalias{figure}{appendixfigure}
+\crefalias{table}{appendixtable}
+
+\setcounter{figure}{0}  
+\setcounter{table}{0} 
+\setcounter{page}{1}
+\setcounter{equation}{0}
+
+\setcounter{secnumdepth}{1}
+
+\renewcommand{\thepage}{S\arabic{page}}
+\section{Rationale behind the EEPAS model} \label{sec:derive_eepas_model}
+
+\subsection{Linear Regression Model}
+
+Consider a simple linear regression model that relates a dependent variable \( Y \) to an independent variable \( X \):
+\begin{equation*}
+Y = a + bX + \epsilon,
+\end{equation*}
+where:
+\begin{itemize}
+    \item \( Y \): Dependent variable.
+    \item \( X \): Independent variable.
+    \item \( a \): Intercept.
+    \item \( b \): Slope coefficient.
+    \item \( \epsilon \): Error term, assumed to be normally distributed with mean 0 and variance \( \sigma^2 \), i.e., \( \epsilon \sim \mathcal{N}(0, \sigma^2) \).
+\end{itemize}
+Given the normality of the error term \( \epsilon \), the conditional distribution of \( Y \) given \( X = x \) is also normal:
+\begin{equation*}
+Y \mid X = x \sim \mathcal{N}(a + b x, \sigma^2).
+\end{equation*}
+This implies that:
+\begin{equation*}
+f_{Y\mid X}(y \mid x) = \frac{1}{\sigma \sqrt{2\pi}} \exp\!\left( -\frac{(y - a - b x)^2}{2\sigma^2} \right).
+\end{equation*}
+
+\subsection{Linear Regression Relations in the EEPAS Model}
+
+The EEPAS model is based on empirical linear regression relationships observed in earthquake data.\footnote{In statistical seismology, fundamental laws such as the Omori--Utsu law for aftershock decay and the Gutenberg--Richter magnitude--frequency law were initially derived empirically and only later connected to physical mechanisms. The EEPAS model is similarly rooted in empirical relationships; its deeper physical basis remains under active investigation.} 
+These relationships link precursor earthquake characteristics to subsequent mainshock properties:
+\begin{align}
+M_m &= a_M + b_M M_p, \label{mag_r}\\
+\log_{10}(T_p) &= a_T + b_T M_p, \label{time_r}\\
+\log_{10}(A_p) &= a_A + b_A M_p, \label{spatial_r}
+\end{align}
+where:
+\begin{itemize}
+    \item \( M_m \): Mainshock magnitude.
+    \item \( M_p \): Precursor magnitude.
+    \item \( T_p \): Time between the precursor and the mainshock.
+    \item \( A_p \): Spatial extent of the precursor.
+    \item \( a_M, b_M, a_T, b_T, a_A, b_A \): Regression coefficients obtained by fitting empirical data.
+\end{itemize}
+It is noted that given $M_m$, the corresponding $A_p, T_p, M_p$ can be estimated using \cite{psi}.
+
+\subsection{Components of the Rate Density}
+
+Real-world data inherently contain variability around these average relationships due to the complex and chaotic nature of seismic processes. To account for this variability, the EEPAS model transitions from deterministic equations to probabilistic descriptions.
+
+\subsubsection{(a) Magnitude Density (\texorpdfstring{$g_i(m)$}{gi(m)})}
+
+We stochasticize the relationship \eqref{mag_r} by introducing a random error term:
+\[
+M_m = a_M + b_M M_p + \epsilon_M.
+\]
+Assuming this error is normally distributed, $\epsilon_M \sim \mathcal{N}(0, \sigma_M^2)$, the conditional magnitude distribution for a mainshock \(m\), given a precursor \(i\) with magnitude \(m_i\), becomes:
+\begin{equation}
+g_i(m) = \frac{1}{\sigma_M \sqrt{2\pi}} \exp\!\left( -\frac{(m - (a_M + b_M m_i))^2}{2\sigma_M^2} \right),
+\end{equation}
+which is the Gaussian PDF with mean \(\mu_M = a_M + b_M m_i\) and variance \(\sigma_M^2\), matching the $g_i$ used earlier in \eqref{gm}.
+
+\subsubsection{(b) Time Density (\texorpdfstring{$f_i(t)$}{fi(t)})}
+
+Similarly, we introduce variability to the time relationship \eqref{time_r}:
+\[
+\log_{10}(T_p) = a_T + b_T M_p + \epsilon_T
+\]
+Assume $\epsilon_T \sim \mathcal{N}(0,\sigma_T^2)$. Let $Z = \log_{10}(T_p)$. Given a precursor with magnitude $m_i$, $Z \sim \mathcal{N}(\mu_T,\sigma_T^2)$ with $\mu_T = a_T+b_T m_i$. The PDF for $Z$ is
+\[
+f_Z(z) = \frac{1}{\sqrt{2\pi}\,\sigma_T}\exp\!\left[-\frac{(z-\mu_T)^2}{2\sigma_T^2}\right].
+\]
+Using the change of variables $T_p=10^{Z}$, the Jacobian is $\left|\frac{dZ}{dT_p}\right|=\frac{1}{T_p\ln 10}$ (see \href{https://en.wikipedia.org/wiki/Probability_density_function#Function_of_random_variables_and_change_of_variables_in_the_probability_density_function}{discussion here}). The resulting PDF for $T_p$ is the log-normal distribution:
+\[
+f_{T_p}(t_p) = f_Z(\log_{10} t_p) \left|\frac{dZ}{dT_p}\right| = \frac{1}{t_p\,\ln 10\,\sqrt{2\pi}\,\sigma_T}\exp\!\left[-\frac{(\log_{10} t_p-\mu_T)^2}{2\sigma_T^2}\right].
+\]
+To express this as a density over absolute time $t$, we set the time lag $t_p = t-t_i$ (where $t_i$ is the time the precursor occurs) and enforce causality with the Heaviside step function $H(t-t_i)$:
+\begin{equation}
+f_i(t) = \frac{H(t - t_i)}{(t - t_i)\,\ln 10\,\sigma_T \sqrt{2\pi}}
+\exp\!\left[-\frac{1}{2}\left(\frac{\log_{10}(t - t_i) - (a_T + b_T m_i)}{\sigma_T}\right)^2\right],
+\end{equation}
+which is identical to \eqref{ft}.
+
+\subsubsection{(c) Spatial Density (\texorpdfstring{$h_i(x,y)$}{hi(x,y)})}
+
+We interpret the regression \eqref{spatial_r} as a scaling law for a precursor’s \emph{characteristic area} of influence, \(A_p\). Given a precursor \(i\) with magnitude \(m_i\), this area is:
+\[
+\log_{10}(A_p)=a_A+b_A m_i
+\quad\Longrightarrow\quad
+A_p \;=\; 10^{a_A}\,10^{b_A m_i} \;=\; C\,10^{b_A m_i},\qquad C:=10^{a_A}.
+\]
+To convert this area scale into a spatial probability density, we model the mainshock location $(x,y)$ relative to the precursor \((x_i,y_i)\) as an isotropic bivariate normal distribution with variance \(\sigma^2\):
+\[
+\tilde h_i(x,y;\sigma^2)
+=
+\frac{1}{2\pi\,\sigma^2}
+\exp\!\left[-\frac{(x-x_i)^2+(y-y_i)^2}{2\,\sigma^2}\right].
+\]
+
+A key property of the isotropic bivariate normal distribution is that the area of any \(p\)-probability disc is directly proportional to the variance \(\sigma^2\).
+Let $r=\sqrt{(x-x_i)^2+(y-y_i)^2}$. The radial density is $p_R(r)=\frac{r}{\sigma^2}\,\exp(-\frac{r^2}{2\sigma^2})$.
+The radius \(r_p\) of the disc containing probability \(p\) satisfies:
+\[
+\mathbb{P}(R\le r_p) = \int_0^{r_p} p_R(r)\,dr = 1-\exp\!\left(-\frac{r_p^2}{2\sigma^2}\right)=p.
+\]
+Solving for the area $A_p^{(\text{prob})}=\pi r_p^2$ gives:
+\[
+A_p^{(\text{prob})}
+= \pi \bigl[-2\,\sigma^2\ln(1-p)\bigr]
+= \bigl[-2\pi\ln(1-p)\bigr]\;\sigma^2
+= k_p\,\sigma^2,
+\]
+where $k_p:=-2\pi\ln(1-p)$ is a constant for a fixed \(p\). Thus, $A_p^{(\text{prob})} \propto \sigma^2$.
+
+This proportionality justifies linking the empirical area $A_p$ to the model variance $\sigma^2$. We assume $\sigma^2 \propto A_p$: $\sigma^2 \propto A_p = C\,10^{b_A m_i}.$
+We define a new "base variance" parameter $\sigma_A^2$ that absorbs all constants (e.g., $C=10^{a_A}$ and the proportionality factor $1/k_p$):
+$ \sigma^2 \;:=\; \sigma_A^2\,10^{b_A m_i}.$
+This definition ensures that a larger \(m_i\) yields a larger variance \(\sigma^2\) and thus a broader spatial spread. Substituting this expression for $\sigma^2 = \sigma_A^2\,10^{b_A m_i}$ into the bivariate normal PDF gives the final spatial kernel:
+\[
+h_i(x,y)
+=
+\frac{1}{2\pi\,\sigma_A^2\,10^{b_A m_i}}
+\exp\!\left[-\frac{(x-x_i)^2+(y-y_i)^2}{2\,\sigma_A^2\,10^{b_A m_i}}\right].
+\]
+
+The units of $h_i(x,y)$ are $(\text{area})^{-1}$, representing a probability density per unit area. As $m_i$ increases, the variance term $\sigma_A^2\,10^{b_A m_i}$ increases. This causes the density surface $h_i(x,y)$ to become "flatter" and more spread out, distributing the total probability of 1 over a wider region. This matches the intuition that larger-magnitude precursors influence a wider area.
+
+\section{Weight function \texorpdfstring{$\eta(m)$}{eta(m)} and completeness factor \texorpdfstring{$\Delta(m)$}{Delta(m)}.} \label{sec:compensation}
+
+
+We determine the precursor-weight function $\eta(\cdot)$ and the completeness factor $\Delta(\cdot)$ so that the EEPAS superposition preserves the Gutenberg--Richter (G--R) marginal in magnitude and remains unbiased when the catalog is truncated at $m_0$.
+
+
+
+\subsection{Derivation of the Magnitude Weight Function \(\eta(m)\)}
+Our objective is to find the precursor-weight function $\eta(\cdot)$ that preserves the Gutenberg--Richter (G--R) marginal $r(m)=C\,e^{-\beta m}$. This requires the expected precursor rate, $\E[\Lambda_{\mathrm{prec}}(m)]$, to equal the non-background fraction $(1-\mu)$ of the total rate, $\E[\Lambda_{\text{bg}}(m)] = \mu \, r(m)$, such that $\E[\Lambda_{\mathrm{prec}}(m)] = (1-\mu)r(m)$.
+The precursor magnitude rate, $\Lambda_{\mathrm{prec}}(m)$, is obtained by marginalizing the full point-process intensity $\lambda_{\mathrm{prec}}(t,m,x,y) = \sum_i w_i \, \eta(m_i) \, f_i(t) \, g(m \mid m_i) \, h_i(x,y)$ over time and space. Assuming $\int f_i dt = 1$ and $\iint h_i dx dy = 1$, this yields: $\Lambda_{\mathrm{prec}}(m) = \sum_i w_i \, \eta(m_i) \, g(m \mid m_i)$. The conditional magnitude kernel $g(m \mid m_p)$, representing the probability of a target magnitude $m$ given a precursor $m_p$, is a Gaussian:
+\begin{equation}\label{eq:g-kernel}
+g(m \mid m_p) = \frac{1}{s\sqrt{2\pi}} \exp\!\left[-\frac{(m-a-b m_p)^2}{2s^2}\right]
+\end{equation}
+where $a=a_M$, $b=b_M$, and $s=\sigma_M$ are parameters.
+
+\begin{proposition}[Expected Precursor Magnitude Rate]
+Assume the precursor catalogue (source) distribution is \(r(m_p) = C e^{-\beta m_p}\), and assume the mean precursor weight \(E(w) = \E[w_i]\) is independent of magnitude \(m_p\). The expected precursor magnitude rate is then given by:
+\[
+\E[\Lambda_{\mathrm{prec}}(m)] = E(w) \int_{-\infty}^{\infty} \eta(m_p) \, g(m \mid m_p) \, r(m_p) \, dm_p
+\]
+\end{proposition}
+
+\begin{proof}
+Taking the expectation of \(\Lambda_{\mathrm{prec}}(m)\) over the precursor catalogue and applying Campbell's Theorem yields an integral over the precursor rate \(r(m_p)\):
+\[
+\E[\Lambda_{\mathrm{prec}}(m)] = \int_{-\infty}^{\infty} \E[w_i \, \eta(m_i) \mid m_p] \cdot g(m \mid m_p) \cdot r(m_p) \, dm_p
+\]
+Since \(\eta(m_p)\) is a deterministic function of \(m_p\), it can be factored out of the expectation:
+\[
+\E[\Lambda_{\mathrm{prec}}(m)] = \int_{-\infty}^{\infty} \eta(m_p) \cdot \E[w_i \mid m_p] \cdot g(m \mid m_p) \cdot r(m_p) \, dm_p
+\]
+Using the assumption that the mean weight is independent of magnitude, \(\E[w_i \mid m_p] = \E[w_i] = E(w)\):
+\[
+\E[\Lambda_{\mathrm{prec}}(m)] = \int_{-\infty}^{\infty} \eta(m_p) \cdot E(w) \cdot g(m \mid m_p) \cdot r(m_p) \, dm_p
+\]
+Factoring out the constant \(E(w)\) yields the proposition.
+\end{proof}
+
+Substituting the result from \textbf{Proposition 1}, we arrive at the \emph{Matching Condition}, which is the integral equation we must solve for $\eta(m)$:
+\begin{equation}\label{eq:eta-match}
+E(w)\int_{-\infty}^{\infty} r(m_p)\,\eta(m_p)\,g(m\mid m_p)\,dm_p=(1-\mu)\,r(m).
+\end{equation}
+To solve this, we require the solution to the core Gaussian convolution.
+
+\begin{lemma}[Gaussian Convolution Identity]
+Let \(g(m \mid m_p)\) be the Gaussian kernel defined in \eqref{eq:g-kernel} (with \(a, b, s\)). The integral of this kernel against the exponential function \(e^{-\beta b m_p}\) (assuming \(b>0\)) is:
+\[
+I(m) := \int_{-\infty}^{\infty} e^{-\beta b\,m_p} \, g(m\mid m_p) \,dm_p = \frac{1}{b}\exp\!\Big(-\beta(m-a)+\tfrac{1}{2}\beta^2 s^2\Big)
+\]
+\end{lemma}
+
+\begin{proof}
+Apply the change of variables \(y=b m_p\), so \(dm_p=dy/b\):
+\[
+I(m) = \int_{-\infty}^{\infty} e^{-\beta y} \frac{1}{s\sqrt{2\pi}}\exp\!\left[-\frac{(m-a-y)^2}{2s^2}\right]\,\frac{dy}{b}
+\]
+\[
+I(m) = \frac{1}{b} \int_{-\infty}^{\infty} \frac{1}{s\sqrt{2\pi}} \exp\!\left[ -\frac{(m-a-y)^2}{2s^2} - \beta y \right] \,dy
+\]
+We now complete the square for the terms in the exponent with respect to \(y\):
+\begin{align*}
+\text{Exponent} &= -\frac{(m-a-y)^2}{2s^2} - \frac{2s^2\beta y}{2s^2} \\
+&= -\frac{1}{2s^2}\Big[ \big((m-a)-y\big)^2 + 2s^2\beta y \Big] \\
+&= -\frac{1}{2s^2}\Big[ (m-a)^2 - 2(m-a)y + y^2 + 2s^2\beta y \Big] \\
+&= -\frac{1}{2s^2}\Big[ y^2 - 2\big( (m-a) - s^2\beta \big)y + (m-a)^2 \Big]
+\end{align*}
+Let \(\mu_y = (m-a-s^2\beta)\). The term in brackets is \(y^2 - 2\mu_y y + (m-a)^2\). To complete the square \((y-\mu_y)^2 = y^2 - 2\mu_y y + \mu_y^2\), we add and subtract \(\mu_y^2\):
+\[
+\text{Exponent} = -\frac{1}{2s^2}\Big[ \big(y - \mu_y\big)^2 - \mu_y^2 + (m-a)^2 \Big]
+\]
+This expression separates into a \(y\)-dependent part (Part 1) and a constant part (Part 2):
+\[
+\text{Exponent} = \underbrace{-\frac{(y - \mu_y)^2}{2s^2}}_{\text{Part 1}} + \underbrace{\frac{\mu_y^2 - (m-a)^2}{2s^2}}_{\text{Part 2}}
+\]
+The integral \(I(m)\) can now be factored. The constant term (Part 2) is pulled out:
+\[
+I(m) = \frac{1}{b} \exp\!\left[ \frac{\mu_y^2 - (m-a)^2}{2s^2} \right] \cdot \int_{-\infty}^{\infty} \frac{1}{s\sqrt{2\pi}} \exp\!\left( -\frac{(y - \mu_y)^2}{2s^2} \right) \,dy
+\]
+The remaining integral is the total area under a Gaussian PDF \(\N(\mu_y, s^2)\), which is exactly 1. We now simplify the constant exponent term (Part 2) by substituting \(\mu_y = (m-a-s^2\beta)\):
+\begin{align*}
+\text{Part 2} &= \frac{(m-a-s^2\beta)^2 - (m-a)^2}{2s^2} \\
+&= \frac{\big( (m-a)^2 - 2s^2\beta(m-a) + (s^2\beta)^2 \big) - (m-a)^2}{2s^2} \\
+&= \frac{-2s^2\beta(m-a) + s^4\beta^2}{2s^2} \\
+&= -\beta(m-a) + \frac{1}{2}\beta^2 s^2
+\end{align*}
+Substituting this back, and using the fact that the integral is 1, yields the lemma's result:
+\[
+I(m) = \frac{1}{b}\exp\!\Big(-\beta(m-a)+\tfrac{1}{2}\beta^2 s^2\Big).
+\]
+\end{proof}
+
+Armed with \textbf{Lemma 1}, we can solve the matching condition \eqref{eq:eta-match}. The RHS is $(1-\mu)r(m) = (1-\mu)C e^{-\beta m}$. \textbf{Lemma 1} shows that the convolution $I(m)$ produces the desired $e^{-\beta m}$ term (from $-\beta(m-a) = -\beta m + \beta a$), but also introduces a set of extraneous, non-$m$-dependent factors: $\frac{1}{b} e^{\beta a} e^{\frac{1}{2}\beta^2 s^2}$. To ensure the LHS exactly matches the RHS, the remainder of the integrand, $r(m_p)\eta(m_p)$, must be structured to: (1) provide the required $e^{-\beta b m_p}$ term, and (2) contain the exact inverse of the extraneous factors $\left(\frac{1}{b} e^{\beta a} e^{\frac{1}{2}\beta^2 s^2}\right)$ to ensure cancellation.
+This motivates selecting an ansatz for the product $r(m_p)\eta(m_p)$ that contains these precise components, where $K'$ is a constant to be determined:
+\[
+r(m_p)\eta(m_p) := K' \cdot \left( b \cdot e^{-\beta a} \cdot e^{-\frac{1}{2}\beta^2 s^2} \right) \cdot e^{-\beta b m_p}
+\]
+We now solve for $\eta(m_p)$ algebraically, using $r(m_p) = C e^{-\beta m_p}$:
+\[
+(C e^{-\beta m_p}) \cdot \eta(m_p) = K' b \cdot \exp\!\Big(-\beta a - \frac{1}{2}\beta^2 s^2 - \beta b m_p \Big)
+\]
+\[
+\eta(m_p) = \frac{K' b}{C} \cdot \exp\!\Big(-\beta a - \frac{1}{2}\beta^2 s^2 - \beta b m_p + \beta m_p \Big)
+\]
+Let $K_0 = K' b / C$. Grouping the exponents yields the functional form of $\eta$:
+\[
+\eta(m_p) = K_0 \cdot \exp\!\Big( -\beta[a + (b - 1)m_p] - \frac{1}{2}\beta^2 s^2 \Big)
+\]
+We substitute our constructed integrand $r(m_p)\eta(m_p)$ back into the LHS of \eqref{eq:eta-match}:
+\[
+\text{LHS} = E(w) \int \left( K' b e^{-\beta a} e^{-\frac{1}{2}\beta^2 s^2} e^{-\beta b m_p} \right) \cdot g(m\mid m_p) dm_p
+\]
+Factoring out constants and applying \textbf{Lemma 1}:
+\[
+\text{LHS} = E(w) \cdot \left( K' b e^{-\beta a} e^{-\frac{1}{2}\beta^2 s^2} \right) \cdot \int e^{-\beta b m_p} g(m\mid m_p) dm_p
+\]
+\[
+\text{LHS} = E(w) \cdot \left( K' b e^{-\beta a} e^{-\frac{1}{2}\beta^2 s^2} \right) \cdot \left( \frac{1}{b} e^{\beta a} e^{\frac{1}{2}\beta^2 s^2} e^{-\beta m} \right)
+\]
+By construction, all $a, b, s$ terms cancel out:
+\[
+\text{LHS} = E(w) \cdot K' \cdot e^{-\beta m}
+\]
+Equating this to the RHS of \eqref{eq:eta-match}:
+\[
+E(w) \cdot K' \cdot e^{-\beta m} = (1-\mu) C e^{-\beta m}
+\]
+Solving for $K'$ gives $K' = \frac{(1-\mu)C}{E(w)}$. We use this to find $K_0$ (assuming $b=b_M > 0$):
+\[
+K_0 = \frac{K' b}{C} = \frac{(1-\mu)C}{E(w)} \cdot \frac{b}{C} = \frac{b(1-\mu)}{E(w)}.
+\]
+Substituting this \(K_0\) into the derived form of \(\eta(m_p)\) (and restoring the original \(a_M, b_M, \sigma_M\) notation):
+\begin{equation}\label{eq:eta-final}
+\boxed{\quad
+\eta(m)=\frac{b_M(1-\mu)}{E(w)}\,
+\exp\!\Big(-\beta\,[a_M+(b_M-1)m]-\tfrac{1}{2}\beta^2\sigma_M^2\Big).\quad}
+\end{equation}
+
+
+\medskip
+\subsection{Completeness correction under catalog threshold $m_0$}
+When only precursors with $m_p\ge m_0$ are included in the superposition, the resulting contribution is a fraction of the untruncated (ideal) contribution. This surviving fraction for a target magnitude $m$ is the ratio of the truncated integral to the full integral:
+\begin{equation}\label{eq:Delta-def}
+  \Delta(m):=
+  \frac{\displaystyle\int_{m_0}^{\infty} r(m_p)\,\eta(m_p)\,g(m\mid m_p)\,dm_p}
+       {\displaystyle\int_{-\infty}^{\infty} r(m_p)\,\eta(m_p)\,g(m\mid m_p)\,dm_p}\in(0,1].
+\end{equation}
+To make this ratio tractable, we first establish that it can be interpreted as a conditional probability.
+
+\begin{lemma}[Probabilistic Interpretation of the Ratio]
+The integrand $f(m_p, m) = r(m_p)\,\eta(m_p)\,g(m\mid m_p)$ is proportional to the product of $e^{-\beta b_M m_p}$ and $g(m\mid m_p)$, where the proportionality constant cancels in the ratio \eqref{eq:Delta-def}. Therefore, $\Delta(m)$ is equivalent to a conditional tail probability:
+\[
+\Delta(m) = \Pr(m_p\ge m_0\mid m)
+\]
+where the conditional density $p(m_p \mid m)$ is proportional to $e^{-\beta b_M m_p}\,g(m\mid m_p)$.
+\end{lemma}
+
+\begin{proof}
+From the previous section (derivation of $\eta(m)$), the product $r(m_p)\eta(m_p)$ was shown to be:
+\[
+r(m_p)\eta(m_p) = K' \cdot \left( b_M e^{-\beta a_M} e^{-\frac{1}{2}\beta^2 \sigma_M^2} \right) \cdot e^{-\beta b_M m_p}
+\]
+where $K' = (1-\mu)C / E(w)$. Let us define $C(m)$ as the full integrand:
+\[
+C(m_p, m) = r(m_p)\eta(m_p)g(m\mid m_p) = \underbrace{K' \left( b_M e^{-\beta a_M} e^{-\frac{1}{2}\beta^2 \sigma_M^2} \right)}_{\text{Constant } K_{\text{full}}} \cdot e^{-\beta b_M m_p} g(m\mid m_p)
+\]
+The constant $K_{\text{full}}$ is independent of the integration variable $m_p$ (and also independent of $m$). When placed in the ratio \eqref{eq:Delta-def}, it cancels:
+\[
+\Delta(m) = \frac{\displaystyle K_{\text{full}} \int_{m_0}^{\infty} e^{-\beta b_M m_p}\,g(m\mid m_p)\,dm_p}
+          {\displaystyle K_{\text{full}} \int_{-\infty}^{\infty} e^{-\beta b_M m_p}\,g(m\mid m_p)\,dm_p}
+\]
+Let us define an unnormalized density $\tilde{p}(m_p\mid m) := e^{-\beta b_M m_p}\,g(m\mid m_p)$ and its normalization constant $Z(m) := \int_{-\infty}^{\infty}\tilde{p}(u\mid m)\,du$. The ratio becomes:
+\[
+\Delta(m) = \frac{\displaystyle\int_{m_0}^{\infty} \tilde{p}(m_p\mid m)\,dm_p}{Z(m)} = \int_{m_0}^{\infty} \frac{\tilde{p}(m_p\mid m)}{Z(m)}\,dm_p
+\]
+Since $p(m_p \mid m) = \tilde{p}(m_p\mid m) / Z(m)$ is, by definition, a valid probability density function, $\Delta(m)$ is the integral of this density from $m_0$ to $\infty$, which is $\Pr(m_p\ge m_0\mid m)$.
+\end{proof}
+
+To evaluate this probability, we must find the parameters of the density $p(m_p \mid m)$.
+
+\begin{lemma}[Gaussian Form of the Conditional Density]
+The conditional density $p(m_p \mid m)$ is Gaussian, $m_p\mid m \sim \N\!\left(\mu_{m_p\mid m},\,\sigma_{m_p\mid m}^2\right)$, with parameters:
+\[
+\mu_{m_p\mid m}=\frac{m-a_M-\beta\sigma_M^2}{b_M} \qquad \text{and} \qquad \sigma_{m_p\mid m}=\frac{\sigma_M}{|b_M|}
+\]
+\end{lemma}
+
+\begin{proof}
+The density is Gaussian if its logarithm is a quadratic function of $m_p$. We analyze $\log \tilde{p}(m_p\mid m)$:
+\[
+\log \tilde{p}(m_p\mid m) = \log(e^{-\beta b_M m_p}) + \log(g(m\mid m_p))
+\]
+\[
+\log \tilde{p}(m_p\mid m) = -\beta b_M m_p + \log\left(\frac{1}{\sigma_M\sqrt{2\pi}}\right) -\frac{\big(m-a_M-b_M m_p\big)^2}{2\sigma_M^2}
+\]
+Ignoring all terms that are constant with respect to $m_p$:
+\[
+\log \tilde{p}(m_p\mid m) = -\beta b_M m_p -\frac{1}{2\sigma_M^2}\Big( (m-a_M)^2 - 2(m-a_M)b_M m_p + b_M^2 m_p^2 \Big) + \text{const}
+\]
+We collect terms in $m_p^2$ and $m_p$:
+\[
+\log \tilde{p}(m_p\mid m) = \left(-\frac{b_M^2}{2\sigma_M^2}\right)m_p^2 + \left(-\beta b_M + \frac{2(m-a_M)b_M}{2\sigma_M^2}\right)m_p + \text{const}
+\]
+This is a quadratic function, $Am_p^2 + Bm_p + C$. The standard log-Gaussian form is $-\frac{(m_p-\mu)^2}{2\sigma^2} = -\frac{1}{2\sigma^2}(m_p^2 - 2\mu m_p + \mu^2)$.
+By matching the $m_p^2$ coefficient:
+\[
+A = -\frac{b_M^2}{2\sigma_M^2} = -\frac{1}{2\sigma_{m_p\mid m}^2} \quad \implies \quad \sigma_{m_p\mid m}^2 = \frac{\sigma_M^2}{b_M^2} \quad \implies \quad \sigma_{m_p\mid m} = \frac{\sigma_M}{|b_M|}
+\]
+By matching the $m_p$ coefficient:
+\[
+B = -\frac{1}{2\sigma_{m_p\mid m}^2}(-2\mu_{m_p\mid m}) = \frac{\mu_{m_p\mid m}}{\sigma_{m_p\mid m}^2} = \mu_{m_p\mid m} \left(\frac{b_M^2}{\sigma_M^2}\right)
+\]
+We also have $B$ from our expansion:
+\[
+B = -\beta b_M + \frac{(m-a_M)b_M}{\sigma_M^2} = \frac{-\beta b_M \sigma_M^2 + (m-a_M)b_M}{\sigma_M^2}
+\]
+Equating the two expressions for $B$:
+\[
+\mu_{m_p\mid m} \left(\frac{b_M^2}{\sigma_M^2}\right) = \frac{b_M(m-a_M-\beta \sigma_M^2)}{\sigma_M^2}
+\]
+\[
+\mu_{m_p\mid m} = \frac{m-a_M-\beta\sigma_M^2}{b_M}
+\]
+This proves the parameters given in the lemma.
+\end{proof}
+
+Using the results of \textbf{Lemma 2} and \textbf{Lemma 3}, we can now evaluate $\Delta(m) = \Pr(m_p\ge m_0\mid m)$, where $m_p \sim \N(\mu_{m_p\mid m}, \sigma_{m_p\mid m}^2)$. This is the upper tail of a Gaussian, which is computed using the standard normal CDF $\Phi$:
+\begin{align}
+  \Delta(m) &= 1 - \Phi\!\left(\frac{m_0 - \mu_{m_p\mid m}}{\sigma_{m_p\mid m}}\right)
+          = \Phi\!\left(\frac{\mu_{m_p\mid m}-m_0}{\sigma_{m_p\mid m}}\right) \nonumber \\
+\intertext{Substituting the parameters from Lemma 3 (and assuming $b_M > 0$, so $|b_M|=b_M$):}
+  \Delta(m) &= \Phi\!\left(\frac{ \frac{m-a_M-\beta\sigma_M^2}{b_M} - m_0}{\sigma_M / b_M}\right) 
+          = \Phi\!\left( \left[ \frac{m-a_M-\beta\sigma_M^2 - b_M m_0}{b_M} \right] \cdot \frac{b_M}{\sigma_M} \right) \nonumber \\
+          &= \Phi\!\left(\frac{m-a_M-b_M m_0-\beta\sigma_M^2}{\sigma_M}\right) \nonumber
+\end{align}
+This leads to the final expression:
+\begin{equation}\label{eq:Delta-final}
+  \boxed{\quad
+  \Delta(m) = \Phi\!\left(\frac{m-a_M-b_M m_0-\beta\sigma_M^2}{\sigma_M}\right).\quad}
+\end{equation}
+
+Under truncation, the expected precursor-only marginal from \eqref{eq:eta-match} is reduced by this fraction:
+\[
+  \mathbb{E}\!\left[\sum_{i:\,m_i\ge m_0} w_i\,\eta(m_i)\,g(m\mid m_i)\right]
+  =E(w)\int_{m_0}^{\infty} r(m_p)\,\eta(m_p)\,g(m\mid m_p)\,dm_p
+  =\Delta(m)\,(1-\mu)\,r(m).
+\]
+The model's expected output is now $\Delta(m)$ times the target rate $(1-\mu)r(m)$. To compensate for this multiplicative loss and ensure the model remains unbiased (i.e., still sums to $(1-\mu)r(m)$), the contribution from each precursor $i$ must be inflated by $1/\Delta(m)$. The final superposed intensity is thus:
+\begin{equation}\label{eq:lambda-superpose}
+  \lambda(t,m,x,y)=\mu\,\lambda_0(t,m,x,y)+
+  \sum_{i:\,m_i\ge m_0}\eta(m_i)\,
+  \frac{\lambda_i(t,m,x,y)}{\Delta(m)}.
+\end{equation}
+Since $f$, $g$, and $h$ are densities (or normalized shape functions), $\lambda$ has units of
+events/(time$\cdot$magnitude$\cdot$area). Both $\eta$ and $\Delta$ are dimensionless. 
+
+\section{Derivation of the Log-Likelihood Function for an Inhomogeneous Poisson Point Process in Earthquake Modeling} \label{sec:derive_loglikelihood}
+
+In seismology, earthquake occurrences can be effectively modeled using a point process framework. Specifically, an inhomogeneous Poisson point process is suitable for capturing the nonstationary nature of seismic activity, where the intensity of earthquakes varies over time, magnitude, and spatial location.
+
+Let us consider an observed seismic catalog containing \( N \) earthquake events occurring at times \( \mathcal{D} = \{(t_j, m_j, x_j, y_j)\}_{j=1}^N \) within a defined observation window
+\[
+\mathcal{W} = [t_a, t_b] \times [m_T, m_u] \times [x_{\text{min}}, x_{\text{max}}] \times [y_{\text{min}}, y_{\text{max}}].
+\]
+Each earthquake event \( i \) is assumed to occur within an infinitesimal region
+\[
+\tau_j = [t_j - \delta t, t_j + \delta t] \times [m_j - \delta m, m_j + \delta m] \times [x_j - \delta x, x_j + \delta x] \times [y_j - \delta y, y_j + \delta y],
+\]
+where \( \delta t \), \( \delta m \), \( \delta x \), and \( \delta y \) are infinitesimally small intervals in time, magnitude, and spatial coordinates, respectively. The infinitesimal volume \( \delta V \) of \( \tau_j \) is given by
+\[
+\delta V = 16 \,\delta t \cdot \delta m \cdot \delta x \cdot \delta y.
+\]
+The process is characterized by a nonstationary Poisson intensity function \( \lambda(t, m, x, y) \), which encapsulates the varying rate of earthquake occurrences as a function of time \( t \), magnitude \( m \), and spatial coordinates \( (x, y) \). This intensity function allows the model to account for temporal \textit{variation} (nonstationarity), spatial heterogeneity, and variations in earthquake magnitudes. The likelihood function \( \mathcal{L}(\lambda) \) for the observed earthquake data comprises two main components:
+\begin{enumerate}
+    \item \textbf{The probability of observing each earthquake} within its respective infinitesimal region \( \tau_j \).
+    \item \textbf{The probability of observing no earthquakes} in the regions between consecutive events.
+\end{enumerate}
+
+For each observed earthquake event \( i \), the probability of exactly one event occurring within the infinitesimal region \( \tau_j \) is
+\[
+P\{n(\tau_j) = 1\} \;=\; \lambda(t_j, m_j, x_j, y_j)\,\delta V \;+\; o(\delta V),
+\]
+where \( n(\tau_j) \) denotes the number of events in \( \tau_j \). This expression holds under the assumption that \( \delta V \) is sufficiently small, ensuring that the probability of multiple events within \( \tau_j \) is negligible. Between any two consecutive earthquake events \( t_j \) and \( t_{i+1} \), the probability of observing zero events in the region
+\[
+\mathcal{R}_{i,i+1} = (t_j, t_{i+1}) \times [m_T, m_u] \times [x_{\text{min}}, x_{\text{max}}] \times [y_{\text{min}}, y_{\text{max}}]
+\]
+is given by
+\[
+P\{n(\mathcal{R}_{i,i+1}) = 0\} = \exp\left(-\int_{t_j}^{t_{i+1}} \int_{m_T}^{m_u} \int_{x_{\text{min}}}^{x_{\text{max}}} \int_{y_{\text{min}}}^{y_{\text{max}}} \lambda(t, m, x, y) \, dy \, dx \, dm \, dt\right).
+\]
+For completeness, the initial region \( [t_a,t_1) \times [m_T,m_u] \times [x_{\min},x_{\max}] \times [y_{\min},y_{\max}] \) and the terminal region \( (t_N,t_b] \times [m_T,m_u] \times [x_{\min},x_{\max}] \times [y_{\min},y_{\max}] \) also contribute zero-event probabilities of the same exponential form.
+
+Using independence on disjoint regions, the overall likelihood function is the product of the probabilities of observing each earthquake in its respective region and the probabilities of observing no earthquakes in the complementary regions. Neglecting terms \(o(\delta V)\) and constants that do not depend on the intensity (e.g., the factor \(\delta V^N\)), we obtain the standard Poisson likelihood
+\[
+\mathcal{L}(\lambda) = \prod_{j=1}^N  \lambda(t_j, m_j, x_j, y_j) \prod_{i=0}^{N} \exp\left(-\int_{\mathcal{R}_{i,i+1}} \lambda(t, m, x, y) \, dy \, dx \, dm \, dt\right),
+\]
+where by convention \(\mathcal{R}_{0,1}\) and \(\mathcal{R}_{N,N+1}\) denote the initial and terminal regions above. Simplifying this expression by noting that the union of all zero-event regions equals the whole observation window \( \mathcal{W} \), we obtain
+\[
+\mathcal{L}(\lambda) = \prod_{j=1}^N \lambda(t_j, m_j, x_j, y_j) \,\exp\left(-\int_{\mathcal{W}} \lambda(t, m, x, y) \, dy \, dx \, dm \, dt\right).
+\]
+
+To facilitate parameter estimation through algebraic manipulation and maximization, we take the natural logarithm of the likelihood function, yielding the log-likelihood function:
+\begin{align*}
+\ln \mathcal{L}(\lambda) &=  \sum_{j=1}^N \ln \lambda(t_j, m_j, x_j, y_j) - \int_{\mathcal{W}} \lambda(t, m, x, y) \, dy \, dx \, dm \, dt\\
+& = \sum_{j=1}^N \ln \lambda(t_j, m_j, x_j, y_j) - \int_{t_a}^{t_b} \int_{m_T}^{m_u} \int_{x_{\text{min}}}^{x_{\text{max}}} \int_{y_{\text{min}}}^{y_{\text{max}}} \lambda(t, m, x, y) \, dy \, dx \, dm \, dt.
+\end{align*}
+
+
+
+\paragraph{Units (dimensional check).} \quad
+The intensity $\lambda(t,m,x,y)$ has units$ [\lambda]=(\text{time})^{-1}\,(\text{magnitude})^{-1}\,(\text{area})^{-1},$
+e.g.\ $(\mathrm{day})^{-1}\,(\mathrm{mag})^{-1}\,(\mathrm{km}^2)^{-1}$ when $t$ is in days and $(x,y)$ are in kilometers. 
+The infinitesimal volume is $\,\delta V=(2\delta t)(2\delta m)(2\delta x)(2\delta y)=16\,\delta t\,\delta m\,\delta x\,\delta y\,$ if $\delta t,\delta m,\delta x,\delta y$ are half-widths of the symmetric intervals; using full widths would drop the factor $16$ and only add a parameter-free constant in the log-likelihood. 
+Consequently, $\lambda\,\delta V$ is dimensionless (an expected count over $\tau_j$), as required. 
+
+
+\section{The justification of the PPE model} \label{sec:derive_ppe}
+
+\begin{proposition}[IPPP Log-Likelihood Framework]
+Let $D\subset\mathbb{R}^4$ be the observation window (time $\times$ magnitude $\times$ space), and write $u=(t,m,x,y)\in D$. For an inhomogeneous Poisson point process (IPPP) with intensity function $\lambda(u;\vartheta)$, the cumulative intensity for any measurable $B\subset D$ is $\Lambda(B;\vartheta)=\int_{B}\lambda(u;\vartheta)\,\mathrm{d}u$.
+This process is characterized by two main properties: the number of events $N(B)$ in any set $B$ follows a Poisson distribution, $N(B)\sim \mathrm{Poisson}(\Lambda(B;\vartheta))$, and the counts in disjoint sets are independent. A direct consequence is that the total expected number of events in the window is $\mathbb{E}[N(D)]=\Lambda(D;\vartheta)$.
+
+Given observed events $\{u_j\}_{j=1}^N\subset D$, the likelihood and log-likelihood are:
+\[
+L(\vartheta)
+= \exp\!\big(-\Lambda(D;\vartheta)\big)\prod_{j=1}^N \lambda(u_j;\vartheta),
+\qquad
+\ell(\vartheta)=\log L(\vartheta)
+= \sum_{j=1}^N \log \lambda(u_j;\vartheta)\;-\;\Lambda(D;\vartheta).
+\]
+\end{proposition}
+
+A key theoretical property of the Maximum Likelihood Estimator (MLE) for the PPE model is that the total expected event count must equal the total observed event count. This result stems from a general lemma for Poisson point process models whose intensity function is linear in some of its parameters.
+
+\begin{lemma}[MLE Identity for Linearly Parameterized Poisson Models]
+We assume the model is an inhomogeneous Poisson point process on a domain $D$, with an intensity $\lambda(u; \vartheta)$ and log-likelihood $\ell(\vartheta)$ as defined in \textbf{Proposition 2}. We also assume the parameter vector $\vartheta$ can be partitioned as $(\theta, \eta)$, where $\theta = (\theta_1, \dots, \theta_K)$ is a vector of linear coefficients, and $\eta$ is a vector of non-linear (nuisance) parameters. Finally, we assume the intensity function $\lambda$ is a linear combination of basis functions $\phi_k$, with the linear parameters $\theta_k$ as the coefficients:
+\[
+\lambda(u;\theta,\eta)\;=\;\sum_{k=1}^{K}\theta_k\,\phi_k(u;\eta).
+\]
+If $(\hat\theta, \hat\eta)$ is an interior solution for the MLE that maximizes $\ell(\vartheta)$, then the first-order optimality conditions $\partial \ell / \partial \theta_k = 0$ for all $k$ necessarily imply that the total expected count equals the total observed count:
+\[
+\boxed{\;\Lambda(D;\hat\theta,\hat\eta)=N.\;}
+\]
+where $\Lambda(D;\theta,\eta) = \int_D \lambda(u;\theta,\eta)\,\mathrm{d}u$ and $N$ is the number of observed events.
+\end{lemma}
+
+\begin{proof}
+The proof proceeds by first computing the score (the partial derivative of the log-likelihood) with respect to a linear parameter $\theta_k$.
+Differentiate the log-likelihood $\ell(\theta,\eta)=\sum_{j=1}^N \log \lambda(u_j;\theta,\eta)-\Lambda(D;\theta,\eta)$ with respect to $\theta_k$:
+\begin{align*}
+\frac{\partial \ell}{\partial \theta_k}
+&= \sum_{j=1}^N \frac{1}{\lambda(u_j;\theta,\eta)} \frac{\partial \lambda(u_j;\theta,\eta)}{\partial \theta_k}
+     \;-\; \frac{\partial}{\partial \theta_k}\!\left(\int_D \lambda(u;\theta,\eta)\, \mathrm{d}u\right)
+     && \text{(definition of $\ell$ and chain rule)}\\[2pt]
+&= \sum_{j=1}^N \frac{1}{\lambda(u_j;\theta,\eta)} \,\phi_k(u_j;\eta)
+     \;-\; \int_D \frac{\partial \lambda(u;\theta,\eta)}{\partial \theta_k}\, \mathrm{d}u
+     && \text{(since $\partial \lambda/\partial \theta_k=\phi_k$)}\\[2pt]
+&= \sum_{j=1}^N \frac{\phi_k(u_j;\eta)}{\lambda(u_j;\theta,\eta)}
+     \;-\; \int_D \phi_k(u;\eta)\, \mathrm{d}u\\[2pt]
+&= \sum_{j=1}^N \frac{\phi_k(u_j;\eta)}{\lambda(u_j;\theta,\eta)} \;-\; \Phi_k(\eta),
+\end{align*}
+where $\displaystyle \Phi_k(\eta):=\int_D \phi_k(u;\eta)\, \mathrm{d}u$.
+
+Next, we use this result to derive the central identity by multiplying each score by its corresponding parameter $\theta_k$ and summing over all $k=1,\dots,K$:
+\begin{align*}
+\sum_{k=1}^{K}\theta_k \frac{\partial \ell}{\partial \theta_k}
+&= \sum_{k=1}^{K}\theta_k \left[
+     \sum_{j=1}^{N}\frac{\phi_k(u_j;\eta)}{\lambda(u_j;\theta,\eta)} \;-\; \Phi_k(\eta)
+   \right]
+     && \text{(substitute result)}\\[2pt]
+&= \sum_{j=1}^{N} \sum_{k=1}^{K}\frac{\theta_k \phi_k(u_j;\eta)}{\lambda(u_j;\theta,\eta)}
+   \;-\; \sum_{k=1}^{K}\theta_k \Phi_k(\eta)
+     && \text{(reorder finite sums)}\\[2pt]
+&= \sum_{j=1}^{N} \frac{\sum_{k=1}^{K}\theta_k \phi_k(u_j;\eta)}{\lambda(u_j;\theta,\eta)}
+   \;-\; \int_D \sum_{k=1}^K \theta_k \phi_k(u;\eta)\, \mathrm{d}u
+     && \text{(linearity of integral)}\\[2pt]
+&= \sum_{j=1}^{N} \frac{\lambda(u_j;\theta,\eta)}{\lambda(u_j;\theta,\eta)}
+   \;-\; \int_D \lambda(u;\theta,\eta)\, \mathrm{d}u
+     && \text{(since $\sum_k \theta_k \phi_k=\lambda$)}\\[2pt]
+&= \sum_{j=1}^{N} 1 \;-\; \Lambda(D;\theta,\eta)
+     \;=\; N - \Lambda(D;\theta,\eta).
+\end{align*}
+At an interior MLE $(\hat\theta,\hat\eta)$ (i.e.\ all $\hat\theta_k>0$), the first-order optimality conditions require $\partial \ell/\partial \theta_k=0$ for all $k$. Therefore, the weighted sum must also be zero, $\sum_k \hat\theta_k(\partial \ell/\partial \theta_k)=0$, which forces
+\[
+N-\Lambda(D;\hat\theta,\hat\eta)=0
+\quad\Longrightarrow\quad
+\boxed{\;\Lambda(D;\hat\theta,\hat\eta)=N.\;}
+\]
+\end{proof}
+
+Having formally proven the lemma, we now apply this result to the PPE background model.
+We first give definitions of the spatial kernel and the catalog counters used below.
+Let $r_i^2(x,y)=(x-x_i)^2+(y-y_i)^2$ and
+$
+\kappa_{d,i}(x,y)\;=\;\frac{1}{\pi}\,\frac{1}{d^2+r_i^2(x,y)}
+$
+be an isotropic, integrable kernel centered at event $i$.
+Let the magnitude weight be $w(m):=m-m_T$. Define the \emph{weighted} spatial kernel and the catalog counter
+\[
+K_d(t;x,y)\;=\!\!\sum_{i:\,t_i+\text{delay}<t,\,m_i\ge m_T}\! w(m_i)\,\kappa_{d,i}(x,y),
+\qquad
+n_c(t)\;=\!\!\sum_{i:\,t_i+\text{delay}<t,\,m_i\ge m_T}\! 1.
+\]
+For spatial integrals over a forecasting region $R$, set
+\[
+J_i(d):=\iint_R \kappa_{d,i}(x,y)\,\mathrm{d}A,
+\qquad
+A_R:=\iint_R 1\,\mathrm{d}A .
+\]
+Note that by linearity,
+$
+\iint_R K_d(t;x,y)\,\mathrm{d}A
+=\sum_{i:\,t_i+\text{delay}<t,\,m_i\ge m_T} w(m_i)\,J_i(d).
+$
+
+Throughout this section we fix the observation window $D := [t_s,t_e)\times[m_T,m_u]\times R$, and let $N := N(D)$. The past events summaries $K_d(t;\cdot)$ and $n_c(t)$ use history from $t_0$ up to $t-\text{delay}$ to form the integrand, but the outer time integral and the observed count $N$ are always over $[t_s,t_e)$. We write the PPE background intensity as
+\[
+\lambda_0(t,m,x,y; a,d,s)\;=\; f_0(t)\,g_0(m)\,\Big[a\,K_d(t;x,y)\;+\;s\,n_c(t)\Big].
+\]
+This intensity function is linear in the two coefficients $(a,s)$, with the (nuisance) shape parameter $\eta=d$.
+Matching \textbf{Lemma 4}, we identify the parameters and basis functions:
+\[
+\theta_1=a,\ \theta_2=s,
+\]
+\[
+\phi_1(u;d)=f_0(t)g_0(m)K_d(t;x,y)\,\mathbf{1}_R(x,y),
+\]
+\[
+\phi_2(u;d)=f_0(t)g_0(m)n_c(t)\,\mathbf{1}_R(x,y).
+\]
+The intensity is thus $\lambda_0=a\phi_1+s\phi_2$ (assuming $K_d(t;x,y)=0$ outside $R$). Therefore, \textbf{Lemma 4} applies, and any interior MLE $(\hat a,\hat d,\hat s)$ must satisfy
+\[
+\boxed{\Lambda(D;\hat a,\hat d,\hat s)=N}.
+\]
+
+
+% To find this MLE, we must optimize the log-likelihood $\ell = \sum \log \lambda_0 - \Lambda(D)$. This requires an explicit, computable formula for the cumulative intensity $\Lambda(D;a,d,s)$. We now derive this formula by carrying out the integration. With $C_m=\int_{m_T}^{m_u} g_0(m)\,dm$, Fubini/Tonelli gives:
+% \begin{align*}
+% \Lambda(D;a,d,s) &= \int_D (a\phi_1 + s\phi_2)\,\mathrm{d}u \\
+% &= \int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_R f_0(t)\,g_0(m)\,\Big[a\,K_d(t;x,y)\;+\;s\,n_c(t)\Big]\, \mathrm{d}A \, dm \, dt \\
+% &= C_m \int_{t_s}^{t_e} f_0(t) \Big[ a \iint_R K_d(t;x,y)\,\mathrm{d}A \;+\; s \, n_c(t) \iint_R 1\,\mathrm{d}A \Big] \, dt \\
+% &= C_m \int_{t_s}^{t_e} f_0(t) \left[ a \sum_{i:\,t_i+\text{delay}<t} w(m_i)J_i(d) \;+\; s\,n_c(t)\,A_R \right] \, dt
+% \end{align*}
+% Exchanging the (finite) event-sum with the time integral and using $n_c(t) = \sum_{i:\,t_i+\text{delay}<t} 1$:
+% \[
+% \Lambda(D;a,d,s) = C_m \int_{t_s}^{t_e} f_0(t) \left[ \sum_{i:\,t_i+\text{delay}<t,\,m_i\ge m_T} \Big( a\,w(m_i)J_i(d) + s\,A_R \Big) \right] \, dt
+% \]
+% Filtering the sum for events that can contribute within the $[t_s, t_e)$ window (i.e., $t_i+\text{delay} < t_e$) and adjusting the integration bounds:
+% \[
+% \boxed{\;\Lambda(D;a,d,s)=C_m\!\!\sum_{\substack{i:\; m_i\ge m_T, \\ t_i+\text{delay}<t_e}}\!\big[a\,w(m_i)J_i(d)+s\,A_R\big]\int_{\max(t_s,\,t_i+\text{delay})}^{t_e}\! f_0(t)\,dt.\;}
+% \]
+% This expression is the explicit formula for the cumulative intensity term required for optimization. \textbf{Lemma 4} guarantees that at the MLE solution $(\hat a,\hat d,\hat s)$, this function's value will equal $N = N([t_s,t_e))$.
+
+
+\end{document}
+
+
+% \citep{Agrawal_2012}
+% \citep{Ahmad_1998}
+% \citep{Ajo_2019}
+% \citep{Aki_1957}
+% \citep{Aki_Lee_1976}
+% \citep{Aki_1977}
+% \citep{Aki_1978}
+% \citep{Aki_1980a}
+% \citep{Aki_1980b}
+% \citep{Aki81}
+% \citep{Aki_Richards_1980}
+% \citep{Aki_Richards_2002}
+% \citep{Alberts_2002}
+% \citep{Alkhalifah_2000}
+% \citep{Almomin_2012}
+% \citep{Alt_2002}
+% \citep{Alterman_1968}
+% \citep{Altetal70}
+% \citep{Amante_2009}
+% \citep{Aminzadeh_2013}
+% \citep{Ammon_1990}
+% \citep{Ammon_2011}
+% \citep{An_2012}
+% \citep{Anderson_1968}
+% \citep{Anderson_1979}
+% \citep{Anderson_1998}
+% \citep{Anderson_2005}
+% \citep{Anderssen_1971}
+% \citep{Aoki_Schuster_2009}
+% \citep{Archuleta_1984}
+% \citep{Ardhuin_2011}
+% \citep{Ardhuin_2015}
+% \citep{Ardhuin_2019}
+% \citep{Arnoldi_1951}
+% \citep{Avron_2011}
+% \citep{Babuska_Cara_1991}
+% \citep{BabDor81}
+% \citep{Babetal81}
+% \citep{BacGil61}
+% \citep{Backus_1962}
+% \citep{Backer_1976}
+% \citep{Backus_Gilbert_1967}
+% \citep{Backus_Gilbert_1968}
+% \citep{Backus_Gilbert_1970}
+% \citep{Backus_1976a}
+% \citep{Backus_1976b}
+% \citep{Baig_2004}
+% \citep{Baig_2009}
+% \citep{Bakulin_2004}
+% \citep{Bakulin_2006}
+% \citep{Ballmer_2015}
+% \citep{Bao_1998}
+% \citep{Bao_2012}
+% \citep{Barka_1992}
+% \citep{Barnes_2008}
+% \citep{Bartlett_1946}
+% \citep{Bartlett_1951}
+% \citep{Bath_1968}
+% \citep{Bakirci_2012}
+% \citep{Bamberger_1977}
+% \citep{Bamberger_1979}
+% \citep{Bamberger_1982}
+% \citep{Bardenet_2014}
+% \citep{Bassin_2000}
+% \citep{Basini_2013}
+% \citep{Bastow_2010}
+% \citep{Bayes_1763}
+% \citep{Bazaraa_1976}
+% \citep{Becker_2002}
+% \citep{Becker_2006}
+% \citep{Becker_2008}
+% \citep{Behn_2009}
+% \citep{Bekas_2007}
+% \citep{Bel93}
+% \citep{Bel99}
+% \citep{BelMad94}
+% \citep{Ben_Hadji_2009b}
+% \citep{Ben_Hadji_2009a}
+% \citep{Bendinelli_1987}
+% \citep{Bensen_2007}
+% \citep{Ben-Zion_2008}
+% \citep{Bercovici_2003}
+% \citep{Bernardi_2004}
+% \citep{BerMad92}
+% \citep{Beretal94}
+% \citep{Bernauer_2009}
+% \citep{Bernauer_2012}
+% \citep{Bernauer_2014}
+% \citep{Bernauer_2014b}
+% \citep{Bertholds_1988}
+% \citep{Beskos_2013}
+% \citep{Betancourt_2015}
+% \citep{Betancourt_2017}
+% \citep{Bethier_2006}
+% \citep{Beyreuther_2010}
+% \citep{Bielak_1988}
+% \citep{Bijwaard_1998}
+% \citep{Biondi_2014}
+% \citep{Biondi_2017}
+% \citep{Bird_2003}
+% \citep{Biryol_2011}
+% \citep{Bishop_2006}
+% \citep{Biswas_2017}
+% \citep{Blackman_1997}
+% \citep{Blakely_1996}
+% \citep{Blanch_1995}
+% \citep{Blanes_2014}
+% \citep{Bleibinhaus_2007}
+% \citep{Bleibinhaus_2009}
+% \citep{Blom_2017}
+% \citep{Bodin_2009}
+% \citep{Bodin_2012}
+% \citep{Bodin_2015}
+% \citep{Boehm_2016}
+% \citep{Boehm_2018}
+% \citep{Boehm_2018b}
+% \citep{Bogey_2004}
+% \citep{Bogris_2021}
+% \citep{Bohlen_2002}
+% \citep{Bonnefoy_2006}
+% \citep{Boore_1970}
+% \citep{Boschi_2000}
+% \citep{Boschi_2003}
+% \citep{Boschi_2004}
+% \citep{Boschi_2013}
+% \citep{Boschi_2019}
+% \citep{Bouchon_1979}
+% \citep{Boue_2013}
+% \citep{Bourguignon_2006}
+% \citep{Bowden_2015}
+% \citep{Bowden_2016}
+% \citep{Bowden_2017}
+% \citep{Bowden_2020}
+% \citep{Bozdag_2008}
+% \citep{Bozdag_2011}
+% \citep{Bozdag_2016}
+% \citep{Bozkurt_2001}
+% \citep{Brenders_2007}
+% \citep{Breger_1998}
+% \citep{Breger_1998b}
+% \citep{Brenguier_2008a}
+% \citep{Brenguier_2008b}
+% \citep{Brewster_1995}
+% \citep{Briand_2013}
+% \citep{Brocher_2005}
+% \citep{Bromirski_2017}
+% \citep{Broodlie_1973}
+% \citep{Brossier_2009a}
+% \citep{Brossier_2009b}
+% \citep{Brossier_2010}
+% \citep{Broyden_1970}
+% \citep{Bube_1983}
+% \citep{Bucher_2002}
+% \citep{bullen_1963}
+% \citep{Bunge_2003}
+% \citep{Bui_2013}
+% \citep{Bui_2012}
+% \citep{Buland_1976}
+% \citep{Bunks_1995}
+% \citep{Burridge_1964}
+% \citep{Burridge_1980}
+% \citep{Buselmaier_2018}
+% \citep{Bussat_2011}
+% \citep{Butter_1978}
+% \citep{Calderhead_2012}
+% \citep{Cammarano_2003}
+% \citep{Campbell_2007}
+% \citep{Campillo_2003}
+% \citep{Cance_2015}
+% \citep{Capdeville_1997}
+% \citep{Capdeville_2000}
+% \citep{Capdeville_2000b}
+% \citep{Capdeville_2010c}
+% \citep{Capdeville_2003}
+% \citep{Capdeville_2002}
+% \citep{Capdeville_2002b}
+% \citep{Capdeville_2003b}
+% \citep{Capdeville_2005}
+% \citep{Capdeville_2005b}
+% \citep{Capdeville_2007}
+% \citep{Capdeville_2008}
+% \citep{Capdeville_2010a}
+% \citep{Capdeville_2010b}
+% \citep{Capdeville_2013}
+% \citep{Capdeville_2013b}
+% \citep{Capdeville_2013c}
+% \citep{Capdeville_2018}
+% \citep{Capdeville_2020}
+% \citep{Carcione_1988a}
+% \citep{Carcione_1988b}
+% \citep{Carcione_1992}
+% \citep{Cerjan_1985}
+% \citep{Cerveny_2001}
+% \citep{Cesca_2010}
+% \citep{Chang_2010}
+% \citep{Charlier_1905}
+% \citep{Chastel_1993}
+% \citep{Chevalier_2008}
+% \citep{Chib_1995}
+% \citep{Chib_1998}
+% \citep{Chou_1979}
+% \citep{Cheng_Kennett_2002}
+% \citep{Cole_1995}
+% \citep{Cormack_1963}
+% \citep{Crase_1990}
+% \citep{Canas_Mitchell_1978}
+% \citep{Capetal99}
+% \citep{Cara_1984}
+% \citep{CarWan93}
+% \citep{Cazenave_1989}
+% \citep{Chaljub_1997}
+% \citep{Chaetal2003}
+% \citep{Chaljub_2000}
+% \citep{Chapman_1978}
+% \citep{Chapman_2012}
+% \citep{Chavent_1975}
+% \citep{Chavent_1999}
+% \citep{Cheetal98a}
+% \citep{Cheetal98b}
+% \citep{Chevrot_2007}
+% \citep{Chen_2007}
+% \citep{Chen_2007b}
+% \citep{Chen_2011}
+% \citep{Chen_2015}
+% \citep{Chew_1995}
+% \citep{Christensen_1995}
+% \citep{Chouet_1996}
+% \citep{Chulliat_2017}
+% \citep{Claerbout_1968}
+% \citep{Clajubetal_2001}
+% \citep{Clayton_1977}
+% \citep{Clayton_2015}
+% \citep{Cleary_1974}
+% \citep{Clevede_1991}
+% \citep{Clevede_2000}
+% \citep{Clevede_Lognonne_1996}
+% \citep{Cobden_2010}
+% \citep{Colli_2013}
+% \citep{Colli_2017}
+% \citep{Connolly_2005}
+% \citep{Cohen-Tannoudji_1977}
+% \citep{Cotton_1995}
+% \citep{Courtillot_2003}
+% \citep{Cowles_1996}
+% \citep{Cramer_1957}
+% \citep{Crampin_2003}
+% \citep{Crank_1947}
+% \citep{Crary_1954}
+% \citep{Creager_1992}
+% \citep{Creager_1997}
+% \citep{Creutz_1988}
+% \citep{Crotwell_1999}
+% \citep{Cubuk_2017}
+% \citep{Cum92}
+% \citep{Cummins_1994a}
+% \citep{Cummins_1994b}
+% \citep{Cummins_1997}
+% \citep{Cupillard_2012}
+% \citep{Cupillard_2008}
+% \citep{Cupillard_2010}
+% \citep{Cupillard_2011}
+% \citep{Cupillard_2018}
+% \citep{Currenti_2008}
+% \citep{Currenti_2021}
+% \citep{Curry_2008}
+% \citep{Curtis_1999a}
+% \citep{Curtis_1999b}
+% \citep{Curtis_2000}
+% \citep{Curtis_2010}
+% \citep{Dab86}
+% \citep{Dah68}
+% \citep{Dah69}
+% \citep{Dah72}
+% \citep{Dah73}
+% \citep{Dah87}
+% \citep{Dahlen_1998}
+% \citep{Dahlen_2000}
+% \citep{Dahlen_2002}
+% \citep{Dahlin_2015}
+% \citep{DalMoro_2006}
+% \citep{Dalton_2008}
+% \citep{Danecek_2011}
+% \citep{Daskalakis_2016}
+% \citep{Datta_2019}
+% \citep{Davies_1999}
+% \citep{Deal_1996}
+% \citep{Dean_2016}
+% \citep{Debayle_2000}
+% \citep{Debayle_2004}
+% \citep{Debayle_2013}
+% \citep{Debayle_2016}
+% \citep{DeKool_2006}
+% \citep{DeMartino_2005}
+% \citep{Delaney_2017}
+% \citep{Daley_2016}
+% \citep{Daley_2013}
+% \citep{Daley_2014}
+% \citep{DelBrio_2009}
+% \citep{DeMets_1994}
+% \citep{DeLaPuente_2007}
+% \citep{Denolle_2013}
+% \citep{Denolle_2014}
+% \citep{DeRidder_2014}
+% \citep{DeRidder_2015}
+% \citep{Deschamps_2012}
+% \citep{Dessa_2003}
+% \citep{Dessa_2004}
+% \citep{Deuss_Woodhouse_2001}
+% \citep{Deuss_2008}
+% \citep{Devaney_1984}
+% \citep{Devilee_1999}
+% \citep{DeVogelaere_1956}
+% \citep{deVos_2013}
+% \citep{deWit_2012}
+% \citep{deWit_2013}
+% \citep{Diaz_2009}
+% \citep{Diaz_2011}
+% \citep{DinHel97}
+% \citep{Dondi_1981}
+% \citep{Donner_2016}
+% \citep{Dorobantu_1998}
+% \citep{Drewry_1982}
+% \citep{Drineas_2006}
+% \citep{Drugan_1995}
+% \citep{Duane_1987}
+% \citep{Dufumier_1997}
+% \citep{Dubbledam_2016}
+% \citep{Dumbser_2007}
+% \citep{Dumbser_2007b}
+% \citep{Dupond_1973}
+% \citep{Duputel_2009}
+% \citep{Durand_2011}
+% \citep{Durek_Ekstrom_1996}
+% \citep{Duvall_2006}
+% \citep{Dworetsky_1983}
+% \citep{Dzi95}
+% \citep{Dziewonski_1974}
+% \citep{Dziewonski_1975}
+% \citep{Dziewonski_1977}
+% \citep{Dziewonski_Anderson_1981}
+% \citep{Dziewonski_1981}
+% \citep{Dziewonski_1983}
+% \citep{Ernst_2007}
+% \citep{Edmonds_1960}
+% \citep{Ekstrom_1998}
+% \citep{Elhatisari_2015}
+% \citep{Ekstrom_2012}
+% \citep{ElMoudnib_2015}
+% \citep{Egeran_1944}
+% \citep{Emmerich_1987}
+% \citep{Endrun_2008}
+% \citep{Engquist_2002}
+% \citep{Engquist_2011a}
+% \citep{Engquist_2011b}
+% \citep{Epanomeritakis_2008}
+% \citep{Ermert_2016}
+% \citep{Ermert_2017}
+% \citep{Ewing_1957}
+% \citep{Faccenna_2010}
+% \citep{Faccioli_1996}
+% \citep{Faccioli_1997}
+% \citep{Fang_1990}
+% \citep{Fang_2010}
+% \citep{Farnetani_1995}
+% \citep{Farra_2016}
+% \citep{Farnetani_1997}
+% \citep{Ferreira_Igel_2009}
+% \citep{Ferreira_2010}
+% \citep{Fichtner_2006a}
+% \citep{Fichtner_2006b}
+% \citep{Fichtner_2008}
+% \citep{Fichtner_et_al_2008}
+% \citep{Fichtner_2009a}
+% \citep{Fichtner_2009b}
+% \citep{Fichtner_2009c}
+% \citep{Fichtner_2010a}
+% \citep{Fichtner_2010b}
+% \citep{Fichtner_2010c}
+% \citep{Fichtner_book}
+% \citep{Fichtner_Trampert_2011a}
+% \citep{Fichtner_Trampert_2011b}
+% \citep{Fichtner_2012}
+% \citep{Fichtner_2013c}
+% \citep{Fichtner_2013}
+% \citep{Fichtner_2013b}
+% \citep{Fichtner_2014}
+% \citep{Fichtner_2014b}
+% \citep{Fichtner_2015}
+% \citep{Fichtner_2015b}
+% \citep{Fichtner_2015c}
+% \citep{Fichtner_2016}
+% \citep{Fichtner_2017}
+% \citep{Fichtner_2017b}
+% \citep{Fichtner_2018}
+% \citep{Fichtner_2018b}
+% \citep{Fichtner_2018c}
+% \citep{Fichtner_2018d}
+% \citep{Fichtner_2019b}
+% \citep{Fichtner_2019}
+% \citep{Fichtner_2020}
+% \citep{Fichtner_2021}
+% \citep{Fichtner_book_2021}
+% \citep{Fin72}
+% \citep{Fishwick_2005}
+% \citep{Fish_2002}
+% \citep{Fishwick_2008}
+% \citep{Flanagan_Wiens_1998}
+% \citep{Fletcher_1964}
+% \citep{Fletcher_1970}
+% \citep{Fletcher_2008}
+% \citep{Fleury_2010}
+% \citep{Fomel_2002}
+% \citep{Fontaine_2009}
+% \citep{Forghani_2010}
+% \citep{For88}
+% \citep{Fornberg_1995}
+% \citep{Foulger_2007}
+% \citep{Fox_1997}
+% \citep{Frankel_1986}
+% \citep{Frankel_1989}
+% \citep{French_2013}
+% \citep{French_2014}
+% \citep{Fretwell_2013}
+% \citep{Friederich_1999}
+% \citep{FriDal95}
+% \citep{Friederich_1993}
+% \citep{Friederich_2003}
+% \citep{Frieze_2004}
+% \citep{Froment_2010}
+% \citep{Fu_2016}
+% \citep{Fukuyama_1998}
+% \citep{FurTak96}
+% \citep{Furetal98}
+% \citep{Furetal98a}
+% \citep{Furetal99}
+% \citep{Furumura_2005}
+% \citep{Fuchs_1971}
+% \citep{Fuchs_1977}
+% \citep{Gaite_2015}
+% \citep{Gal_2019}
+% \citep{Gallagher_1991}
+% \citep{Gallovic_2015}
+% \citep{Gao_2006}
+% \citep{Garcia_2000}
+% \citep{Gardner_1974}
+% \citep{GarHel95}
+% \citep{GarLay97}
+% \citep{Garnero_1995}
+% \citep{Garnero_1996}
+% \citep{Garnero_1998}
+% \citep{Garnero_1999}
+% \citep{Garnero_2000}
+% \citep{Gauss_1809}
+% \citep{Gauthier_1986}
+% \citep{Gaz81}
+% \citep{Gebraad_2020}
+% \citep{Gee_1992}
+% \citep{Geller_1994}
+% \citep{GelTak95}
+% \citep{Geller_1978}
+% \citep{Geller_1985}
+% \citep{Geller_1995}
+% \citep{Gelman_1992}
+% \citep{Gelman_2014}
+% \citep{Geweke_1992}
+% \citep{Geweke_1999}
+% \citep{Geyer_1992}
+% \citep{Geyer_1995}
+% \citep{Geyer_2011}
+% \citep{Giardini_1987}
+% \citep{Gil80}
+% \citep{Gil81}
+% \citep{GilDzi75}
+% \citep{Gilbert_1971}
+% \citep{Gilbert_1973}
+% \citep{Gimbert_2016}
+% \citep{Girolami_2011}
+% \citep{Givoli_Keller_1990}
+% \citep{Gizon_2002}
+% \citep{Glatzmaier_1995}
+% \citep{GVP_2011}
+% \citep{GVP_2013}
+% \citep{GVP_2021}
+% \citep{Godin_2009}
+% \citep{Goetze_1971}
+% \citep{Goetze_1972}
+% \citep{Gokhberg_2016}
+% \citep{Goldfarb_1970}
+% \citep{Gorbatov_2003}
+% \citep{Gram_1883}
+% \citep{Grand_1997}
+% \citep{Grant_1973}
+% \citep{Graves_1996}
+% \citep{Graves_2001}
+% \citep{Graves_2010}
+% \citep{Green_1995}
+% \citep{Green_2009}
+% \citep{Griewank_2000}
+% \citep{Griffiths_1990}
+% \citep{Groos_2012}
+% \citep{Grote_keller_1995}
+% \citep{Gu_2001}
+% \citep{Gualtieri_2013}
+% \citep{Gualtieri_2019}
+% \citep{Guasch_2020}
+% \citep{Gudmundsson_1997}
+% \citep{Gueguen_1989}
+% \citep{Guillot_2010}
+% \citep{Gull_1988}
+% \citep{Gung_2003}
+% \citep{Gung_2004}
+% \citep{Gutmann_2012}
+% \citep{Haberland_2001}
+% \citep{Hadziioannou_2012}
+% \citep{Halko_2011}
+% \citep{Hall_2002}
+% \citep{Halliday_2008}
+% \citep{Halliday_2009}
+% \citep{Hammond_2000}
+% \citep{Hanasoge_2011}
+% \citep{Hanasoge_2013a}
+% \citep{Hanasoge_2013b}
+% \citep{Hanasoge_2013c}
+% \citep{Hanasoge_2016}
+% \citep{Haned_2016}
+% \citep{Hanson_1998}
+% \citep{Hapla_2018}
+% \citep{Honkela_2015}
+% \citep{Haretal93}
+% \citep{Harmon_2010}
+% \citep{Hart_1992}
+% \citep{Hartog_2017}
+% \citep{Hasselmann_1963}
+% \citep{Hastings_1970}
+% \citep{Hayes_2011}
+% \citep{Haykin_2009}
+% \citep{Hedjazian_2020}
+% \citep{Hedlin_1997}
+% \citep{HeiRan95a}
+% \citep{HeiRan95b}
+% \citep{Hejrani_2017}
+% \citep{Hernlund_2008}
+% \citep{Hess_1964}
+% \citep{Hestenes_1952}
+% \citep{Helmberger_1983}
+% \citep{vanderHilst_1997}
+% \citep{Hill_2015}
+% \citep{Hillers_2012}
+% \citep{Hillers_2015}
+% \citep{Himmelblau_1972}
+% \citep{Henstock_1997}
+% \citep{Hiletal98}
+% \citep{Hilst_1997}
+% \citep{Hingee_2011}
+% \citep{Hoeffding_1963}
+% \citep{Hoffmann_2014}
+% \citep{Hofmann_1997}
+% \citep{Hounsfield_1973}
+% \citep{Hornmann_2016}
+% \citep{Hsie_2014}
+% \citep{Huang_2006}
+% \citep{Huang_2012}
+% \citep{Huang_2016}
+% \citep{Hudson_1989}
+% \citep{HugMar78}
+% \citep{Hu_2001}
+% \citep{Hung_2001}
+% \citep{Hutchinson_1990}
+% \citep{Iacono_2015}
+% \citep{Ige99}
+% \citep{Igel_1997}
+% \citep{IgeWeb96}
+% \citep{Igel_1996}
+% \citep{Igel_1995}
+% \citep{Igel_2000}
+% \citep{Igel_2005}
+% \citep{Igel_2016}
+% \citep{Igel_2021}
+% \citep{Ihlenburg_1998}
+% \citep{Ingber_1989}
+% \citep{Ingle_1992}
+% \citep{Ino90}
+% \citep{Ishii_1999}
+% \citep{Ishii_2001}
+% \citep{Ishii_2004}
+% \citep{Isserlis_1918}
+% \citep{Itoh_1988}
+% \citep{ITU_2022}
+% \citep{Iyer_1993}
+% \citep{Izzatullah_2021}
+% \citep{Jackson_1976}
+% \citep{Jackson_2002}
+% \citep{Jackson_2000}
+% \citep{Jackson_2007}
+% \citep{Jahnke_2008}
+% \citep{JakAlp97}
+% \citep{Jaynes_2003}
+% \citep{Jeffreys_1939}
+% \citep{Jeffreys_1940}
+% \citep{Jeong_2012}
+% \citep{Jihetal88}
+% \citep{Jolivet_1994}
+% \citep{Jor78}
+% \citep{Jordan_1975}
+% \citep{Jordan_1978}
+% \citep{Jordan_2015}
+% \citep{Jost_1989}
+% \citep{Kaeufl_2013}
+% \citep{Kaeufl_2015}
+% \citep{Kaneshima_2009}
+% \citep{KanMec90}
+% \citep{Kang_2004}
+% \citep{Karabulut_2003}
+% \citep{Karaoglu_2018a}
+% \citep{Karaoglu_2018b}
+% \citep{Karason_2000}
+% \citep{Karato_1990}
+% \citep{Karato_1995}
+% \citep{Karato_2008}
+% \citep{Karato_2014}
+% \citep{Karato_2015}
+% \citep{Kawamoto_2006}
+% \citep{Kawai_2010}
+% \citep{Kawakatsu_2000}
+% \citep{Kawakatsu_2009}
+% \citep{Keilis_1967}
+% \citep{Keletal76}
+% \citep{Keller_Givoli_1989}
+% \citep{Kennett_1978b}
+% \citep{Kennett_1985}
+% \citep{Kennett_1978}
+% \citep{Kennett_1987}
+% \citep{Kennett_1987b}
+% \citep{Kennett_1988}
+% \citep{Kennett_1998b}
+% \citep{Kennett_1990}
+% \citep{Kennett_Abdullah_2011}
+% \citep{Kennett_2012}
+% \citep{Kennett_2013}
+% \citep{KenSil96}
+% \citep{KenSil98}
+% \citep{Kenetal98}
+% \citep{Kennett_1991}
+% \citep{Kennett_1995}
+% \citep{Kennett_1998}
+% \citep{Kennett_2001}
+% \citep{Kennett_2008}
+% \citep{Kennett_Bunge_2008}
+% \citep{Kennett_2020}
+% \citep{Keogh_2011}
+% \citep{Keskin_2003}
+% \citep{KesKos90}
+% \citep{Khan_2013}
+% \citep{Kikuchi_1991}
+% \citep{Kim_1998}
+% \citep{Kim_1999}
+% \citep{Kim_2010}
+% \citep{Kimman_2010}
+% \citep{King_2001}
+% \citep{Kirkpatrick_1983}
+% \citep{Kirby_2006}
+% \citep{Kissling_1988}
+% \citep{Kiwiel_2001}
+% \citep{Klaasen_2021}
+% \citep{Klaasen_2022}
+% \citep{Klimes_2002}
+% \citep{Knopoff_1970}
+% \citep{Kobayashi_1995}
+% \citep{Koehn_2010}
+% \citep{Koelemeijer_2017}
+% \citep{Koelemeijer_2015}
+% \citep{Kohnen_1974}
+% \citep{Kolmogorov_1941}
+% \citep{Kolmogorov_1950}
+% \citep{Komatitsch_1998}
+% \citep{Komatitsch_1997}
+% \citep{Komatitsch_1999}
+% \citep{Komatitsch_2002a}
+% \citep{Komatitsch_2002b}
+% \citep{Komatitsch_2000a}
+% \citep{Komatitsch_2000b}
+% \citep{Komatitsch_99}
+% \citep{Kometal99}
+% \citep{Komatitsch_2010}
+% \citep{Komatitsch_2011}
+% \citep{Kong_1992}
+% \citep{Konishi_2009}
+% \citep{Korattikara_2014}
+% \citep{Korneev_2006}
+% \citep{KosBay82}
+% \citep{KosTal93}
+% \citep{Kosetal90}
+% \citep{Kosmas_2006}
+% \citep{Kotsi_2020}
+% \citep{Koulakov_2010}
+% \citep{Koulakov_2013}
+% \citep{Kozlovskaya_2007}
+% \citep{Krass_1998}
+% \citep{Krebs_2009}
+% \citep{Kreemer_2014}
+% \citep{Kremers_2011}
+% \citep{Krischer_2015}
+% \citep{Krischer_2018}
+% \citep{Kristek_2002}
+% \citep{Kristekova_2006}
+% \citep{Kristekova_2009}
+% \citep{Kuang_1997}
+% \citep{Kullback_1951}
+% \citep{Kumazawa_1969}
+% \citep{Kurrle_2006}
+% \citep{Kuo_2002}
+% \citep{Kuo_2009}
+% \citep{Lailly_1983}
+% \citep{Landau_1976}
+% \citep{Lanczos_1950}
+% \citep{Lange_2015}
+% \citep{Langston_1979}
+% \citep{Larmat_2006}
+% \citep{Larose_2004}
+% \citep{Laske_1999}
+% \citep{Laske_1996}
+% \citep{Lay95}
+% \citep{Lay_1998}
+% \citep{Layetal97}
+% \citep{Layetal98}
+% \citep{Lay_2011}
+% \citep{Lebedev_2008}
+% \citep{Lecocq_2014}
+% \citep{Lee_1999}
+% \citep{Lee_2014}
+% \citep{Lee_2014b}
+% \citep{Legendre_2012}
+% \citep{Lei_2005}
+% \citep{Leimkuhler_2004}
+% \citep{Leng_2019}
+% \citep{Lekic_2009}
+% \citep{Lekic_2010}
+% \citep{Lekic_2011}
+% \citep{Leung_2006}
+% \citep{Levander_1988}
+% \citep{Levenberg_1944}
+% \citep{Leveque_1993}
+% \citep{Levshin_1984}
+% \citep{Lewis_2007}
+% \citep{Li_1995}
+% \citep{Li_1996}
+% \citep{Li_Tanimoto_1993}
+% \citep{Li_2000}
+% \citep{Li_2010}
+% \citep{Li_2008}
+% \citep{Li_2015}
+% \citep{Lim_2014}
+% \citep{Lin_2008}
+% \citep{Lin_2013b}
+% \citep{Lin_2013}
+% \citep{Lin_2012a}
+% \citep{Lin_2012b}
+% \citep{Lindgren_2013}
+% \citep{Lindsey_2017}
+% \citep{Lindsey_2020}
+% \citep{Lindsey_2021}
+% \citep{Lindner_2021}
+% \citep{Lions_1968}
+% \citep{Lipovsky_2015}
+% \citep{Lipovsky_2018}
+% \citep{Liu_1976}
+% \citep{LiuDzi98}
+% \citep{Liu_Nocedal_1989}
+% \citep{Liu_1998}
+% \citep{Liu_2004}
+% \citep{Liu_2006}
+% \citep{Liu_2008}
+% \citep{Liu_Gurnis_2008}
+% \citep{Liu_2012}
+% \citep{Liu_2013}
+% \citep{Liu_2019a}
+% \citep{Liu_2019b}
+% \citep{Liu_2020}
+% \citep{Lyu_2021}
+% \citep{Lobkis_2001}
+% \citep{Log89}
+% \citep{LogCle2000}
+% \citep{LogCle97}
+% \citep{Lognonne_1990}
+% \citep{Lognonne_1991}
+% \citep{Lognonne_1998}
+% \citep{Lognonne_clevede_1997}
+% \citep{Longuet_1950}
+% \citep{Loper_1995}
+% \citep{Love_1927}
+% \citep{Lowrie_2020}
+% \citep{Lu_2018}
+% \citep{Ludwig_1970}
+% \citep{Luo_Schuster_1991}
+% \citep{Luo_2020}
+% \citep{Lyakhovsky_2009}
+% \citep{Lysmer_1972}
+% \citep{Ma_2013}
+% \citep{MacCarthy_2011}
+% \citep{Maceira_2009}
+% \citep{MacKay_2003}
+% \citep{Mackenzie_1989}
+% \citep{Macnamara_2019}
+% \citep{Mad72}
+% \citep{Mad76}
+% \citep{MadPat89}
+% \citep{MadQua82}
+% \citep{Maday_1989}
+% \citep{Madetal88}
+% \citep{Madec_2009}
+% \citep{Maggi_2009}
+% \citep{Mai_2014}
+% \citep{Mainprice_2005}
+% \citep{Malcolm_2004}
+% \citep{Malcolm_2011}
+% \citep{Malcolm_2018}
+% \citep{Malinverno_2002}
+% \citep{Malinverno_2005}
+% \citep{Malischewsky_1987}
+% \citep{Agranovich_Marchenko_1963}
+% \citep{Marelli_2012}
+% \citep{Marfut_1984}
+% \citep{Marinari_1992}
+% \citep{Marone_2007}
+% \citep{Marone_2007b}
+% \citep{Marquardt_1963}
+% \citep{Marquering_1999}
+% \citep{Marra_2018}
+% \citep{Martin_2012}
+% \citep{Martin_2017}
+% \citep{Martino_2016}
+% \citep{Martyna_1995}
+% \citep{Marty_2021}
+% \citep{Maruyama_2007}
+% \citep{Masetal96}
+% \citep{Masters_1996}
+% \citep{Mateeva_2013}
+% \citep{Mateeva_2014}
+% \citep{Matetal96}
+% \citep{Matsubara_2008}
+% \citep{Maurer_2009}
+% \citep{Maurer_2010}
+% \citep{Maykut_1995}
+% \citep{Mayor_1995}
+% \citep{McGuire_2005}
+% \citep{Mecozzi_2021}
+% \citep{Megies_2011}
+% \citep{Megnin_2000}
+% \citep{Meier_2004}
+% \citep{Meier_2007a}
+% \citep{Meier_2007b}
+% \citep{Meier_2010}
+% \citep{Meju_2009}
+% \citep{Meju_Sakkas_2007}
+% \citep{Meles_2010}
+% \citep{Melo_2013}
+% \citep{Meltzer_1999}
+% \citep{Menke_2012}
+% \citep{Menon_2012}
+% \citep{Mercerat_2012}
+% \citep{Mer73}
+% \citep{Mer74}
+% \citep{Meschede_2015}
+% \citep{Metivier_2016}
+% \citep{Metivier_2016b}
+% \citep{Metropolis_1953}
+% \citep{Metropolis_1987}
+% \citep{Michea_2010}
+% \citep{Miller_2006}
+% \citep{Millot_2003}
+% \citep{Minster_Jordan_1978}
+% \citep{Mitchell_1995}
+% \citep{Mittler_1998}
+% \citep{Miyashiro_1986}
+% \citep{Moczo_2000}
+% \citep{Moczo_2002}
+% \citep{Moczo_2005}
+% \citep{Moc86}
+% \citep{Moczo_2014}
+% \citep{Modrak_2016}
+% \citep{Molinari_2011}
+% \citep{Montagner_1988}
+% \citep{Montagner_1989}
+% \citep{Montagner_1993}
+% \citep{Montagner_1994}
+% \citep{Montagner_1995}
+% \citep{Montagner_1996}
+% \citep{Monteiller_2012}
+% \citep{Montelli_2004b}
+% \citep{Montelli_2004}
+% \citep{Montelli_2006}
+% \citep{Morelli_1993}
+% \citep{Mora_1987}
+% \citep{Mora_1988}
+% \citep{Mora_1989}
+% \citep{Mordret_2013}
+% \citep{Mordret_2014}
+% \citep{Mordret_2014b}
+% \citep{MorHel95}
+% \citep{Morris_1995}
+% \citep{Morelli_1986}
+% \citep{Morgan_1971}
+% \citep{Morozova_1999}
+% \citep{Mosca_2012}
+% \citep{Mosegaard_1995}
+% \citep{Mosegaard_2012}
+% \citep{Motoki_2015}
+% \citep{Mulargia_2012}
+% \citep{Muir_2015}
+% \citep{Muir_2020}
+% \citep{Mustac_2016}
+% \citep{Nakahigashi_2015}
+% \citep{Nakajima_2007}
+% \citep{Nakata_2015}
+% \citep{Nakata_2019}
+% \citep{Nakata_2019b}
+% \citep{Nataf_1993}
+% \citep{Nataf_1996}
+% \citep{Nawa_1998}
+% \citep{Neal_1996}
+% \citep{Neal_2011}
+% \citep{Nemeth_1999}
+% \citep{Nettles_2008}
+% \citep{Ni_2000}
+% \citep{Nielsen_2003}
+% \citep{Nishida_2007}
+% \citep{Nishida_2009}
+% \citep{Nishida_2011}
+% \citep{Nishida_2013}
+% \citep{Nishida_2014}
+% \citep{NissenMeyer_2007a}
+% \citep{NissenMeyer_2007b}
+% \citep{NissenMeyer_2008}
+% \citep{NissenMeyer_2014}
+% \citep{Nocedal_1980}
+% \citep{Nocedal_1999}
+% \citep{Nolet_1990}
+% \citep{Nolet_1999}
+% \citep{Nolet_2005}
+% \citep{Nolet_2008}
+% \citep{OToole_2012}
+% \citep{Obayashi_2006}
+% \citep{Obermann_2013}
+% \citep{Obermann_2014}
+% \citep{Obermann_2015}
+% \citep{Okay_1999}
+% \citep{Olinger_2022}
+% \citep{Olson_1987}
+% \citep{Omori_2007}
+% \citep{Onarheim_2014}
+% \citep{Operto_2004}
+% \citep{Operto_2009}
+% \citep{Ors80}
+% \citep{Owen_2012}
+% \citep{Ozturk_2006}
+% \citep{Paco_1991}
+% \citep{Pankajakshan_2009}
+% \citep{Paitz_2019}
+% \citep{Paitz_2021}
+% \citep{Panning_2006}
+% \citep{Par86}
+% \citep{Par87}
+% \citep{Par89}
+% \citep{Par90}
+% \citep{Park_2006}
+% \citep{ParGil86}
+% \citep{Parker_1977}
+% \citep{Parker_1994}
+% \citep{ParYu92}
+% \citep{Parsons_2000}
+% \citep{Passier_1995}
+% \citep{Patera_1984}
+% \citep{Pau_2014}
+% \citep{Pavese_1995}
+% \citep{Pearson_1969}
+% \citep{Pedersen_2006}
+% \citep{Pedersen_2015}
+% \citep{Perelson_1993}
+% \citep{Perovich_2002}
+% \citep{Perovich_2007}
+% \citep{Peter_2007}
+% \citep{Peter_2008}
+% \citep{Peter_2009}
+% \citep{Peter_2011}
+% \citep{Peterson_1993}
+% \citep{Phinney_Burridge_1973}
+% \citep{Planes_2015}
+% \citep{Plessix_2006}
+% \citep{Podvin_1991}
+% \citep{Poincare_1890}
+% \citep{Polak_1969}
+% \citep{Poli_2012}
+% \citep{Poli_2015}
+% \citep{Pol92}
+% \citep{Pol94}
+% \citep{Pol98}
+% \citep{Poore_2011}
+% \citep{Popovici_2002}
+% \citep{Popper_1935}
+% \citep{Porter_2018}
+% \citep{Postma_1955}
+% \citep{Postpischl_2011}
+% \citep{Pouliquen_2009}
+% \citep{Poulton_2001}
+% \citep{Press_1951}
+% \citep{Press_1968}
+% \citep{Press_1970}
+% \citep{Priestley_2006}
+% \citep{Prieto_2011}
+% \citep{Prieto_2011b}
+% \citep{Prieux_2013}
+% \citep{Priolo_1994}
+% \citep{PulSen99}
+% \citep{Puletal93}
+% \citep{Pratt_1998}
+% \citep{Pratt_1999}
+% \citep{Pratt_2007}
+% \citep{Radon_1917}
+% \citep{Raftery_1992}
+% \citep{Randall_1970}
+% \citep{Ranetal96}
+% \citep{Rastrigin_1974}
+% \citep{Raterron_2009}
+% \citep{Ravaut_2004}
+% \citep{Rawlinson_2004a}
+% \citep{Rawlinson_2004b}
+% \citep{Rawlinson_2006}
+% \citep{Rawlinson_2006a}
+% \citep{Rawlinson_2008}
+% \citep{Rawlinson_2011}
+% \citep{Rawlinson_2010}
+% \citep{Rawlinson_2014}
+% \citep{Razafindrakoto_2014}
+% \citep{Reading_2014}
+% \citep{Reid_2001}
+% \citep{ResRit99}
+% \citep{Resetal88}
+% \citep{Resovsky_1999}
+% \citep{Resovsky_2002}
+% \citep{Resovsky_2003}
+% \citep{Resovsky_2005}
+% \citep{Retailleau_2019}
+% \citep{Retailleau_2020}
+% \citep{RevMey97}
+% \citep{Rhie_2006}
+% \citep{Riahi_2013}
+% \citep{Ribe_1989}
+% \citep{Ricard_1993}
+% \citep{Richard_2009}
+% \citep{Richard_2010}
+% \citep{Rickers_2012}
+% \citep{Rickers_2013}
+% \citep{Rickett_1999}
+% \citep{Rickett_2000}
+% \citep{Riedesel_1989}
+% \citep{Rietmann_2012}
+% \citep{Rietmann_2017}
+% \citep{Ripley_1987}
+% \citep{RitLav95}
+% \citep{Ritzwoller_2019}
+% \citep{Ritsema_1998}
+% \citep{Ritsema_1999}
+% \citep{Ritsema_vanHeijst_2002}
+% \citep{Ritsema_2011}
+% \citep{Riznichenko_1949}
+% \citep{Robertsson_1994}
+% \citep{Roberts_1996}
+% \citep{Rob96}
+% \citep{Robin_1958}
+% \citep{Rokhlin_2009}
+% \citep{RomRou86}
+% \citep{RomSni88}
+% \citep{Romanowicz_1987}
+% \citep{Romanowicz_1995}
+% \citep{Romanowicz_2001}
+% \citep{Romanowicz_2003}
+% \citep{Romanowicz_2007}
+% \citep{Ronchi_1996}
+% \citep{Rong_2007}
+% \citep{Rosenberg_2007}
+% \citep{Rosenblueth_1945}
+% \citep{Rosenbrock_1960}
+% \citep{Rosenthal_2011}
+% \citep{Roult_1994}
+% \citep{Roux_2009}
+% \citep{Ruan_2010}
+% \citep{Rudolph_1990}
+% \citep{Ruelas_2013}
+% \citep{Roy_2010}
+% \citep{Rudin_1966}
+% \citep{Rupke_2004}
+% \citep{Ruth_1983}
+% \citep{Rydberg_2000}
+% \citep{Rytov_1956}
+% \citep{Qi_2002}
+% \citep{Quarteroni_2000}
+% \citep{Quispel_2008}
+% \citep{Sabra_2005}
+% \citep{Sad72}
+% \citep{Sager_2018}
+% \citep{Sager_2018b}
+% \citep{Sager_2020}
+% \citep{Saito_1988}
+% \citep{Salaun_2012}
+% \citep{Sambridge_1991}
+% \citep{Sambridge_1992}
+% \citep{Sambridge_1999a}
+% \citep{Sambridge_1999b}
+% \citep{SambridgeMosegaard_2002}
+% \citep{Sambridge_2006}
+% \citep{Sambridge_2013}
+% \citep{Sambridge_2014}
+% \citep{Samuelson_1943}
+% \citep{Sanchez_2006}
+% \citep{Santosa_1982}
+% \citep{Santosa_1988}
+% \citep{Sanz_1994}
+% \citep{Sargan_1975}
+% \citep{Sauer_1979}
+% \citep{Saunders_1998}
+% \citep{Saxena_1982}
+% \citep{Saygin_2012}
+% \citep{Scales_1997}
+% \citep{Scales_2000}
+% \citep{Schaefer_2011}
+% \citep{Schaeffer_2013}
+% \citep{Schimmel_1997}
+% \citep{Schimmel_2011}
+% \citep{Schimmel_2018}
+% \citep{Schivardi_2011}
+% \citep{Schmidt_1998}
+% \citep{Schuster_Hu_2000}
+% \citep{Schuster_2004}
+% \citep{Schulte_2001}
+% \citep{Schulte_2004}
+% \citep{Schulte_2012}
+% \citep{Shumway_2010}
+% \citep{Scognamiglio_2009}
+% \citep{Scott_2016}
+% \citep{Seah_2015}
+% \citep{Seats_2012}
+% \citep{Selby_2002}
+% \citep{Sen_2013}
+% \citep{Sen_2017}
+% \citep{Sengor_2003}
+% \citep{Sengor_2005}
+% \citep{Seriani_1994}
+% \citep{Seriani_2012}
+% \citep{Sesma_1998}
+% \citep{Sethian_1996}
+% \citep{Sethian_1999}
+% \citep{Seydoux_2017}
+% \citep{Shaw_2008}
+% \citep{Shanno_1970}
+% \citep{Shannon_1948}
+% \citep{Shao_2011}
+% \citep{Shapiro_2004}
+% \citep{Shapiro_2005}
+% \citep{Shapiro_2019}
+% \citep{Shearer_1998}
+% \citep{Shen_2008}
+% \citep{Shen_2012}
+% \citep{Shen_2013}
+% \citep{Sheng_2016}
+% \citep{Sherman_1950}
+% \citep{Shin_2006}
+% \citep{Shin_2008}
+% \citep{Siebert_2002}
+% \citep{Siebert_2010}
+% \citep{Sieminski_2007a}
+% \citep{Sieminski_2007b}
+% \citep{Sieminski_2009}
+% \citep{Sigloch_2008}
+% \citep{Silveira_1998}
+% \citep{Silver_1988}
+% \citep{Simo_1992}
+% \citep{Simon_2006}
+% \citep{Simons_2003}
+% \citep{Simmons_2010}
+% \citep{Simmons_2012}
+% \citep{Simute_2016}
+% \citep{Singh_2000}
+% \citep{Sipkin_Jordan_1979}
+% \citep{Sirgue_Pratt_2004}
+% \citep{Sirgue_2010}
+% \citep{Silwal_2016}
+% \citep{Sleep_1971}
+% \citep{Slepian_1978}
+% \citep{Sleijpen_2000}
+% \citep{Small_2017}
+% \citep{Smithyman_2009}
+% \citep{Sni88}
+% \citep{SniRom88}
+% \citep{Snieder_1986}
+% \citep{Snieder_1986b}
+% \citep{Snieder_Nolet_1987}
+% \citep{Snieder_1999}
+% \citep{Snieder_2004}
+% \citep{Snieder_2006}
+% \citep{Snieder_2006b}
+% \citep{Snieder_2009}
+% \citep{Snieder_2010}
+% \citep{Soldati_2006}
+% \citep{Song_1993}
+% \citep{Song_1996}
+% \citep{Souriau_1997}
+% \citep{Souriau_1997b}
+% \citep{Spakman_1991}
+% \citep{Spakman_1993}
+% \citep{Spica_2020}
+% \citep{SpoCar2000}
+% \citep{Spoetal2000}
+% \citep{Spoetal98}
+% \citep{SirguePratt_2004}
+% \citep{Sta77}
+% \citep{Sta80}
+% \citep{Stacey_1983}
+% \citep{Staehler_2014}
+% \citep{Staehler_2017}
+% \citep{Stange_1992}
+% \citep{Stead_1988}
+% \citep{Stefan_1891}
+% \citep{Stein_1997}
+% \citep{Stehly_2006}
+% \citep{Stehly_2007}
+% \citep{Stehly_2008}
+% \citep{Stehly_2009}
+% \citep{Stehly_2011}
+% \citep{Stehly_2016}
+% \citep{Steptoe_2013}
+% \citep{Stephani_1995}
+% \citep{Stich_2009}
+% \citep{Stixrude_2005}
+% \citep{Stixrude_2011}
+% \citep{Struve_1952}
+% \citep{Stutzmann_1997}
+% \citep{Stutzmann_2000}
+% \citep{Stutzmann_2012}
+% \citep{Styblinski_1990}
+% \citep{Su_1994}
+% \citep{Suetal93}
+% \citep{Suetal94}
+% \citep{Sun_2016}
+% \citep{Swa93}
+% \citep{Swa96}
+% \citep{Symes_1980}
+% \citep{Symes_2008}
+% \citep{Symon_1971}
+% \citep{Szu_1987}
+% \citep{Taillandier_2009}
+% \citep{Taira_2001}
+% \citep{Takam_2011}
+% \citep{Takeuchi_1972}
+% \citep{Takeuchi_2012}
+% \citep{Taylor_97}
+% \citep{Takeuchi_2000}
+% \citep{Taketal2000}
+% \citep{Taketal96}
+% \citep{Takeuchi_Saito_1972}
+% \citep{Tang_2014}
+% \citep{Tanimoto_1984a}
+% \citep{Tanimoto_1984b}
+% \citep{Tanimoto_1986}
+% \citep{Tanimoto_1991}
+% \citep{Tao_1990}
+% \citep{Tape_2007}
+% \citep{Tape_2009}
+% \citep{Tape_2010}
+% \citep{Tape_2012}
+% \citep{Tape_2015}
+% \citep{Tarantola_Valette_1982}
+% \citep{Tarantola_Valette_1982b}
+% \citep{Tarantola_1984}
+% \citep{Tarantola_1986}
+% \citep{Tarantola_1988}
+% \citep{Tarantola_2005}
+% \citep{Tatsumi_1989}
+% \citep{Tatsumi_1990}
+% \citep{Tesetal92}
+% \citep{Tessmer_2000}
+% \citep{Thoetal2000}
+% \citep{Thompson_1992}
+% \citep{Thomson_1950}
+% \citep{Thomson_1982}
+% \citep{Thordarson_2003}
+% \citep{Thrastarson_2020}
+% \citep{Thrastarson_2021}
+% \citep{Thurin_2019}
+% \citep{Thybo_1997}
+% \citep{Tian_2009}
+% \citep{Tian_2015}
+% \citep{Tkalcic_2008}
+% \citep{Tondi_2000}
+% \citep{Tondi_2009}
+% \citep{Tone_2009}
+% \citep{Tong_1998}
+% \citep{Tong_2017}
+% \citep{Tork_2019}
+% \citep{Toxvaerd_1994}
+% \citep{Toxvaerd_2012}
+% \citep{Traer_2014}
+% \citep{Trampert_1995}
+% \citep{Trampert_2002}
+% \citep{Trampert_2003}
+% \citep{Trampert_2004}
+% \citep{Trampert_2013}
+% \citep{Trampert_Fichtner_2013}
+% \citep{TroDah90}
+% \citep{TroDah92}
+% \citep{TroDah93}
+% \citep{Tromp_2005}
+% \citep{Tromp_2010}
+% \citep{Tromp_2019}
+% \citep{Trujillo_2001}
+% \citep{Tsai_2009}
+% \citep{Tsai_2010}
+% \citep{Tsai_2011}
+% \citep{Turcotte_2014}
+% \citep{Turin_1960}
+% \citep{Turner_1942}
+% \citep{Umetal91}
+% \citep{Unwin_2004}
+% \citep{Vackar_2017}
+% \citep{Vai_1999}
+% \citep{Valentine_2010}
+% \citep{Valentine_2010b}
+% \citep{Valentine_2012}
+% \citep{Valentine_2016}
+% \citep{Val86}
+% \citep{Val87}
+% \citep{Val89a}
+% \citep{Val89b}
+% \citep{Valette_1986}
+% \citep{Vallee_2013}
+% \citep{Vanacore_2012}
+% \citep{vanDriel_2014}
+% \citep{vanDriel_2014b}
+% \citep{vanDriel_2015}
+% \citep{vanDriel_2020}
+% \citep{vanHerwaarden_2020}
+% \citep{vanHerwaarden_2019}
+% \citep{vanHerwaarden_2018}
+% \citep{vanHinsbergen_2010}
+% \citep{vanLeeuwen_2010}
+% \citep{vanLeeuwen_2013}
+% \citep{vanDalen_2014}
+% \citep{vanderNeut_2011}
+% \citep{vanVleck_1966}
+% \citep{Vasconcelos_2008a}
+% \citep{Vasconcelos_2008b}
+% \citep{Vasconcelos_2009}
+% \citep{Vaseghi_2007}
+% \citep{VasJon98}
+% \citep{Verbeke_2012}
+% \citep{Verlet_1967}
+% \citep{Verma_1960}
+% \citep{Vidale_1998}
+% \citep{Vidale_2000}
+% \citep{Viens_2017}
+% \citep{Viens_2019}
+% \citep{Vinetal95}
+% \citep{Vinnik_1989}
+% \citep{Vinnik_1995}
+% \citep{Vinnik_1997}
+% \citep{Vinnik_1998}
+% \citep{Virieux_1984}
+% \citep{Virieux_1986}
+% \citep{Virieux_2009}
+% \citep{Visser_2008}
+% \citep{Visser_2019}
+% \citep{Wakita_2013}
+% \citep{Waldrop_2016}
+% \citep{Walter_2020}
+% \citep{Wang_1995}
+% \citep{Wang_2015}
+% \citep{Ware_1969}
+% \citep{Warner_2013}
+% \citep{Warren_2002}
+% \citep{Wapenaar_2004}
+% \citep{Wapenaar_2006}
+% \citep{Wapenaar_2008}
+% \citep{Wapenaar_2010}
+% \citep{Wapenaar_2011}
+% \citep{Wapenaar_2011b}
+% \citep{Wapenaar_2013}
+% \citep{Wapenaar_2014}
+% \citep{Wassermann_2012}
+% \citep{Weaver_2004}
+% \citep{Weaver_2008}
+% \citep{Weaver_2011}
+% \citep{Weaver_2018}
+% \citep{Web93}
+% \citep{Weber_2006}
+% \citep{Weemstra_2013}
+% \citep{Wei_2012b}
+% \citep{Wei_2012}
+% \citep{Wei_2015}
+% \citep{Wei_2015b}
+% \citep{Welch_1967}
+% \citep{Wen_1998}
+% \citep{Wen_1998b}
+% \citep{Whitehead_1975}
+% \citep{Widmer_1991}
+% \citep{WidHil97}
+% \citep{Wielandt_1987}
+% \citep{Wiener_1949}
+% \citep{Wiggins_1972}
+% \citep{WilGar96}
+% \citep{Wolfe1997}
+% \citep{Wolpert_1997}
+% \citep{Woodard_1997}
+% \citep{Woo80}
+% \citep{Woo83}
+% \citep{WooDah78}
+% \citep{WooWon86}
+% \citep{Woodhouse_1984}
+% \citep{Woodhouse_1986}
+% \citep{Woodhouse_1988}
+% \citep{Woodhouse_Dahlen_1978}
+% \citep{Woodhouse_Girnius_1982}
+% \citep{Woodhouse_2007}
+% \citep{Worthen_2014}
+% \citep{Wu_Aki_1985}
+% \citep{Wu_Toksoz_1987}
+% \citep{Wysession_2000}
+% \citep{Xu_2019}
+% \citep{Yamazaki_2011}
+% \citep{Yanovskaya_1997}
+% \citep{Yanovskaya_2000}
+% \citep{Yanovskaya_2016}
+% \citep{Yan_2007}
+% \citep{Yang_2007}
+% \citep{Yang_2008}
+% \citep{Yang_2021}
+% \citep{Yao_2009}
+% \citep{YarRok98}
+% \citep{Ying_1996}
+% \citep{Ying_1998}
+% \citep{YuPar93}
+% \citep{Yu_2002}
+% \citep{Yolsal_2012}
+% \citep{Yomogida_1992}
+% \citep{Yoritomo_2016}
+% \citep{Yoshida_1990}
+% \citep{Yoshizawa_2004}
+% \citep{Yoshizawa_2005}
+% \citep{Yoshizawa_2010}
+% \citep{Yoshizawa_2010b}
+% \citep{Yuan_2015}
+% \citep{Zaroli_2017}
+% \citep{Zaroli_2019}
+% \citep{Zadeh_2013}
+% \citep{Zhao_2004}
+% \citep{Zhao_2007}
+% \citep{Zhao_2009}
+% \citep{Zhao_2013}
+% \citep{ZhaDah96}
+% \citep{Zhao_2005}
+% \citep{Zhao_2000}
+% \citep{Zhan_2013}
+% \citep{Zhang_1993}
+% \citep{Zhang_2007}
+% \citep{Zhang_2007b}
+% \citep{Zhang_2020}
+% \citep{ZieMor83}
+% \citep{Zielhuis_Nolet_1994}
+% \citep{Zielhuis_Nolet_1994b}
+% \citep{Zhang_1996}
+% \citep{Zhao_2004a}
+% \citep{Zhao_2006}
+% \citep{Zhang_2011}
+% \citep{Zheng_2011}
+% \citep{Zhou_1995}
+% \citep{Zhou_2004}
+% \citep{Zhou_2006}
+% \citep{Zhou_2009}
+% \citep{Zhou_2009b}
+% \citep{Zhou_2011}
+% \citep{Zhu_2000}
+% \citep{Zhu_2007}
+% \citep{Zhu_2012}
+% \citep{Zhu_2013}
+% \citep{Zhu_2015}
+% \citep{Zhu_2016}
+% \citep{Zunino_2009}
+% \citep{Zunino_2018}

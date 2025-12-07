@@ -1,0 +1,101 @@
+{
+  "dataDir": "data",
+  "resultsDir": "results_italy_custom",
+  "catalogStartYear": 1960,
+  "learnStartYear": 1990,
+  "learnEndYear": 2012,
+  "forecastStartYear": 2012,
+  "forecastEndYear": 2022,
+  "inputFiles": {
+    "catalogFile": "HORUS_Italy_RDN2008_polygon_filtered.mat",
+    "neighborhoodRegionFile": "CPTI15.mat",
+    "testingRegionFile": "CELLE_ter.mat"
+  },
+  "outputFiles": {
+    "EEPASParamPattern": "Fitted_par_EEPAS_%d_%d.csv",
+    "PPEParamPattern": "Fitted_par_PPE_%d_%d.csv",
+    "AftershockParamPattern": "Fitted_par_aftershock_%d_%d.csv",
+    "EEPASForecastPattern": "PREVISIONI_3m_EEPAS_%d_%d.mat",
+    "PPEForecastPattern": "PREVISIONI_3m_PPE_%d_%d.mat"
+  },
+  "optimization": {
+    "strategy": "custom",
+    "custom": {
+      "description": "自訂兩階段策略：先優化主要參數，再微調不確定性",
+      "stages": [
+        {
+          "name": "main_parameters",
+          "description": "優化主要尺度參數",
+          "optimize": ["am", "at", "ba", "Sa", "u"],
+          "fix": {
+            "bm": 1.0,
+            "Sm": 0.32,
+            "bt": 0.4,
+            "St": 0.23
+          },
+          "bounds": {
+            "am": [1.0, 2.0],
+            "at": [1.0, 3.0],
+            "ba": [0.2, 0.6],
+            "Sa": [1.0, 30.0],
+            "u": [0.0, 1.0]
+          }
+        },
+        {
+          "name": "uncertainty_tuning",
+          "description": "微調不確定性和斜率參數",
+          "optimize": ["Sm", "bt", "St", "u"],
+          "fix": {
+            "bm": 1.0
+          },
+          "inherit": ["am", "at", "ba", "Sa"],
+          "bounds": {
+            "Sm": [0.2, 0.65],
+            "bt": [0.3, 0.65],
+            "St": [0.15, 0.6],
+            "u": [0.0, 1.0]
+          }
+        },
+        {
+          "name": "joint_optimization",
+          "description": "聯合優化所有參數",
+          "optimize": ["am", "Sm", "at", "bt", "St", "ba", "Sa", "u"],
+          "fix": {
+            "bm": 1.0
+          },
+          "inherit": "all",
+          "bounds": {
+            "am": [1.0, 2.0],
+            "Sm": [0.2, 0.65],
+            "at": [1.0, 3.0],
+            "bt": [0.3, 0.65],
+            "St": [0.15, 0.6],
+            "ba": [0.2, 0.6],
+            "Sa": [1.0, 30.0],
+            "u": [0.0, 1.0]
+          }
+        }
+      ]
+    }
+  },
+  "modelParams": {
+    "delay": 50,
+    "B": 1.084,
+    "m0": 2.45,
+    "mT": 5.0,
+    "delta": 0.7,
+    "p": 1.2,
+    "c": 0.03,
+    "sigmaU": 0.006,
+    "weightFlag": 1,
+    "useCausalEW": 0,
+    "useRollingUpdate": true,
+    "forecastPeriodDays": 91.31,
+    "timeComp": {
+      "enable": true,
+      "mode": "B",
+      "omega": 0.0,
+      "lead_time_days": 90
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "dataDir": "data",
+  "resultsDir": "test_custom_results",
+  "catalogStartYear": 1960,
+  "learnStartYear": 1990,
+  "learnEndYear": 2012,
+  "forecastStartYear": 2012,
+  "forecastEndYear": 2022,
+  "inputFiles": {
+    "catalogFile": "HORUS_Italy_RDN2008_polygon_filtered.mat",
+    "neighborhoodRegionFile": "CPTI15.mat",
+    "testingRegionFile": "CELLE_ter.mat"
+  },
+  "optimization": {
+    "stage1": {
+      "parameters": ["am", "at"],
+      "initialValues": [1.5, 1.5],
+      "lowerBounds": [1.0, 1.0],
+      "upperBounds": [2.0, 3.0],
+      "fixedValues": {
+        "bm": 1.0,
+        "Sm": 0.32,
+        "bt": 0.4,
+        "St": 0.23,
+        "ba": 0.35,
+        "Sa": 10.0,
+        "u": 0.2
+      }
+    },
+    "stage2": {
+      "parameters": ["Sa", "u"],
+      "initialValues": [10.0, 0.2],
+      "lowerBounds": [1.0, 0.0],
+      "upperBounds": [30.0, 1.0],
+      "fixedValues": {
+        "bm": 1.0,
+        "Sm": 0.32,
+        "bt": 0.4,
+        "St": 0.23,
+        "ba": 0.35
+      }
+    }
+  },
+  "modelParams": {
+    "delay": 50,
+    "B": 1.084,
+    "m0": 2.45,
+    "mT": 5.0,
+    "delta": 0.7,
+    "p": 1.2,
+    "c": 0.03,
+    "sigmaU": 0.006,
+    "weightFlag": 1,
+    "useCausalEW": 0,
+    "useRollingUpdate": true,
+    "forecastPeriodDays": 91.31
+  }
+}

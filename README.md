@@ -337,15 +337,6 @@ python3 utils/convert_to_twd97.py \
 
 ## ⚙️ Configuration
 
-### Taiwan Configurations
-
-| Config File | Description | m0 | Dataset | Expected NLL | Results Directory |
-|------------|-------------|-----|---------|--------------|-------------------|
-| `config.json` | Standard configuration | 2.35 | filtered | -344.83 | results/ |
-| `config_decluster.json` | Declustered configuration | 2.05 | declustered | -292.15 | results_decluster/ |
-| `config_include921.json` | Include 921 earthquake | 2.35 | complete | -342.67 | results_include921/ |
-| `config_m205.json` | m0=2.05 configuration | 2.05 | declustered | -296.72 | results_m205_python/ |
-
 ### Italy Configurations
 
 | Config File | Description | Learning Period | Forecast Period | useCausalEW | Results Directory |
@@ -369,21 +360,21 @@ python3 utils/convert_to_twd97.py \
 ```json
 {
   "dataDir": "data",
-  "resultsDir": "results",
-  "catalogStartYear": 1991,
-  "learnStartYear": 2002,
-  "learnEndYear": 2016,
-  "forecastStartYear": 2016,
-  "forecastEndYear": 2024,
+  "resultsDir": "results_italy_causal_ew0",
+  "catalogStartYear": 1985,
+  "learnStartYear": 1990,
+  "learnEndYear": 2012,
+  "forecastStartYear": 2012,
+  "forecastEndYear": 2022,
   "inputFiles": {
-    "catalogFile": "GDMScatalog_A_filtered_twd97.mat",            // Earthquake catalog
-    "neighborhoodRegionFile": "CPTI11.mat",                       // Neighborhood region (source events)
-    "testingRegionFile": "CELLE_ter_TW_twd97_24regions_correct.mat"  // Testing region (target events)
+    "catalogFile": "HORUS_Italy_RDN2008_polygon_filtered.mat",
+    "neighborhoodRegionFile": "CPTI15.mat",
+    "testingRegionFile": "CELLE_ter.mat"
   },
   "modelParams": {
-    "m0": 2.35,
+    "m0": 3.0,
     "mT": 5.0,
-    "B": 0.942069105,
+    "B": 0.96,
     ...
   }
 }
@@ -391,25 +382,13 @@ python3 utils/convert_to_twd97.py \
 
 ## 🧪 Testing and Validation
 
-### Taiwan Mode - Comparison with MATLAB Version
-
-All configurations validated against original MATLAB version with 100% identical results:
-
-| Configuration | Python NLL | MATLAB NLL | Difference |
-|--------------|------------|------------|------------|
-| standard | -344.83 | -344.83 | 0.00 |
-| decluster | -292.15 | -292.15 | 0.00 |
-| include921 | -342.67 | -342.67 | 0.00 |
-| m205 | -296.72 | -296.72 | 0.00 |
-
 ### Italy Mode - Region Implementation Validation
 
 Fully compliant with mathematical definitions in ggad123.pdf Equation 1:
 
 - ✅ **Source Events**: From Neighborhood Region (avoids edge effects)
 - ✅ **Target Event Summation**: Restricted to Testing Region R
-- ✅ **Integration Range**: Integrated over Testing Region R (CELLE grid)
-- ✅ **Taiwan Mode Backward Compatibility**: Testing Region = Neighborhood Region
+- ✅ **Integration Range**: Integrated over Testing Region R (177 grid cells)
 
 ### Performance Validation
 

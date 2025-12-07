@@ -205,6 +205,11 @@ test_*.sh
 *.tex
 *.bib
 
+# Taiwan-related data files (not used for Italy application)
+data/*TW*
+data/*twd97*
+data/GDMS*
+
 # Logs with special characters
 *\r\r
 

@@ -1,0 +1,220 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.3.0] - 2025-11-06
+
+### Added
+- 🔬 **Numerical Integration Refactoring and Validation (Core Feature)**:
+  - Unified numerical integration interface: `utils/numerical_integration.py`
+  - Implemented ACCURATE mode (scipy.dblquad double integration)
+  - Implemented FAST mode (trapezoidal rule integration, default)
+  - All modules support `--accurate` and `--fast` parameter switching
+  - Complete ACCURATE vs FAST comparison report (`ACCURATE_VS_FAST_COMPARISON_REPORT.md`)
+- ✅ **Numerical Integration Validation Results**:
+  - Two causality settings tested: useCausalEW=0 (Fixed EW) and useCausalEW=1 (Dynamic EW)
+  - **All parameter relative differences < 0.2%**, validating sufficient trapezoidal rule precision
+  - PPE parameter difference < 0.001%
+  - EEPAS parameter difference < 0.16%
+  - Forecast Lambda difference < 0.004%
+- ⚡ **Performance Benchmarking**:
+  - FAST mode overall **1.75x faster** (Forecast stage **4x faster**)
+  - **Recommended strategy**: Use FAST mode for daily research, ACCURATE mode for final paper validation
+- 📊 **Lambda Integration Validation Tools**:
+  - Learning stage Λ_PPE validation: should approximate target event count N
+  - Forecast stage Lambda sum validation tool (`analysis/analyze_forecast_lambda.py`)
+  - Fixed index column handling issue, correctly calculates prediction rate sum
+  - **Validation results**:
+    - Learning: Λ_PPE ≈ 27.00 (target 27 events) ✓
+    - Forecast: PPE ~14 + EEPAS ~16 = ~30 (close to observed 27) ✓
+- 🚀 **Automated Workflow Scripts**:
+  - `run_full_workflow_two_periods.sh` - FAST mode dual causality setting complete workflow
+  - `run_full_workflow_two_periods_accurate.sh` - ACCURATE mode dual causality setting complete workflow
+  - `run_causal_ew_comparison.sh` - Causality weight comparison script
+  - Support for `--no-boundary-adjustment` parameter
+
+### Changed
+- 📚 **Core Module Updates**:
+  - `ppe_optimization.py` - Support for ACCURATE/FAST mode switching
+  - `eepas_likelihood.py` - Unified use of numerical_integration module
+  - `ppe_make_forecast.py` - Support for `--accurate` parameter
+  - `eepas_make_forecast.py` - Support for `--accurate` parameter
+  - `fit_aftershock_params.py` - Support for `--accurate` parameter
+  - All numerical integration calls unified interface
+- 📖 **Documentation Updates**:
+  - README.md updated to v1.3.0, emphasizing numerical integration validation achievements
+  - CHANGELOG.md detailed recording of refactoring process and validation results
+  - CLAUDE.md added ACCURATE vs FAST mode usage guide
+  - CLAUDE.md added Lambda sum validation methodology explanation
+  - Configuration list updated (EW0/EW1 test configurations)
+
+### Fixed
+- 🐛 Fixed issue of not excluding index column when calculating Forecast Lambda
+- 🔧 Unified numerical integration calling method, eliminated duplicate code
+- 🔧 Improved EEPAS Learning boundary adjustment strategy
+
+### Validated
+- ✅ **Numerical Integration Refactoring Successfully Validated**:
+  - Trapezoidal rule (FAST) and dblquad (ACCURATE) results highly consistent
+  - Parameter differences < 0.2% for all test configurations
+  - Lambda integration validation passed (Learning and Forecast stages)
+  - **Conclusion**: Refactored numerical integration implementation is correct, FAST mode can be safely used for daily research
+
+### Performance
+- ⚡ FAST mode compared to ACCURATE mode:
+  - PPE Learning: ~1.3x speedup
+  - Aftershock Fitting: ~1.5x speedup
+  - EEPAS Learning: ~1.3x speedup
+  - PPE Forecast: ~4.0x speedup
+  - EEPAS Forecast: ~4.0x speedup
+  - **Overall**: ~1.75x speedup
+
+---
+
+## [1.2.0] - 2025-10-30
+
+### Added
+- 🌍 **Complete Italy Mode Support and Paper Validation**:
+  - Testing Region and Neighborhood Region area management
+  - All modules support Italy earthquake data (PPE/EEPAS Learning/Forecast + Aftershock)
+  - Compliant with ggad123.pdf Equation 1 mathematical definition
+  - ✅ **Paper Consistency Validation Completed**:
+    - PPE and EEPAS forecast formulas fully consistent with paper
+    - mT anchor support (`--ppe-ref-mag mT --target-mag mT`)
+    - Single-round optimization mode (`--max-rounds 1`) matches paper methodology
+    - Complete validation results in `results_italy_paper_1round_full/` (archived)
+- ⚡ **Performance Optimization**:
+  - PPE Forecast fast mode (Numba JIT): 60-70x faster, precision loss <0.03%
+  - EEPAS Forecast optimization: optimized from 277 seconds to 56 seconds (5x speedup)
+- 🧪 **Complete Validation**:
+  - Region implementation fully correct (source events, target events, integration range)
+  - Taiwan mode 100% backward compatible
+  - Italy mode parameter results consistent with paper (1990-2012 learning period, 2012-2022 forecast period)
+
+### Changed
+- 📚 **Documentation Updates**:
+  - README.md added paper validation workflow and latest achievements
+  - Added Italy quick start guide
+  - Updated directory structure description
+
+### Fixed
+- 🐛 Improved region filtering logic (Testing vs Neighborhood)
+- 🔧 Italy data loading and processing
+
+### Validated
+- ✅ PPE Learning: a=0.616, d=29.64, s≈0 (mT=5.0 anchor)
+- ✅ Aftershock parameters: v=0.577, k=0.205
+- ✅ EEPAS parameters: NLL=-495.41 (8 parameters single-round optimization)
+- ✅ Mathematical formula validation: PPE and EEPAS forecast logic fully consistent with ggad123.pdf
+
+---
+
+## [1.1.0] - 2025-10-19
+
+### Added
+- 🔬 **Optimizer Support Expansion**:
+  - Added L-BFGS-B, TNC, SLSQP, Powell optimizers
+  - Basin-Hopping global optimization strategy
+  - Multistart multiple starting point strategy (customizable number of starting points)
+- 📊 **Optimizer Comparison Study**:
+  - Complete optimizer comparison report (OPTIMIZER_COMPARISON_REPORT.md)
+  - Systematic comparison of 5 optimizers across 4 configurations
+  - Tested Multistart (3/10 starting points), Basin-Hopping, Hybrid strategies
+- 🎯 **Single-Stage Optimization Mode**:
+  - `--no-multistart` parameter support for single starting point optimization
+  - `--optimizer` parameter for optimizer selection
+  - `--n-starts` parameter for customizable multistart starting points
+  - `--basinhopping` and `--basinhopping-niter` parameters
+
+### Changed
+- ⚡ **Convergence Criteria Optimization**:
+  - Adjusted convergence tolerances for different optimizers to ensure fair comparison
+  - scipy gradient optimizers use relative ftol, fmin uses absolute ftol
+  - L-BFGS-B: ftol=1e-9, gtol=1e-7
+  - SLSQP: ftol=1e-12
+  - TNC: ftol=1e-9, gtol=1e-3
+
+### Fixed
+- 🐛 Fixed optimizer convergence criteria inconsistency issue
+- 🔧 Improved boundary adjustment logic
+
+### Research Findings
+- ✅ **fminsearchcon (Nelder-Mead) most robust** (finds high-quality solutions on all configurations)
+- ⚡ **Gradient methods fast but unstable** (50% success rate, prone to local optima)
+- ❌ **Basin-Hopping and large Multistart (>10) ineffective for this problem**
+- 💡 **Recommended strategy**: Run fminsearchcon and L-BFGS-B + Multistart in parallel, select better result
+
+### Archived
+- 📦 All optimizer test data moved to `archive/optimizer_tests_2025_10_19/`
+
+---
+
+## [1.0.0] - 2025-10-15
+
+### Added
+- 🎉 Initial release of Python implementation
+- ✨ Complete EEPAS model implementation (PPE, EEPAS, Aftershock learning)
+- 🚀 Automatic boundary adjustment for EEPAS learning
+- 📊 Analysis tools:
+  - Earthquake distribution analysis (6 vs 24 regions)
+  - Weight analysis across 4 configurations
+  - Region subdivision tool (6 → 24 regions)
+- 🔧 Coordinate conversion tool (WGS84 ↔ TWD97)
+- 📈 4 pre-configured setups:
+  - Standard (m0=2.35)
+  - Declustered (m0=2.05)
+  - Include 921 earthquake (m0=2.35)
+  - m0=2.05 variant
+- 📚 Comprehensive documentation:
+  - README.md with quick start guide
+  - USAGE.md with detailed instructions
+  - Analysis documentation in docs/
+- 🧪 Full validation against MATLAB version (100% match)
+- 🎯 Standalone python_src directory (no external dependencies)
+- ⚡ Performance optimization with Numba JIT
+
+### Changed
+- Migrated all MATLAB analysis scripts to Python
+- Refactored code structure for better organization
+- Updated directory layout for professional project structure
+
+### Fixed
+- Boundary touching issues in EEPAS optimization
+- Coordinate conversion precision (< 0.01m error)
+- Path handling for cross-platform compatibility
+
+### Technical
+- Python 3.8+ support
+- Dependencies: numpy, scipy, numba, pandas, h5py, matplotlib, pyproj
+- MIT License
+- Git-friendly structure with .gitignore
+
+---
+
+## [Unreleased]
+
+### Planned Features
+- GUI interface for parameter tuning
+- Real-time earthquake monitoring integration
+- Web API for forecast delivery
+- Docker containerization
+- CI/CD pipeline with GitHub Actions
+- Performance benchmarks
+- Additional coordinate systems support
+
+---
+
+**Legend**:
+- 🎉 Major milestone
+- ✨ New feature
+- 🚀 Enhancement
+- 📊 Analysis/Tool
+- 🔧 Utility
+- 📚 Documentation
+- 🧪 Testing
+- 🐛 Bug fix
+- ⚡ Performance
+- 🔒 Security

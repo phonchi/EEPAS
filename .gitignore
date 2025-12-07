@@ -51,10 +51,13 @@ logs/
 *.tmp
 *.temp
 *.bak
+*.backup
 *.orig
 *.round*.bak
 *Zone.Identifier
 *_autoadjusted_round*.json
+*.before_*
+*.DEPRECATED
 
 # Results (too large for GitHub)
 results/
@@ -107,20 +110,60 @@ archive/
 *_original/
 archive_test_files/
 
-# Non-Sphinx development docs
-CUSTOM_STAGES_USAGE.md
-OPTIMIZATION_MODES_GUIDE.md
-STAGE1_SINGLE_STAGE_IMPLEMENTATION.md
-STAGE1_VERIFICATION_REPORT.md
-ACCURATE_VS_FAST_COMPARISON_REPORT.md
-NUMERICAL_INTEGRATION_USAGE.md
-INTERNATIONALIZATION_AND_SPHINX_PLAN.md
-USAGE_EN.md
-CHANGELOG_EN.md
-INTERNATIONALIZATION_COMPLETE.md
-SPHINX_DOCUMENTATION_GUIDE.md
-DOCUMENTATION_DEPLOYMENT_SUMMARY.md
-DOCUMENTATION_UPDATE_SUMMARY.md
+# Development and test documentation (keep only essential docs)
+# Keep: README.md, USAGE.md, CHANGELOG.md, LICENSE, CLAUDE.md
+# Keep: CORE_MODULES_DEPENDENCY.md, GITHUB_UPLOAD_PLAN.md
+# Keep: FIX_LARGE_FILES.md, CLEAN_GIT_HISTORY.md
+# Ignore everything else:
+
+# Development status reports
+*_SUMMARY.md
+*_REPORT.md
+*_COMPLETE.md
+*_PLAN.md
+*_STATUS.md
+*_GUIDE.md
+*_RESULTS.md
+*_VERIFICATION*.md
+*_IMPLEMENTATION*.md
+*_UPDATE*.md
+*_FIX*.md
+*_CLEANUP*.md
+*_INTEGRATION*.md
+*_MIGRATION*.md
+*_ANALYSIS*.md
+
+# Specific development docs
+BACKUP_*.md
+CATALOG_*.md
+CUSTOM_*.md
+DOCSTRING_*.md
+LOGO_*.md
+MULTIFORMAT_*.md
+MULTI_FORMAT_*.md
+NEW_STRATEGY_*.md
+OPTIMIZATION_*.md
+QUICK_START_*.md
+STRATEGY_*.md
+VERIFICATION_*.md
+INTERNATIONALIZATION*.md
+SPHINX_*.md
+DOCUMENTATION_*.md
+
+# Specific files in subdirectories
+docs/*_SUMMARY.md
+docs/*_REPORT.md
+docs/*_COMPLETE.md
+docs/*_PLAN.md
+docs/*_UPDATE.md
+docs/*_FIX*.md
+docs/*_CLEANUP*.md
+docs/*.txt
+analysis/*_SUMMARY.md
+analysis/*_COMPLETE.md
+analysis/*_GUIDE.md
+analysis/*_VERIFICATION.md
+utils/*_UPDATE.md
 
 # Test and temporary config files
 config_test_*.json
@@ -146,6 +189,24 @@ analysis/run_weight_analysis.py
 analysis/region_subdivision.py
 analysis/distribution_analysis.py
 analysis/weight_analysis.py
+
+# Test scripts
+test_*.py
+test_*.json
+test_*.sh
+
+# Shell scripts (except essential upload scripts)
+*.sh
+!prepare_github_upload.sh
+!fix_and_upload.sh
+!clean_git_history.sh
+
+# LaTeX and bibliography
+*.tex
+*.bib
+
+# Logs with special characters
+*\r\r
 
 # Note: 以下檔案是核心依賴，必須保留（不要加到 .gitignore）：
 # - eepas_learning.py (被 eepas_learning_auto_boundary.py 引用)

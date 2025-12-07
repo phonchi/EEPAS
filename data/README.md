@@ -15,12 +15,6 @@ Download from: https://drive.google.com/drive/folders/170WNb8M8PQJDX1B2JSQYfqj4a
 - **Coverage**: Italy seismic events (1990-2022)
 - **Coordinate System**: RDN2008 (EPSG:6875)
 
-### Taiwan Catalog
-- **File**: `GDMScatalog_A_filtered_twd97.mat`
-- **Format**: GDMS format with TWD97 coordinates
-- **Coverage**: Taiwan seismic events
-- **Coordinate System**: TWD97 (EPSG:3826)
-
 ## Spatial Grid Definitions
 
 ### Italy Testing Region
@@ -35,26 +29,18 @@ Download from: https://drive.google.com/drive/folders/170WNb8M8PQJDX1B2JSQYfqj4a
 - **Source**: Italian Parametric Earthquake Catalog (CPTI15) spatial framework
 - **Usage**: Avoids boundary effects by including events outside testing region
 
-### Taiwan Testing Region
-- **File**: `CELLE_ter_TW_twd97_24regions_correct.mat`
-- **Purpose**: 24-region grid system for Taiwan
-- **Resolution**: 24 grid cells
-- **Coordinate Reference**: TWD97 projected coordinates
-
 ## Data Processing Notes
 
 ### Coordinate Systems
 - **Input Data**: WGS84 geographic coordinates (degrees)
-- **Processing**:
-  - Italy: RDN2008 projected coordinates (meters)
-  - Taiwan: TWD97 projected coordinates (meters)
+- **Processing**: RDN2008 projected coordinates (meters)
 - **Conversion**: Use `utils/coordinate_transform.py` for accurate transformations
 
 ## File Format Specifications
 
 ### Earthquake Catalog Format
 
-**HORUS/GDMS Catalog (.mat format):**
+**HORUS Catalog (.mat format):**
 | Column | Description | Units |
 |--------|-------------|-------|
 | 1 | Year | YYYY |
@@ -97,13 +83,13 @@ Row Block 2 (Period 2):  [Same structure for next 3-month period]
 
 **EEPAS Forecast Files** (`PREVISIONI_3m_EEPAS_*.mat`):
 - **Variable Name**: `PREVISIONI_3m_less`
-- **Matrix Dimensions**: N×(1+n_cells) where N = number_of_periods × 25
+- **Matrix Dimensions**: N×178 where N = number_of_periods × 25
 - **Row Structure**: Groups of 25 rows per forecast period
 - **Magnitude Resolution**: 25 bins from M5.0-M7.5 (0.1 magnitude increments)
-- **Spatial Resolution**: n_cells (177 for Italy, 24 for Taiwan)
+- **Spatial Resolution**: 177 grid cells covering Italy
 - **Column Structure**:
   - Column 1: Period identifier (integer)
-  - Columns 2 to (1+n_cells): Earthquake rates per cell per magnitude bin
+  - Columns 2-178: Earthquake rates per cell per magnitude bin
 
 **PPE Forecast Files** (`PREVISIONI_3m_PPE_*.mat`):
 - **Variable Name**: `PREVISIONI_3m`
@@ -137,21 +123,12 @@ Contains the aftershock model parameters:
 Convert between coordinate systems using:
 
 ```bash
-# Italy (RDN2008 default)
+# Italy (RDN2008)
 python3 utils/coordinate_transform.py \
   --horus-in data/HORUS_Italy.mat \
   --celle-in data/CELLE_ter.mat \
   --horus-out data/HORUS_Italy_RDN2008.mat \
   --celle-out data/CELLE_ter_RDN2008.mat
-
-# Taiwan (TWD97)
-python3 utils/coordinate_transform.py \
-  --horus-in data/HORUS_TW_A.mat \
-  --celle-in data/CELLE_ter_TW.mat \
-  --horus-out data/HORUS_TW_A_twd97.mat \
-  --celle-out data/CELLE_ter_TW_twd97.mat \
-  --target-crs twd97 \
-  --region Taiwan
 ```
 
 The output includes original coordinates plus transformed eastings/northings in kilometers.

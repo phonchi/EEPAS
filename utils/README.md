@@ -57,8 +57,8 @@ fminsearchcon(
 - `filter_by_completeness()` - Filter by completeness magnitude
 
 **Supported Formats**:
-- HORUS format (Taiwan earthquake catalog)
-- CPTI format (Italy earthquake catalog)
+- HORUS format (Italy earthquake catalog)
+- CPTI format (Italy parametric catalog)
 
 ---
 
@@ -100,7 +100,6 @@ fminsearchcon(
 **Purpose**: Coordinate system transformations
 
 **Main Functions**:
-- `wgs84_to_twd97()` - WGS84 to TWD97 (Taiwan) transformation
 - `wgs84_to_rdn2008()` - WGS84 to RDN2008 (Italy) transformation
 
 ---
@@ -171,7 +170,7 @@ data_file = get_data_path("horus_catalog.txt")
 | Boundary Adjustment | auto_boundary_adjustment.py | `check_boundary_touching()` |
 | Data Loading | data_loader.py | `load_earthquake_catalog()` |
 | Path Resolution | get_paths.py | `resolve_paths()` |
-| Coordinate Transform | coordinate_transform.py | `wgs84_to_twd97()` |
+| Coordinate Transform | coordinate_transform.py | `wgs84_to_rdn2008()` |
 | Numerical Integration | numerical_integration.py | `integrate_spatial_ppe()` |
 
 ---

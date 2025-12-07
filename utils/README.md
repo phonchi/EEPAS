@@ -149,7 +149,7 @@ pip install numpy scipy pandas pyproj
 ### ImportError: No module named 'utils'
 Ensure execution from correct directory:
 ```bash
-cd /path/to/EEPAS_Taiwan-main/src/python_src
+cd /path/to/EEPAS/src/python_src
 python3 your_script.py
 ```
 

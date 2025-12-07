@@ -195,7 +195,7 @@ python3 forecast_converter.py --input results/PREVISIONI_3m_EEPAS_2012_2022.mat 
 ### Data File Not Found
 Ensure execution from correct directory:
 ```bash
-cd /path/to/EEPAS_Taiwan-main/src/python_src
+cd /path/to/EEPAS/src/python_src
 python3 analysis/analyze_forecast_lambda.py
 ```
 

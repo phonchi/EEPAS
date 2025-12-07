@@ -1,0 +1,1235 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Optimization Strategies &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'technical/optimization';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changelog" href="../development/changelog.html" />
+    <link rel="prev" title="Numerical Integration" href="numerical_integration.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/technical/optimization.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Optimization Strategies</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-modes">Optimization Modes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-features">Additional Features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-algorithms">Optimization Algorithms</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fminsearchcon-nelder-mead-with-constraints-default">fminsearchcon (Nelder-Mead with Constraints) - Default</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slsqp-sequential-least-squares-programming">SLSQP (Sequential Least Squares Programming)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#l-bfgs-b-limited-memory-bfgs-with-bounds">L-BFGS-B (Limited-memory BFGS with Bounds)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-stage-optimization">Single-Stage Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-example">Output Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#three-stage-optimization">Three-Stage Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-sequence">Stage Sequence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">Mathematical Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Output Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-boundary-adjustment">Auto Boundary Adjustment</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Output Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-stages-optimization">Custom Stages Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-defined-strategy-examples">Pre-defined Strategy Examples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-start-optimization">Multi-Start Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Output Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-mode-comparison">Optimization Mode Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start-guide">Quick Start Guide</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-nll-values">Understanding NLL Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="optimization-strategies">
+<h1>Optimization Strategies<a class="headerlink" href="#optimization-strategies" title="Link to this heading">#</a></h1>
+<p>This document describes the optimization algorithms and strategies used in EEPAS parameter learning.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>EEPAS parameter learning involves finding parameters that minimize the negative log-likelihood (NLL):</p>
+<div class="math notranslate nohighlight">
+\[\theta^* = \arg\min_{\theta} \text{NLL}(\theta | \text{data})\]</div>
+<p>This is a challenging non-convex optimization problem with:</p>
+<ul class="simple">
+<li><p><strong>8 parameters</strong> to optimize (EEPAS)</p></li>
+<li><p><strong>Strong parameter correlations</strong></p></li>
+<li><p><strong>Bounded constraints</strong> (all parameters must be positive)</p></li>
+<li><p><strong>Computational cost</strong> (varies by dataset size and configuration)</p></li>
+</ul>
+<section id="optimization-modes">
+<h3>Optimization Modes<a class="headerlink" href="#optimization-modes" title="Link to this heading">#</a></h3>
+<p>EEPAS supports three optimization modes that can be auto-detected or explicitly specified:</p>
+<ol class="arabic simple">
+<li><p><strong>Single-Stage Optimization</strong>: Optimize all 8 parameters simultaneously (define 8 parameters in stage1)</p></li>
+<li><p><strong>Three-Stage Optimization</strong>: Sequential optimization of parameter groups (define stage1/stage2/stage3)</p></li>
+<li><p><strong>Custom Stages Optimization</strong>: Define your own stages with full control (enableCustomStages=true)</p></li>
+</ol>
+<p><strong>Mode Auto-Detection</strong>:</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">enableCustomStages=true</span></code> in config → Custom Stages mode</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">stage1</span></code> has 8 parameters → Single-Stage mode</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">stage1</span></code> has &lt;8 parameters → Three-Stage mode</p></li>
+<li><p>Can override with <code class="docutils literal notranslate"><span class="pre">--single-stage</span></code> or <code class="docutils literal notranslate"><span class="pre">--three-stage</span></code> flags</p></li>
+</ul>
+</section>
+<section id="additional-features">
+<h3>Additional Features<a class="headerlink" href="#additional-features" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Multi-Start Optimization</strong>: Multiple random starting points (enabled by default for Single/Three-Stage)</p></li>
+<li><p><strong>Auto Boundary Adjustment</strong>: Automatic detection and correction of boundary issues (all modes)</p></li>
+</ol>
+</section>
+</section>
+<section id="optimization-algorithms">
+<h2>Optimization Algorithms<a class="headerlink" href="#optimization-algorithms" title="Link to this heading">#</a></h2>
+<p>EEPAS supports three optimization algorithms:</p>
+<section id="fminsearchcon-nelder-mead-with-constraints-default">
+<h3>fminsearchcon (Nelder-Mead with Constraints) - Default<a class="headerlink" href="#fminsearchcon-nelder-mead-with-constraints-default" title="Link to this heading">#</a></h3>
+<p><strong>Algorithm</strong>: Constrained Nelder-Mead simplex method</p>
+<dl class="simple">
+<dt><strong>Advantages</strong>:</dt><dd><ul class="simple">
+<li><p>Derivative-free (robust to non-smooth functions)</p></li>
+<li><p>Good for difficult landscapes</p></li>
+<li><p>Handles constraints via transformation</p></li>
+<li><p>More robust than gradient-based methods</p></li>
+</ul>
+</dd>
+<dt><strong>Disadvantages</strong>:</dt><dd><ul class="simple">
+<li><p>Slower convergence</p></li>
+<li><p>Higher computational cost</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default optimizer (fminsearchcon)</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json
+
+<span class="c1"># Explicit specification</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--optimizer<span class="w"> </span>fminsearchcon
+</pre></div>
+</div>
+<p><strong>Recommended For</strong>: Standard use (default), debugging convergence issues</p>
+</section>
+<section id="slsqp-sequential-least-squares-programming">
+<h3>SLSQP (Sequential Least Squares Programming)<a class="headerlink" href="#slsqp-sequential-least-squares-programming" title="Link to this heading">#</a></h3>
+<p><strong>Algorithm</strong>: Sequential quadratic programming with gradient approximation</p>
+<dl class="simple">
+<dt><strong>Advantages</strong>:</dt><dd><ul class="simple">
+<li><p>Fast convergence for smooth problems</p></li>
+<li><p>Handles bound constraints natively</p></li>
+<li><p>Good for high-dimensional problems (8+ parameters)</p></li>
+</ul>
+</dd>
+<dt><strong>Disadvantages</strong>:</dt><dd><ul class="simple">
+<li><p>May get stuck in local minima</p></li>
+<li><p>Requires good initial guess</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--optimizer<span class="w"> </span>SLSQP
+</pre></div>
+</div>
+<p><strong>Recommended For</strong>: Fast exploratory runs, smooth objective functions</p>
+</section>
+<section id="l-bfgs-b-limited-memory-bfgs-with-bounds">
+<h3>L-BFGS-B (Limited-memory BFGS with Bounds)<a class="headerlink" href="#l-bfgs-b-limited-memory-bfgs-with-bounds" title="Link to this heading">#</a></h3>
+<p><strong>Algorithm</strong>: Quasi-Newton method with limited memory</p>
+<dl class="simple">
+<dt><strong>Advantages</strong>:</dt><dd><ul class="simple">
+<li><p>Very efficient for large-scale problems</p></li>
+<li><p>Good convergence properties</p></li>
+<li><p>Low memory usage</p></li>
+</ul>
+</dd>
+<dt><strong>Disadvantages</strong>:</dt><dd><ul class="simple">
+<li><p>Sensitive to initial guess</p></li>
+<li><p>May struggle with highly correlated parameters</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Usage</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--optimizer<span class="w"> </span>L-BFGS-B
+</pre></div>
+</div>
+<p><strong>Recommended For</strong>: Quick exploratory runs</p>
+</section>
+</section>
+<section id="single-stage-optimization">
+<h2>Single-Stage Optimization<a class="headerlink" href="#single-stage-optimization" title="Link to this heading">#</a></h2>
+<p><strong>Strategy</strong>: Optimize all 8 EEPAS parameters simultaneously in one step</p>
+<div class="math notranslate nohighlight">
+\[\min_{\theta} \text{NLL}(a_m, S_m, a_t, b_t, S_t, b_a, S_a, u)\]</div>
+<dl class="simple">
+<dt><strong>Advantages</strong>:</dt><dd><ul class="simple">
+<li><p>Simpler conceptually</p></li>
+<li><p>No parameter fixing decisions needed</p></li>
+<li><p>One optimization run</p></li>
+<li><p>Multi-start enabled by default for robustness</p></li>
+</ul>
+</dd>
+<dt><strong>Disadvantages</strong>:</dt><dd><ul class="simple">
+<li><p>May struggle with parameter correlations</p></li>
+<li><p>More sensitive to initial guess</p></li>
+<li><p>Higher risk of local minima (mitigated by multi-start)</p></li>
+</ul>
+</dd>
+</dl>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h3>
+<p><strong>New Format</strong> (Recommended):</p>
+<p>Define all 8 parameters directly in <code class="docutils literal notranslate"><span class="pre">stage1</span></code> - this is automatically detected as single-stage:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;optimization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;stage1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;am&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;at&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;St&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ba&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sa&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;initialValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.32</span><span class="p">,</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.23</span><span class="p">,</span><span class="w"> </span><span class="mf">0.35</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.15</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;fixedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Old Format</strong> (Still Supported):</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;optimization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;stage3&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;am&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;at&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;St&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ba&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sa&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.075</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;fixedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-detected single-stage (when stage1 has 8 parameters)</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json
+
+<span class="c1"># Explicit single-stage (forces single-stage even with three-stage config)</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--single-stage
+
+<span class="c1"># Disable multi-start (faster but less robust)</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--no-multistart
+</pre></div>
+</div>
+</section>
+<section id="output-example">
+<h3>Output Example<a class="headerlink" href="#output-example" title="Link to this heading">#</a></h3>
+<p>Single-stage optimization outputs iteration-by-iteration progress similar to Stage 3:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>🔄 Optimizing all 8 parameters jointly
+   Initial values: am=1.50, Sm=0.32, at=1.50, bt=0.40, St=0.23, ba=0.35, Sa=2.00, u=0.20
+   Starting optimization...
+   Iteration   10: NLL = 505.234...
+   Iteration   20: NLL = 498.567...
+   ...
+   Iteration  150: NLL = 495.395...
+
+   ✅ Optimization completed
+   Final NLL: 495.394994
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Actual output format and NLL values depend on your dataset and optimizer settings.</p>
+</div>
+</section>
+</section>
+<section id="three-stage-optimization">
+<h2>Three-Stage Optimization<a class="headerlink" href="#three-stage-optimization" title="Link to this heading">#</a></h2>
+<p><strong>Strategy</strong>: Sequentially optimize parameter groups to reduce correlation issues</p>
+<dl class="simple">
+<dt><strong>Motivation</strong>:</dt><dd><ul class="simple">
+<li><p>Some parameters are highly correlated (e.g., am and Sm)</p></li>
+<li><p>Optimizing correlated groups separately improves convergence</p></li>
+<li><p>Matches the methodology in Biondini et al. (2023) paper</p></li>
+</ul>
+</dd>
+</dl>
+<section id="stage-sequence">
+<h3>Stage Sequence<a class="headerlink" href="#stage-sequence" title="Link to this heading">#</a></h3>
+<dl>
+<dt><strong>Stage 1</strong>: Primary Parameters</dt><dd><p>Optimize: <code class="docutils literal notranslate"><span class="pre">am</span></code>, <code class="docutils literal notranslate"><span class="pre">at</span></code>, <code class="docutils literal notranslate"><span class="pre">Sa</span></code>, <code class="docutils literal notranslate"><span class="pre">u</span></code></p>
+<p>Fix: <code class="docutils literal notranslate"><span class="pre">bm</span></code>, <code class="docutils literal notranslate"><span class="pre">Sm</span></code>, <code class="docutils literal notranslate"><span class="pre">bt</span></code>, <code class="docutils literal notranslate"><span class="pre">St</span></code>, <code class="docutils literal notranslate"><span class="pre">ba</span></code></p>
+<p><strong>Purpose</strong>: Establish magnitude and time scaling, initial mixing ratio</p>
+</dd>
+<dt><strong>Stage 2</strong>: Optimize Sm, bt, St, ba, u</dt><dd><p>Optimize: <code class="docutils literal notranslate"><span class="pre">Sm</span></code>, <code class="docutils literal notranslate"><span class="pre">bt</span></code>, <code class="docutils literal notranslate"><span class="pre">St</span></code>, <code class="docutils literal notranslate"><span class="pre">ba</span></code>, <code class="docutils literal notranslate"><span class="pre">u</span></code></p>
+<p>Fix: <code class="docutils literal notranslate"><span class="pre">bm</span></code>, <code class="docutils literal notranslate"><span class="pre">am</span></code> (from Stage 1), <code class="docutils literal notranslate"><span class="pre">at</span></code> (from Stage 1), <code class="docutils literal notranslate"><span class="pre">Sa</span></code> (from Stage 1)</p>
+<p><strong>Purpose</strong>: Refine variance and slope parameters, re-optimize mixing ratio</p>
+</dd>
+<dt><strong>Stage 3</strong>: Joint Optimization</dt><dd><p>Optimize: All 8 parameters simultaneously</p>
+<p>Fix: Only <code class="docutils literal notranslate"><span class="pre">bm</span></code></p>
+<p>Initial values: Results from Stages 1-2</p>
+<p><strong>Purpose</strong>: Fine-tune all parameters jointly for best global fit</p>
+</dd>
+</dl>
+</section>
+<section id="mathematical-formulation">
+<h3>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\text{Stage 1:} \quad \min_{a_m, a_t, S_a, u} \text{NLL}(\theta_1 | \theta_{\text{fixed}}^{(1)})\\\text{Stage 2:} \quad \min_{S_m, b_t, S_t, b_a, u} \text{NLL}(\theta_2 | \theta_{\text{fixed}}^{(2)})\\\text{Stage 3:} \quad \min_{\theta_{\text{all}}} \text{NLL}(\theta | b_m = \text{const})\end{aligned}\end{align} \]</div>
+</section>
+<section id="id1">
+<h3>Configuration<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Three-stage uses all three optimization sections:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;optimization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;stage1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;am&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;at&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sa&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;initialValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;fixedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;Sm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.32</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;bt&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;St&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.23</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ba&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.35</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;stage2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Sm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;St&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ba&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;initialValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.32</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.23</span><span class="p">,</span><span class="w"> </span><span class="mf">0.35</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u_from_stage1&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.15</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;stage3&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;am&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;at&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;St&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ba&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sa&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.075</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;fixedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Usage<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-detected three-stage (when stage1 has fewer than 8 parameters)</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json
+
+<span class="c1"># Explicit three-stage</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--three-stage
+
+<span class="c1"># Disable multi-start (not recommended for three-stage)</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--three-stage<span class="w"> </span>--no-multistart
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>Output Example<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>The following shows the typical three-stage optimization output structure (values are illustrative):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>🔄 Stage 1: Optimize am, at, Sa, u
+   Fixed parameters: bm=1.00, Sm=0.32, bt=0.40, St=0.23, ba=0.35
+   Initial values: am=1.50, at=1.50, Sa=2.00, u=0.20
+   Starting optimization...
+   Iteration    1: NLL = 512.478407, am=1.5000, at=1.5000, Sa=2.0000, u=0.200000
+   Iteration   10: NLL = 500.347721, am=1.5734, at=2.0433, Sa=1.7267, u=0.210678
+   ...
+   Iteration  320: NLL = 496.456507, am=1.1310, at=2.3899, Sa=1.8725, u=0.172587
+
+   ✅ Stage 1 completed
+   Best values: am=1.131021, at=2.389865, Sa=1.872489, u=0.172587
+   Stage NLL: 496.456507
+
+🔄 Stage 2: Optimize Sm, bt, St, ba, u
+   🎯 Using multi-start search (3 starting points) + Stage 3 quick evaluation
+   Starting point 1/3: Sm=0.32, bt=0.40, St=0.23, ba=0.35, u=0.17
+   → Stage 2 NLL=495.805945, Sm=0.309
+   → Stage 3 quick evaluation NLL=495.406852
+   ...
+   ✅ Stage 2 completed
+   Best values: Sm=0.309224, bt=0.398886, St=0.150000, ba=0.360706, u=0.185882
+   Stage objective value: 495.805945
+
+🔄 Stage 3: Joint optimization of all parameters
+   Initial values: [1.13, 0.31, 2.39, 0.40, 0.15, 0.36, 1.87, 0.19]
+   Starting optimization...
+   Iteration   10: NLL = 500.314676
+   Iteration   20: NLL = 497.985286
+   ...
+   Iteration  180: NLL = 495.397577
+
+   ✅ Stage 3 completed
+   Final NLL: 495.394994
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Parameter values shown are illustrative examples. Actual values depend on your dataset.</p>
+</div>
+<p><strong>Performance Comparison</strong>:</p>
+<p>Three-stage optimization provides better convergence than single-stage.</p>
+</section>
+</section>
+<section id="auto-boundary-adjustment">
+<h2>Auto Boundary Adjustment<a class="headerlink" href="#auto-boundary-adjustment" title="Link to this heading">#</a></h2>
+<p><strong>Problem</strong>: Parameters may converge to constraint boundaries, indicating:</p>
+<ol class="arabic simple">
+<li><p>Bounds are too restrictive (need expansion)</p></li>
+<li><p>True optimum is at boundary (need tighter bounds)</p></li>
+<li><p>Optimization got stuck (need different initial guess)</p></li>
+</ol>
+<p><strong>Solution</strong>: Automatically detect boundary touching and adjust bounds iteratively</p>
+<section id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Link to this heading">#</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>For round = 1 to max_rounds:
+    1. Run complete optimization (PPE → Aftershock → EEPAS)
+    2. Check if Stage 3 parameters touch boundaries (within tolerance)
+    3. If boundary touched:
+       - If at lower bound: new_lower = current_lower / expansion_factor
+       - If at upper bound: new_upper = current_upper × expansion_factor
+       - Save adjusted config (with .bak backup)
+       - Re-run entire optimization with new bounds
+    4. If no boundaries touched OR round == max_rounds: Done ✓
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>Configuration<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max-rounds<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tolerance<span class="w"> </span><span class="m">0</span>.01<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--expansion<span class="w"> </span><span class="m">2</span>.0
+</pre></div>
+</div>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--max-rounds</span> <span class="pre">N</span></code>: Maximum boundary adjustment iterations (default: 3)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--tolerance</span> <span class="pre">TOL</span></code>: Boundary touching threshold (default: 0.01, i.e., 1%)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--expansion</span> <span class="pre">FACTOR</span></code>: Boundary expansion factor (default: 2.0)</p>
+<ul>
+<li><p>Lower bound adjustment: <code class="docutils literal notranslate"><span class="pre">new_lower</span> <span class="pre">=</span> <span class="pre">current_lower</span> <span class="pre">/</span> <span class="pre">FACTOR</span></code></p></li>
+<li><p>Upper bound adjustment: <code class="docutils literal notranslate"><span class="pre">new_upper</span> <span class="pre">=</span> <span class="pre">current_upper</span> <span class="pre">×</span> <span class="pre">FACTOR</span></code></p></li>
+<li><p>Example with default (2.0): lower 0.15 → 0.075, upper 30.0 → 60.0</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Boundary Detection</strong>:</p>
+<p>A parameter is considered “touching” if:</p>
+<div class="math notranslate nohighlight">
+\[\frac{|\theta - \text{bound}|}{\text{bound}} &lt; \text{tolerance}\]</div>
+<p>Example: With tolerance=0.01, parameter St=0.150000 touches lower bound=0.15 because:</p>
+<div class="math notranslate nohighlight">
+\[\frac{|0.150000 - 0.15|}{0.15} = 0.0000 &lt; 0.01\]</div>
+</section>
+<section id="id5">
+<h3>Output Example<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>================================================================================
+Round 1 Optimization
+================================================================================
+Using PPE reference magnitude: mT = 5.0
+================================================================================
+EEPAS Model Parameter Learning - Numba Accelerated Version
+================================================================================
+Config file: config_italy_causal_ew0_accurate.json
+Learning period: 1990 - 2012
+Completeness magnitude: m0=2.45
+
+... [optimization process] ...
+
+✅ This round optimization complete
+   Final NLL = -495.406852
+
+Checking if Stage3 parameters hit boundaries...
+   ⚠️  St=0.150000 接近下界 0.150000 (距離比例=0.0000)
+   ⚠️  Sa=1.000000 接近下界 1.000000 (距離比例=0.0000)
+
+💡 Suggesting boundary adjustments (expansion factor = 2.0x):
+   St lower bound: 0.150000 → 0.075000
+   Sa lower bound: 1.000000 → 0.500000
+   💾 Configuration backed up to: config_italy_causal_ew0_accurate.json.round1.bak
+   ✅ Configuration file updated: config_italy_causal_ew0_accurate.json
+
+================================================================================
+⚠️  Maximum adjustment rounds (1) reached, stopping
+   Current NLL = -495.406852
+   Recommendation: Check if parameters still hit boundaries, may need manual further adjustment
+================================================================================
+</pre></div>
+</div>
+</section>
+</section>
+<section id="custom-stages-optimization">
+<h2>Custom Stages Optimization<a class="headerlink" href="#custom-stages-optimization" title="Link to this heading">#</a></h2>
+<p><strong>Strategy</strong>: Define your own custom optimization stages with full control over parameters, bounds, and progression</p>
+<p><strong>When to Use</strong>:</p>
+<ul class="simple">
+<li><p>You need more than 3 stages for better convergence</p></li>
+<li><p>Your dataset has specific characteristics requiring custom parameter grouping</p></li>
+<li><p>You want to implement advanced strategies like magnitude-first or conservative optimization</p></li>
+<li><p>You’re researching different optimization approaches</p></li>
+</ul>
+<section id="id6">
+<h3>Configuration<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Enable custom stages in your config file:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;optimization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;enableCustomStages&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;customStages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;magnitude&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;optimize&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;am&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sm&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;fix&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;at&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;bt&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;St&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.23</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ba&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.35</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Sa&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">10.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;u&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;bounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;am&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;Sm&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;time&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;optimize&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;St&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;inherit&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;am&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sm&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;fix&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ba&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.35</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;Sa&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">10.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;u&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;bounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;at&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;bt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;St&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.15</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;spatial_mixing&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;optimize&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ba&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sa&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;inherit&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;am&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;at&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;St&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;fix&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;bounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;ba&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;Sa&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;u&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;joint&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;optimize&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;am&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;at&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;St&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ba&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sa&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;inherit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;fix&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;bounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;am&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;Sm&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;at&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;bt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;St&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.15</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;ba&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;Sa&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;u&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Key Features</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">optimize</span></code>: List of parameters to optimize in this stage</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inherit</span></code>: Parameters to inherit from previous stages (or “all”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fix</span></code>: Parameters to fix at specified values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bounds</span></code>: Custom bounds for each optimized parameter (optional)</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>Usage<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Custom stages are auto-detected when enableCustomStages=true</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config_custom.json
+</pre></div>
+</div>
+<p><strong>Important Notes</strong>:</p>
+<ul class="simple">
+<li><p>Multi-start is <strong>NOT supported</strong> for custom stages</p></li>
+<li><p>Each stage runs once with the specified initial values</p></li>
+<li><p>Ensure parameter progression makes physical sense</p></li>
+<li><p>Test convergence carefully</p></li>
+</ul>
+</section>
+<section id="pre-defined-strategy-examples">
+<h3>Pre-defined Strategy Examples<a class="headerlink" href="#pre-defined-strategy-examples" title="Link to this heading">#</a></h3>
+<p><strong>Magnitude-First Strategy</strong> (4 stages):</p>
+<ol class="arabic simple">
+<li><p>Magnitude parameters only (am, Sm)</p></li>
+<li><p>Time parameters only (at, bt, St)</p></li>
+<li><p>Spatial + mixing (ba, Sa, u)</p></li>
+<li><p>Joint optimization</p></li>
+</ol>
+<p><strong>Conservative Strategy</strong> (5-6 stages):</p>
+<ol class="arabic simple">
+<li><p>Core scaling (am, at, Sa)</p></li>
+<li><p>Magnitude uncertainty (Sm)</p></li>
+<li><p>Time uncertainty (St)</p></li>
+<li><p>Slopes (bt, ba)</p></li>
+<li><p>Mixing (u)</p></li>
+<li><p>Final joint tuning</p></li>
+</ol>
+</section>
+</section>
+<section id="multi-start-optimization">
+<h2>Multi-Start Optimization<a class="headerlink" href="#multi-start-optimization" title="Link to this heading">#</a></h2>
+<p><strong>Problem</strong>: Non-convex objective may have multiple local minima</p>
+<p><strong>Solution</strong>: Run optimization from multiple random initial guesses and select best result</p>
+<section id="id8">
+<h3>Algorithm<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">best_nll</span> <span class="o">=</span> <span class="o">+</span><span class="n">inf</span>
+<span class="n">best_params</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_multistart</span><span class="p">):</span>
+    <span class="c1"># Generate random initial guess within bounds</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">random_uniform</span><span class="p">(</span><span class="n">lower_bounds</span><span class="p">,</span> <span class="n">upper_bounds</span><span class="p">)</span>
+
+    <span class="c1"># Run optimization</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">)</span>
+
+    <span class="c1"># Track best result</span>
+    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">fun</span> <span class="o">&lt;</span> <span class="n">best_nll</span><span class="p">:</span>
+        <span class="n">best_nll</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">fun</span>
+        <span class="n">best_params</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span>
+
+<span class="k">return</span> <span class="n">best_params</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>Configuration<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>Multi-start is <strong>enabled by default</strong> in three-stage optimization.</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-multistart</span></code>: Disable multi-start (default: enabled)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--n-starts</span> <span class="pre">N</span></code>: Number of starting points (default: 3, includes 1 config initial + (N-1) random perturbations)</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use default: 3 starting points (1 config initial + 2 random)</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--three-stage
+
+<span class="c1"># Disable multi-start (single optimization run using config initial values)</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--three-stage<span class="w"> </span>--no-multistart
+
+<span class="c1"># Custom number of starts (e.g., 1 config initial + 4 random)</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--three-stage<span class="w"> </span>--n-starts<span class="w"> </span><span class="m">5</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>Output Example<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>The following shows the typical multi-start optimization output structure:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>🔄 Stage 2: Optimize Sm, bt, St, ba, u
+   🎯 Using multi-start search (3 starting points) + Stage 3 quick evaluation
+   Starting point 1/3: Sm=0.32, bt=0.40, St=0.23, ba=0.35, u=0.17
+   → Stage 2 NLL=495.805945, Sm=0.309
+   → Stage 3 quick evaluation NLL=495.406852
+   Starting point 2/3: Sm=0.28, bt=0.58, St=0.28, ba=0.38, u=0.19
+   → Stage 2 NLL=495.805945, Sm=0.309
+   → Stage 3 quick evaluation NLL=495.406852
+   Starting point 3/3: Sm=0.39, bt=0.30, St=0.34, ba=0.47, u=0.22
+   → Stage 2 NLL=495.805945, Sm=0.309
+   → Stage 3 quick evaluation NLL=495.406852
+   ✨ Selected starting point 1: Stage 2 NLL=495.805945, Stage 3 evaluation NLL=495.406852
+   ✅ Stage 2 completed
+   Best values: Sm=0.309224, bt=0.398886, St=0.150000, ba=0.360706, u=0.185882
+   Stage objective value: 495.805945
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Multi-start optimization runs multiple trials and selects the best result.</p>
+</div>
+</section>
+</section>
+<section id="optimization-mode-comparison">
+<h2>Optimization Mode Comparison<a class="headerlink" href="#optimization-mode-comparison" title="Link to this heading">#</a></h2>
+<p>The following table compares the three optimization modes:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id11">
+<caption><span class="caption-text">Optimization Mode Comparison</span><a class="headerlink" href="#id11" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Single-Stage</p></th>
+<th class="head"><p>Three-Stage</p></th>
+<th class="head"><p>Custom Stages</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Configuration</strong></p></td>
+<td><p>Simple (stage1 only)</p></td>
+<td><p>Medium (stage1/2/3)</p></td>
+<td><p>Complex (custom stages)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Multi-Start</strong></p></td>
+<td><p>✅ Enabled by default</p></td>
+<td><p>✅ Enabled by default</p></td>
+<td><p>❌ Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Convergence</strong></p></td>
+<td><p>Medium</p></td>
+<td><p>High</p></td>
+<td><p>Depends on design</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Speed</strong></p></td>
+<td><p>Fast</p></td>
+<td><p>Slower</p></td>
+<td><p>Depends on # stages</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Auto-Detection</strong></p></td>
+<td><p>✅ Yes (8 params in stage1)</p></td>
+<td><p>✅ Yes (&lt;8 params in stage1)</p></td>
+<td><p>✅ Yes (enableCustomStages=true)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Recommended For</strong></p></td>
+<td><p>Quick tests, large datasets</p></td>
+<td><p>Standard use, robust results</p></td>
+<td><p>Research, special datasets</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="quick-start-guide">
+<h2>Quick Start Guide<a class="headerlink" href="#quick-start-guide" title="Link to this heading">#</a></h2>
+<p><strong>For most users</strong> (recommended):</p>
+<ol class="arabic">
+<li><p>Use <strong>Three-Stage</strong> with default settings:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--three-stage
+</pre></div>
+</div>
+</li>
+<li><p>If you have a good initial guess or very large dataset:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config_single.json
+</pre></div>
+</div>
+</li>
+<li><p>If you need custom parameter grouping:</p>
+<p>Create config with <code class="docutils literal notranslate"><span class="pre">enableCustomStages:</span> <span class="pre">true</span></code> and define custom stages.</p>
+</li>
+</ol>
+</section>
+<section id="understanding-nll-values">
+<h2>Understanding NLL Values<a class="headerlink" href="#understanding-nll-values" title="Link to this heading">#</a></h2>
+<p><strong>Higher NLL (less negative) is better.</strong></p>
+<p>NLL magnitude depends on the number of events in the learning period.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api_reference/core.html"><span class="doc">Core Modules</span></a> - API documentation for optimization modules</p></li>
+<li><p><a class="reference internal" href="../user_guide/workflows.html"><span class="doc">Complete Workflows</span></a> - Complete workflow examples with optimization</p></li>
+<li><p><a class="reference internal" href="numerical_integration.html"><span class="doc">Numerical Integration</span></a> - Integration methods used in likelihood calculation</p></li>
+<li><p><a class="reference internal" href="../user_guide/configuration.html"><span class="doc">Configuration Reference</span></a> - Configuration file optimization section</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="numerical_integration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Numerical Integration</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../development/changelog.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Changelog</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-modes">Optimization Modes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-features">Additional Features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-algorithms">Optimization Algorithms</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fminsearchcon-nelder-mead-with-constraints-default">fminsearchcon (Nelder-Mead with Constraints) - Default</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slsqp-sequential-least-squares-programming">SLSQP (Sequential Least Squares Programming)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#l-bfgs-b-limited-memory-bfgs-with-bounds">L-BFGS-B (Limited-memory BFGS with Bounds)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-stage-optimization">Single-Stage Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-example">Output Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#three-stage-optimization">Three-Stage Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-sequence">Stage Sequence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">Mathematical Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Output Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-boundary-adjustment">Auto Boundary Adjustment</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Output Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-stages-optimization">Custom Stages Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-defined-strategy-examples">Pre-defined Strategy Examples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-start-optimization">Multi-Start Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Output Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-mode-comparison">Optimization Mode Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start-guide">Quick Start Guide</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-nll-values">Understanding NLL Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

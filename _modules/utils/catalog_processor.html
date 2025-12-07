@@ -1,0 +1,954 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.catalog_processor &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/catalog_processor';</script>
+    <link rel="icon" href="../../_static/logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.catalog_processor</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">CatalogProcessor - Seismic Catalog Preprocessing Utility Class</span>
+
+<span class="sd">Provides unified earthquake catalog quality control, time conversion, and filtering functions.</span>
+
+<span class="sd">Format Support:</span>
+<span class="sd">    This module uses HORUS format (10 columns) as the internal standard:</span>
+<span class="sd">        year, month, day, hour, minute, second, lat, lon, depth, mag</span>
+
+<span class="sd">    Extended format conversion support (via catalog_processor_extensions):</span>
+<span class="sd">        - Input formats: ZMAP, CSEP, QuakeML, DataFrame, SeismoStats, pyCSEP, INGV HORUS</span>
+<span class="sd">        - Output formats: MATLAB .mat, SeismoStats Catalog, pyCSEP CSEPCatalog</span>
+<span class="sd">        - Methods: from_zmap(), from_csep(), from_quakeml(), from_dataframe(),</span>
+<span class="sd">                  from_seismostats(), from_pycsep(), from_ingv_horus(),</span>
+<span class="sd">                  to_mat(), to_seismostats(), to_pycsep()</span>
+
+<span class="sd">    All conversion methods are available as static methods on CatalogProcessor class.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># Import all conversion functions from extensions module</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">catalog_processor_extensions</span> <span class="k">as</span> <span class="n">ext</span>
+    <span class="n">_EXTENSIONS_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">_EXTENSIONS_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="decyear">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.decyear">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">decyear</span><span class="p">(</span><span class="n">date_array</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert date to decimal year.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        date_array: Nx6 matrix [year, month, day, hour, minute, second]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.array: Decimal year</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">date_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">date_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+        <span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+        <span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+        <span class="n">second</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">date_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+
+        <span class="c1"># Handle anomalous second values (some datasets may have second &gt;= 60)</span>
+        <span class="c1"># Convert seconds over 60 to minutes</span>
+        <span class="k">if</span> <span class="n">second</span> <span class="o">&gt;=</span> <span class="mf">60.0</span><span class="p">:</span>
+            <span class="n">extra_minutes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">second</span> <span class="o">/</span> <span class="mf">60.0</span><span class="p">)</span>
+            <span class="n">minute</span> <span class="o">+=</span> <span class="n">extra_minutes</span>
+            <span class="n">second</span> <span class="o">=</span> <span class="n">second</span> <span class="o">-</span> <span class="n">extra_minutes</span> <span class="o">*</span> <span class="mf">60.0</span>
+
+        <span class="c1"># Handle anomalous minute values</span>
+        <span class="k">if</span> <span class="n">minute</span> <span class="o">&gt;=</span> <span class="mi">60</span><span class="p">:</span>
+            <span class="n">extra_hours</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">minute</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span>
+            <span class="n">hour</span> <span class="o">+=</span> <span class="n">extra_hours</span>
+            <span class="n">minute</span> <span class="o">=</span> <span class="n">minute</span> <span class="o">-</span> <span class="n">extra_hours</span> <span class="o">*</span> <span class="mi">60</span>
+
+        <span class="c1"># Handle anomalous hour values</span>
+        <span class="k">if</span> <span class="n">hour</span> <span class="o">&gt;=</span> <span class="mi">24</span><span class="p">:</span>
+            <span class="n">extra_days</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">hour</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)</span>
+            <span class="n">day</span> <span class="o">+=</span> <span class="n">extra_days</span>
+            <span class="n">hour</span> <span class="o">=</span> <span class="n">hour</span> <span class="o">-</span> <span class="n">extra_days</span> <span class="o">*</span> <span class="mi">24</span>
+
+        <span class="c1"># Calculate day of year (using total seconds method to handle month overflow)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">second</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># If date is still invalid (e.g. month overflow), use approximation</span>
+            <span class="c1"># This is fault-tolerant handling to ensure program continues</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="c1"># Add total seconds</span>
+            <span class="n">total_seconds</span> <span class="o">=</span> <span class="p">((</span><span class="n">month</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">86400</span> <span class="o">+</span> <span class="p">(</span><span class="n">day</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">86400</span> <span class="o">+</span>
+                           <span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">+</span> <span class="n">minute</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">second</span><span class="p">)</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">timedelta</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">total_seconds</span><span class="p">)</span>
+
+        <span class="n">start_of_year</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">days_in_year</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">start_of_year</span><span class="p">)</span><span class="o">.</span><span class="n">days</span>
+        <span class="n">day_of_year</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span> <span class="o">-</span> <span class="n">start_of_year</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mf">86400.0</span>
+
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">year</span> <span class="o">+</span> <span class="n">day_of_year</span> <span class="o">/</span> <span class="n">days_in_year</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="CatalogProcessor">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CatalogProcessor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Seismic catalog preprocessing utility class&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CatalogProcessor.preprocess_catalog">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.preprocess_catalog">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">preprocess_catalog</span><span class="p">(</span><span class="n">HORUS</span><span class="p">,</span> <span class="n">catalog_start_year</span><span class="p">,</span> <span class="n">learn_start_year</span><span class="p">,</span> <span class="n">learn_end_year</span><span class="p">,</span>
+                          <span class="n">completeness_threshold</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">target_magnitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">filter_target_mag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        General preprocessing pipeline for earthquake catalogs.</span>
+<span class="sd">        Standardizes magnitudes, filters quality, converts time coordinates.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            HORUS: Raw seismic catalog matrix</span>
+<span class="sd">            catalog_start_year: Catalog start year</span>
+<span class="sd">            learn_start_year: Learning start year</span>
+<span class="sd">            learn_end_year: Learning end year</span>
+<span class="sd">            completeness_threshold: Completeness magnitude threshold</span>
+<span class="sd">            max_depth: Maximum depth (km)</span>
+<span class="sd">            target_magnitude: PPE target magnitude</span>
+<span class="sd">            filter_target_mag: Whether to enable target magnitude filtering</span>
+<span class="sd">            verbose: Verbose output mode</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (HORUS_processed, T1, T2)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">HORUS</span> <span class="o">=</span> <span class="n">HORUS</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># Avoid modifying original data</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Starting catalog preprocessing (initial size: </span><span class="si">{</span><span class="n">HORUS</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">)...&#39;</span><span class="p">)</span>
+
+        <span class="c1"># 1. Round earthquake magnitudes to first decimal place</span>
+        <span class="c1"># MATLAB&#39;s round(x,1) rounds ties away from zero; numpy.round uses bankers rounding.</span>
+        <span class="n">mags</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span>
+        <span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">mags</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mags</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="mf">10.0</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After magnitude rounding: </span><span class="si">{</span><span class="n">HORUS</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> earthquakes&#39;</span><span class="p">)</span>
+
+        <span class="c1"># 2. Filter depth events (remove earthquakes with depth &gt; max_depth)</span>
+        <span class="c1"># Note: MATLAB indexing starts from 1, Python from 0, so column indices subtract 1</span>
+        <span class="n">depth_filter</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">8</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">max_depth</span>  <span class="c1"># Column 9 is depth (index 8)</span>
+        <span class="n">HORUS</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[</span><span class="n">depth_filter</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After depth filtering (depth&lt;=</span><span class="si">{</span><span class="n">max_depth</span><span class="si">}</span><span class="s1">km): </span><span class="si">{</span><span class="n">HORUS</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> earthquakes&#39;</span><span class="p">)</span>
+
+        <span class="c1"># 3. Filter events below completeness threshold</span>
+        <span class="n">mag_filter</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">completeness_threshold</span>  <span class="c1"># Column 10 is magnitude (index 9)</span>
+        <span class="n">HORUS</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[</span><span class="n">mag_filter</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After completeness filtering (magnitude&gt;=</span><span class="si">{</span><span class="n">completeness_threshold</span><span class="si">}</span><span class="s1">): </span><span class="si">{</span><span class="n">HORUS</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> earthquakes&#39;</span><span class="p">)</span>
+
+        <span class="c1"># 4. Convert time to decimal year and relative days</span>
+        <span class="n">date_array</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>  <span class="c1"># First 6 columns: year/month/day/hour/minute/second</span>
+        <span class="n">DECY</span> <span class="o">=</span> <span class="n">decyear</span><span class="p">(</span><span class="n">date_array</span><span class="p">)</span>
+
+        <span class="c1"># If HORUS only has 10 columns, add column 11</span>
+        <span class="k">if</span> <span class="n">HORUS</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">HORUS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">HORUS</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">HORUS</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+
+        <span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="n">DECY</span>  <span class="c1"># Column 11 stores decimal year</span>
+        <span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">]</span> <span class="o">-</span> <span class="n">catalog_start_year</span><span class="p">)</span> <span class="o">*</span> <span class="mf">365.2425</span>  <span class="c1"># Convert to relative days</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Time conversion completed (relative to year </span><span class="si">{</span><span class="n">catalog_start_year</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+        <span class="c1"># 5. Filter events outside time range</span>
+        <span class="n">time_filter</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">learn_end_year</span>  <span class="c1"># Column 1 is year (index 0)</span>
+        <span class="n">HORUS</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[</span><span class="n">time_filter</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After time range filtering (</span><span class="si">{</span><span class="n">catalog_start_year</span><span class="si">}</span><span class="s1">~</span><span class="si">{</span><span class="n">learn_end_year</span><span class="si">}</span><span class="s1">): </span><span class="si">{</span><span class="n">HORUS</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> earthquakes&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Calculate time conversion constants</span>
+        <span class="n">T1</span> <span class="o">=</span> <span class="p">(</span><span class="n">learn_start_year</span> <span class="o">-</span> <span class="n">catalog_start_year</span><span class="p">)</span> <span class="o">*</span> <span class="mf">365.2425</span>
+        <span class="n">T2</span> <span class="o">=</span> <span class="p">(</span><span class="n">learn_end_year</span> <span class="o">-</span> <span class="n">catalog_start_year</span><span class="p">)</span> <span class="o">*</span> <span class="mf">365.2425</span>
+
+        <span class="c1"># 6. Optional: filter earthquakes below target magnitude</span>
+        <span class="k">if</span> <span class="n">filter_target_mag</span> <span class="ow">and</span> <span class="n">target_magnitude</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">target_mag_filter</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">target_magnitude</span>
+            <span class="n">HORUS</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[</span><span class="n">target_mag_filter</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After target magnitude filtering (magnitude&gt;=</span><span class="si">{</span><span class="n">target_magnitude</span><span class="si">}</span><span class="s1">): </span><span class="si">{</span><span class="n">HORUS</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> earthquakes&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;✅ Preprocessing completed, final size: </span><span class="si">{</span><span class="n">HORUS</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> earthquakes&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">HORUS</span><span class="p">,</span> <span class="n">T1</span><span class="p">,</span> <span class="n">T2</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.create_catalogs">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.create_catalogs">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_catalogs</span><span class="p">(</span><span class="n">HORUS</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">learn_start_year</span><span class="p">,</span> <span class="n">learn_end_year</span><span class="p">,</span> <span class="n">catalog_start_year</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create sub-catalogs from preprocessed earthquake catalog (without spatial filtering).</span>
+
+<span class="sd">        This function creates three sub-catalogs for EEPAS learning. When no RegionManager</span>
+<span class="sd">        is provided, all events are treated as being within both the Neighborhood Region</span>
+<span class="sd">        and Testing Region (no spatial filtering applied).</span>
+
+<span class="sd">        Naming conventions (from main_gji.tex paper):</span>
+<span class="sd">            - Index i: Historical source events (CatI), from Neighborhood Region N</span>
+<span class="sd">            - Index j: Target events (CatJ), from Testing Region R</span>
+<span class="sd">            - NLL = -Σ_j log λ(t_j, m_j, x_j, y_j | CatI) + ∫∫∫∫_R λ(...) dt dm dx dy</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            HORUS: Preprocessed earthquake catalog (numpy array, N×11)</span>
+<span class="sd">            params: Model parameters dictionary, must contain &#39;mT&#39; (target magnitude threshold)</span>
+<span class="sd">            learn_start_year: Learning start year</span>
+<span class="sd">            learn_end_year: Learning end year</span>
+<span class="sd">            catalog_start_year: Catalog start year (for time conversion)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (CatE, CatI, CatJ)</span>
+
+<span class="sd">                - CatE: EEPAS precursor catalog (M≥m₀, all time)</span>
+<span class="sd">                - CatI: Historical source events (M≥mT, all time, Neighborhood Region) - paper&#39;s index i</span>
+<span class="sd">                - CatJ: Target events (M≥mT, learning period, Testing Region) - paper&#39;s index j</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Return order is (CatE, CatI, CatJ), corresponding to (precursor, i, j) in paper.</span>
+<span class="sd">            This differs from versions before v1.1.0 (old order was CatE, CatJ, CatI).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating sub-catalogs for different purposes...&#39;</span><span class="p">)</span>
+
+        <span class="c1"># 1. EEPAS catalog - contains all preprocessed earthquakes</span>
+        <span class="n">CatE</span> <span class="o">=</span> <span class="n">HORUS</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># 2. Historical source catalog (paper&#39;s i) - events with magnitude &gt;= mT in neighborhood region</span>
+        <span class="n">CatI</span> <span class="o">=</span> <span class="n">HORUS</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">target_mag_filter</span> <span class="o">=</span> <span class="n">CatI</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;mT&#39;</span><span class="p">]</span>  <span class="c1"># Column 10 is magnitude (index 9)</span>
+        <span class="n">CatI</span> <span class="o">=</span> <span class="n">CatI</span><span class="p">[</span><span class="n">target_mag_filter</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># 3. Target catalog (paper&#39;s j) - earthquakes during learning period with magnitude &gt;= mT in testing region</span>
+        <span class="n">CatJ</span> <span class="o">=</span> <span class="n">HORUS</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># Filter events before learning start time</span>
+        <span class="n">learning_start_filter</span> <span class="o">=</span> <span class="n">CatJ</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">learn_start_year</span>  <span class="c1"># Column 1 is year (index 0)</span>
+        <span class="n">CatJ</span> <span class="o">=</span> <span class="n">CatJ</span><span class="p">[</span><span class="n">learning_start_filter</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># Filter events below target magnitude</span>
+        <span class="n">target_mag_filter_J</span> <span class="o">=</span> <span class="n">CatJ</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;mT&#39;</span><span class="p">]</span>
+        <span class="n">CatJ</span> <span class="o">=</span> <span class="n">CatJ</span><span class="p">[</span><span class="n">target_mag_filter_J</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># Output statistics</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Catalog creation completed:&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  EEPAS catalog (CatE): </span><span class="si">{</span><span class="n">CatE</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> events&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Historical source catalog (CatI): </span><span class="si">{</span><span class="n">CatI</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> events (magnitude &gt;= </span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;mT&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) - paper</span><span class="se">\&#39;</span><span class="s1">s i&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Target catalog (CatJ): </span><span class="si">{</span><span class="n">CatJ</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> events (learning period, magnitude &gt;= </span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;mT&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) - paper</span><span class="se">\&#39;</span><span class="s1">s j&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">CatE</span><span class="p">,</span> <span class="n">CatI</span><span class="p">,</span> <span class="n">CatJ</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.filter_by_region">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.filter_by_region">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filter_by_region</span><span class="p">(</span><span class="n">catalog</span><span class="p">,</span> <span class="n">region_manager</span><span class="p">,</span> <span class="n">region_type</span><span class="o">=</span><span class="s1">&#39;testing&#39;</span><span class="p">,</span> <span class="n">x_col</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">y_col</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filter earthquake catalog by spatial region.</span>
+
+<span class="sd">        Purpose:</span>
+
+<span class="sd">            - Integrates with RegionManager for spatial filtering</span>
+<span class="sd">            - Automatically handles both grid and polygon region formats</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            catalog: numpy array (N×M) earthquake catalog</span>
+<span class="sd">                     HORUS format: [..., y(col6), x(col7), depth(col8), mag(col9), ...]</span>
+<span class="sd">            region_manager: RegionManager instance</span>
+<span class="sd">            region_type: &#39;testing&#39; or &#39;neighborhood&#39;</span>
+
+<span class="sd">                - &#39;testing&#39;: filter events within testing region (for target events)</span>
+<span class="sd">                - &#39;neighborhood&#39;: filter events within neighborhood region (for source events)</span>
+
+<span class="sd">            x_col: X coordinate column (default 7)</span>
+<span class="sd">            y_col: Y coordinate column (default 6)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: Filtered earthquake catalog</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">region_type</span> <span class="o">==</span> <span class="s1">&#39;testing&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">region_manager</span><span class="o">.</span><span class="n">filter_events_for_targets</span><span class="p">(</span><span class="n">catalog</span><span class="p">,</span> <span class="n">x_col</span><span class="p">,</span> <span class="n">y_col</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">region_type</span> <span class="o">==</span> <span class="s1">&#39;neighborhood&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">region_manager</span><span class="o">.</span><span class="n">filter_events_for_learning</span><span class="p">(</span><span class="n">catalog</span><span class="p">,</span> <span class="n">x_col</span><span class="p">,</span> <span class="n">y_col</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unsupported region_type: </span><span class="si">{</span><span class="n">region_type</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Must be &#39;testing&#39; or &#39;neighborhood&#39;&quot;</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.create_catalogs_with_regions">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.create_catalogs_with_regions">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_catalogs_with_regions</span><span class="p">(</span><span class="n">HORUS</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">learn_start_year</span><span class="p">,</span> <span class="n">learn_end_year</span><span class="p">,</span>
+                                     <span class="n">catalog_start_year</span><span class="p">,</span> <span class="n">region_manager</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create sub-catalogs from preprocessed earthquake catalog (with optional spatial filtering).</span>
+
+<span class="sd">        This function supports both spatial filtering modes depending on the region_manager parameter.</span>
+<span class="sd">        When region_manager is None, all events are used without spatial filtering.</span>
+<span class="sd">        When region_manager is provided, events are filtered by Neighborhood and Testing Regions.</span>
+
+<span class="sd">        Naming conventions (from main_gji.tex paper):</span>
+
+<span class="sd">            - Index i: Historical source events (CatI), from Neighborhood Region N</span>
+<span class="sd">            - Index j: Target events (CatJ), from Testing Region R</span>
+<span class="sd">            - NLL = -Σ_j log λ(t_j, m_j, x_j, y_j | CatI) + ∫∫∫∫_R λ(...) dt dm dx dy</span>
+
+<span class="sd">        Difference from create_catalogs():</span>
+
+<span class="sd">            - Supports RegionManager spatial filtering</span>
+<span class="sd">            - Without region_manager (None): Behaves identically to create_catalogs()</span>
+<span class="sd">            - With region_manager provided:</span>
+
+<span class="sd">                * CatE: All events within Neighborhood Region N (for edge compensation)</span>
+<span class="sd">                * CatI: M≥mT events within Neighborhood Region N (historical sources, paper&#39;s index i)</span>
+<span class="sd">                * CatJ: M≥mT events within Testing Region R during learning period (targets, paper&#39;s index j)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            HORUS: Preprocessed earthquake catalog (numpy array, N×11)</span>
+<span class="sd">            params: Model parameters dictionary, must contain &#39;mT&#39; (target magnitude threshold)</span>
+<span class="sd">            learn_start_year: Learning start year</span>
+<span class="sd">            learn_end_year: Learning end year</span>
+<span class="sd">            catalog_start_year: Catalog start year (for time conversion)</span>
+<span class="sd">            region_manager: RegionManager instance (optional)</span>
+
+<span class="sd">                - None: No spatial filtering applied</span>
+<span class="sd">                - RegionManager: Apply spatial filtering using Neighborhood and Testing Regions</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (CatE, CatI, CatJ) containing:</span>
+
+<span class="sd">                - CatE: EEPAS precursor catalog (M≥m₀)</span>
+<span class="sd">                - CatI: Historical source events (M≥mT, Neighborhood Region) - paper&#39;s index i</span>
+<span class="sd">                - CatJ: Target events (M≥mT, learning period, Testing Region) - paper&#39;s index j</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Return order is (CatE, CatI, CatJ), corresponding to (precursor, i, j) in paper.</span>
+<span class="sd">            This differs from versions before v1.1.0 (old order was CatE, CatJ, CatI).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating sub-catalogs for different purposes...&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">region_manager</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># No spatial filtering: backward compatible, use original logic</span>
+            <span class="k">return</span> <span class="n">CatalogProcessor</span><span class="o">.</span><span class="n">create_catalogs</span><span class="p">(</span>
+                <span class="n">HORUS</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">learn_start_year</span><span class="p">,</span> <span class="n">learn_end_year</span><span class="p">,</span> <span class="n">catalog_start_year</span>
+            <span class="p">)</span>
+
+        <span class="c1"># With spatial filtering: use RegionManager to filter events by spatial regions</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  Using spatial region filtering&#39;</span><span class="p">)</span>
+
+        <span class="c1"># 1. EEPAS catalog - all events within neighborhood region (for edge compensation)</span>
+        <span class="n">CatE</span> <span class="o">=</span> <span class="n">CatalogProcessor</span><span class="o">.</span><span class="n">filter_by_region</span><span class="p">(</span>
+            <span class="n">HORUS</span><span class="p">,</span> <span class="n">region_manager</span><span class="p">,</span> <span class="n">region_type</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># 2. Historical source catalog (paper&#39;s i) - events with magnitude &gt;= mT within neighborhood region</span>
+        <span class="n">CatI</span> <span class="o">=</span> <span class="n">CatE</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">target_mag_filter</span> <span class="o">=</span> <span class="n">CatI</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;mT&#39;</span><span class="p">]</span>
+        <span class="n">CatI</span> <span class="o">=</span> <span class="n">CatI</span><span class="p">[</span><span class="n">target_mag_filter</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># 3. Target catalog (paper&#39;s j) - events with magnitude &gt;= mT during learning period within testing region</span>
+        <span class="c1"># First filter by time range</span>
+        <span class="n">CatJ_time_filtered</span> <span class="o">=</span> <span class="n">HORUS</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">learning_start_filter</span> <span class="o">=</span> <span class="n">CatJ_time_filtered</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">learn_start_year</span>
+        <span class="n">CatJ_time_filtered</span> <span class="o">=</span> <span class="n">CatJ_time_filtered</span><span class="p">[</span><span class="n">learning_start_filter</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># Then filter by magnitude</span>
+        <span class="n">target_mag_filter_J</span> <span class="o">=</span> <span class="n">CatJ_time_filtered</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;mT&#39;</span><span class="p">]</span>
+        <span class="n">CatJ_time_filtered</span> <span class="o">=</span> <span class="n">CatJ_time_filtered</span><span class="p">[</span><span class="n">target_mag_filter_J</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># Finally filter by spatial region (testing region)</span>
+        <span class="n">CatJ</span> <span class="o">=</span> <span class="n">CatalogProcessor</span><span class="o">.</span><span class="n">filter_by_region</span><span class="p">(</span>
+            <span class="n">CatJ_time_filtered</span><span class="p">,</span> <span class="n">region_manager</span><span class="p">,</span> <span class="n">region_type</span><span class="o">=</span><span class="s1">&#39;testing&#39;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Output statistics</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Catalog creation completed:&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  EEPAS catalog (CatE): </span><span class="si">{</span><span class="n">CatE</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> events &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;(neighborhood region, all magnitudes)&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Historical source catalog (CatI): </span><span class="si">{</span><span class="n">CatI</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> events &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;(neighborhood region, magnitude &gt;= </span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;mT&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) - paper</span><span class="se">\&#39;</span><span class="s1">s i&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Target catalog (CatJ): </span><span class="si">{</span><span class="n">CatJ</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> events &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;(testing region, learning period, magnitude &gt;= </span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;mT&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">) - paper</span><span class="se">\&#39;</span><span class="s1">s j&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">CatE</span><span class="p">,</span> <span class="n">CatI</span><span class="p">,</span> <span class="n">CatJ</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.filter_by_magnitude">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.filter_by_magnitude">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filter_by_magnitude</span><span class="p">(</span><span class="n">catalog</span><span class="p">,</span> <span class="n">min_magnitude</span><span class="p">,</span> <span class="n">mag_col</span><span class="o">=</span><span class="mi">9</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filter earthquake catalog by magnitude.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            catalog: numpy array earthquake catalog</span>
+<span class="sd">            min_magnitude: Minimum magnitude threshold</span>
+<span class="sd">            mag_col: Magnitude column (default 9)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy array: Filtered catalog</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mag_filter</span> <span class="o">=</span> <span class="n">catalog</span><span class="p">[:,</span> <span class="n">mag_col</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">min_magnitude</span>
+        <span class="k">return</span> <span class="n">catalog</span><span class="p">[</span><span class="n">mag_filter</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.filter_by_time_range">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.filter_by_time_range">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filter_by_time_range</span><span class="p">(</span><span class="n">catalog</span><span class="p">,</span> <span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span><span class="p">,</span> <span class="n">year_col</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filter earthquake catalog by time range.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            catalog: numpy array earthquake catalog</span>
+<span class="sd">            start_year: Start year</span>
+<span class="sd">            end_year: End year</span>
+<span class="sd">            year_col: Year column (default 0)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy array: Filtered catalog</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">time_filter</span> <span class="o">=</span> <span class="p">(</span><span class="n">catalog</span><span class="p">[:,</span> <span class="n">year_col</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">start_year</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">catalog</span><span class="p">[:,</span> <span class="n">year_col</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">end_year</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">catalog</span><span class="p">[</span><span class="n">time_filter</span><span class="p">]</span></div>
+
+
+    <span class="c1"># ========================================================================</span>
+    <span class="c1"># Format Conversion Methods (delegated to catalog_processor_extensions)</span>
+    <span class="c1"># ========================================================================</span>
+
+<div class="viewcode-block" id="CatalogProcessor.from_zmap">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.from_zmap">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_zmap</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read ZMAP format and convert to HORUS format. See catalog_processor_extensions.from_zmap()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">from_zmap</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="n">skiprows</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.from_csep">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.from_csep">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_csep</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read CSEP ASCII format and convert to HORUS format. See catalog_processor_extensions.from_csep()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">from_csep</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.from_quakeml">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.from_quakeml">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_quakeml</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read QuakeML format and convert to HORUS format. See catalog_processor_extensions.from_quakeml()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">from_quakeml</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.from_dataframe">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.from_dataframe">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert Pandas DataFrame to HORUS format. See catalog_processor_extensions.from_dataframe()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">from_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_mapping</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.from_horus_text">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.from_horus_text">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_horus_text</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read HORUS text format. See catalog_processor_extensions.from_horus_text()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">from_horus_text</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="n">skiprows</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.from_ingv_horus">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.from_ingv_horus">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_ingv_horus</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">filter_events</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read INGV HORUS catalog format. See catalog_processor_extensions.from_ingv_horus()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">from_ingv_horus</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="n">skiprows</span><span class="p">,</span> <span class="n">filter_events</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.from_seismostats">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.from_seismostats">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_seismostats</span><span class="p">(</span><span class="n">catalog</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert SeismoStats Catalog object to HORUS format. See catalog_processor_extensions.from_seismostats()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">from_seismostats</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.from_pycsep">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.from_pycsep">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_pycsep</span><span class="p">(</span><span class="n">catalog</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert pyCSEP CSEPCatalog object to HORUS format. See catalog_processor_extensions.from_pycsep()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">from_pycsep</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.from_mat">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.from_mat">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_mat</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;HORUS&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read HORUS catalog from MATLAB .mat file. See catalog_processor_extensions.from_mat()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">from_mat</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">variable_name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.to_seismostats">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.to_seismostats">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_seismostats</span><span class="p">(</span><span class="n">horus_catalog</span><span class="p">,</span> <span class="n">mc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">delta_m</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">b_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">a_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert HORUS format to SeismoStats Catalog object. See catalog_processor_extensions.to_seismostats()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">to_seismostats</span><span class="p">(</span><span class="n">horus_catalog</span><span class="p">,</span> <span class="n">mc</span><span class="p">,</span> <span class="n">delta_m</span><span class="p">,</span> <span class="n">b_value</span><span class="p">,</span> <span class="n">a_value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.to_pycsep">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.to_pycsep">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_pycsep</span><span class="p">(</span><span class="n">horus_catalog</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;EEPAS_catalog&#39;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert HORUS format to pyCSEP CSEPCatalog object. See catalog_processor_extensions.to_pycsep()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">to_pycsep</span><span class="p">(</span><span class="n">horus_catalog</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">region</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.to_mat">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.to_mat">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_mat</span><span class="p">(</span><span class="n">horus_catalog</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;HORUS&#39;</span><span class="p">,</span> <span class="n">matlab_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write HORUS format catalog to MATLAB .mat file. See catalog_processor_extensions.to_mat()&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_EXTENSIONS_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;catalog_processor_extensions module not available&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ext</span><span class="o">.</span><span class="n">to_mat</span><span class="p">(</span><span class="n">horus_catalog</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">variable_name</span><span class="p">,</span> <span class="n">matlab_compatible</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CatalogProcessor.detect_format">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.catalog_processor.CatalogProcessor.detect_format">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">detect_format</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Auto-detect earthquake catalog file format based on extension and content.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file_path: Path to catalog file</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Detected format (&#39;zmap&#39;, &#39;csep&#39;, &#39;quakeml&#39;, &#39;horus&#39;, &#39;mat&#39;, &#39;unknown&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+        <span class="c1"># Check file extension</span>
+        <span class="n">ext_lower</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file_path</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">ext_lower</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.mat&#39;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="s1">&#39;mat&#39;</span>
+        <span class="k">elif</span> <span class="n">ext_lower</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;.quakeml&#39;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="s1">&#39;quakeml&#39;</span>
+        <span class="k">elif</span> <span class="n">ext_lower</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.zmap&#39;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="s1">&#39;zmap&#39;</span>
+        <span class="k">elif</span> <span class="n">ext_lower</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.csep&#39;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="s1">&#39;csep&#39;</span>
+        <span class="k">elif</span> <span class="n">ext_lower</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;.dat&#39;</span><span class="p">,</span> <span class="s1">&#39;.catalog&#39;</span><span class="p">]:</span>
+            <span class="c1"># Try to detect from content</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">first_line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="c1"># Check if contains ISO timestamp (CSEP format indicator)</span>
+                    <span class="k">if</span> <span class="s1">&#39;T&#39;</span> <span class="ow">in</span> <span class="n">first_line</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;Z&#39;</span> <span class="ow">in</span> <span class="n">first_line</span> <span class="ow">or</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">first_line</span><span class="p">[:</span><span class="mi">10</span><span class="p">]):</span>
+                        <span class="k">return</span> <span class="s1">&#39;csep&#39;</span>
+                    <span class="c1"># Otherwise assume HORUS text format</span>
+                    <span class="k">return</span> <span class="s1">&#39;horus&#39;</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;unknown&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;unknown&#39;</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,887 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Core Modules &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/core';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Utility Modules" href="utils.html" />
+    <link rel="prev" title="API Reference" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/api_reference/core.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Core Modules</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ppe_learning">PPE Learning</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe_learning.ppe_learning_tw_fast"><code class="docutils literal notranslate"><span class="pre">ppe_learning_tw_fast()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-fit_aftershock_params">Aftershock Parameter Fitting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fit_aftershock_params.fit_aftershock_params_fast"><code class="docutils literal notranslate"><span class="pre">fit_aftershock_params_fast()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-eepas_learning_auto_boundary">EEPAS Learning</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas_learning_auto_boundary.parse_result_csv"><code class="docutils literal notranslate"><span class="pre">parse_result_csv()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas_learning_auto_boundary.eepas_with_auto_boundary"><code class="docutils literal notranslate"><span class="pre">eepas_with_auto_boundary()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas_learning_auto_boundary.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ppe_make_forecast">PPE Forecast</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe_make_forecast.compute_grid_integral_fast"><code class="docutils literal notranslate"><span class="pre">compute_grid_integral_fast()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe_make_forecast.ppe_make_forecast"><code class="docutils literal notranslate"><span class="pre">ppe_make_forecast()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-eepas_make_forecast">EEPAS Forecast</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas_make_forecast.compute_spatial_contribution_fast"><code class="docutils literal notranslate"><span class="pre">compute_spatial_contribution_fast()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas_make_forecast.eepas_make_forecast"><code class="docutils literal notranslate"><span class="pre">eepas_make_forecast()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="core-modules">
+<h1>Core Modules<a class="headerlink" href="#core-modules" title="Link to this heading">#</a></h1>
+<p>This page documents the main EEPAS workflow modules.</p>
+<section id="module-ppe_learning">
+<span id="ppe-learning"></span><h2>PPE Learning<a class="headerlink" href="#module-ppe_learning" title="Link to this heading">#</a></h2>
+<p>PPE Model Parameter Learning</p>
+<p>Learn PPE (Proximity to Past Earthquakes) model parameters using Maximum Likelihood Estimation.</p>
+<p>The PPE model decomposes earthquake occurrence rate into:
+- Influence of historical earthquakes (seismic kernels)
+- Uniform background seismicity</p>
+<p>Parameters learned: a (intensity), d (distance decay, km), s (background rate)</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ppe_learning.ppe_learning_tw_fast">
+<span class="sig-prename descclassname"><span class="pre">ppe_learning.</span></span><span class="sig-name descname"><span class="pre">ppe_learning_tw_fast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mT</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'joint'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fast_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppe_ref_mag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mT'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ppe_learning.html#ppe_learning_tw_fast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ppe_learning.ppe_learning_tw_fast" title="Link to this definition">#</a></dt>
+<dd><p>Learn PPE model parameters using Maximum Likelihood Estimation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_file</strong> – Configuration JSON file path</p></li>
+<li><p><strong>catalog_start_year</strong> – Catalog start year (optional, overrides config)</p></li>
+<li><p><strong>learn_start_year</strong> – Learning period start year (optional, overrides config)</p></li>
+<li><p><strong>learn_end_year</strong> – Learning period end year (optional, overrides config)</p></li>
+<li><p><strong>m0</strong> – Completeness magnitude (optional, overrides config)</p></li>
+<li><p><strong>mT</strong> – Target magnitude threshold (optional, overrides config)</p></li>
+<li><p><strong>fit_mode</strong> – ‘joint’ (optimize a,d,s) or ‘decoupled_gr’ (fix a=1)</p></li>
+<li><p><strong>spatial_samples</strong> – Grid resolution for integration (default: 50)</p></li>
+<li><p><strong>use_fast_mode</strong> – Use fast trapezoidal integration (default: True)</p></li>
+<li><p><strong>ppe_ref_mag</strong> – Magnitude reference: ‘mT’ or ‘m0’ (default: ‘mT’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Fitted parameters containing {‘a’: float, ‘d’: float, ‘s’: float, ‘ln_L’: float}</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-fit_aftershock_params">
+<span id="aftershock-parameter-fitting"></span><h2>Aftershock Parameter Fitting<a class="headerlink" href="#module-fit_aftershock_params" title="Link to this heading">#</a></h2>
+<p>Aftershock Model Parameter Estimation</p>
+<p>Estimate aftershock model parameters (ν, κ) to distinguish independent
+events from aftershocks using an ETAS-like model.</p>
+<p>Model: λ’(t,m,x,y) = ν·λ₀ + κ·Σλᵢ’</p>
+<p>Independence weights wᵢ = ν·λ₀ / λ’ are calculated for use in EEPAS learning.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="fit_aftershock_params.fit_aftershock_params_fast">
+<span class="sig-prename descclassname"><span class="pre">fit_aftershock_params.</span></span><span class="sig-name descname"><span class="pre">fit_aftershock_params_fast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppe_ref_mag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_mag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integration_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fast'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fit_aftershock_params.html#fit_aftershock_params_fast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fit_aftershock_params.fit_aftershock_params_fast" title="Link to this definition">#</a></dt>
+<dd><p>Main function for aftershock parameter estimation.</p>
+<p>Workflow:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Load parameters a, d, s learned from Step 1 (PPE)</p></li>
+<li><p>Prepare earthquake catalogs (precursors, targets, PPE sources)</p></li>
+<li><p>Optimize v, k parameters using maximum likelihood estimation (MLE)</p></li>
+<li><p>Save results for use in Step 3 (EEPAS)</p></li>
+</ol>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_file</strong> – Path to configuration file</p></li>
+<li><p><strong>ppe_ref_mag</strong> – PPE reference magnitude, ‘m0’ or ‘mT’ (default: ‘mT’)</p></li>
+<li><p><strong>integration_mode</strong> – Integration mode, ‘fast’ (trapezoidal) or ‘accurate’ (dblquad)</p></li>
+<li><p><strong>spatial_samples</strong> – Grid resolution for fast mode</p></li>
+<li><p><strong>target_mag</strong> – Target event magnitude threshold, ‘m0’ or ‘mT’ (default: ‘m0’), controls the lower bound of integration and magnitude range of summed events</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing optimized parameters {v, k, nll, success, …}</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-eepas_learning_auto_boundary">
+<span id="eepas-learning"></span><h2>EEPAS Learning<a class="headerlink" href="#module-eepas_learning_auto_boundary" title="Link to this heading">#</a></h2>
+<p>EEPAS Parameter Learning with Automatic Boundary Adjustment.</p>
+<p>Learn EEPAS model parameters with automatic boundary adjustment to avoid
+local optima caused by parameters hitting bounds during optimization.</p>
+<p>Defaults: Three-stage + Multistart (3 starts) + fminsearchcon optimizer</p>
+<dl class="simple">
+<dt>Optimization Modes (in priority order):</dt><dd><ol class="arabic simple">
+<li><p>Custom Stages (if customStages enabled in config)</p></li>
+<li><p>Single-Stage (if –single-stage specified)</p></li>
+<li><p>Three-Stage (default, or if –three-stage specified)</p></li>
+</ol>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Default (three-stage):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">eepas_learning_auto_boundary</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="n">config</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>Single-stage optimization:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">eepas_learning_auto_boundary</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="n">config</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">single</span><span class="o">-</span><span class="n">stage</span>
+</pre></div>
+</div>
+<p>Custom stages (enable in config):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set &quot;customStages&quot;: {&quot;enable&quot;: true, &quot;stages&quot;: [...]} in config.json</span>
+<span class="n">python3</span> <span class="n">eepas_learning_auto_boundary</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="n">config_custom</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="eepas_learning_auto_boundary.parse_result_csv">
+<span class="sig-prename descclassname"><span class="pre">eepas_learning_auto_boundary.</span></span><span class="sig-name descname"><span class="pre">parse_result_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eepas_learning_auto_boundary.html#parse_result_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#eepas_learning_auto_boundary.parse_result_csv" title="Link to this definition">#</a></dt>
+<dd><p>Parse EEPAS result CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>csv_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path to CSV file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing 9 EEPAS parameters (am, bm, Sm, at, bt, St, ba, Sa, u) and ln_likelihood</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="eepas_learning_auto_boundary.eepas_with_auto_boundary">
+<span class="sig-prename descclassname"><span class="pre">eepas_learning_auto_boundary.</span></span><span class="sig-name descname"><span class="pre">eepas_with_auto_boundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_adjustment_rounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disable_boundary_adjustment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expansion_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nll_convergence_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single_stage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_starts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_basinhopping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basinhopping_niter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fminsearchcon'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppe_ref_mag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fast_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnitude_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eepas_learning_auto_boundary.html#eepas_with_auto_boundary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#eepas_learning_auto_boundary.eepas_with_auto_boundary" title="Link to this definition">#</a></dt>
+<dd><p>EEPAS parameter learning with automatic boundary adjustment.</p>
+<p>Workflow:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Execute EEPAS optimization with current boundaries (three-stage or single-stage)</p></li>
+<li><p>Check if any result parameters hit boundaries</p></li>
+<li><p>If hit, relax boundaries and save new configuration</p></li>
+<li><p>Check if NLL has converged</p></li>
+<li><p>Repeat until convergence or maximum rounds reached</p></li>
+</ol>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Configuration file path</p></li>
+<li><p><strong>m0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Completeness magnitude (if not specified, uses value from config file)</p></li>
+<li><p><strong>max_adjustment_rounds</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Maximum boundary adjustment rounds (default: 3), usually converges in 2-3 rounds</p></li>
+<li><p><strong>tolerance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Boundary hit detection tolerance (default: 0.01 = 1%), parameter distance to boundary &lt; 1% is considered hitting</p></li>
+<li><p><strong>expansion_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Boundary expansion factor (default: 2.0), lower bound: new = old / 2.0, upper bound: new = old * 2.0</p></li>
+<li><p><strong>nll_convergence_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – NLL convergence threshold (default: 0.1), two consecutive rounds with improvement &lt; 0.1 → automatic stop</p></li>
+<li><p><strong>single_stage</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to use single-stage full parameter optimization (default: True, uses single-stage)</p></li>
+<li><p><strong>multi_start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to use multi-start optimization (default: True)</p></li>
+<li><p><strong>n_starts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of multi-start points (default: 3)</p></li>
+<li><p><strong>use_basinhopping</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to use basinhopping global optimization (default: False)</p></li>
+<li><p><strong>basinhopping_niter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of basinhopping iterations (default: 20)</p></li>
+<li><p><strong>optimizer</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Optimizer to use: ‘fminsearchcon’, ‘SLSQP’, ‘L-BFGS-B’ (default: ‘fminsearchcon’)</p></li>
+<li><p><strong>ppe_ref_mag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – PPE reference magnitude: ‘mT’ or ‘m0’ (default: None, uses config)</p></li>
+<li><p><strong>use_fast_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to use fast magnitude integration (default: False)</p></li>
+<li><p><strong>magnitude_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of magnitude samples for fast mode (default: 50)</p></li>
+<li><p><strong>disable_boundary_adjustment</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Final parameter dictionary containing optimized EEPAS parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="eepas_learning_auto_boundary.main">
+<span class="sig-prename descclassname"><span class="pre">eepas_learning_auto_boundary.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eepas_learning_auto_boundary.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#eepas_learning_auto_boundary.main" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-ppe_make_forecast">
+<span id="ppe-forecast"></span><h2>PPE Forecast<a class="headerlink" href="#module-ppe_make_forecast" title="Link to this heading">#</a></h2>
+<p>PPE Earthquake Forecasting</p>
+<p>Generate PPE model seismicity rate forecasts for testing region grid cells.</p>
+<p>Uses learned PPE parameters (a, d, s) to calculate background earthquake
+occurrence rate λ₀(t,x,y) based on proximity to past earthquakes.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ppe_make_forecast.compute_grid_integral_fast">
+<span class="sig-prename descclassname"><span class="pre">ppe_make_forecast.</span></span><span class="sig-name descname"><span class="pre">compute_grid_integral_fast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppe_ref_mag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ppe_make_forecast.html#compute_grid_integral_fast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ppe_make_forecast.compute_grid_integral_fast" title="Link to this definition">#</a></dt>
+<dd><p>Fast computation of PPE integral using trapezoidal integration (replaces dblquad).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_bounds</strong> – Grid x range [x_min, x_max]</p></li>
+<li><p><strong>y_bounds</strong> – Grid y range [y_min, y_max]</p></li>
+<li><p><strong>event_x</strong> – Event coordinates and magnitudes</p></li>
+<li><p><strong>event_y</strong> – Event coordinates and magnitudes</p></li>
+<li><p><strong>event_m</strong> – Event coordinates and magnitudes</p></li>
+<li><p><strong>a</strong> – PPE parameters</p></li>
+<li><p><strong>d</strong> – PPE parameters</p></li>
+<li><p><strong>s</strong> – PPE parameters</p></li>
+<li><p><strong>ppe_ref_mag</strong> – PPE parameters</p></li>
+<li><p><strong>coeff</strong> – Temporal and magnitude integration coefficient</p></li>
+<li><p><strong>spatial_samples</strong> – Number of sampling points per dimension (default 20, adjustable for precision)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Integral value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Refactored to use fast_kernel_sum_2d and trapezoidal_2d from unified module</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ppe_make_forecast.ppe_make_forecast">
+<span class="sig-prename descclassname"><span class="pre">ppe_make_forecast.</span></span><span class="sig-name descname"><span class="pre">ppe_make_forecast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecast_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecast_end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">celln</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mT</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_rolling_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecast_period_days</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppe_ref_mag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fast_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ppe_make_forecast.html#ppe_make_forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ppe_make_forecast.ppe_make_forecast" title="Link to this definition">#</a></dt>
+<dd><p>Main function for PPE model earthquake forecasting.</p>
+<p>Workflow:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Load PPE parameters (a, d, s) from the learning phase</p></li>
+<li><p>Load historical earthquake catalog</p></li>
+<li><p>For each forecast time point:</p>
+<ul class="simple">
+<li><p>Calculate seismic kernel contribution for each grid cell</p></li>
+<li><p>Add background seismicity rate</p></li>
+<li><p>Generate seismicity rate map for that time point</p></li>
+</ul>
+</li>
+<li><p>Save results in MATLAB format for subsequent analysis</p></li>
+</ol>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_file</strong> – Configuration file path</p></li>
+<li><p><strong>catalog_start_year</strong> – Catalog start year</p></li>
+<li><p><strong>forecast_start_year</strong> – Forecast start year</p></li>
+<li><p><strong>forecast_end_year</strong> – Forecast end year</p></li>
+<li><p><strong>celln</strong> – Number of spatial grid cells</p></li>
+<li><p><strong>m0</strong> – Completeness magnitude</p></li>
+<li><p><strong>mT</strong> – Target magnitude (for calculating seismic kernel)</p></li>
+<li><p><strong>delay</strong> – Delay in days (how long after an earthquake before it is counted)</p></li>
+<li><p><strong>use_rolling_update</strong> – Whether to use rolling update
+True: Each time point uses the latest data (default)
+False: All time points use the same historical data</p></li>
+<li><p><strong>forecast_period_days</strong> – Forecast period length (days, default 91.31 ≈ 3 months)</p></li>
+<li><p><strong>use_fast_mode</strong> – Whether to use fast mode (default True)
+True: Use Numba JIT accelerated grid integration (60-70x faster)
+False: Use accurate dblquad numerical integration (slow but precise)</p></li>
+<li><p><strong>spatial_samples</strong> – Number of sampling points for fast mode (default 20)
+Increasing improves precision but reduces speed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Forecast results saved as .mat file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-eepas_make_forecast">
+<span id="eepas-forecast"></span><h2>EEPAS Forecast<a class="headerlink" href="#module-eepas_make_forecast" title="Link to this heading">#</a></h2>
+<p>EEPAS Earthquake Forecasting</p>
+<p>Generate EEPAS model forecasts combining PPE background rate with
+precursory signals from historical earthquakes.</p>
+<p>Final forecast: λ = μ·λ₀ + Σ wᵢ·ηᵢ·λᵢ</p>
+<p>Each historical earthquake contributes a precursory kernel with temporal
+(lognormal), magnitude (Gaussian), and spatial (exponential) distributions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="eepas_make_forecast.compute_spatial_contribution_fast">
+<span class="sig-prename descclassname"><span class="pre">eepas_make_forecast.</span></span><span class="sig-name descname"><span class="pre">compute_spatial_contribution_fast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_spatial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qq_other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">W_use</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eepas_make_forecast.html#compute_spatial_contribution_fast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#eepas_make_forecast.compute_spatial_contribution_fast" title="Link to this definition">#</a></dt>
+<dd><p>Compute spatial contributions for all grid cells using Numba acceleration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X1</strong> – Grid boundary arrays (celln,)</p></li>
+<li><p><strong>X2</strong> – Grid boundary arrays (celln,)</p></li>
+<li><p><strong>Y1</strong> – Grid boundary arrays (celln,)</p></li>
+<li><p><strong>Y2</strong> – Grid boundary arrays (celln,)</p></li>
+<li><p><strong>xee</strong> – Event coordinate arrays (n_events,)</p></li>
+<li><p><strong>yee</strong> – Event coordinate arrays (n_events,)</p></li>
+<li><p><strong>sigma_spatial</strong> – Spatial standard deviation array (n_events,)</p></li>
+<li><p><strong>qq_other</strong> – Product of other contribution terms (scale×magnitude×time×weight) (n_events,)</p></li>
+<li><p><strong>W_use</strong> – Weight array (n_events,)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Expected number of events in each grid cell (celln,)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="eepas_make_forecast.eepas_make_forecast">
+<span class="sig-prename descclassname"><span class="pre">eepas_make_forecast.</span></span><span class="sig-name descname"><span class="pre">eepas_make_forecast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecast_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecast_end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">celln</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_causal_ew</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecast_period_days</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fast_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnitude_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppe_ref_mag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mT'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/eepas_make_forecast.html#eepas_make_forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#eepas_make_forecast.eepas_make_forecast" title="Link to this definition">#</a></dt>
+<dd><p>Main function for EEPAS model earthquake forecasting.</p>
+<p>Workflow:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Load all parameters from three learning stages:</p>
+<ul class="simple">
+<li><p>PPE parameters (a,d,s): Step 1</p></li>
+<li><p>Aftershock parameters (ν,κ): Step 2</p></li>
+<li><p>EEPAS parameters (am,bm,Sm,at,bt,St,ba,Sa,u): Step 3</p></li>
+</ul>
+</li>
+<li><p>Calculate weights wᵢ for each historical earthquake (aftershock down-weighting)</p></li>
+<li><p>For each forecast time window:</p>
+<ul class="simple">
+<li><p>Calculate precursory signal contribution for each grid cell</p></li>
+<li><p>Add PPE background rate</p></li>
+<li><p>Generate complete seismicity rate map</p></li>
+</ul>
+</li>
+<li><p>Save in MATLAB format</p></li>
+</ol>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_file</strong> – Path to configuration file</p></li>
+<li><p><strong>catalog_start_year</strong> – Starting year of earthquake catalog</p></li>
+<li><p><strong>forecast_start_year</strong> – Starting year of forecast period</p></li>
+<li><p><strong>forecast_end_year</strong> – Ending year of forecast period</p></li>
+<li><p><strong>celln</strong> – Number of spatial grid cells (uses CELLE count if not specified)</p></li>
+<li><p><strong>m0</strong> – Completeness magnitude</p></li>
+<li><p><strong>weight_flag</strong> – Weight calculation mode
+0 = Uniform weights (wᵢ=1, no aftershock consideration)
+1 = Compute weights (aftershock down-weighting using ETAS model)</p></li>
+<li><p><strong>delay</strong> – Delay in days (how long after an earthquake before counting precursory signal)</p></li>
+<li><p><strong>use_causal_ew</strong> – EW weight calculation mode
+1 (dynamic): Each period uses all events up to (t1-delay) to compute EW
+0 (fixed): Each period uses all events up to (t2) to compute EW (fixed within period)
+Both modes are causal, source events restricted to before t1-delay</p></li>
+<li><p><strong>forecast_period_days</strong> – Length of each forecast window (days, default 91.31≈3 months)</p></li>
+<li><p><strong>use_fast_mode</strong> – Whether to use fast mode (default True)
+True: Use Numba JIT-accelerated midpoint rectangle method (fast)
+False: Use exact quad_vec integration (slow but precise)</p></li>
+<li><p><strong>magnitude_samples</strong> – Number of samples for fast mode (default 20, increase for higher accuracy)</p></li>
+<li><p><strong>ppe_ref_mag</strong> – PPE reference magnitude selection (‘m0’ or ‘mT’, default uses mT)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>EEPAS forecast rate matrix with shape (N_rows, N_cols+1) where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>N_rows = num_time_windows × num_magnitude_bins (e.g., 40 periods × 25 mag bins = 1000)</p></li>
+<li><p>N_cols = num_spatial_cells (e.g., 177 grid cells for Italy)</p></li>
+<li><p>Column 0: Time window index (1, 2, 3, …)</p></li>
+<li><p>Columns 1 to N_cols: Earthquake rate for each spatial cell</p></li>
+</ul>
+<p>Each rate value represents expected number of earthquakes in that
+spatiotemporal-magnitude bin during the forecast period.</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="utils.html"><span class="doc">Utility Modules</span></a> - Utility modules used by core functions</p></li>
+<li><p><a class="reference internal" href="../user_guide/workflows.html"><span class="doc">Complete Workflows</span></a> - Complete workflow examples</p></li>
+<li><p><a class="reference internal" href="../technical/optimization.html"><span class="doc">Optimization Strategies</span></a> - Optimization algorithm details</p></li>
+<li><p><a class="reference internal" href="../technical/numerical_integration.html"><span class="doc">Numerical Integration</span></a> - Integration method details</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">API Reference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="utils.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Utility Modules</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ppe_learning">PPE Learning</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe_learning.ppe_learning_tw_fast"><code class="docutils literal notranslate"><span class="pre">ppe_learning_tw_fast()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-fit_aftershock_params">Aftershock Parameter Fitting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fit_aftershock_params.fit_aftershock_params_fast"><code class="docutils literal notranslate"><span class="pre">fit_aftershock_params_fast()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-eepas_learning_auto_boundary">EEPAS Learning</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas_learning_auto_boundary.parse_result_csv"><code class="docutils literal notranslate"><span class="pre">parse_result_csv()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas_learning_auto_boundary.eepas_with_auto_boundary"><code class="docutils literal notranslate"><span class="pre">eepas_with_auto_boundary()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas_learning_auto_boundary.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ppe_make_forecast">PPE Forecast</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe_make_forecast.compute_grid_integral_fast"><code class="docutils literal notranslate"><span class="pre">compute_grid_integral_fast()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe_make_forecast.ppe_make_forecast"><code class="docutils literal notranslate"><span class="pre">ppe_make_forecast()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-eepas_make_forecast">EEPAS Forecast</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas_make_forecast.compute_spatial_contribution_fast"><code class="docutils literal notranslate"><span class="pre">compute_spatial_contribution_fast()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas_make_forecast.eepas_make_forecast"><code class="docutils literal notranslate"><span class="pre">eepas_make_forecast()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

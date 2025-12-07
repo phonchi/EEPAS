@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.numerical_integration &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/numerical_integration';</script>
+    <link rel="icon" href="../../_static/logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.numerical_integration</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Numerical Integration Functions for EEPAS.</span>
+
+<span class="sd">This module provides low-level numerical integration functions with Numba acceleration.</span>
+
+<span class="sd">Functions:</span>
+<span class="sd">    PPE Spatial Integration:</span>
+<span class="sd">        - fast_kernel_sum_2d: Cauchy kernel summation (Numba parallel)</span>
+<span class="sd">        - trapezoidal_2d: 2D trapezoidal integration (Numba parallel)</span>
+
+<span class="sd">    EEPAS Magnitude Integration:</span>
+<span class="sd">        - fast_magnitude_integral: Midpoint rectangular rule (Numba JIT)</span>
+<span class="sd">        - magnitude_integral_accurate: quad_vec wrapper</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numba</span><span class="w"> </span><span class="kn">import</span> <span class="n">jit</span><span class="p">,</span> <span class="n">prange</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">quad_vec</span>
+
+
+<span class="c1"># ============================================================================</span>
+<span class="c1"># PPE Spatial Integration: Shared Numba-Accelerated Functions</span>
+<span class="c1"># ============================================================================</span>
+
+<div class="viewcode-block" id="fast_kernel_sum_2d">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.numerical_integration.fast_kernel_sum_2d">[docs]</a>
+<span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fastmath</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fast_kernel_sum_2d</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_grid</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="n">yj</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate PPE spatial kernel summation on 2D grid (vectorized version).</span>
+
+<span class="sd">    Seismological Significance:</span>
+<span class="sd">        For each grid point (x,y), calculate the Cauchy kernel summation from all historical earthquakes:</span>
+<span class="sd">        h₀(x,y) = Σⱼ [wⱼ/(π(d²+rⱼ²))]</span>
+
+<span class="sd">    Mathematical Principle:</span>
+<span class="sd">        Cauchy kernel κ(r) = 1/(π(d²+r²)) is the spatial distribution function in PPE model.</span>
+<span class="sd">        By summing contributions from all historical earthquakes, obtain spatial background rate.</span>
+
+<span class="sd">    Optimization Strategy:</span>
+
+<span class="sd">        1. Numba JIT compilation: boost pure Python loop performance</span>
+<span class="sd">        2. Parallelization (prange): multi-core computation for grid points</span>
+<span class="sd">        3. fastmath: allow floating-point optimizations (tiny precision loss for speed gain)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x_grid, y_grid: 2D grid coordinate matrices (meshgrid format) [nx × ny]</span>
+<span class="sd">        d: Characteristic distance (km)</span>
+<span class="sd">        xj, yj: Historical earthquake location arrays [n_events]</span>
+<span class="sd">        weights: Magnitude weight array wⱼ = a·(mⱼ-mT)·t_integral [n_events]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray: Kernel function summation on 2D grid [nx × ny]</span>
+
+<span class="sd">    Usage Scenarios:</span>
+
+<span class="sd">        - ppe_optimization.py: PPE Learning spatial integration</span>
+<span class="sd">        - neg_log_like_aftershock.py: Fit Aftershock spatial integration</span>
+<span class="sd">        - ppe_make_forecast.py: PPE Forecast grid integration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">x_grid</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">))</span>
+
+    <span class="c1"># Parallelize grid point computation (each CPU core processes some grid points)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">nx</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ny</span><span class="p">):</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="c1"># Sum Cauchy kernel for all historical earthquakes</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xj</span><span class="p">)):</span>
+                <span class="n">dx</span> <span class="o">=</span> <span class="n">x_grid</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">xj</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+                <span class="n">dy</span> <span class="o">=</span> <span class="n">y_grid</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">yj</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+                <span class="c1"># Cauchy kernel: wⱼ / [π(d²+r²)]</span>
+                <span class="n">val</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">d</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="trapezoidal_2d">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.numerical_integration.trapezoidal_2d">[docs]</a>
+<span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fastmath</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">trapezoidal_2d</span><span class="p">(</span><span class="n">f_values</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    2D trapezoidal integration method.</span>
+
+<span class="sd">    Mathematical Principle:</span>
+<span class="sd">        Divide integration region into regular grid, approximate each small rectangle using trapezoidal rule:</span>
+<span class="sd">        ∫∫ f(x,y) dx dy ≈ Σᵢⱼ [(f₀₀+f₁₀+f₀₁+f₁₁)/4] · Δx·Δy</span>
+<span class="sd">        where f₀₀, f₁₀, f₀₁, f₁₁ are function values at the four vertices of rectangle</span>
+
+<span class="sd">    Error Analysis:</span>
+<span class="sd">        For smooth functions, error is O(Δx² + Δy²).</span>
+<span class="sd">        PPE Cauchy kernel becomes relatively smooth after summing many earthquakes, trapezoidal method has good accuracy.</span>
+
+<span class="sd">    Optimization Strategy:</span>
+
+<span class="sd">        1. Numba parallelization: multi-core computation for grid cell summation</span>
+<span class="sd">        2. Vectorization-friendly: can be used together with fast_kernel_sum_2d</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f_values: 2D grid of function values (shape: nx × ny)</span>
+<span class="sd">        dx, dy: Grid spacing (unit: km)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Integral value (scalar)</span>
+
+<span class="sd">    Accuracy Test Results:</span>
+<span class="sd">        Trapezoidal 50×50 vs Gauss-Legendre 10×10: relative error 0.0000%, speed improvement 2.9x</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">f_values</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">integral</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1"># Parallelize grid cell summation</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">nx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ny</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># Trapezoidal rule: average of four vertices</span>
+            <span class="n">integral</span> <span class="o">+=</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="p">(</span><span class="n">f_values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">f_values</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span>
+                               <span class="n">f_values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">f_values</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">integral</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">*</span> <span class="n">dy</span></div>
+
+
+
+<div class="viewcode-block" id="ppe_spatial_integral_accurate">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.numerical_integration.ppe_spatial_integral_accurate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ppe_spatial_integral_accurate</span><span class="p">(</span><span class="n">x_bounds</span><span class="p">,</span> <span class="n">y_bounds</span><span class="p">,</span> <span class="n">event_data</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s_coeff</span><span class="p">,</span> <span class="n">a_coeff</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    PPE spatial integration: accurate mode (dblquad adaptive integration).</span>
+
+<span class="sd">    Seismological Significance:</span>
+<span class="sd">        Calculate spatial integral of PPE background rate: ∫∫ h(x,y) dx dy</span>
+<span class="sd">        where h(x,y) = a_coeff · [Σⱼ wⱼ/(π(d²+rⱼ²))] + s·s_coeff</span>
+
+<span class="sd">    Mathematical Principle:</span>
+<span class="sd">        Uses scipy.dblquad for adaptive double integration.</span>
+<span class="sd">        Higher accuracy (relative error &lt;0.001%) but slower (about 10-20x).</span>
+
+<span class="sd">    Applicable Scenarios:</span>
+
+<span class="sd">        - PPE Learning accurate integration mode</span>
+<span class="sd">        - Fit Aftershock accurate integration mode</span>
+<span class="sd">        - PPE Forecast accurate integration mode</span>
+<span class="sd">        - Paper validation or scenarios requiring extremely high precision</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x_bounds: (x_min, x_max) integration range</span>
+<span class="sd">        y_bounds: (y_min, y_max) integration range</span>
+<span class="sd">        event_data: Event list, each event is (weight, x, y) tuple where weight already includes all coefficients (e.g., (m-mT)·t_integral)</span>
+<span class="sd">        d: PPE characteristic distance (km)</span>
+<span class="sd">        s: PPE background rate</span>
+<span class="sd">        s_coeff: Coefficient for s (e.g., mag_integral * t_sum)</span>
+<span class="sd">        a_coeff: Coefficient for kernel summation term (default 1.0)</span>
+
+<span class="sd">            - PPE Learning/Fit Aftershock: a_coeff = a (PPE parameter)</span>
+<span class="sd">            - PPE Forecast: a_coeff = 1.0 (weight already includes a)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Integral value (scalar)</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        This function is suitable for calling separately for each grid cell in a loop.</span>
+<span class="sd">        Not suitable for overall vectorization (dblquad doesn&#39;t support it).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">dblquad</span>
+
+    <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">x_bounds</span>
+    <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">y_bounds</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">integrand</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Integrand function h(x,y)&quot;&quot;&quot;</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="c1"># PPE kernel summation term: a_coeff · Σⱼ [wⱼ/(π(d²+rⱼ²))]</span>
+        <span class="k">for</span> <span class="n">weight</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="n">yj</span> <span class="ow">in</span> <span class="n">event_data</span><span class="p">:</span>
+            <span class="n">denom</span> <span class="o">=</span> <span class="n">d</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">xj</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">yj</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">val</span> <span class="o">+=</span> <span class="n">a_coeff</span> <span class="o">*</span> <span class="n">weight</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">denom</span><span class="p">)</span>
+
+        <span class="c1"># PPE background term: s·s_coeff</span>
+        <span class="n">val</span> <span class="o">+=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">s_coeff</span>
+
+        <span class="k">return</span> <span class="n">val</span>
+
+    <span class="c1"># dblquad adaptive integration</span>
+    <span class="n">result</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">dblquad</span><span class="p">(</span>
+        <span class="n">integrand</span><span class="p">,</span>
+        <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span>  <span class="c1"># x range</span>
+        <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span>  <span class="c1"># y range (can be a function)</span>
+        <span class="n">epsabs</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>   <span class="c1"># absolute error tolerance</span>
+        <span class="n">epsrel</span><span class="o">=</span><span class="mf">1e-3</span>    <span class="c1"># relative error tolerance</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<span class="c1"># ============================================================================</span>
+<span class="c1"># Usage Notes</span>
+<span class="c1"># ============================================================================</span>
+
+<span class="c1"># Functions provided by this module should be used as follows:</span>
+<span class="c1">#</span>
+<span class="c1"># 1. In ppe_optimization.py, neg_log_like_aftershock.py, etc.:</span>
+<span class="c1">#    from utils.numerical_integration import fast_kernel_sum_2d, trapezoidal_2d</span>
+<span class="c1">#</span>
+<span class="c1">#    # Then use these low-level functions in fast integration functions</span>
+<span class="c1">#    kernel_grid = fast_kernel_sum_2d(x_grid, y_grid, d, xj, yj, weights)</span>
+<span class="c1">#    integral = trapezoidal_2d(kernel_grid, dx, dy)</span>
+<span class="c1">#</span>
+<span class="c1"># 2. In eepas_likelihood.py, eepas_make_forecast.py:</span>
+<span class="c1">#    from utils.numerical_integration import fast_magnitude_integral, magnitude_integral_accurate</span>
+<span class="c1">#</span>
+<span class="c1">#    # Fast mode</span>
+<span class="c1">#    result = fast_magnitude_integral(m1, m2, mee, am, bm, Sm, m0, B, magnitude_samples=20)</span>
+<span class="c1">#</span>
+<span class="c1">#    # Accurate mode</span>
+<span class="c1">#    result = magnitude_integral_accurate(m1, m2, mee, am, bm, Sm, m0, B)</span>
+<span class="c1">#</span>
+<span class="c1"># Advantages of this design:</span>
+<span class="c1"># - Eliminates code duplication (fast_kernel_sum_2d, trapezoidal_2d repeated in two files)</span>
+<span class="c1"># - Each file retains its own high-level logic and business rules</span>
+<span class="c1"># - Minimizes modification scope and complexity</span>
+
+
+<span class="c1"># ============================================================================</span>
+<span class="c1"># EEPAS Magnitude Integration: Shared Functions</span>
+<span class="c1"># ============================================================================</span>
+
+<div class="viewcode-block" id="fast_magnitude_integral">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.numerical_integration.fast_magnitude_integral">[docs]</a>
+<span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fast_magnitude_integral</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">mee</span><span class="p">,</span> <span class="n">am</span><span class="p">,</span> <span class="n">bm</span><span class="p">,</span> <span class="n">Sm</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">magnitude_samples</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    EEPAS magnitude integration: fast mode (midpoint rectangular rule).</span>
+
+<span class="sd">    Calculate magnitude integral: ∫[m1,m2] fGme(m, me) dm, for all me values</span>
+
+<span class="sd">    Where:</span>
+
+<span class="sd">        - gₑ(m|mₑ): Normal distribution N(am + bm·mₑ, Sm²)</span>
+<span class="sd">        - Δ(m): Normalization factor (calculated using erf function)</span>
+
+<span class="sd">    Fast Mode Characteristics:</span>
+
+<span class="sd">        1. Midpoint rectangular rule: divide integral interval equally, approximate using midpoint values</span>
+<span class="sd">        2. Numba acceleration: JIT compilation</span>
+<span class="sd">        3. Fixed sampling: predictable computational cost</span>
+
+<span class="sd">    Error Analysis:</span>
+<span class="sd">        20 sample points: relative error ~3%, suitable for Forecast (speed priority)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        m1, m2: Integration range (scalar)</span>
+<span class="sd">        mee: Precursor magnitude array (must be array)</span>
+<span class="sd">        am, bm, Sm: Magnitude distribution parameters</span>
+<span class="sd">        m0: Completeness magnitude</span>
+<span class="sd">        B: GR b-value</span>
+<span class="sd">        magnitude_samples: Number of sample points (default 20)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray: Integration result array of length len(mee)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_events</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mee</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_events</span><span class="p">)</span>
+
+    <span class="c1"># Midpoint rectangular rule</span>
+    <span class="n">dm</span> <span class="o">=</span> <span class="p">(</span><span class="n">m2</span> <span class="o">-</span> <span class="n">m1</span><span class="p">)</span> <span class="o">/</span> <span class="n">magnitude_samples</span>
+    <span class="n">sqrt_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+    <span class="n">sqrt_2pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_events</span><span class="p">):</span>
+        <span class="n">me</span> <span class="o">=</span> <span class="n">mee</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">integral</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="c1"># Midpoint integration</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">magnitude_samples</span><span class="p">):</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">m1</span> <span class="o">+</span> <span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">dm</span>
+
+            <span class="c1"># Numerator: Gaussian PDF</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">am</span> <span class="o">-</span> <span class="n">bm</span> <span class="o">*</span> <span class="n">me</span><span class="p">)</span> <span class="o">/</span> <span class="n">Sm</span>
+            <span class="n">numerator</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">Sm</span> <span class="o">*</span> <span class="n">sqrt_2pi</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">diff</span> <span class="o">*</span> <span class="n">diff</span><span class="p">)</span>
+
+            <span class="c1"># Denominator: normalization factor (depends on m, not me!)</span>
+            <span class="c1"># Use erf function to calculate cumulative distribution</span>
+            <span class="n">erf_arg</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">am</span> <span class="o">-</span> <span class="n">bm</span> <span class="o">*</span> <span class="n">m0</span> <span class="o">-</span> <span class="n">Sm</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">B</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt_2</span> <span class="o">*</span> <span class="n">Sm</span><span class="p">)</span>
+            <span class="n">denominator</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">erf</span><span class="p">(</span><span class="n">erf_arg</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
+
+            <span class="c1"># Safe division (avoid dividing by extremely small values)</span>
+            <span class="n">integral</span> <span class="o">+=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">denominator</span><span class="p">,</span> <span class="mf">1e-100</span><span class="p">)</span>
+
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">integral</span> <span class="o">*</span> <span class="n">dm</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="magnitude_integral_accurate">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.numerical_integration.magnitude_integral_accurate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">magnitude_integral_accurate</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">mee</span><span class="p">,</span> <span class="n">am</span><span class="p">,</span> <span class="n">bm</span><span class="p">,</span> <span class="n">Sm</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    EEPAS magnitude integration: accurate mode (quad_vec vectorized adaptive integration).</span>
+
+<span class="sd">    Uses scipy.quad_vec for adaptive integration, supports vectorization.</span>
+
+<span class="sd">    Accurate Mode Characteristics:</span>
+
+<span class="sd">        1. Adaptive sampling: adjust integration points based on function characteristics</span>
+<span class="sd">        2. Vectorization: can calculate multiple integrals simultaneously</span>
+<span class="sd">        3. Extremely high precision: &lt;0.001%</span>
+
+<span class="sd">    Applicable Scenarios:</span>
+
+<span class="sd">        - EEPAS Learning (parameter learning requires high precision)</span>
+<span class="sd">        - Paper validation</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        m1, m2: Integration range (scalar)</span>
+<span class="sd">        mee: Precursor magnitude array</span>
+<span class="sd">        am, bm, Sm: Magnitude distribution parameters</span>
+<span class="sd">        m0: Completeness magnitude</span>
+<span class="sd">        B: GR b-value</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float or numpy.ndarray: Integral value (can be scalar or array, depending on input)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">m1</span> <span class="o">&gt;=</span> <span class="n">m2</span><span class="p">):</span>
+        <span class="c1"># Handle invalid integration range</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">m1</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
+            <span class="n">valid</span> <span class="o">=</span> <span class="n">m1</span> <span class="o">&lt;</span> <span class="n">m2</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">valid</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">result</span>
+            <span class="c1"># Only calculate valid range</span>
+            <span class="n">m1_valid</span> <span class="o">=</span> <span class="n">m1</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span>
+            <span class="n">m2_valid</span> <span class="o">=</span> <span class="n">m2</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span> <span class="o">=</span> <span class="n">magnitude_integral_accurate</span><span class="p">(</span><span class="n">m1_valid</span><span class="p">,</span> <span class="n">m2_valid</span><span class="p">,</span> <span class="n">mee</span><span class="p">,</span> <span class="n">am</span><span class="p">,</span> <span class="n">bm</span><span class="p">,</span> <span class="n">Sm</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+    <span class="n">sqrt_2pi_Sm</span> <span class="o">=</span> <span class="n">Sm</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">integrand</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Integrand function gₑ(m)/Δ(m)&quot;&quot;&quot;</span>
+        <span class="c1"># gₑ(m): Normal distribution</span>
+        <span class="n">mag_diff</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="n">am</span> <span class="o">-</span> <span class="n">bm</span> <span class="o">*</span> <span class="n">mee</span>
+        <span class="n">g_e</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">sqrt_2pi_Sm</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">mag_diff</span> <span class="o">/</span> <span class="n">Sm</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Δ(m): GR distribution integral</span>
+        <span class="n">delta_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">B</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">m0</span><span class="p">))</span> <span class="o">/</span> <span class="n">B</span>
+
+        <span class="k">return</span> <span class="n">g_e</span> <span class="o">/</span> <span class="n">delta_m</span>
+
+    <span class="c1"># Use quad_vec for vectorized integration</span>
+    <span class="n">result</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">quad_vec</span><span class="p">(</span><span class="n">integrand</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<span class="c1"># Note: Does not provide high-level unified interface (like eepas_magnitude_integral)</span>
+<span class="c1"># Each file directly calls fast_magnitude_integral or magnitude_integral_accurate as needed</span>
+
+
+
+
+<span class="c1"># ============================================================================</span>
+<span class="c1"># Version Information</span>
+<span class="c1"># ============================================================================</span>
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s2">&quot;2025-11-03&quot;</span>
+
+<span class="c1"># Exported public interface</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># PPE spatial integration: shared functions</span>
+    <span class="s1">&#39;fast_kernel_sum_2d&#39;</span><span class="p">,</span>          <span class="c1"># Fast mode: kernel summation (Numba)</span>
+    <span class="s1">&#39;trapezoidal_2d&#39;</span><span class="p">,</span>              <span class="c1"># Fast mode: trapezoidal integration (Numba)</span>
+    <span class="s1">&#39;ppe_spatial_integral_accurate&#39;</span><span class="p">,</span>  <span class="c1"># Accurate mode: dblquad integration</span>
+
+    <span class="c1"># EEPAS magnitude integration: shared functions</span>
+    <span class="s1">&#39;fast_magnitude_integral&#39;</span><span class="p">,</span>        <span class="c1"># Fast mode: midpoint rectangular rule</span>
+    <span class="s1">&#39;magnitude_integral_accurate&#39;</span><span class="p">,</span>    <span class="c1"># Accurate mode: quad_vec</span>
+<span class="p">]</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

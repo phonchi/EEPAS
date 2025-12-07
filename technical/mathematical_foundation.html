@@ -1,0 +1,831 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Mathematical Foundation &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'technical/mathematical_foundation';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Numerical Integration" href="numerical_integration.html" />
+    <link rel="prev" title="EEPAS Italy Preprocessing: Estimation of Completeness (\(m_c\)) and \(b\)-value" href="../examples/Estimate_mc_b_Italy_clean.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/technical/mathematical_foundation.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Mathematical Foundation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-total-rate-density">The Total Rate Density</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">Mathematical Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#component-functions">Component Functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe-model">PPE Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correction-factors">Correction Factors</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#incompleteness-correction-m">Incompleteness Correction Δ(m)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#magnitude-scaling-function-m">Magnitude Scaling Function η(m)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#log-likelihood-function">Log-Likelihood Function</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation">Parameter Estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-property">Key Property</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-integration">Analytical Integration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-integral-lognormal">Time Integral (Lognormal)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-integral-gaussian">Spatial Integral (Gaussian)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-parameters">Model Parameters</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe-parameters-3">PPE Parameters (3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas-parameters-8-1">EEPAS Parameters (8+1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aftershock-parameters-2">Aftershock Parameters (2)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#physical-interpretation">Physical Interpretation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-relations-psi-phenomenon">Scaling Relations (<span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#failure-to-predict-rate">Failure-to-Predict Rate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-complexity">Computational Complexity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="mathematical-foundation">
+<h1>Mathematical Foundation<a class="headerlink" href="#mathematical-foundation" title="Link to this heading">#</a></h1>
+<p>This section provides the mathematical foundations of the EEPAS and PPE models, extracted from the theoretical framework presented in the research paper.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>The EEPAS (Every Earthquake a Precursor According to Scale) model combines:</p>
+<ol class="arabic simple">
+<li><p><strong>PPE Model</strong>: Proximity to Past Earthquakes - baseline seismicity</p></li>
+<li><p><strong>EEPAS Component</strong>: Precursor-driven rate enhancement</p></li>
+<li><p><strong>Mixing Parameter</strong>: μ (failure-to-predict rate)</p></li>
+</ol>
+</section>
+<section id="the-total-rate-density">
+<h2>The Total Rate Density<a class="headerlink" href="#the-total-rate-density" title="Link to this heading">#</a></h2>
+<section id="mathematical-formulation">
+<h3>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Link to this heading">#</a></h3>
+<p>The complete EEPAS+PPE rate density is:</p>
+<div class="math notranslate nohighlight">
+\[\lambda(t,m,x,y) = \mu \lambda_0(t,m,x,y) + \sum_{t_i \geq t_0;\, m_i \geq m_0}^{t - \mathrm{delay}} \eta(m_i) \frac{\lambda_i(t,m,x,y)}{\Delta(m)}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><strong>μ</strong>: Failure-to-predict rate (PPE proportion, background)</p></li>
+<li><p><strong>1-μ</strong>: Precursor-driven rate (EEPAS proportion)</p></li>
+<li><p><strong>λ₀</strong>: PPE baseline rate density</p></li>
+<li><p><strong>λᵢ</strong>: Contribution from precursor event i</p></li>
+<li><p><strong>η(m)</strong>: Magnitude-dependent scaling function</p></li>
+<li><p><strong>Δ(m)</strong>: Incompleteness correction factor</p></li>
+</ul>
+</section>
+<section id="component-functions">
+<h3>Component Functions<a class="headerlink" href="#component-functions" title="Link to this heading">#</a></h3>
+<p>Each precursor contribution λᵢ(t,m,x,y) decomposes into three independent components:</p>
+<div class="math notranslate nohighlight">
+\[\lambda_i(t,m,x,y) = w_i f_i(t) g_i(m) h_i(x,y)\]</div>
+<p><strong>Time Component</strong> f(t): Lognormal distribution</p>
+<div class="math notranslate nohighlight">
+\[f_i(t) = \frac{1}{(t-t_i)\ln 10\, \sigma_T \sqrt{2\pi}}
+\exp\left[-\frac{(\log_{10}(t-t_i) - a_T - b_T m_i)^2}{2\sigma_T^2}\right]\]</div>
+<p><strong>Magnitude Component</strong> g(m): Gaussian distribution</p>
+<div class="math notranslate nohighlight">
+\[g_i(m) = \frac{1}{\sigma_M \sqrt{2\pi}}
+\exp\left[-\frac{(m - a_M - b_M m_i)^2}{2\sigma_M^2}\right]\]</div>
+<p><strong>Spatial Component</strong> h(x,y): Bivariate Gaussian</p>
+<div class="math notranslate nohighlight">
+\[h_i(x,y) = \frac{1}{2\pi \sigma_A^2 10^{b_A m_i}}
+\exp\left[-\frac{(x-x_i)^2 + (y-y_i)^2}{2\sigma_A^2 10^{b_A m_i}}\right]\]</div>
+</section>
+</section>
+<section id="ppe-model">
+<h2>PPE Model<a class="headerlink" href="#ppe-model" title="Link to this heading">#</a></h2>
+<p>The PPE baseline rate density represents seismicity without medium-term precursory effects:</p>
+<div class="math notranslate nohighlight">
+\[\lambda_0(t,m,x,y) = f_0(t) g_0(m) h_0(x,y)\]</div>
+<p><strong>Time</strong>: Proportional to catalog duration</p>
+<div class="math notranslate nohighlight">
+\[f_0(t) = \frac{1}{t - t_0}\]</div>
+<p><strong>Magnitude</strong>: Gutenberg-Richter law</p>
+<div class="math notranslate nohighlight">
+\[g_0(m) = \beta \exp[-\beta(m - m_T)]\]</div>
+<p>where β = b_GR ln(10), with b_GR being the Gutenberg-Richter b-value.</p>
+<p><strong>Space</strong>: Sum of spatial kernels from past events</p>
+<div class="math notranslate nohighlight">
+\[h_0(x,y) = \sum_{t_i &lt; t;\, m_i \geq m_T} \left[a(m_i - m_T) \frac{1}{\pi(d^2 + r_i^2)} + s\right]\]</div>
+<p>where rᵢ² = (x-xᵢ)² + (y-yᵢ)² is the squared distance to event i.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>a</strong>: Intensity parameter (background rate amplitude)</p></li>
+<li><p><strong>d</strong>: Characteristic distance (spatial decay, km)</p></li>
+<li><p><strong>s</strong>: Uniform background rate</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="correction-factors">
+<h2>Correction Factors<a class="headerlink" href="#correction-factors" title="Link to this heading">#</a></h2>
+<section id="incompleteness-correction-m">
+<h3>Incompleteness Correction Δ(m)<a class="headerlink" href="#incompleteness-correction-m" title="Link to this heading">#</a></h3>
+<p>Since earthquakes below m₀ are excluded from the catalog, their contribution must be accounted for:</p>
+<div class="math notranslate nohighlight">
+\[\Delta(m) = \Phi\left(\frac{m - a_M - b_M m_0 - \sigma_M^2 \beta}{\sigma_M}\right)\]</div>
+<p>where Φ(x) is the standard normal cumulative distribution function (CDF).</p>
+<p><strong>Physical Meaning</strong>: Δ(m) represents the fraction of triggered events above m₀ that would be observed given the catalog’s completeness threshold.</p>
+</section>
+<section id="magnitude-scaling-function-m">
+<h3>Magnitude Scaling Function η(m)<a class="headerlink" href="#magnitude-scaling-function-m" title="Link to this heading">#</a></h3>
+<p>The function η(m) scales precursor productivity to preserve the Gutenberg-Richter magnitude distribution:</p>
+<div class="math notranslate nohighlight">
+\[\eta(m) = \frac{(1 - \mu) b_M}{E(w)} \exp\left\{-\beta \left[a_M + (b_M - 1)m + \frac{\sigma_M^2 \beta}{2}\right]\right\}\]</div>
+<dl class="simple">
+<dt>where:</dt><dd><ul class="simple">
+<li><p><strong>E(w)</strong>: Expected value (mean) of weights wᵢ</p></li>
+<li><p><strong>β</strong>: Magnitude scaling constant (b_GR ln 10)</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Purpose</strong>: Ensures that the integrated contribution from precursors averages to (1-μ), maintaining the overall Gutenberg-Richter distribution.</p>
+</section>
+</section>
+<section id="log-likelihood-function">
+<h2>Log-Likelihood Function<a class="headerlink" href="#log-likelihood-function" title="Link to this heading">#</a></h2>
+<section id="parameter-estimation">
+<h3>Parameter Estimation<a class="headerlink" href="#parameter-estimation" title="Link to this heading">#</a></h3>
+<p>Parameters are estimated by maximizing the log-likelihood for an inhomogeneous Poisson point process:</p>
+<div class="math notranslate nohighlight">
+\[\ln\mathcal{L}(\lambda) = \sum_{j} \ln\lambda(t_j, m_j, x_j, y_j)
+- \int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_R \lambda(t,m,x,y)\, dA\, dm\, dt\]</div>
+<dl class="simple">
+<dt>where:</dt><dd><ul class="simple">
+<li><p><strong>First term</strong>: Sum over observed target events (j) in [t_s, t_e) with m ≥ m_T</p></li>
+<li><p><strong>Second term</strong>: Expected number of events (normalization integral)</p></li>
+<li><p><strong>R</strong>: Testing region (spatial domain)</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="key-property">
+<h3>Key Property<a class="headerlink" href="#key-property" title="Link to this heading">#</a></h3>
+<p>Under maximum likelihood estimation, the normalization integral equals the observed event count:</p>
+<div class="math notranslate nohighlight">
+\[\int_{t_s}^{t_e} \int_{m_T}^{m_u} \iint_R \lambda(t,m,x,y)\, dA\, dm\, dt \approx N_{\text{observed}}\]</div>
+<p>This is a fundamental consistency check for model calibration.</p>
+</section>
+</section>
+<section id="analytical-integration">
+<h2>Analytical Integration<a class="headerlink" href="#analytical-integration" title="Link to this heading">#</a></h2>
+<p>Many integrals in EEPAS have closed-form solutions using the error function:</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{erf}(x) = \frac{2}{\sqrt{\pi}} \int_0^x e^{-t^2} dt\]</div>
+<section id="time-integral-lognormal">
+<h3>Time Integral (Lognormal)<a class="headerlink" href="#time-integral-lognormal" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\int_{t_s}^{t_e} f_i(t)\, dt = \frac{1}{2}\left[
+\mathrm{erf}\left(\frac{\log_{10}(t_e - t_i) - \mu_i}{\sqrt{2}\sigma_T}\right)
+- \mathrm{erf}\left(\frac{\log_{10}(t_s - t_i) - \mu_i}{\sqrt{2}\sigma_T}\right)
+\right]\]</div>
+<p>where μᵢ = a_T + b_T mᵢ.</p>
+</section>
+<section id="spatial-integral-gaussian">
+<h3>Spatial Integral (Gaussian)<a class="headerlink" href="#spatial-integral-gaussian" title="Link to this heading">#</a></h3>
+<p>For a rectangular cell [X₁, X₂] × [Y₁, Y₂]:</p>
+<div class="math notranslate nohighlight">
+\[\iint_{[X_1,X_2] \times [Y_1,Y_2]} h_i(x,y)\, dA = \frac{1}{4}
+\left[\mathrm{erf}\left(\frac{X_2-x_i}{\sqrt{2}\sigma_i}\right)
+- \mathrm{erf}\left(\frac{X_1-x_i}{\sqrt{2}\sigma_i}\right)\right]
+\times
+\left[\mathrm{erf}\left(\frac{Y_2-y_i}{\sqrt{2}\sigma_i}\right)
+- \mathrm{erf}\left(\frac{Y_1-y_i}{\sqrt{2}\sigma_i}\right)\right]\]</div>
+<p>where σᵢ = σ_A · 10^(b_A mᵢ/2).</p>
+<p><strong>Performance Benefit</strong>: Using erf (implemented with fast polynomial approximations) instead of numerical quadrature provides ~10x speedup with no loss of accuracy.</p>
+</section>
+</section>
+<section id="model-parameters">
+<h2>Model Parameters<a class="headerlink" href="#model-parameters" title="Link to this heading">#</a></h2>
+<section id="ppe-parameters-3">
+<h3>PPE Parameters (3)<a class="headerlink" href="#ppe-parameters-3" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>a</p></td>
+<td><p>Background intensity (region-dependent)</p></td>
+</tr>
+<tr class="row-odd"><td><p>d</p></td>
+<td><p>Spatial decay distance (km)</p></td>
+</tr>
+<tr class="row-even"><td><p>s</p></td>
+<td><p>Uniform background rate (often ≈0)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="eepas-parameters-8-1">
+<h3>EEPAS Parameters (8+1)<a class="headerlink" href="#eepas-parameters-8-1" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>a_M</p></td>
+<td><p>Magnitude scaling intercept</p></td>
+</tr>
+<tr class="row-odd"><td><p>b_M</p></td>
+<td><p>Magnitude scaling slope (often fixed at 1.0)</p></td>
+</tr>
+<tr class="row-even"><td><p>σ_M</p></td>
+<td><p>Magnitude uncertainty</p></td>
+</tr>
+<tr class="row-odd"><td><p>a_T</p></td>
+<td><p>Time scaling intercept</p></td>
+</tr>
+<tr class="row-even"><td><p>b_T</p></td>
+<td><p>Time scaling slope</p></td>
+</tr>
+<tr class="row-odd"><td><p>σ_T</p></td>
+<td><p>Time uncertainty</p></td>
+</tr>
+<tr class="row-even"><td><p>b_A</p></td>
+<td><p>Spatial scaling exponent</p></td>
+</tr>
+<tr class="row-odd"><td><p>σ_A</p></td>
+<td><p>Spatial uncertainty</p></td>
+</tr>
+<tr class="row-even"><td><p>μ (u)</p></td>
+<td><p>Failure-to-predict rate (0.0-1.0)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="aftershock-parameters-2">
+<h3>Aftershock Parameters (2)<a class="headerlink" href="#aftershock-parameters-2" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ν (v)</p></td>
+<td><p>Independent event proportion (not aftershocks)</p></td>
+</tr>
+<tr class="row-odd"><td><p>κ (k)</p></td>
+<td><p>Aftershock normalization constant</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="physical-interpretation">
+<h2>Physical Interpretation<a class="headerlink" href="#physical-interpretation" title="Link to this heading">#</a></h2>
+<section id="scaling-relations-psi-phenomenon">
+<h3>Scaling Relations (<span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon)<a class="headerlink" href="#scaling-relations-psi-phenomenon" title="Link to this heading">#</a></h3>
+<p>The EEPAS model is based on empirical scaling relations:</p>
+<p><strong>Magnitude Scaling</strong>:</p>
+<div class="math notranslate nohighlight">
+\[M_m = a_M + b_M M_p\]</div>
+<p>Larger precursors predict larger mainshocks.</p>
+<p><strong>Time Scaling</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\log_{10} T_p = a_T + b_T M_p\]</div>
+<p>Larger precursors have longer lead times.</p>
+<p><strong>Spatial Scaling</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\log_{10} A_p = b_A M_p\]</div>
+<p>Larger precursors affect wider areas.</p>
+</section>
+<section id="failure-to-predict-rate">
+<h3>Failure-to-Predict Rate<a class="headerlink" href="#failure-to-predict-rate" title="Link to this heading">#</a></h3>
+<p>The parameter μ represents the proportion of earthquakes occurring without identifiable precursors:</p>
+<ul class="simple">
+<li><p><strong>μ = 0</strong>: All events have precursors (pure EEPAS)</p></li>
+<li><p><strong>μ = 0.5</strong>: Half background, half precursor-driven</p></li>
+<li><p><strong>μ = 1</strong>: No precursors (pure PPE)</p></li>
+</ul>
+<dl class="simple">
+<dt><strong>Italy Example</strong> (μ = 0.167):</dt><dd><ul class="simple">
+<li><p>16.7% of events are “background” (no detectable precursor)</p></li>
+<li><p>83.3% of events are precursor-driven (EEPAS component)</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+<section id="computational-complexity">
+<h2>Computational Complexity<a class="headerlink" href="#computational-complexity" title="Link to this heading">#</a></h2>
+<p>The computational cost of EEPAS is dominated by the normalization integral:</p>
+<div class="math notranslate nohighlight">
+\[\text{Cost} \sim \mathcal{O}(N_{\text{cells}} \times N_{\text{events}} \times N_{\text{time windows}})\]</div>
+<dl class="simple">
+<dt><strong>Italy Example</strong> (177 cells, ~27,000 events, 40 time windows):</dt><dd><ul class="simple">
+<li><p>Evaluations per forecast: ~177 × 27,000 × 40 ≈ 191 million</p></li>
+<li><p>With analytical integrals + Numba JIT: significantly faster</p></li>
+<li><p>Without optimization: ~hours</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="optimization.html"><span class="doc">Optimization Strategies</span></a> - Parameter estimation strategies</p></li>
+<li><p><a class="reference internal" href="numerical_integration.html"><span class="doc">Numerical Integration</span></a> - Integration methods and performance</p></li>
+<li><p><a class="reference internal" href="../api_reference/core.html"><span class="doc">Core Modules</span></a> - API documentation for core modules</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../examples/Estimate_mc_b_Italy_clean.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="numerical_integration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Numerical Integration</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-total-rate-density">The Total Rate Density</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">Mathematical Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#component-functions">Component Functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe-model">PPE Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correction-factors">Correction Factors</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#incompleteness-correction-m">Incompleteness Correction Δ(m)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#magnitude-scaling-function-m">Magnitude Scaling Function η(m)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#log-likelihood-function">Log-Likelihood Function</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-estimation">Parameter Estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-property">Key Property</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-integration">Analytical Integration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-integral-lognormal">Time Integral (Lognormal)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-integral-gaussian">Spatial Integral (Gaussian)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-parameters">Model Parameters</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe-parameters-3">PPE Parameters (3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas-parameters-8-1">EEPAS Parameters (8+1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aftershock-parameters-2">Aftershock Parameters (2)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#physical-interpretation">Physical Interpretation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-relations-psi-phenomenon">Scaling Relations (<span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#failure-to-predict-rate">Failure-to-Predict Rate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-complexity">Computational Complexity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

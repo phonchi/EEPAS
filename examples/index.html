@@ -1,0 +1,599 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Examples and Tutorials &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/index';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Examining the \(\Psi\) Phenomenon in Italian Seismicity" href="Examine_Psi_Italy_clean.html" />
+    <link rel="prev" title="Analysis Modules" href="../api_reference/analysis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/examples/index.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Examples and Tutorials</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebooks">Notebooks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-1-automated-psi-phenomenon-detection">Notebook 1: Automated <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon Detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-2-forecast-evaluation-with-pycsep">Notebook 2: Forecast Evaluation with pyCSEP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-3-catalog-preprocessing-with-seismostats">Notebook 3: Catalog Preprocessing with SeismoStats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-workflow-summary">Complete Workflow Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="examples-and-tutorials">
+<h1>Examples and Tutorials<a class="headerlink" href="#examples-and-tutorials" title="Link to this heading">#</a></h1>
+<p>This section demonstrates EEPAS integration with the earthquake forecasting ecosystem through three interactive notebooks.</p>
+<p><strong>Framework Integration</strong></p>
+<p>EEPAS is designed to work seamlessly with established seismological tools:</p>
+<ul class="simple">
+<li><p><strong>pyCSEP</strong> (Savran et al., 2022; Graham et al., 2024): Standardized forecast evaluation using consistency tests (L-test, N-test, S-test, M-test) and comparative scoring rules (log-likelihood, Brier, Kagan information scores).</p></li>
+<li><p><strong>SeismoStats</strong> (Mirwald et al., 2025): Statistical seismology package providing robust b-value estimators (b-positive, Tinti, Kijko-Smit) and catalog preprocessing tools.</p></li>
+<li><p><strong>Rectangular Algorithm</strong> (Christophersen et al., 2024): Automated <span class="math notranslate nohighlight">\(\Psi\)</span> phenomenon detection that identifies precursor-mainshock pairs and derives initial EEPAS parameter estimates through fixed-effects regression.</p></li>
+</ul>
+<p>The complete workflow from raw catalog preprocessing to rigorous forecast evaluation is demonstrated below.</p>
+<section id="notebooks">
+<h2>Notebooks<a class="headerlink" href="#notebooks" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Interactive Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</div>
+<section id="notebook-1-automated-psi-phenomenon-detection">
+<h3>Notebook 1: Automated <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon Detection<a class="headerlink" href="#notebook-1-automated-psi-phenomenon-detection" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="Examine_Psi_Italy_clean.html"><span class="doc">Examining the \Psi Phenomenon in Italian Seismicity</span></a></p>
+<p><strong>Purpose</strong>: Demonstrate the rectangular algorithm for automated precursor identification.</p>
+<p><strong>Integration Highlights</strong>:</p>
+<ul>
+<li><p><strong>Automated :math:`Psi` Detection</strong>: The rectangular algorithm (Christophersen et al., 2024) systematically identifies all precursor-mainshock pairs within a specified search radius (e.g., 400 km).</p></li>
+<li><p><strong>Fixed-Effects Regression</strong>: Addresses the space-time trade-off inherent in nested observations by properly distinguishing within-mainshock correlation from between-mainshock scaling relationships.</p></li>
+<li><p><strong>Initial Parameter Estimation</strong>: Derives initial values for EEPAS parameters from empirical scaling relations:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\log_{10} T_p &amp;= a_T + b_T M_p \\
+\log_{10} A_p &amp;= b_A M_p \\
+M_m &amp;= a_M + b_M M_p\end{split}\]</div>
+</li>
+</ul>
+<p><strong>Outputs</strong>:</p>
+<ul class="simple">
+<li><p>Scatterplots with fitted scaling relations</p></li>
+<li><p>Initial parameter estimates</p></li>
+</ul>
+<p><strong>Key Advantage</strong>: Replaces manual <span class="math notranslate nohighlight">\(\Psi\)</span> identification (a major barrier to EEPAS adoption) with a fully automated, reproducible procedure.</p>
+</section>
+<section id="notebook-2-forecast-evaluation-with-pycsep">
+<h3>Notebook 2: Forecast Evaluation with pyCSEP<a class="headerlink" href="#notebook-2-forecast-evaluation-with-pycsep" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="EEPAS_Forecast_Evaluation_New.html"><span class="doc">EEPAS Italy Results: Visualization and PyCSEP Evaluation</span></a></p>
+<p><strong>Purpose</strong>: Rigorous statistical evaluation of EEPAS and PPE forecasts using pyCSEP.</p>
+<p><strong>Integration Highlights</strong>:</p>
+<ul class="simple">
+<li><p><strong>Consistency Tests</strong>:</p>
+<ul>
+<li><p><strong>L-test</strong>: Overall likelihood fit (observed earthquakes vs forecast)</p></li>
+<li><p><strong>N-test</strong>: Total event count (Poisson or Negative Binomial)</p></li>
+<li><p><strong>S-test</strong>: Spatial distribution consistency</p></li>
+<li><p><strong>M-test</strong>: Magnitude distribution consistency</p></li>
+</ul>
+</li>
+<li><p><strong>Comparative Scoring</strong>:</p>
+<ul>
+<li><p><strong>Log-likelihood score</strong>: Measures overall model fit</p></li>
+<li><p><strong>Brier score</strong>: Particularly suitable for rare events</p></li>
+<li><p><strong>Kagan information score</strong>: Quantifies spatial informativeness</p></li>
+</ul>
+</li>
+<li><p><strong>pyCSEP-Compatible Output</strong>: EEPAS generates gridded forecasts in the standard format required by pyCSEP, enabling seamless integration with the Collaboratory for the Study of Earthquake Predictability (CSEP) testing framework.</p></li>
+</ul>
+<p><strong>Key Advantage</strong>: End-to-end validation using established statistical benchmarks, ensuring reproducibility and comparability with other forecasting models.</p>
+</section>
+<section id="notebook-3-catalog-preprocessing-with-seismostats">
+<h3>Notebook 3: Catalog Preprocessing with SeismoStats<a class="headerlink" href="#notebook-3-catalog-preprocessing-with-seismostats" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="Estimate_mc_b_Italy_clean.html"><span class="doc">EEPAS Italy Preprocessing: Estimation of Completeness (m_c) and b-value</span></a></p>
+<p><strong>Purpose</strong>: Estimate magnitude of completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and b-value using SeismoStats.</p>
+<p><strong>Integration Highlights</strong>:</p>
+<ul>
+<li><p><strong>SeismoStats Package</strong>: Provides multiple b-value estimators:</p>
+<ul class="simple">
+<li><p><strong>b-positive</strong> (Lippiello et al., 2024): Maximum likelihood with positive bias correction</p></li>
+<li><p><strong>Tinti &amp; Mulargia</strong> (1987): Accounts for magnitude binning</p></li>
+<li><p><strong>Kijko &amp; Smit</strong> (2012): Handles temporal variation in completeness</p></li>
+</ul>
+</li>
+<li><p><strong>Magnitude of Completeness (:math:`m_c`) Estimation</strong>:</p>
+<ul class="simple">
+<li><p>Maximum curvature method</p></li>
+<li><p>Goodness-of-fit test (GFT)</p></li>
+<li><p>b-value stability analysis</p></li>
+</ul>
+</li>
+<li><p><strong>Gutenberg-Richter Validation</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\log_{10} N(m) = a - b \cdot m\]</div>
+<p>where <span class="math notranslate nohighlight">\(b \approx 1.0\)</span> for most regions.</p>
+</li>
+</ul>
+<p><strong>EEPAS Parameter Dependency</strong>:</p>
+<p>The estimated b-value feeds directly into EEPAS:</p>
+<div class="math notranslate nohighlight">
+\[\beta = b \ln 10 \approx 2.303 b\]</div>
+<p>This <span class="math notranslate nohighlight">\(\beta\)</span> parameter appears in:</p>
+<ul class="simple">
+<li><p>Incompleteness correction: <span class="math notranslate nohighlight">\(\Delta(m) = \Phi\left(\frac{m - a_M - b_M m_0 - \sigma_M^2 \beta}{\sigma_M}\right)\)</span></p></li>
+<li><p>Normalization factor: <span class="math notranslate nohighlight">\(\eta(m) \propto \exp\{-\beta[a_M + (b_M - 1)m + \sigma_M^2 \beta / 2]\}\)</span></p></li>
+</ul>
+<p><strong>Key Advantage</strong>: Ensures EEPAS forecasts are based on statistically sound catalog preprocessing, avoiding biases from incorrect <span class="math notranslate nohighlight">\(m_c\)</span> or <span class="math notranslate nohighlight">\(b\)</span>-value estimates.</p>
+</section>
+</section>
+<section id="complete-workflow-summary">
+<h2>Complete Workflow Summary<a class="headerlink" href="#complete-workflow-summary" title="Link to this heading">#</a></h2>
+<p>The three notebooks demonstrate a complete earthquake forecasting pipeline:</p>
+<ol class="arabic simple">
+<li><p><strong>Preprocessing</strong> (Notebook 3): Estimate <span class="math notranslate nohighlight">\(m_c\)</span> and <span class="math notranslate nohighlight">\(b\)</span> using <strong>SeismoStats</strong></p></li>
+<li><p><strong>Parameter Initialization</strong> (Notebook 1): Automate <span class="math notranslate nohighlight">\(\Psi\)</span> detection using <strong>Rectangular Algorithm</strong></p></li>
+<li><p><strong>Model Fitting</strong>: Optimize EEPAS parameters via maximum likelihood (command-line tools)</p></li>
+<li><p><strong>Forecast Generation</strong>: Create gridded rate forecasts (command-line tools)</p></li>
+<li><p><strong>Statistical Evaluation</strong> (Notebook 2): Validate forecasts using <strong>pyCSEP</strong></p></li>
+</ol>
+<p>This end-to-end integration showcases EEPAS as a modern, reproducible framework for medium- to long-term earthquake forecasting, fully compatible with the established tools of statistical seismology.</p>
+<p><strong>References</strong></p>
+<ul class="simple">
+<li><p>Christophersen, A., Rhoades, D. A., &amp; Hainzl, S. (2024). Algorithmic Identification of the Precursory Scale Increase Phenomenon in Earthquake Catalogs. <em>Seismological Research Letters</em>, 95(6), 3464–3481.</p></li>
+<li><p>Glenn, W. B., et al. (1950). Verification of forecasts expressed in terms of probability. <em>Monthly Weather Review</em>, 78(1), 1–3.</p></li>
+<li><p>Graham, K. M., Bayona, J. A., Khawaja, A. M., et al. (2024). New features in the pyCSEP toolkit for earthquake forecast development and evaluation. <em>Seismological Research Letters</em>, 95(6), 3449–3463.</p></li>
+<li><p>Kagan, Y. Y. (2009). Testing long-term earthquake forecasts: likelihood methods and error diagrams. <em>Geophysical Journal International</em>, 177(2), 532–542.</p></li>
+<li><p>Lippiello, E., &amp; Petrillo, G. (2024). b-more-incomplete and b-more-positive: Insights on a robust estimator of magnitude distribution. <em>Journal of Geophysical Research: Solid Earth</em>, 129(2), e2023JB027849.</p></li>
+<li><p>Mirwald, A., Schmid, N., Han, M., Rohnacher, A., Mizrahi, L., Ritz, V. A., &amp; Wiemer, S. (2025). SeismoStats: A Python Package for Statistical Seismology. GitHub repository. <a class="github reference external" href="https://github.com/swiss-seismological-service/SeismoStats">swiss-seismological-service/SeismoStats</a></p></li>
+<li><p>Savran, W. H., Bayona, J. A., Iturrieta, P., Asim, K. M., Bao, H., Bayliss, K., Herrmann, M., Schorlemmer, D., Maechling, P. J., &amp; Werner, M. J. (2022). pyCSEP: A Python toolkit for earthquake forecast developers. <em>Seismological Society of America</em>, 93(5), 2858–2870.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../api_reference/analysis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Analysis Modules</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Examine_Psi_Italy_clean.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebooks">Notebooks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-1-automated-psi-phenomenon-detection">Notebook 1: Automated <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon Detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-2-forecast-evaluation-with-pycsep">Notebook 2: Forecast Evaluation with pyCSEP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-3-catalog-preprocessing-with-seismostats">Notebook 3: Catalog Preprocessing with SeismoStats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-workflow-summary">Complete Workflow Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

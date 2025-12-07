@@ -1,0 +1,686 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>analysis.optimize_psi_results &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/analysis/optimize_psi_results';</script>
+    <link rel="icon" href="../../_static/logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for analysis.optimize_psi_results</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">PSI Step 9 Optimization (Deduplication) - Robust Implementation</span>
+
+<span class="sd">Supports two methods for identifying &quot;identical&quot; Ψ identifications:</span>
+<span class="sd">  (1) round mode: Group by rounding to decimal places</span>
+<span class="sd">  (2) tolerance mode: Group by binning with tolerance (±t_tol, ±mp_tol, ±r_tol)  ← RECOMMENDED</span>
+
+<span class="sd">Features:</span>
+<span class="sd">  - Fixed 14-column output format matching paper specification</span>
+<span class="sd">  - Detailed reporting of 9.1/9.2 counts before/after</span>
+<span class="sd">  - Per-mainshock identification counts</span>
+
+<span class="sd">Usage Example (tolerance mode, RECOMMENDED):</span>
+<span class="sd">    python optimize_psi_results.py \</span>
+<span class="sd">        --input testopt.ou4a --output optimized_psi.ou4 \</span>
+<span class="sd">        --mode tolerance --t-tol 0.03 --mp-tol 0.05 --r-tol 0.25</span>
+
+<span class="sd">Usage Example (round mode, more conservative):</span>
+<span class="sd">    python optimize_psi_results.py \</span>
+<span class="sd">        --input testopt.ou4a --output optimized_psi.ou4 \</span>
+<span class="sd">        --mode round --t-decimals 2 --mp-decimals 1 --r-decimals 0</span>
+
+<span class="sd">Algorithm Steps (from Christophersen et al. 2024, SRL 95(6):3464-3481 Section 2.3):</span>
+<span class="sd">    Step 9.1: For identical (eq_name, tmin, tp, mp) → keep max sloperatio (ties: min ap)</span>
+<span class="sd">    Step 9.2: For identical (eq_name, tp, r) → keep min ap</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># === Paper-specified 14 columns (fixed output order) ===</span>
+<span class="n">CANONICAL_14</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;eq_name&quot;</span><span class="p">,</span> <span class="s2">&quot;mm&quot;</span><span class="p">,</span> <span class="s2">&quot;mp&quot;</span><span class="p">,</span> <span class="s2">&quot;mminus&quot;</span><span class="p">,</span> <span class="s2">&quot;sloperatio&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tmin&quot;</span><span class="p">,</span> <span class="s2">&quot;time_onset&quot;</span><span class="p">,</span> <span class="s2">&quot;tmax&quot;</span><span class="p">,</span> <span class="s2">&quot;tp&quot;</span><span class="p">,</span> <span class="s2">&quot;ap&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rn_max&quot;</span><span class="p">,</span> <span class="s2">&quot;rn_min&quot;</span><span class="p">,</span> <span class="s2">&quot;re_max&quot;</span><span class="p">,</span> <span class="s2">&quot;re_min&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="c1"># -------------------------------</span>
+<span class="c1"># File reading and column normalization</span>
+<span class="c1"># -------------------------------</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_read_ou4a_like</span><span class="p">(</span><span class="n">input_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read first 14 columns from .ou4a file and assign CANONICAL_14 column names.</span>
+
+<span class="sd">    Does not rely on file&#39;s built-in column names to avoid misalignment from</span>
+<span class="sd">    debug columns or inconsistent naming.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        input_file: Path to .ou4a file (str)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        DataFrame with 14 standardized columns and proper types</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If file has fewer than 14 columns</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">14</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">input_file</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="n">raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columns &lt; 14, incorrect format.&quot;</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">CANONICAL_14</span>
+
+    <span class="c1"># Type conversion (eq_name remains string)</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CANONICAL_14</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_ensure_canonical_columns</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ensure DataFrame contains only CANONICAL_14 columns in fixed order.</span>
+
+<span class="sd">    Supports legacy column name &#39;time_mina&#39; -&gt; &#39;time_onset&#39; for compatibility.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df: Input DataFrame (pd.DataFrame)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        DataFrame with standardized column order</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If required columns are missing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;time_onset&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cols</span> <span class="ow">and</span> <span class="s2">&quot;time_mina&quot;</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;time_mina&quot;</span><span class="p">:</span> <span class="s2">&quot;time_onset&quot;</span><span class="p">})</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CANONICAL_14</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step 9 missing required columns: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">CANONICAL_14</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+
+<span class="c1"># -------------------------------</span>
+<span class="c1"># Step 9.1/9.2: Two grouping implementations</span>
+<span class="c1"># -------------------------------</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_run_once_round</span><span class="p">(</span><span class="n">df_in</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                    <span class="n">t_decimals</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mp_decimals</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r_decimals</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Round mode: discretize keys by rounding to decimal places, then apply Steps 9.1/9.2.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_in: Input Ψ identifications (pd.DataFrame)</span>
+<span class="sd">        t_decimals: Decimal places for time rounding (int)</span>
+<span class="sd">        mp_decimals: Decimal places for magnitude rounding (int)</span>
+<span class="sd">    r_decimals : int</span>
+<span class="sd">        Decimal places for slope ratio rounding</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    tuple</span>
+<span class="sd">        (df_after_9.2, count_after_9.1, count_after_9.2)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df1</span> <span class="o">=</span> <span class="n">df_in</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># Quantize by rounding</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;tmin_q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;tmin&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">t_decimals</span><span class="p">)</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;tp_q&quot;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;tp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>   <span class="n">t_decimals</span><span class="p">)</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;mp_q&quot;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;mp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>   <span class="n">mp_decimals</span><span class="p">)</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;r_q&quot;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;sloperatio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">r_decimals</span><span class="p">)</span>
+
+    <span class="c1"># Step 9.1: For same (eq_name, tmin_q, tp_q, mp_q) → max sloperatio; ties: min ap</span>
+    <span class="n">g91</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">,</span> <span class="s2">&quot;tmin_q&quot;</span><span class="p">,</span> <span class="s2">&quot;tp_q&quot;</span><span class="p">,</span> <span class="s2">&quot;mp_q&quot;</span><span class="p">]</span>
+    <span class="n">df_91</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df1</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sloperatio&quot;</span><span class="p">,</span> <span class="s2">&quot;ap&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+           <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">g91</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+           <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">n91</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_91</span><span class="p">)</span>
+
+    <span class="c1"># Step 9.2: For same (eq_name, tp_q, r_q) → min ap</span>
+    <span class="n">g92</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">,</span> <span class="s2">&quot;tp_q&quot;</span><span class="p">,</span> <span class="s2">&quot;r_q&quot;</span><span class="p">]</span>
+    <span class="n">df_92</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_91</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ap&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+             <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">g92</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+             <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">n92</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_92</span><span class="p">)</span>
+
+    <span class="c1"># Remove auxiliary columns</span>
+    <span class="n">df_92</span> <span class="o">=</span> <span class="n">df_92</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;tmin_q&quot;</span><span class="p">,</span> <span class="s2">&quot;tp_q&quot;</span><span class="p">,</span> <span class="s2">&quot;mp_q&quot;</span><span class="p">,</span> <span class="s2">&quot;r_q&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_92</span><span class="p">,</span> <span class="n">n91</span><span class="p">,</span> <span class="n">n92</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_bin_with_tolerance</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Bin values with tolerance: discretize using bin width tol.</span>
+
+<span class="sd">    Equivalent to round(x/tol) * tol, but uses floor((x/tol)+0.5)*tol</span>
+<span class="sd">    to avoid system-dependent rounding at 0.5 boundaries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x: Input values (np.ndarray)</span>
+<span class="sd">        tol: Tolerance (bin width) (float)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        Binned values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">x</span> <span class="o">/</span> <span class="n">tol</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">tol</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_run_once_tolerance</span><span class="p">(</span><span class="n">df_in</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                        <span class="n">t_tol</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mp_tol</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">r_tol</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tolerance mode: discretize keys by binning with tolerance, then apply Steps 9.1/9.2.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_in: Input Ψ identifications (pd.DataFrame)</span>
+<span class="sd">        t_tol: Time tolerance (years) (float)</span>
+<span class="sd">        mp_tol: Magnitude tolerance (float)</span>
+<span class="sd">    r_tol : float</span>
+<span class="sd">        Slope ratio tolerance</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    tuple</span>
+<span class="sd">        (df_after_9.2, count_after_9.1, count_after_9.2)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df1</span> <span class="o">=</span> <span class="n">df_in</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;tmin_b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_bin_with_tolerance</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;tmin&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">t_tol</span><span class="p">)</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;tp_b&quot;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">_bin_with_tolerance</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;tp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>   <span class="n">t_tol</span><span class="p">)</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;mp_b&quot;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">_bin_with_tolerance</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;mp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>   <span class="n">mp_tol</span><span class="p">)</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;r_b&quot;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">_bin_with_tolerance</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;sloperatio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">r_tol</span><span class="p">)</span>
+
+    <span class="c1"># Step 9.1: For same (eq_name, tmin_b, tp_b, mp_b) → max sloperatio; ties: min ap</span>
+    <span class="n">g91</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">,</span> <span class="s2">&quot;tmin_b&quot;</span><span class="p">,</span> <span class="s2">&quot;tp_b&quot;</span><span class="p">,</span> <span class="s2">&quot;mp_b&quot;</span><span class="p">]</span>
+    <span class="n">df_91</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df1</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sloperatio&quot;</span><span class="p">,</span> <span class="s2">&quot;ap&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+           <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">g91</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+           <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">n91</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_91</span><span class="p">)</span>
+
+    <span class="c1"># Step 9.2: For same (eq_name, tp_b, r_b) → min ap</span>
+    <span class="n">g92</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">,</span> <span class="s2">&quot;tp_b&quot;</span><span class="p">,</span> <span class="s2">&quot;r_b&quot;</span><span class="p">]</span>
+    <span class="n">df_92</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_91</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ap&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+             <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">g92</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+             <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">n92</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_92</span><span class="p">)</span>
+
+    <span class="c1"># Remove auxiliary columns</span>
+    <span class="n">df_92</span> <span class="o">=</span> <span class="n">df_92</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;tmin_b&quot;</span><span class="p">,</span> <span class="s2">&quot;tp_b&quot;</span><span class="p">,</span> <span class="s2">&quot;mp_b&quot;</span><span class="p">,</span> <span class="s2">&quot;r_b&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_92</span><span class="p">,</span> <span class="n">n91</span><span class="p">,</span> <span class="n">n92</span>
+
+
+<span class="c1"># -------------------------------</span>
+<span class="c1"># Main function</span>
+<span class="c1"># -------------------------------</span>
+<div class="viewcode-block" id="optimize_psi_results">
+<a class="viewcode-back" href="../../api_reference/analysis.html#analysis.optimize_psi_results.optimize_psi_results">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">optimize_psi_results</span><span class="p">(</span>
+    <span class="n">input_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;psi.ou4a&quot;</span><span class="p">,</span>
+    <span class="n">output_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;optimized_psi.ou4&quot;</span><span class="p">,</span>
+    <span class="c1"># Round mode parameters</span>
+    <span class="n">t_decimals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">mp_decimals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">r_decimals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="c1"># Auto-relax precision (only for round mode; tolerance mode usually doesn&#39;t need this)</span>
+    <span class="n">auto_relax</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># Mode selection</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;round&quot;</span><span class="p">,</span>   <span class="c1"># &quot;round&quot; or &quot;tolerance&quot;</span>
+    <span class="c1"># Tolerance mode parameters (years, magnitude, slope ratio)</span>
+    <span class="n">t_tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.03</span><span class="p">,</span>   <span class="c1"># ≈ 11 days</span>
+    <span class="n">mp_tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">r_tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply Step 9 two-stage deduplication to Ψ identification results.</span>
+
+<span class="sd">    This implements the deduplication procedure from Christophersen et al. (2024, SRL 95(6):3464-3481):</span>
+<span class="sd">        Step 9.1: For same (eq_name, tmin, tp, mp) → keep max sloperatio (ties: min ap)</span>
+<span class="sd">        Step 9.2: For same (eq_name, tp, r) → keep min ap</span>
+
+<span class="sd">    Two discretization modes:</span>
+<span class="sd">        - mode=&quot;round&quot;: Discretize by rounding to decimal places (simple, controllable)</span>
+<span class="sd">        - mode=&quot;tolerance&quot;: Discretize by binning with tolerance (RECOMMENDED, closer to physical resolution)</span>
+
+<span class="sd">    Output format: Fixed 14 columns in CANONICAL_14 order.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        input_file: Input .ou4a file with raw Ψ identifications</span>
+<span class="sd">        output_file: Output .ou4 file with deduplicated results</span>
+<span class="sd">        t_decimals: Decimal places for time (round mode)</span>
+<span class="sd">        mp_decimals: Decimal places for magnitude (round mode)</span>
+<span class="sd">        r_decimals: Decimal places for slope ratio (round mode)</span>
+<span class="sd">        auto_relax: Automatically relax precision if no reduction (round mode only)</span>
+<span class="sd">        verbose: Print detailed progress information</span>
+<span class="sd">        mode: &quot;round&quot; or &quot;tolerance&quot;</span>
+<span class="sd">        t_tol: Time tolerance in years (tolerance mode, default 0.03 ≈ 11 days)</span>
+<span class="sd">        mp_tol: Magnitude tolerance (tolerance mode)</span>
+<span class="sd">        r_tol: Slope ratio tolerance (tolerance mode)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple (n_initial, n_after_9.1, n_after_9.2) - counts at each stage</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_read_ou4a_like</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
+    <span class="n">n0</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== PSI Result Optimization (Step 9) ===&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Following the exact algorithm from the paper&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Read </span><span class="si">{</span><span class="n">n0</span><span class="si">}</span><span class="s2"> raw Ψ identification records&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mode: </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ---- Execute Steps 9.1/9.2 ----</span>
+    <span class="k">if</span> <span class="n">mode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;tolerance&quot;</span><span class="p">:</span>
+        <span class="n">df2</span><span class="p">,</span> <span class="n">n91</span><span class="p">,</span> <span class="n">n92</span> <span class="o">=</span> <span class="n">_run_once_tolerance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t_tol</span><span class="o">=</span><span class="n">t_tol</span><span class="p">,</span> <span class="n">mp_tol</span><span class="o">=</span><span class="n">mp_tol</span><span class="p">,</span> <span class="n">r_tol</span><span class="o">=</span><span class="n">r_tol</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df2</span><span class="p">,</span> <span class="n">n91</span><span class="p">,</span> <span class="n">n92</span> <span class="o">=</span> <span class="n">_run_once_round</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t_decimals</span><span class="p">,</span> <span class="n">mp_decimals</span><span class="p">,</span> <span class="n">r_decimals</span><span class="p">)</span>
+
+        <span class="c1"># Auto-relax precision for round mode (fault tolerance)</span>
+        <span class="k">if</span> <span class="n">auto_relax</span> <span class="ow">and</span> <span class="n">n91</span> <span class="o">==</span> <span class="n">n0</span> <span class="ow">and</span> <span class="n">n92</span> <span class="o">==</span> <span class="n">n91</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">⚠️  No reduction in both steps, enabling auto-relax precision retry...&quot;</span><span class="p">)</span>
+            <span class="n">tried</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">rd</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="n">mp_decimals</span><span class="p">,</span> <span class="n">r_decimals</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">r_decimals</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]:</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">rd</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">tried</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">tried</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">df_try</span><span class="p">,</span> <span class="n">n91_try</span><span class="p">,</span> <span class="n">n92_try</span> <span class="o">=</span> <span class="n">_run_once_round</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">rd</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  → Precision (t=</span><span class="si">{</span><span class="n">td</span><span class="si">}</span><span class="s2">, mp=</span><span class="si">{</span><span class="n">md</span><span class="si">}</span><span class="s2">, r=</span><span class="si">{</span><span class="n">rd</span><span class="si">}</span><span class="s2">): after 9.1=</span><span class="si">{</span><span class="n">n91_try</span><span class="si">}</span><span class="s2">, after 9.2=</span><span class="si">{</span><span class="n">n92_try</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">n91_try</span> <span class="o">&lt;</span> <span class="n">n0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">n92_try</span> <span class="o">&lt;</span> <span class="n">n91_try</span><span class="p">):</span>
+                    <span class="n">df2</span><span class="p">,</span> <span class="n">n91</span><span class="p">,</span> <span class="n">n92</span> <span class="o">=</span> <span class="n">df_try</span><span class="p">,</span> <span class="n">n91_try</span><span class="p">,</span> <span class="n">n92_try</span>
+                    <span class="n">t_decimals</span><span class="p">,</span> <span class="n">mp_decimals</span><span class="p">,</span> <span class="n">r_decimals</span> <span class="o">=</span> <span class="n">td</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">rd</span>
+                    <span class="k">break</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Step 9.1: For identical tmin, tp, mp → keep max sloperatio...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  After first filter: </span><span class="si">{</span><span class="n">n91</span><span class="si">}</span><span class="s2"> records&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Step 9.2: For identical tp, sloperatio → keep min ap...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  After second filter: </span><span class="si">{</span><span class="n">n92</span><span class="si">}</span><span class="s2"> records&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ---- Fixed 14-column output ----</span>
+    <span class="n">df2</span> <span class="o">=</span> <span class="n">_ensure_canonical_columns</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span>
+    <span class="n">df2</span><span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2</span><span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="n">df2</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%.4f</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">After optimization: </span><span class="si">{</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;eq_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> earthquakes have Ψ identifications&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of Ψ identifications per earthquake (top 10):&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="s2">&quot;eq_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Saved to </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2"> (fixed 14 columns)&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">n0</span><span class="p">,</span> <span class="n">n91</span><span class="p">,</span> <span class="n">n92</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

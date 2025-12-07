@@ -1,0 +1,866 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.data_loader &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/data_loader';</script>
+    <link rel="icon" href="../../_static/logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.data_loader</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">DataLoader - EEPAS System Data Loading Utility Class</span>
+<span class="sd">Provides unified configuration file loading, model parameter management, and seismic catalog reading functionality</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<div class="viewcode-block" id="DataLoader">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.data_loader.DataLoader">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataLoader</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Unified data loading utility class&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DataLoader.load_config">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.data_loader.DataLoader.load_config">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_config</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="s1">&#39;config.json&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load system configuration from JSON config file.</span>
+<span class="sd">        Automatically fills in missing default values to ensure backward compatibility.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config_file: Configuration file path</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Configuration dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">config_file</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Configuration file </span><span class="si">{</span><span class="n">config_file</span><span class="si">}</span><span class="s1"> not found&#39;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">cfg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="c1"># Fill in default values to ensure backward compatibility</span>
+        <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;dataDir&#39;</span><span class="p">:</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;resultsDir&#39;</span><span class="p">:</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;catalogStartYear&#39;</span><span class="p">:</span> <span class="mi">1991</span><span class="p">,</span>
+            <span class="s1">&#39;learnStartYear&#39;</span><span class="p">:</span> <span class="mi">2002</span><span class="p">,</span>
+            <span class="s1">&#39;learnEndYear&#39;</span><span class="p">:</span> <span class="mi">2016</span><span class="p">,</span>
+            <span class="s1">&#39;forecastStartYear&#39;</span><span class="p">:</span> <span class="mi">2016</span><span class="p">,</span>
+            <span class="s1">&#39;forecastEndYear&#39;</span><span class="p">:</span> <span class="mi">2025</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">defaults</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">cfg</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="c1"># Process inputFiles</span>
+        <span class="k">if</span> <span class="s1">&#39;inputFiles&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">:</span>
+            <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Backward compatibility: support old names</span>
+        <span class="k">if</span> <span class="s1">&#39;horusFile&#39;</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="s1">&#39;catalogFile&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">]:</span>
+            <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">][</span><span class="s1">&#39;catalogFile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">][</span><span class="s1">&#39;horusFile&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;cptiFile&#39;</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="s1">&#39;neighborhoodRegionFile&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">]:</span>
+            <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">][</span><span class="s1">&#39;neighborhoodRegionFile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">][</span><span class="s1">&#39;cptiFile&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;celleFile&#39;</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="s1">&#39;testingRegionFile&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">]:</span>
+            <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">][</span><span class="s1">&#39;testingRegionFile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">][</span><span class="s1">&#39;celleFile&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Set default values</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;catalogFile&#39;</span><span class="p">,</span> <span class="s1">&#39;GDMScatalog_A_twd97.mat&#39;</span><span class="p">)</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;neighborhoodRegionFile&#39;</span><span class="p">,</span> <span class="s1">&#39;CPTI11.mat&#39;</span><span class="p">)</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;testingRegionFile&#39;</span><span class="p">,</span> <span class="s1">&#39;CELLE_ter_TW_twd97.mat&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Process outputFiles</span>
+        <span class="k">if</span> <span class="s1">&#39;outputFiles&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">:</span>
+            <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;outputFiles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;outputFiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;EEPASParamPattern&#39;</span><span class="p">,</span> <span class="s1">&#39;Fitted_par_EEPAS_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%d</span><span class="s1">.csv&#39;</span><span class="p">)</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;outputFiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;PPEParamPattern&#39;</span><span class="p">,</span> <span class="s1">&#39;Fitted_par_PPE_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%d</span><span class="s1">.csv&#39;</span><span class="p">)</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;outputFiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;AftershockParamPattern&#39;</span><span class="p">,</span> <span class="s1">&#39;Fitted_par_aftershock_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%d</span><span class="s1">.csv&#39;</span><span class="p">)</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;outputFiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;EEPASForecastPattern&#39;</span><span class="p">,</span> <span class="s1">&#39;PREVISIONI_3m_EEPAS_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%d</span><span class="s1">.mat&#39;</span><span class="p">)</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;outputFiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;PPEForecastPattern&#39;</span><span class="p">,</span> <span class="s1">&#39;PREVISIONI_3m_PPE_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%d</span><span class="s1">.mat&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Process optimization configuration</span>
+        <span class="k">if</span> <span class="s1">&#39;optimization&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">:</span>
+            <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;optimization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;stage1&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;am&#39;</span><span class="p">,</span> <span class="s1">&#39;at&#39;</span><span class="p">,</span> <span class="s1">&#39;Sa&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">],</span>
+                    <span class="s1">&#39;initialValues&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.32</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">],</span>
+                    <span class="s1">&#39;lowerBounds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                    <span class="s1">&#39;upperBounds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span>
+                    <span class="s1">&#39;fixedValues&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;bm&#39;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span> <span class="s1">&#39;Sm&#39;</span><span class="p">:</span> <span class="mf">0.23</span><span class="p">,</span> <span class="s1">&#39;bt&#39;</span><span class="p">:</span> <span class="mf">0.63</span><span class="p">,</span> <span class="s1">&#39;St&#39;</span><span class="p">:</span> <span class="mf">0.43</span><span class="p">,</span> <span class="s1">&#39;ba&#39;</span><span class="p">:</span> <span class="mf">0.57</span><span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;stage2&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Sm&#39;</span><span class="p">,</span> <span class="s1">&#39;bt&#39;</span><span class="p">,</span> <span class="s1">&#39;St&#39;</span><span class="p">,</span> <span class="s1">&#39;ba&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">],</span>
+                    <span class="s1">&#39;initialValues&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.23</span><span class="p">,</span> <span class="mf">0.63</span><span class="p">,</span> <span class="mf">0.43</span><span class="p">,</span> <span class="mf">0.57</span><span class="p">,</span> <span class="s1">&#39;u_from_stage1&#39;</span><span class="p">],</span>
+                    <span class="s1">&#39;lowerBounds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                    <span class="s1">&#39;upperBounds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;stage3&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;am&#39;</span><span class="p">,</span> <span class="s1">&#39;Sm&#39;</span><span class="p">,</span> <span class="s1">&#39;at&#39;</span><span class="p">,</span> <span class="s1">&#39;bt&#39;</span><span class="p">,</span> <span class="s1">&#39;St&#39;</span><span class="p">,</span> <span class="s1">&#39;ba&#39;</span><span class="p">,</span> <span class="s1">&#39;Sa&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">],</span>
+                    <span class="s1">&#39;lowerBounds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                    <span class="s1">&#39;upperBounds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span>
+                    <span class="s1">&#39;fixedValues&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;bm&#39;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">cfg</span></div>
+
+
+<div class="viewcode-block" id="DataLoader.load_catalogs">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.data_loader.DataLoader.load_catalogs">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_catalogs</span><span class="p">(</span><span class="n">input_arg</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load seismic catalog files.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input_arg: Configuration file path (.json) or data directory path</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (HORUS, CPTI11, CELLE) three data matrices</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determine if input is config file or data directory</span>
+        <span class="k">if</span> <span class="n">input_arg</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.json&#39;</span><span class="p">):</span>
+            <span class="n">cfg</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">input_arg</span><span class="p">)</span>
+            <span class="n">data_path</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;dataDir&#39;</span><span class="p">]</span>
+
+            <span class="c1"># If relative path, resolve relative to config file directory</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">data_path</span><span class="p">):</span>
+                <span class="n">config_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">input_arg</span><span class="p">))</span>
+                <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config_dir</span><span class="p">,</span> <span class="n">data_path</span><span class="p">)</span>
+
+            <span class="n">catalog_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">][</span><span class="s1">&#39;catalogFile&#39;</span><span class="p">])</span>
+            <span class="n">neighborhood_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">][</span><span class="s1">&#39;neighborhoodRegionFile&#39;</span><span class="p">])</span>
+            <span class="n">testing_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">][</span><span class="s1">&#39;testingRegionFile&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Configuration file path required&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">data_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Data directory not found: </span><span class="si">{</span><span class="n">data_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">catalog_file</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Catalog file not found: </span><span class="si">{</span><span class="n">catalog_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">neighborhood_file</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Neighborhood region data file not found: </span><span class="si">{</span><span class="n">neighborhood_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">testing_file</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Testing region data file not found: </span><span class="si">{</span><span class="n">testing_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Load MATLAB .mat files</span>
+        <span class="n">catalog_data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">catalog_file</span><span class="p">)</span>
+        <span class="n">neighborhood_data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">neighborhood_file</span><span class="p">)</span>
+        <span class="n">testing_data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">testing_file</span><span class="p">)</span>
+
+        <span class="c1"># Auto-detect key (backward compatibility)</span>
+        <span class="c1"># Seismic catalog file (Catalog)</span>
+        <span class="n">catalog_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">catalog_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">catalog_keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No data found in catalog file: </span><span class="si">{</span><span class="n">catalog_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">HORUS</span> <span class="o">=</span> <span class="n">catalog_data</span><span class="p">[</span><span class="n">catalog_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+        <span class="c1"># Neighborhood region file (could be CPTI11, CPTI15, CELLE, etc.)</span>
+        <span class="n">neighborhood_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">neighborhood_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">neighborhood_keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No data found in neighborhood region file: </span><span class="si">{</span><span class="n">neighborhood_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">CPTI11</span> <span class="o">=</span> <span class="n">neighborhood_data</span><span class="p">[</span><span class="n">neighborhood_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+        <span class="c1"># Testing region file (could be CELLE, CELLESD, etc.)</span>
+        <span class="n">testing_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">testing_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">testing_keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No data found in testing region file: </span><span class="si">{</span><span class="n">testing_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">CELLE</span> <span class="o">=</span> <span class="n">testing_data</span><span class="p">[</span><span class="n">testing_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+        <span class="k">return</span> <span class="n">HORUS</span><span class="p">,</span> <span class="n">CPTI11</span><span class="p">,</span> <span class="n">CELLE</span></div>
+
+
+<div class="viewcode-block" id="DataLoader.load_model_params">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.data_loader.DataLoader.load_model_params">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_model_params</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="s1">&#39;config.json&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load model parameters from configuration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config_file: Configuration file path</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Model parameters dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+        <span class="c1"># Set default values</span>
+        <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;delay&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mf">0.93</span><span class="p">,</span>
+            <span class="s1">&#39;m0&#39;</span><span class="p">:</span> <span class="mf">2.35</span><span class="p">,</span>
+            <span class="s1">&#39;mT&#39;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>
+            <span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span>
+            <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="mf">1.09</span><span class="p">,</span>
+            <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span>
+            <span class="s1">&#39;sigmaU&#39;</span><span class="p">:</span> <span class="mf">0.006</span><span class="p">,</span>
+            <span class="s1">&#39;weightFlag&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;useCausalEW&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;useRollingUpdate&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;forecastPeriodDays&#39;</span><span class="p">:</span> <span class="mf">91.31</span>
+        <span class="p">}</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="n">defaults</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># If config file contains modelParams field, read parameters</span>
+        <span class="k">if</span> <span class="s1">&#39;modelParams&#39;</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">defaults</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;modelParams&#39;</span><span class="p">]:</span>
+                    <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;modelParams&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">params</span></div>
+
+
+<div class="viewcode-block" id="DataLoader.load_spatial_regions">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.data_loader.DataLoader.load_spatial_regions">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_spatial_regions</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="s1">&#39;config.json&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load spatial region definitions (supports single or dual region configurations).</span>
+
+<span class="sd">        Single region configuration uses the same grid for both testing and neighborhood regions.</span>
+<span class="sd">        Dual region configuration uses a grid for testing and a polygon for neighborhood region.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config_file: Configuration file path</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Dictionary containing the following keys:</span>
+
+<span class="sd">                - &#39;testing_region&#39;: Testing region data (numpy array)</span>
+<span class="sd">                - &#39;testing_type&#39;: &#39;grid&#39; or &#39;polygon&#39;</span>
+<span class="sd">                - &#39;neighborhood_region&#39;: Neighborhood region data (numpy array)</span>
+<span class="sd">                - &#39;neighborhood_type&#39;: &#39;grid&#39; or &#39;polygon&#39;</span>
+<span class="sd">                - &#39;config&#39;: Region configuration (if exists)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+        <span class="n">data_path</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;dataDir&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Resolve absolute path</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">data_path</span><span class="p">):</span>
+            <span class="n">config_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">config_file</span><span class="p">))</span>
+            <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config_dir</span><span class="p">,</span> <span class="n">data_path</span><span class="p">)</span>
+
+        <span class="c1"># Get file paths</span>
+        <span class="n">neighborhood_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">][</span><span class="s1">&#39;neighborhoodRegionFile&#39;</span><span class="p">])</span>
+        <span class="n">testing_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;inputFiles&#39;</span><span class="p">][</span><span class="s1">&#39;testingRegionFile&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">neighborhood_file</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Neighborhood region data file not found: </span><span class="si">{</span><span class="n">neighborhood_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">testing_file</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Testing region data file not found: </span><span class="si">{</span><span class="n">testing_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Load testing region (always grid format)</span>
+        <span class="n">testing_data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">testing_file</span><span class="p">)</span>
+        <span class="c1"># Auto-find non-private keys (not starting with __)</span>
+        <span class="n">testing_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">testing_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">testing_keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No data found in testing region file: </span><span class="si">{</span><span class="n">testing_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">testing_key</span> <span class="o">=</span> <span class="n">testing_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Take first non-private key</span>
+        <span class="n">testing_region</span> <span class="o">=</span> <span class="n">testing_data</span><span class="p">[</span><span class="n">testing_key</span><span class="p">]</span>
+
+        <span class="c1"># Load neighborhood region (could be grid or polygon)</span>
+        <span class="n">neighborhood_data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">neighborhood_file</span><span class="p">)</span>
+        <span class="n">neighborhood_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">neighborhood_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">neighborhood_keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No data found in neighborhood region file: </span><span class="si">{</span><span class="n">neighborhood_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">neighborhood_key</span> <span class="o">=</span> <span class="n">neighborhood_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">neighborhood_region_raw</span> <span class="o">=</span> <span class="n">neighborhood_data</span><span class="p">[</span><span class="n">neighborhood_key</span><span class="p">]</span>
+
+        <span class="c1"># Determine region type</span>
+        <span class="c1"># Default: testing region is always grid</span>
+        <span class="n">testing_type</span> <span class="o">=</span> <span class="s1">&#39;grid&#39;</span>
+
+        <span class="c1"># neighborhood region type determination</span>
+        <span class="c1"># If explicitly specified in regionConfig, use the specified value</span>
+        <span class="c1"># Otherwise, auto-detect based on data shape</span>
+        <span class="n">region_config</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;regionConfig&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">neighborhood_type</span> <span class="o">=</span> <span class="n">region_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;neighborhoodRegionType&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">neighborhood_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Auto-detect: if columns &lt;= 4 and rows &lt; 100, treat as polygon</span>
+            <span class="c1"># Otherwise treat as grid</span>
+            <span class="n">n_rows</span><span class="p">,</span> <span class="n">n_cols</span> <span class="o">=</span> <span class="n">neighborhood_region_raw</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">if</span> <span class="n">n_cols</span> <span class="o">&lt;=</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">n_rows</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="n">neighborhood_type</span> <span class="o">=</span> <span class="s1">&#39;polygon&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">neighborhood_type</span> <span class="o">=</span> <span class="s1">&#39;grid&#39;</span>
+
+        <span class="c1"># Handle multi-column polygon data (e.g. CPTI15 has 4 columns: lat, lon, y_proj, x_proj)</span>
+        <span class="c1"># CPTI15 format: [latitude, longitude, Y_projected, X_projected]</span>
+        <span class="c1"># If polygon with 4 columns, use last two columns and swap order to (X, Y)</span>
+        <span class="k">if</span> <span class="n">neighborhood_type</span> <span class="o">==</span> <span class="s1">&#39;polygon&#39;</span> <span class="ow">and</span> <span class="n">neighborhood_region_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="c1"># Take last two columns: [Y_projected, X_projected]</span>
+            <span class="c1"># Swap order to: [X_projected, Y_projected]</span>
+            <span class="n">neighborhood_region_raw</span> <span class="o">=</span> <span class="n">neighborhood_region_raw</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>  <span class="c1"># X first, Y second</span>
+
+        <span class="c1"># Special handling for single region mode: if Testing and Neighborhood regions are identical, use same data</span>
+        <span class="c1"># (backward compatibility)</span>
+        <span class="k">if</span> <span class="n">testing_key</span> <span class="o">==</span> <span class="n">neighborhood_key</span> <span class="ow">and</span> <span class="n">testing_region</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">neighborhood_region_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="c1"># Possibly single region mode (same file or same data)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">testing_region</span><span class="p">,</span> <span class="n">neighborhood_region_raw</span><span class="p">):</span>
+                <span class="n">neighborhood_region</span> <span class="o">=</span> <span class="n">testing_region</span>
+                <span class="n">neighborhood_type</span> <span class="o">=</span> <span class="s1">&#39;grid&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">neighborhood_region</span> <span class="o">=</span> <span class="n">neighborhood_region_raw</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">neighborhood_region</span> <span class="o">=</span> <span class="n">neighborhood_region_raw</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;testing_region&#39;</span><span class="p">:</span> <span class="n">testing_region</span><span class="p">,</span>
+            <span class="s1">&#39;testing_type&#39;</span><span class="p">:</span> <span class="n">testing_type</span><span class="p">,</span>
+            <span class="s1">&#39;neighborhood_region&#39;</span><span class="p">:</span> <span class="n">neighborhood_region</span><span class="p">,</span>
+            <span class="s1">&#39;neighborhood_type&#39;</span><span class="p">:</span> <span class="n">neighborhood_type</span><span class="p">,</span>
+            <span class="s1">&#39;config&#39;</span><span class="p">:</span> <span class="n">region_config</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="DataLoader.load_custom_stages">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.data_loader.DataLoader.load_custom_stages">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_custom_stages</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="s1">&#39;config.json&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load custom optimization stages configuration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config_file: Configuration file path</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict or None: Custom stages configuration, or None if not enabled</span>
+<span class="sd">                {</span>
+<span class="sd">                    &#39;enable&#39;: bool,</span>
+<span class="sd">                    &#39;stages&#39;: [</span>
+<span class="sd">                        {</span>
+<span class="sd">                            &#39;name&#39;: str,</span>
+<span class="sd">                            &#39;parameters&#39;: list[str],</span>
+<span class="sd">                            &#39;initialValues&#39;: list[float] or None,</span>
+<span class="sd">                            &#39;lowerBounds&#39;: list[float],</span>
+<span class="sd">                            &#39;upperBounds&#39;: list[float],</span>
+<span class="sd">                            &#39;fixedValues&#39;: dict</span>
+<span class="sd">                        },</span>
+<span class="sd">                        ...</span>
+<span class="sd">                    ]</span>
+<span class="sd">                }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+        <span class="c1"># Check if custom stages are enabled</span>
+        <span class="n">custom_config</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;optimization&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;customStages&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">custom_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;enable&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Validate custom stages configuration</span>
+        <span class="k">if</span> <span class="s1">&#39;stages&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">custom_config</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;customStages.enable is true but no stages defined&#39;</span><span class="p">)</span>
+
+        <span class="n">stages</span> <span class="o">=</span> <span class="n">custom_config</span><span class="p">[</span><span class="s1">&#39;stages&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stages</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">stages</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;customStages.stages must be a non-empty list&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Validate each stage</span>
+        <span class="n">DataLoader</span><span class="o">.</span><span class="n">validate_custom_stages</span><span class="p">(</span><span class="n">stages</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">custom_config</span></div>
+
+
+<div class="viewcode-block" id="DataLoader.validate_custom_stages">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.data_loader.DataLoader.validate_custom_stages">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_custom_stages</span><span class="p">(</span><span class="n">stages</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate custom stages configuration.</span>
+
+<span class="sd">        Checks:</span>
+<span class="sd">        1. All parameter names are valid EEPAS parameters</span>
+<span class="sd">        2. Bounds and initial values have correct lengths</span>
+<span class="sd">        3. Fixed parameters + optimized parameters = 9 parameters</span>
+<span class="sd">        4. No duplicate optimization of same parameter in same stage</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            stages: List of stage configurations</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If validation fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Valid EEPAS parameter names</span>
+        <span class="n">valid_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;am&#39;</span><span class="p">,</span> <span class="s1">&#39;bm&#39;</span><span class="p">,</span> <span class="s1">&#39;Sm&#39;</span><span class="p">,</span> <span class="s1">&#39;at&#39;</span><span class="p">,</span> <span class="s1">&#39;bt&#39;</span><span class="p">,</span> <span class="s1">&#39;St&#39;</span><span class="p">,</span> <span class="s1">&#39;ba&#39;</span><span class="p">,</span> <span class="s1">&#39;Sa&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">stage_idx</span><span class="p">,</span> <span class="n">stage</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stages</span><span class="p">):</span>
+            <span class="n">stage_num</span> <span class="o">=</span> <span class="n">stage_idx</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">stage_name</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Stage </span><span class="si">{</span><span class="n">stage_num</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Check required fields</span>
+            <span class="k">if</span> <span class="s1">&#39;parameters&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stage</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: missing &quot;parameters&quot; field&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;lowerBounds&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stage</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: missing &quot;lowerBounds&quot; field&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;upperBounds&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stage</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: missing &quot;upperBounds&quot; field&#39;</span><span class="p">)</span>
+
+            <span class="n">parameters</span> <span class="o">=</span> <span class="n">stage</span><span class="p">[</span><span class="s1">&#39;parameters&#39;</span><span class="p">]</span>
+            <span class="n">lower_bounds</span> <span class="o">=</span> <span class="n">stage</span><span class="p">[</span><span class="s1">&#39;lowerBounds&#39;</span><span class="p">]</span>
+            <span class="n">upper_bounds</span> <span class="o">=</span> <span class="n">stage</span><span class="p">[</span><span class="s1">&#39;upperBounds&#39;</span><span class="p">]</span>
+            <span class="n">initial_values</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;initialValues&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">fixed_values</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fixedValues&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+            <span class="c1"># Check parameters are valid</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: &quot;parameters&quot; must be a non-empty list&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Check all parameter names are valid</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_params</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: invalid parameter name &quot;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&quot;. Must be one of </span><span class="si">{</span><span class="n">valid_params</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Check no duplicates in parameters</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">parameters</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: duplicate parameters in optimization list&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Check bounds lengths match</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lower_bounds</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: lowerBounds length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lower_bounds</span><span class="p">)</span><span class="si">}</span><span class="s1">) does not match parameters length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">upper_bounds</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: upperBounds length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">upper_bounds</span><span class="p">)</span><span class="si">}</span><span class="s1">) does not match parameters length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Check initial values length (if provided)</span>
+            <span class="k">if</span> <span class="n">initial_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">initial_values</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">initial_values</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: initialValues length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">initial_values</span><span class="p">)</span><span class="si">}</span><span class="s1">) does not match parameters length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Check fixed parameters are valid</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">fixed_values</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_params</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: invalid fixed parameter name &quot;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&quot;. Must be one of </span><span class="si">{</span><span class="n">valid_params</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Check no overlap between optimized and fixed parameters</span>
+            <span class="n">optimized_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
+            <span class="n">fixed_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">fixed_values</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">overlap</span> <span class="o">=</span> <span class="n">optimized_set</span> <span class="o">&amp;</span> <span class="n">fixed_set</span>
+            <span class="k">if</span> <span class="n">overlap</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: parameters appear in both optimization and fixed lists: </span><span class="si">{</span><span class="n">overlap</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Check total parameters = 9 (optimized + fixed, other parameters will be inherited)</span>
+            <span class="c1"># For first stage: must specify all 9 parameters</span>
+            <span class="c1"># For later stages: can inherit from previous stages</span>
+            <span class="n">total_specified</span> <span class="o">=</span> <span class="n">optimized_set</span> <span class="o">|</span> <span class="n">fixed_set</span>
+            <span class="k">if</span> <span class="n">stage_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># First stage must specify all parameters</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">total_specified</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">9</span><span class="p">:</span>
+                    <span class="n">missing</span> <span class="o">=</span> <span class="n">valid_params</span> <span class="o">-</span> <span class="n">total_specified</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">: First stage must specify all 9 parameters. Missing: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Later stages can inherit, just check no duplicate</span>
+                <span class="c1"># (Inheritance will be handled by optimize_custom_stages)</span>
+                <span class="k">pass</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;✓ </span><span class="si">{</span><span class="n">stage_name</span><span class="si">}</span><span class="s1"> validation passed: optimizing </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span><span class="si">}</span><span class="s1"> parameters, fixing </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fixed_values</span><span class="p">)</span><span class="si">}</span><span class="s1"> parameters&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DataLoader.detect_stage1_config_type">
+<a class="viewcode-back" href="../../api_reference/utils.html#utils.data_loader.DataLoader.detect_stage1_config_type">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">detect_stage1_config_type</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="s1">&#39;config.json&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Detect whether stage1 configuration is for single-stage or three-stage optimization.</span>
+
+<span class="sd">        Detection logic:</span>
+<span class="sd">        - If stage1 optimizes all 8 parameters (am, Sm, at, bt, St, ba, Sa, u) → Single-stage</span>
+<span class="sd">        - Otherwise → Three-stage (stage1 is part of three-stage optimization)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config_file: Configuration file path</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: &#39;single&#39; if stage1 is single-stage config, &#39;three&#39; if it&#39;s three-stage config</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+        <span class="c1"># Check if stage1 exists</span>
+        <span class="k">if</span> <span class="s1">&#39;optimization&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cfg</span> <span class="ow">or</span> <span class="s1">&#39;stage1&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;optimization&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No stage1 configuration found in optimization section&#39;</span><span class="p">)</span>
+
+        <span class="n">stage1</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;optimization&#39;</span><span class="p">][</span><span class="s1">&#39;stage1&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Check if stage1 has parameters field</span>
+        <span class="k">if</span> <span class="s1">&#39;parameters&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stage1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;stage1 configuration missing &quot;parameters&quot; field&#39;</span><span class="p">)</span>
+
+        <span class="n">parameters</span> <span class="o">=</span> <span class="n">stage1</span><span class="p">[</span><span class="s1">&#39;parameters&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Single-stage: optimizes all 8 parameters (bm is always fixed)</span>
+        <span class="c1"># Expected: [&#39;am&#39;, &#39;Sm&#39;, &#39;at&#39;, &#39;bt&#39;, &#39;St&#39;, &#39;ba&#39;, &#39;Sa&#39;, &#39;u&#39;]</span>
+        <span class="n">single_stage_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;am&#39;</span><span class="p">,</span> <span class="s1">&#39;Sm&#39;</span><span class="p">,</span> <span class="s1">&#39;at&#39;</span><span class="p">,</span> <span class="s1">&#39;bt&#39;</span><span class="p">,</span> <span class="s1">&#39;St&#39;</span><span class="p">,</span> <span class="s1">&#39;ba&#39;</span><span class="p">,</span> <span class="s1">&#39;Sa&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span> <span class="o">==</span> <span class="n">single_stage_params</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;single&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;three&#39;</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

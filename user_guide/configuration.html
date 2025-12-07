@@ -1,0 +1,1339 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Configuration Reference &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/configuration';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Interpreting Results" href="results.html" />
+    <link rel="prev" title="Complete Workflows" href="workflows.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/user_guide/configuration.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Configuration Reference</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-file-structure">Configuration File Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-and-file-paths">Directory and File Paths</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#base-directories">Base Directories</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dataDir"><code class="docutils literal notranslate"><span class="pre">dataDir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#resultsDir"><code class="docutils literal notranslate"><span class="pre">resultsDir</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-range-configuration">Time Range Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalogStartYear"><code class="docutils literal notranslate"><span class="pre">catalogStartYear</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learnStartYear"><code class="docutils literal notranslate"><span class="pre">learnStartYear</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learnEndYear"><code class="docutils literal notranslate"><span class="pre">learnEndYear</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forecastStartYear"><code class="docutils literal notranslate"><span class="pre">forecastStartYear</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forecastEndYear"><code class="docutils literal notranslate"><span class="pre">forecastEndYear</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-files">Input Files</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inputFiles.catalogFile"><code class="docutils literal notranslate"><span class="pre">inputFiles.catalogFile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inputFiles.neighborhoodRegionFile"><code class="docutils literal notranslate"><span class="pre">inputFiles.neighborhoodRegionFile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inputFiles.testingRegionFile"><code class="docutils literal notranslate"><span class="pre">inputFiles.testingRegionFile</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-files">Output Files</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputFiles.PPEParamPattern"><code class="docutils literal notranslate"><span class="pre">outputFiles.PPEParamPattern</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputFiles.AftershockParamPattern"><code class="docutils literal notranslate"><span class="pre">outputFiles.AftershockParamPattern</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputFiles.EEPASParamPattern"><code class="docutils literal notranslate"><span class="pre">outputFiles.EEPASParamPattern</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputFiles.PPEForecastPattern"><code class="docutils literal notranslate"><span class="pre">outputFiles.PPEForecastPattern</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputFiles.EEPASForecastPattern"><code class="docutils literal notranslate"><span class="pre">outputFiles.EEPASForecastPattern</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-configuration">Optimization Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-1-primary-parameters">Stage 1: Primary Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-2-optimize-sm-bt-st-ba-u">Stage 2: Optimize Sm, bt, St, ba, u</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-3-joint-optimization">Stage 3: Joint Optimization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-parameters">Model Parameters</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#physical-constants">Physical Constants</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.delay"><code class="docutils literal notranslate"><span class="pre">modelParams.delay</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.B"><code class="docutils literal notranslate"><span class="pre">modelParams.B</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.m0"><code class="docutils literal notranslate"><span class="pre">modelParams.m0</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.mT"><code class="docutils literal notranslate"><span class="pre">modelParams.mT</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aftershock-model-parameters">Aftershock Model Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.delta"><code class="docutils literal notranslate"><span class="pre">modelParams.delta</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.p"><code class="docutils literal notranslate"><span class="pre">modelParams.p</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.c"><code class="docutils literal notranslate"><span class="pre">modelParams.c</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.sigmaU"><code class="docutils literal notranslate"><span class="pre">modelParams.sigmaU</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-flags">Configuration Flags</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.weightFlag"><code class="docutils literal notranslate"><span class="pre">modelParams.weightFlag</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.useCausalEW"><code class="docutils literal notranslate"><span class="pre">modelParams.useCausalEW</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.useRollingUpdate"><code class="docutils literal notranslate"><span class="pre">modelParams.useRollingUpdate</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forecast-parameters">Forecast Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.forecastPeriodDays"><code class="docutils literal notranslate"><span class="pre">modelParams.forecastPeriodDays</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-examples">Configuration Examples</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorial-configuration-italy">Tutorial Configuration (Italy)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-variations">Creating Variations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-custom-configurations">Creating Custom Configurations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-copy-tutorial-configuration">Step 1: Copy Tutorial Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-modify-key-fields">Step 2: Modify Key Fields</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-validate-configuration">Step 3: Validate Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best Practices</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result-directory-management">Result Directory Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-range-selection">Time Range Selection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="configuration-reference">
+<h1>Configuration Reference<a class="headerlink" href="#configuration-reference" title="Link to this heading">#</a></h1>
+<p>This guide provides a complete reference for all configuration file fields in EEPAS.</p>
+<section id="configuration-file-structure">
+<h2>Configuration File Structure<a class="headerlink" href="#configuration-file-structure" title="Link to this heading">#</a></h2>
+<p>EEPAS uses JSON configuration files to control all aspects of the forecasting workflow. A configuration file consists of several main sections:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+  &quot;dataDir&quot;: &quot;data&quot;,
+  &quot;resultsDir&quot;: &quot;results_italy&quot;,
+  &quot;catalogStartYear&quot;: 1960,
+  &quot;learnStartYear&quot;: 1990,
+  &quot;learnEndYear&quot;: 2012,
+  &quot;forecastStartYear&quot;: 2012,
+  &quot;forecastEndYear&quot;: 2022,
+  &quot;inputFiles&quot;: { ... },
+  &quot;outputFiles&quot;: { ... },
+  &quot;optimization&quot;: { ... },
+  &quot;modelParams&quot;: { ... }
+}
+</pre></div>
+</div>
+</section>
+<section id="directory-and-file-paths">
+<h2>Directory and File Paths<a class="headerlink" href="#directory-and-file-paths" title="Link to this heading">#</a></h2>
+<section id="base-directories">
+<h3>Base Directories<a class="headerlink" href="#base-directories" title="Link to this heading">#</a></h3>
+<dl class="py data">
+<dt class="sig sig-object py" id="dataDir">
+<span class="sig-name descname"><span class="pre">dataDir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">string</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;data&quot;</span></em><a class="headerlink" href="#dataDir" title="Link to this definition">#</a></dt>
+<dd><p>Directory containing input data files (earthquake catalogs, region definitions).</p>
+<p><strong>Example</strong>: <code class="docutils literal notranslate"><span class="pre">&quot;data&quot;</span></code> (relative path from working directory)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="resultsDir">
+<span class="sig-name descname"><span class="pre">resultsDir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">string</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;results&quot;</span></em><a class="headerlink" href="#resultsDir" title="Link to this definition">#</a></dt>
+<dd><p>Directory where output files (fitted parameters, forecasts) will be saved.</p>
+<p><strong>Important</strong>: Use different result directories for different configurations to avoid overwriting results.</p>
+<dl class="simple">
+<dt><strong>Examples</strong>:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;results&quot;</span></code> - Standard results</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;results_italy&quot;</span></code> - Italy configuration</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;results_refactor_test&quot;</span></code> - Testing new code</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="time-range-configuration">
+<h2>Time Range Configuration<a class="headerlink" href="#time-range-configuration" title="Link to this heading">#</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="catalogStartYear">
+<span class="sig-name descname"><span class="pre">catalogStartYear</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">integer</span></em><a class="headerlink" href="#catalogStartYear" title="Link to this definition">#</a></dt>
+<dd><p>Starting year of the earthquake catalog. Events before this year are excluded.</p>
+<p><strong>Seismological Meaning</strong>: Year when magnitude completeness is guaranteed (when seismic networks became reliable).</p>
+<dl class="simple">
+<dt><strong>Example</strong>:</dt><dd><ul class="simple">
+<li><p>Italy: <code class="docutils literal notranslate"><span class="pre">1960</span></code> (CPTI15 catalog completeness)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="learnStartYear">
+<span class="sig-name descname"><span class="pre">learnStartYear</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">integer</span></em><a class="headerlink" href="#learnStartYear" title="Link to this definition">#</a></dt>
+<dd><p>Starting year of the learning period.</p>
+<p><strong>Seismological Meaning</strong>: Beginning of the training period for model parameter estimation.</p>
+<p><strong>Constraints</strong>: <code class="docutils literal notranslate"><span class="pre">learnStartYear</span> <span class="pre">&gt;=</span> <span class="pre">catalogStartYear</span></code> (need historical data before learning period)</p>
+<dl class="simple">
+<dt><strong>Example</strong>:</dt><dd><ul class="simple">
+<li><p>Italy: <code class="docutils literal notranslate"><span class="pre">1990</span></code> (30 years of history from 1960)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="learnEndYear">
+<span class="sig-name descname"><span class="pre">learnEndYear</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">integer</span></em><a class="headerlink" href="#learnEndYear" title="Link to this definition">#</a></dt>
+<dd><p>Ending year of the learning period (data included up to December 31 of the previous year).</p>
+<p><strong>Seismological Meaning</strong>: End of training period. The learning period includes data up to the last day of (learnEndYear - 1). For example, learnEndYear: 2012 means data up to 2011/12/31, and the forecast starts from 2012/01/01.</p>
+<dl class="simple">
+<dt><strong>Example</strong>:</dt><dd><ul class="simple">
+<li><p>Italy: <code class="docutils literal notranslate"><span class="pre">2012</span></code> (learning period: 1990-2011, 22 years of data)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="forecastStartYear">
+<span class="sig-name descname"><span class="pre">forecastStartYear</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">integer</span></em><a class="headerlink" href="#forecastStartYear" title="Link to this definition">#</a></dt>
+<dd><p>Starting year of the forecast period.</p>
+<p><strong>Standard Practice</strong>: <code class="docutils literal notranslate"><span class="pre">forecastStartYear</span> <span class="pre">==</span> <span class="pre">learnEndYear</span></code> (forecast begins immediately after learning period)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="forecastEndYear">
+<span class="sig-name descname"><span class="pre">forecastEndYear</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">integer</span></em><a class="headerlink" href="#forecastEndYear" title="Link to this definition">#</a></dt>
+<dd><p>Ending year of the forecast period.</p>
+<dl class="simple">
+<dt><strong>Example</strong>:</dt><dd><ul class="simple">
+<li><p>Italy: <code class="docutils literal notranslate"><span class="pre">2022</span></code> (10-year forecast horizon)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="input-files">
+<h2>Input Files<a class="headerlink" href="#input-files" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">inputFiles</span></code> section specifies the earthquake catalog and spatial region files.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="inputFiles.catalogFile">
+<span class="sig-prename descclassname"><span class="pre">inputFiles.</span></span><span class="sig-name descname"><span class="pre">catalogFile</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">string</span></em><a class="headerlink" href="#inputFiles.catalogFile" title="Link to this definition">#</a></dt>
+<dd><p>Earthquake catalog file (MATLAB .mat format).</p>
+<p><strong>File Format</strong>:</p>
+<p>MATLAB .mat file containing a matrix variable (N_events × 10):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Column 1-6:  Date/time (Year, Month, Day, Hour, Minute, Second)
+Column 7:    Latitude (degrees N)
+Column 8:    Longitude (degrees E)
+Column 9:    Depth (km)
+Column 10:   Magnitude
+</pre></div>
+</div>
+<p><strong>Variable Name</strong>: Flexible (e.g., <code class="docutils literal notranslate"><span class="pre">HORUS</span></code>, <code class="docutils literal notranslate"><span class="pre">catalog</span></code>, <code class="docutils literal notranslate"><span class="pre">GDMScatalog</span></code>)</p>
+<dl class="simple">
+<dt><strong>Tutorial Example</strong> (Italy):</dt><dd><ul class="simple">
+<li><p>File: <code class="docutils literal notranslate"><span class="pre">HORUS_Italy_RDN2008_polygon_filtered.mat</span></code></p></li>
+<li><p>Variable: <code class="docutils literal notranslate"><span class="pre">HORUS</span></code> (438,192 × 10 matrix)</p></li>
+<li><p>Optional: <code class="docutils literal notranslate"><span class="pre">column_names</span></code> array</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Your Region</strong>: Create .mat file with same column structure, any variable name</p>
+<p><strong>Old Name</strong>: <code class="docutils literal notranslate"><span class="pre">horusFile</span></code> (deprecated, still supported)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="inputFiles.neighborhoodRegionFile">
+<span class="sig-prename descclassname"><span class="pre">inputFiles.</span></span><span class="sig-name descname"><span class="pre">neighborhoodRegionFile</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">string</span></em><a class="headerlink" href="#inputFiles.neighborhoodRegionFile" title="Link to this definition">#</a></dt>
+<dd><p>Neighborhood region definition - source events come from this region (larger area to avoid edge effects).</p>
+<p><strong>File Format</strong>:</p>
+<p><strong>Option 1: Grid format</strong> (same as testing region, N_cells × 10 matrix)</p>
+<p><strong>Option 2: Polygon format</strong> (N_vertices × 2 or N_vertices × 4 matrix)</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Column 1-2: (lon, lat) coordinates of polygon vertices
+Column 3-4: (optional) projected coordinates
+</pre></div>
+</div>
+<p><strong>Important</strong>: Vertices must be in <strong>clockwise order</strong> with no repetitions.</p>
+<dl class="simple">
+<dt><strong>Tutorial Example</strong> (Italy):</dt><dd><ul class="simple">
+<li><p>File: <code class="docutils literal notranslate"><span class="pre">CPTI15.mat</span></code></p></li>
+<li><p>Variable: <code class="docutils literal notranslate"><span class="pre">cpti15</span></code> (15 × 4 matrix, polygon)</p></li>
+<li><p>Covers Italy and surroundings (larger than testing region)</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Simple Alternative</strong>: Use same file as testingRegionFile (grid)</p>
+<p><strong>Old Name</strong>: <code class="docutils literal notranslate"><span class="pre">cptiFile</span></code> (deprecated)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="inputFiles.testingRegionFile">
+<span class="sig-prename descclassname"><span class="pre">inputFiles.</span></span><span class="sig-name descname"><span class="pre">testingRegionFile</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">string</span></em><a class="headerlink" href="#inputFiles.testingRegionFile" title="Link to this definition">#</a></dt>
+<dd><p>Testing region definition - spatial extent for likelihood calculation and forecasting (integration domain).</p>
+<p><strong>File Format</strong>:</p>
+<p>MATLAB .mat file containing grid matrix (N_cells × 10):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Column 1-4:  Grid bounds (lon_min, lon_max, lat_min, lat_max)
+Column 5-8:  Reserved/unused
+Column 9:    Cell identifier (integer)
+Column 10:   Reserved
+</pre></div>
+</div>
+<p><strong>Only columns 1-4 are used</strong> for defining rectangular grid cells.</p>
+<p><strong>Variable Name</strong>: Flexible (e.g., <code class="docutils literal notranslate"><span class="pre">CELLESD</span></code>, <code class="docutils literal notranslate"><span class="pre">CELLE_ter_TW</span></code>)</p>
+<dl class="simple">
+<dt><strong>Tutorial Example</strong> (Italy):</dt><dd><ul class="simple">
+<li><p>File: <code class="docutils literal notranslate"><span class="pre">CELLE_ter.mat</span></code></p></li>
+<li><p>Variable: <code class="docutils literal notranslate"><span class="pre">CELLESD</span></code> (177 × 10 matrix)</p></li>
+<li><p>177 grid cells covering Italy land area</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Relationship</strong>: Testing Region should be ⊆ Neighborhood Region (to avoid boundary effects)</p>
+<p><strong>Old Name</strong>: <code class="docutils literal notranslate"><span class="pre">celleFile</span></code> (deprecated)</p>
+</dd></dl>
+
+</section>
+<section id="output-files">
+<h2>Output Files<a class="headerlink" href="#output-files" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">outputFiles</span></code> section specifies filename patterns for results. Use <code class="docutils literal notranslate"><span class="pre">%d_%d</span></code> placeholders for year ranges.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="outputFiles.PPEParamPattern">
+<span class="sig-prename descclassname"><span class="pre">outputFiles.</span></span><span class="sig-name descname"><span class="pre">PPEParamPattern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">string</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;Fitted_par_PPE_%d_%d.csv&quot;</span></em><a class="headerlink" href="#outputFiles.PPEParamPattern" title="Link to this definition">#</a></dt>
+<dd><p>Output filename pattern for PPE parameters (a, d, s).</p>
+<p><strong>Generated File Example</strong>: <code class="docutils literal notranslate"><span class="pre">Fitted_par_PPE_1990_2012.csv</span></code></p>
+<dl>
+<dt><strong>File Content</strong>:</dt><dd><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>a,d,s,ln_likelihood
+0.616,29.64,0.0,-514.10
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="outputFiles.AftershockParamPattern">
+<span class="sig-prename descclassname"><span class="pre">outputFiles.</span></span><span class="sig-name descname"><span class="pre">AftershockParamPattern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">string</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;Fitted_par_aftershock_%d_%d.csv&quot;</span></em><a class="headerlink" href="#outputFiles.AftershockParamPattern" title="Link to this definition">#</a></dt>
+<dd><p>Output filename pattern for aftershock parameters (v, k).</p>
+<p><strong>Generated File Example</strong>: <code class="docutils literal notranslate"><span class="pre">Fitted_par_aftershock_1990_2012.csv</span></code></p>
+<dl>
+<dt><strong>File Content</strong>:</dt><dd><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>v,k,ln_likelihood
+0.577,0.205,-429.26
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="outputFiles.EEPASParamPattern">
+<span class="sig-prename descclassname"><span class="pre">outputFiles.</span></span><span class="sig-name descname"><span class="pre">EEPASParamPattern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">string</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;Fitted_par_EEPAS_%d_%d.csv&quot;</span></em><a class="headerlink" href="#outputFiles.EEPASParamPattern" title="Link to this definition">#</a></dt>
+<dd><p>Output filename pattern for EEPAS parameters (am, Sm, at, bt, St, ba, Sa, u).</p>
+<p><strong>Generated File Example</strong>: <code class="docutils literal notranslate"><span class="pre">Fitted_par_EEPAS_1990_2012.csv</span></code></p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="outputFiles.PPEForecastPattern">
+<span class="sig-prename descclassname"><span class="pre">outputFiles.</span></span><span class="sig-name descname"><span class="pre">PPEForecastPattern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">string</span></em><a class="headerlink" href="#outputFiles.PPEForecastPattern" title="Link to this definition">#</a></dt>
+<dd><p>Output filename pattern for PPE forecast files (.mat format).</p>
+<dl class="simple">
+<dt><strong>Example</strong>:</dt><dd><ul class="simple">
+<li><p>Italy: <code class="docutils literal notranslate"><span class="pre">&quot;PREVISIONI_3m_PPE_%d_%d.mat&quot;</span></code> (177 cells)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="outputFiles.EEPASForecastPattern">
+<span class="sig-prename descclassname"><span class="pre">outputFiles.</span></span><span class="sig-name descname"><span class="pre">EEPASForecastPattern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">string</span></em><a class="headerlink" href="#outputFiles.EEPASForecastPattern" title="Link to this definition">#</a></dt>
+<dd><p>Output filename pattern for EEPAS forecast files (.mat format).</p>
+<dl class="simple">
+<dt><strong>Example</strong>:</dt><dd><ul class="simple">
+<li><p>Italy: <code class="docutils literal notranslate"><span class="pre">&quot;PREVISIONI_3m_EEPAS_%d_%d.mat&quot;</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="optimization-configuration">
+<h2>Optimization Configuration<a class="headerlink" href="#optimization-configuration" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">optimization</span></code> section defines the three-stage optimization strategy for EEPAS parameter learning.</p>
+<section id="stage-1-primary-parameters">
+<h3>Stage 1: Primary Parameters<a class="headerlink" href="#stage-1-primary-parameters" title="Link to this heading">#</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;stage1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;am&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;at&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sa&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;initialValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;fixedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Sm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.32</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bt&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;St&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.23</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ba&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.35</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt><strong>Parameters Optimized</strong>:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">am</span></code>: Magnitude intercept</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">at</span></code>: Time intercept</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Sa</span></code>: Spatial uncertainty parameter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">u</span></code>: EEPAS/PPE mixing ratio</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Fixed Parameters</strong>: <code class="docutils literal notranslate"><span class="pre">bm</span> <span class="pre">=</span> <span class="pre">1.0</span></code>, <code class="docutils literal notranslate"><span class="pre">Sm</span></code>, <code class="docutils literal notranslate"><span class="pre">bt</span></code>, <code class="docutils literal notranslate"><span class="pre">St</span></code>, <code class="docutils literal notranslate"><span class="pre">ba</span></code></p>
+</section>
+<section id="stage-2-optimize-sm-bt-st-ba-u">
+<h3>Stage 2: Optimize Sm, bt, St, ba, u<a class="headerlink" href="#stage-2-optimize-sm-bt-st-ba-u" title="Link to this heading">#</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;stage2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Sm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;St&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ba&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;initialValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.32</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">0.23</span><span class="p">,</span><span class="w"> </span><span class="mf">0.35</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u_from_stage1&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.15</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt><strong>Parameters Optimized</strong>:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Sm</span></code>: Magnitude uncertainty (standard deviation)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bt</span></code>: Time scaling exponent</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">St</span></code>: Time uncertainty (standard deviation)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ba</span></code>: Spatial scaling exponent</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">u</span></code>: EEPAS/PPE mixing ratio</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Fixed Parameters</strong>: <code class="docutils literal notranslate"><span class="pre">am</span></code>, <code class="docutils literal notranslate"><span class="pre">at</span></code>, <code class="docutils literal notranslate"><span class="pre">Sa</span></code> from Stage 1, and <code class="docutils literal notranslate"><span class="pre">bm</span> <span class="pre">=</span> <span class="pre">1.0</span></code></p>
+<p><strong>Purpose</strong>: Optimize uncertainty parameters using Stage 1 results as initial values.</p>
+</section>
+<section id="stage-3-joint-optimization">
+<h3>Stage 3: Joint Optimization<a class="headerlink" href="#stage-3-joint-optimization" title="Link to this heading">#</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;stage3&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;am&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;at&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;St&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ba&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Sa&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;u&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.075</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.65</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;fixedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Parameters Optimized</strong>: All 8 parameters jointly.</p>
+<p><strong>Fixed Parameter</strong>: Only <code class="docutils literal notranslate"><span class="pre">bm</span></code> (magnitude exponent) remains fixed.</p>
+<p><strong>Purpose</strong>: Final joint optimization using Stage 1 and Stage 2 results as initial values.</p>
+</section>
+</section>
+<section id="model-parameters">
+<h2>Model Parameters<a class="headerlink" href="#model-parameters" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">modelParams</span></code> section contains physical model constants and configuration flags.</p>
+<section id="physical-constants">
+<h3>Physical Constants<a class="headerlink" href="#physical-constants" title="Link to this heading">#</a></h3>
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.delay">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">delay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">integer</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#modelParams.delay" title="Link to this definition">#</a></dt>
+<dd><p>Time delay (days) to exclude high aftershock activity period before each target event.</p>
+<p><strong>Usage</strong>: Only events occurring ≥ delay days before target event are considered as potential precursors/sources.</p>
+<p><strong>Seismological Meaning</strong>: Excludes immediate aftershock period to avoid interference.</p>
+<p><strong>Standard Value</strong>: 50 days</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.B">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">B</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.084</span></em><a class="headerlink" href="#modelParams.B" title="Link to this definition">#</a></dt>
+<dd><p>Magnitude scaling parameter β = b_GR × ln(10), where b_GR is the Gutenberg-Richter b-value.</p>
+<p><strong>Formula</strong>: B = b_GR × 2.302585</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.m0">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">m0</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2.45</span></em><a class="headerlink" href="#modelParams.m0" title="Link to this definition">#</a></dt>
+<dd><p>Completeness magnitude - minimum magnitude guaranteed to be detected.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.mT">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">mT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5.0</span></em><a class="headerlink" href="#modelParams.mT" title="Link to this definition">#</a></dt>
+<dd><p>Target magnitude threshold - minimum magnitude to forecast.</p>
+<p><strong>Requirement</strong>: mT &gt; m0</p>
+</dd></dl>
+
+</section>
+<section id="aftershock-model-parameters">
+<h3>Aftershock Model Parameters<a class="headerlink" href="#aftershock-model-parameters" title="Link to this heading">#</a></h3>
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.delta">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">delta</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.7</span></em><a class="headerlink" href="#modelParams.delta" title="Link to this definition">#</a></dt>
+<dd><p>Bath’s law offset - minimum magnitude difference between mainshock and aftershock.</p>
+<p><strong>Condition</strong>: Aftershock magnitude m_aftershock ≤ m_mainshock - δ</p>
+<p><strong>Standard Value</strong>: δ = 0.7</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.p">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">p</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.2</span></em><a class="headerlink" href="#modelParams.p" title="Link to this definition">#</a></dt>
+<dd><p>Omori law exponent - controls temporal decay rate of aftershocks.</p>
+<p><strong>Formula</strong>: f’(t) ∝ (Δt + c)^(-p), where Δt = time since mainshock</p>
+<p><strong>Standard Value</strong>: p = 1.2</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.c">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">c</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.03</span></em><a class="headerlink" href="#modelParams.c" title="Link to this definition">#</a></dt>
+<dd><p>Omori law offset parameter (days) - prevents singularity at Δt=0.</p>
+<p><strong>Standard Value</strong>: c = 0.03 days</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.sigmaU">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">sigmaU</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.006</span></em><a class="headerlink" href="#modelParams.sigmaU" title="Link to this definition">#</a></dt>
+<dd><p>Utsu spatial relationship parameter for aftershock distribution.</p>
+<p><strong>Formula</strong>: σ = sigmaU × √(10^m_mainshock), where σ is spatial standard deviation</p>
+<p><strong>Standard Value</strong>: 0.006</p>
+</dd></dl>
+
+</section>
+<section id="configuration-flags">
+<h3>Configuration Flags<a class="headerlink" href="#configuration-flags" title="Link to this heading">#</a></h3>
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.weightFlag">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">weightFlag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">integer</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span> <span class="pre">or</span> <span class="pre">1</span></em><a class="headerlink" href="#modelParams.weightFlag" title="Link to this definition">#</a></dt>
+<dd><p>Earthquake weighting scheme.</p>
+<dl class="simple">
+<dt><strong>Values</strong>:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: Equal weights (all earthquakes weighted equally)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: Causal weighting (time-dependent weights)</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Standard</strong>: Use <code class="docutils literal notranslate"><span class="pre">1</span></code> for causal EEPAS.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.useCausalEW">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">useCausalEW</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">integer</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span> <span class="pre">or</span> <span class="pre">1</span></em><a class="headerlink" href="#modelParams.useCausalEW" title="Link to this definition">#</a></dt>
+<dd><p>Controls how E(w) (expected aftershock weight) is calculated during EEPAS learning.</p>
+<dl class="simple">
+<dt><strong>Values</strong>:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: Use global E(w) computed from all events in learning period</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: For each target event, compute E(w) using only events before that event (causal)</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Default</strong>: <code class="docutils literal notranslate"><span class="pre">0</span></code> (standard approach)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.useRollingUpdate">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">useRollingUpdate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">boolean</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">true</span> <span class="pre">or</span> <span class="pre">false</span></em><a class="headerlink" href="#modelParams.useRollingUpdate" title="Link to this definition">#</a></dt>
+<dd><p>Controls how historical data is updated during PPE forecasting.</p>
+<dl class="simple">
+<dt><strong>Values</strong>:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">true</span></code>: Each forecast window uses all earthquakes up to that time (rolling update)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">false</span></code>: All forecast windows use fixed historical data from forecast start (static snapshot)</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Default</strong>: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+</dd></dl>
+
+</section>
+<section id="forecast-parameters">
+<h3>Forecast Parameters<a class="headerlink" href="#forecast-parameters" title="Link to this heading">#</a></h3>
+<dl class="py data">
+<dt class="sig sig-object py" id="modelParams.forecastPeriodDays">
+<span class="sig-prename descclassname"><span class="pre">modelParams.</span></span><span class="sig-name descname"><span class="pre">forecastPeriodDays</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">91.31</span></em><a class="headerlink" href="#modelParams.forecastPeriodDays" title="Link to this definition">#</a></dt>
+<dd><p>Length of each forecast time window (days).</p>
+<p><strong>Standard Value</strong>: 91.31 days ≈ 3 months (quarterly forecasts)</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="configuration-examples">
+<h2>Configuration Examples<a class="headerlink" href="#configuration-examples" title="Link to this heading">#</a></h2>
+<section id="tutorial-configuration-italy">
+<h3>Tutorial Configuration (Italy)<a class="headerlink" href="#tutorial-configuration-italy" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">config_italy.json (Tutorial Example)</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;dataDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;resultsDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;results_italy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;catalogStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1960</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;learnStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1990</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;learnEndYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2012</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;forecastStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2012</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;forecastEndYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2022</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;inputFiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;catalogFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HORUS_Italy_RDN2008_polygon_filtered.mat&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;neighborhoodRegionFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CPTI15.mat&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;testingRegionFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CELLE_ter.mat&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;outputFiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;EEPASParamPattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fitted_par_EEPAS_%d_%d.csv&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;PPEParamPattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fitted_par_PPE_%d_%d.csv&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;AftershockParamPattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fitted_par_aftershock_%d_%d.csv&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;EEPASForecastPattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PREVISIONI_3m_EEPAS_%d_%d.mat&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;PPEForecastPattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PREVISIONI_3m_PPE_%d_%d.mat&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;optimization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;stage1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;am&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;at&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Sa&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;u&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;initialValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">2.27</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">-0.9</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.87</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.2</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">-2.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.01</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.0</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">4.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">2.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.75</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;fixedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.78</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Sm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.12</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;bt&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.83</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;St&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.17</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ba&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;stage2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;Sm&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;bt&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;St&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;ba&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;u&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;initialValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">0.12</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.83</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.17</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.8</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;u_from_stage1&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">0.05</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.05</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.05</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.05</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.0</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.75</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;stage3&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;am&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Sm&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;at&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;bt&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;St&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;ba&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Sa&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;u&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.05</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">-2.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.001</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.05</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.05</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.0001</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.0</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">4.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">4.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">4.8</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">2.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.75</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;fixedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.78</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;modelParams&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;delay&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;B&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.036128326435468</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;m0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;mT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;delta&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;p&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;c&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.03</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;sigmaU&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.006</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;weightFlag&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;useCausalEW&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;useRollingUpdate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;forecastPeriodDays&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">91.31</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timeComp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;enable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;B&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;omega&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;lead_time_days&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration demonstrates best practices and can serve as a template for your own region.</p>
+</section>
+<section id="creating-variations">
+<h3>Creating Variations<a class="headerlink" href="#creating-variations" title="Link to this heading">#</a></h3>
+<p><strong>Different Completeness Magnitude</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;resultsDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;results_yourregion_m30&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;modelParams&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;m0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">3.0</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Different Time Periods</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;resultsDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;results_yourregion_2000_2015&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;learnStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;learnEndYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2015</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;forecastStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2015</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;forecastEndYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2025</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Different Catalog</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;resultsDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;results_yourregion_declustered&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;inputFiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;catalogFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_catalog_declustered.mat&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="creating-custom-configurations">
+<h2>Creating Custom Configurations<a class="headerlink" href="#creating-custom-configurations" title="Link to this heading">#</a></h2>
+<section id="step-1-copy-tutorial-configuration">
+<h3>Step 1: Copy Tutorial Configuration<a class="headerlink" href="#step-1-copy-tutorial-configuration" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Copy Italy tutorial configuration as template</span>
+cp<span class="w"> </span>config_italy.json<span class="w"> </span>config_yourregion.json
+</pre></div>
+</div>
+</section>
+<section id="step-2-modify-key-fields">
+<h3>Step 2: Modify Key Fields<a class="headerlink" href="#step-2-modify-key-fields" title="Link to this heading">#</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;resultsDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;results_yourregion&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;catalogStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1990</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;learnStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;learnEndYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2015</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;forecastStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2015</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;forecastEndYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2025</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;inputFiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;catalogFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_catalog.mat&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;neighborhoodRegionFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_region.mat&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;testingRegionFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_region.mat&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;modelParams&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;m0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.5</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;mT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;B&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.036</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="step-3-validate-configuration">
+<h3>Step 3: Validate Configuration<a class="headerlink" href="#step-3-validate-configuration" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">from utils.data_loader import DataLoader</span>
+<span class="s2">cfg = DataLoader.load_config(&#39;config_yourregion.json&#39;)</span>
+<span class="s2">print(&#39;Configuration valid!&#39;)</span>
+<span class="s2">print(f&#39;Learning period: {cfg[\&quot;learnStartYear\&quot;]}-{cfg[\&quot;learnEndYear\&quot;]}&#39;)</span>
+<span class="s2">print(f&#39;Results directory: {cfg[\&quot;resultsDir\&quot;]}&#39;)</span>
+<span class="s2">print(f&#39;Completeness magnitude: {cfg[\&quot;modelParams\&quot;][\&quot;m0\&quot;]}&#39;)</span>
+<span class="s2">&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h2>
+<section id="result-directory-management">
+<h3>Result Directory Management<a class="headerlink" href="#result-directory-management" title="Link to this heading">#</a></h3>
+<p><strong>Rule</strong>: Always use unique result directories for different experiments.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="c1">// Good - Clear naming</span>
+<span class="nt">&quot;resultsDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="nt">&quot;results_yourregion_2000_2015&quot;</span>
+<span class="nt">&quot;resultsDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="nt">&quot;results_italy_1990_2012&quot;</span>
+<span class="nt">&quot;resultsDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="nt">&quot;results_test_m30&quot;</span>
+
+<span class="c1">// Bad - Overwriting risk</span>
+<span class="nt">&quot;resultsDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;results&quot;</span><span class="w">  </span><span class="c1">// Multiple configs using same directory!</span>
+</pre></div>
+</div>
+</section>
+<section id="time-range-selection">
+<h3>Time Range Selection<a class="headerlink" href="#time-range-selection" title="Link to this heading">#</a></h3>
+<p><strong>Guidelines</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Catalog Start</strong>: Choose year when magnitude completeness begins</p></li>
+<li><p><strong>Learning Period</strong>: Need sufficient events for parameter estimation (recommended: ≥10 years)</p></li>
+<li><p><strong>Forecast Period</strong>: Choose based on your validation needs</p></li>
+</ol>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;catalogStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1960</span><span class="p">,</span><span class="w">    </span><span class="c1">// Completeness guaranteed</span>
+<span class="w">  </span><span class="nt">&quot;learnStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1990</span><span class="p">,</span><span class="w">       </span><span class="c1">// 30 years of history available</span>
+<span class="w">  </span><span class="nt">&quot;learnEndYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2012</span><span class="p">,</span><span class="w">         </span><span class="c1">// 22 years of learning data</span>
+<span class="w">  </span><span class="nt">&quot;forecastStartYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2012</span><span class="p">,</span><span class="w">    </span><span class="c1">// Immediate forecast after learning</span>
+<span class="w">  </span><span class="nt">&quot;forecastEndYear&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2022</span><span class="w">       </span><span class="c1">// 10 years forecast horizon</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Warning</strong>: If parameters consistently hit bounds during optimization, use <code class="docutils literal notranslate"><span class="pre">--max-rounds</span> <span class="pre">5</span></code> to allow automatic boundary adjustment.</p>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="workflows.html"><span class="doc">Complete Workflows</span></a> - How to use configurations in complete workflows</p></li>
+<li><p><a class="reference internal" href="results.html"><span class="doc">Interpreting Results</span></a> - Interpreting output files</p></li>
+<li><p><a class="reference internal" href="../api_reference/utils.html"><span class="doc">Utility Modules</span></a> - DataLoader API documentation</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="workflows.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Complete Workflows</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="results.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Interpreting Results</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-file-structure">Configuration File Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-and-file-paths">Directory and File Paths</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#base-directories">Base Directories</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dataDir"><code class="docutils literal notranslate"><span class="pre">dataDir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#resultsDir"><code class="docutils literal notranslate"><span class="pre">resultsDir</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-range-configuration">Time Range Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalogStartYear"><code class="docutils literal notranslate"><span class="pre">catalogStartYear</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learnStartYear"><code class="docutils literal notranslate"><span class="pre">learnStartYear</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learnEndYear"><code class="docutils literal notranslate"><span class="pre">learnEndYear</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forecastStartYear"><code class="docutils literal notranslate"><span class="pre">forecastStartYear</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forecastEndYear"><code class="docutils literal notranslate"><span class="pre">forecastEndYear</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-files">Input Files</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inputFiles.catalogFile"><code class="docutils literal notranslate"><span class="pre">inputFiles.catalogFile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inputFiles.neighborhoodRegionFile"><code class="docutils literal notranslate"><span class="pre">inputFiles.neighborhoodRegionFile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inputFiles.testingRegionFile"><code class="docutils literal notranslate"><span class="pre">inputFiles.testingRegionFile</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-files">Output Files</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputFiles.PPEParamPattern"><code class="docutils literal notranslate"><span class="pre">outputFiles.PPEParamPattern</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputFiles.AftershockParamPattern"><code class="docutils literal notranslate"><span class="pre">outputFiles.AftershockParamPattern</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputFiles.EEPASParamPattern"><code class="docutils literal notranslate"><span class="pre">outputFiles.EEPASParamPattern</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputFiles.PPEForecastPattern"><code class="docutils literal notranslate"><span class="pre">outputFiles.PPEForecastPattern</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outputFiles.EEPASForecastPattern"><code class="docutils literal notranslate"><span class="pre">outputFiles.EEPASForecastPattern</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-configuration">Optimization Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-1-primary-parameters">Stage 1: Primary Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-2-optimize-sm-bt-st-ba-u">Stage 2: Optimize Sm, bt, St, ba, u</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-3-joint-optimization">Stage 3: Joint Optimization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-parameters">Model Parameters</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#physical-constants">Physical Constants</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.delay"><code class="docutils literal notranslate"><span class="pre">modelParams.delay</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.B"><code class="docutils literal notranslate"><span class="pre">modelParams.B</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.m0"><code class="docutils literal notranslate"><span class="pre">modelParams.m0</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.mT"><code class="docutils literal notranslate"><span class="pre">modelParams.mT</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aftershock-model-parameters">Aftershock Model Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.delta"><code class="docutils literal notranslate"><span class="pre">modelParams.delta</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.p"><code class="docutils literal notranslate"><span class="pre">modelParams.p</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.c"><code class="docutils literal notranslate"><span class="pre">modelParams.c</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.sigmaU"><code class="docutils literal notranslate"><span class="pre">modelParams.sigmaU</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-flags">Configuration Flags</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.weightFlag"><code class="docutils literal notranslate"><span class="pre">modelParams.weightFlag</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.useCausalEW"><code class="docutils literal notranslate"><span class="pre">modelParams.useCausalEW</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.useRollingUpdate"><code class="docutils literal notranslate"><span class="pre">modelParams.useRollingUpdate</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forecast-parameters">Forecast Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelParams.forecastPeriodDays"><code class="docutils literal notranslate"><span class="pre">modelParams.forecastPeriodDays</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-examples">Configuration Examples</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorial-configuration-italy">Tutorial Configuration (Italy)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-variations">Creating Variations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-custom-configurations">Creating Custom Configurations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-copy-tutorial-configuration">Step 1: Copy Tutorial Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-modify-key-fields">Step 2: Modify Key Fields</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-validate-configuration">Step 3: Validate Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best Practices</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result-directory-management">Result Directory Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-range-selection">Time Range Selection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

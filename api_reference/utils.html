@@ -1,0 +1,1908 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Utility Modules &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/utils';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Analysis Modules" href="analysis.html" />
+    <link rel="prev" title="Core Modules" href="core.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core Modules</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/api_reference/utils.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Utility Modules</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.data_loader">Data Loader</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.load_config"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_config()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.load_catalogs"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_catalogs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.load_model_params"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_model_params()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.load_spatial_regions"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_spatial_regions()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.load_custom_stages"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_custom_stages()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.validate_custom_stages"><code class="docutils literal notranslate"><span class="pre">DataLoader.validate_custom_stages()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.detect_stage1_config_type"><code class="docutils literal notranslate"><span class="pre">DataLoader.detect_stage1_config_type()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.catalog_processor">Catalog Processor</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.decyear"><code class="docutils literal notranslate"><span class="pre">decyear()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.preprocess_catalog"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.preprocess_catalog()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.create_catalogs"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.create_catalogs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.filter_by_region"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.filter_by_region()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.create_catalogs_with_regions"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.create_catalogs_with_regions()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.filter_by_magnitude"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.filter_by_magnitude()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.filter_by_time_range"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.filter_by_time_range()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_zmap"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_zmap()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_csep"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_csep()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_quakeml"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_quakeml()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_dataframe"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_dataframe()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_horus_text"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_horus_text()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_ingv_horus"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_ingv_horus()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_seismostats"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_seismostats()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_pycsep"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_pycsep()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_mat"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_mat()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.to_seismostats"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.to_seismostats()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.to_pycsep"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.to_pycsep()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.to_mat"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.to_mat()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.detect_format"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.detect_format()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.region_manager">Region Manager</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager"><code class="docutils literal notranslate"><span class="pre">RegionManager</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.testing_region"><code class="docutils literal notranslate"><span class="pre">RegionManager.testing_region</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.neighborhood_region"><code class="docutils literal notranslate"><span class="pre">RegionManager.neighborhood_region</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.testing_type"><code class="docutils literal notranslate"><span class="pre">RegionManager.testing_type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.neighborhood_type"><code class="docutils literal notranslate"><span class="pre">RegionManager.neighborhood_type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.__init__"><code class="docutils literal notranslate"><span class="pre">RegionManager.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.is_in_testing_region"><code class="docutils literal notranslate"><span class="pre">RegionManager.is_in_testing_region()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.is_in_neighborhood_region"><code class="docutils literal notranslate"><span class="pre">RegionManager.is_in_neighborhood_region()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.filter_events_for_learning"><code class="docutils literal notranslate"><span class="pre">RegionManager.filter_events_for_learning()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.filter_events_for_targets"><code class="docutils literal notranslate"><span class="pre">RegionManager.filter_events_for_targets()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.get_active_cells"><code class="docutils literal notranslate"><span class="pre">RegionManager.get_active_cells()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.get_n_active_cells"><code class="docutils literal notranslate"><span class="pre">RegionManager.get_n_active_cells()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.get_region_summary"><code class="docutils literal notranslate"><span class="pre">RegionManager.get_region_summary()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.numerical_integration">Numerical Integration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.numerical_integration.fast_kernel_sum_2d"><code class="docutils literal notranslate"><span class="pre">fast_kernel_sum_2d()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.numerical_integration.trapezoidal_2d"><code class="docutils literal notranslate"><span class="pre">trapezoidal_2d()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.numerical_integration.ppe_spatial_integral_accurate"><code class="docutils literal notranslate"><span class="pre">ppe_spatial_integral_accurate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.numerical_integration.fast_magnitude_integral"><code class="docutils literal notranslate"><span class="pre">fast_magnitude_integral()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.numerical_integration.magnitude_integral_accurate"><code class="docutils literal notranslate"><span class="pre">magnitude_integral_accurate()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.get_paths">Path Management</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.get_paths.get_paths"><code class="docutils literal notranslate"><span class="pre">get_paths()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.fminsearchcon">Optimization Helpers</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.fminsearchcon.fminsearchcon"><code class="docutils literal notranslate"><span class="pre">fminsearchcon()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.fminsearchcon.transform_forward"><code class="docutils literal notranslate"><span class="pre">transform_forward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.fminsearchcon.transform_backward"><code class="docutils literal notranslate"><span class="pre">transform_backward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.fminsearchcon.intrafun"><code class="docutils literal notranslate"><span class="pre">intrafun()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-transformation">Coordinate Transformation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.coordinate_transform.get_crs_info"><code class="docutils literal notranslate"><span class="pre">get_crs_info()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.coordinate_transform.validate_coordinates"><code class="docutils literal notranslate"><span class="pre">validate_coordinates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.coordinate_transform.convert_coordinates"><code class="docutils literal notranslate"><span class="pre">convert_coordinates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.coordinate_transform.convert_celle_coordinates"><code class="docutils literal notranslate"><span class="pre">convert_celle_coordinates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.coordinate_transform.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="utility-modules">
+<h1>Utility Modules<a class="headerlink" href="#utility-modules" title="Link to this heading">#</a></h1>
+<p>This page documents utility modules that provide data loading, processing, and numerical integration functions.</p>
+<section id="module-utils.data_loader">
+<span id="data-loader"></span><h2>Data Loader<a class="headerlink" href="#module-utils.data_loader" title="Link to this heading">#</a></h2>
+<p>DataLoader - EEPAS System Data Loading Utility Class
+Provides unified configuration file loading, model parameter management, and seismic catalog reading functionality</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.data_loader.DataLoader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.data_loader.</span></span><span class="sig-name descname"><span class="pre">DataLoader</span></span><a class="reference internal" href="../_modules/utils/data_loader.html#DataLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.data_loader.DataLoader" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Unified data loading utility class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.data_loader.DataLoader.load_config">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config.json'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/data_loader.html#DataLoader.load_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.data_loader.DataLoader.load_config" title="Link to this definition">#</a></dt>
+<dd><p>Load system configuration from JSON config file.
+Automatically fills in missing default values to ensure backward compatibility.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_file</strong> – Configuration file path</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configuration dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.data_loader.DataLoader.load_catalogs">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_catalogs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_arg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/data_loader.html#DataLoader.load_catalogs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.data_loader.DataLoader.load_catalogs" title="Link to this definition">#</a></dt>
+<dd><p>Load seismic catalog files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input_arg</strong> – Configuration file path (.json) or data directory path</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(HORUS, CPTI11, CELLE) three data matrices</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.data_loader.DataLoader.load_model_params">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_model_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config.json'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/data_loader.html#DataLoader.load_model_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.data_loader.DataLoader.load_model_params" title="Link to this definition">#</a></dt>
+<dd><p>Load model parameters from configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_file</strong> – Configuration file path</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Model parameters dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.data_loader.DataLoader.load_spatial_regions">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_spatial_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config.json'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/data_loader.html#DataLoader.load_spatial_regions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.data_loader.DataLoader.load_spatial_regions" title="Link to this definition">#</a></dt>
+<dd><p>Load spatial region definitions (supports single or dual region configurations).</p>
+<p>Single region configuration uses the same grid for both testing and neighborhood regions.
+Dual region configuration uses a grid for testing and a polygon for neighborhood region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_file</strong> – Configuration file path</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Dictionary containing the following keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>’testing_region’: Testing region data (numpy array)</p></li>
+<li><p>’testing_type’: ‘grid’ or ‘polygon’</p></li>
+<li><p>’neighborhood_region’: Neighborhood region data (numpy array)</p></li>
+<li><p>’neighborhood_type’: ‘grid’ or ‘polygon’</p></li>
+<li><p>’config’: Region configuration (if exists)</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.data_loader.DataLoader.load_custom_stages">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_custom_stages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config.json'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/data_loader.html#DataLoader.load_custom_stages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.data_loader.DataLoader.load_custom_stages" title="Link to this definition">#</a></dt>
+<dd><p>Load custom optimization stages configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_file</strong> – Configuration file path</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl>
+<dt>Custom stages configuration, or None if not enabled</dt><dd><dl>
+<dt>{</dt><dd><p>‘enable’: bool,
+‘stages’: [</p>
+<blockquote>
+<div><dl class="simple">
+<dt>{</dt><dd><p>‘name’: str,
+‘parameters’: list[str],
+‘initialValues’: list[float] or None,
+‘lowerBounds’: list[float],
+‘upperBounds’: list[float],
+‘fixedValues’: dict</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>]</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a> or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.data_loader.DataLoader.validate_custom_stages">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_custom_stages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/data_loader.html#DataLoader.validate_custom_stages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.data_loader.DataLoader.validate_custom_stages" title="Link to this definition">#</a></dt>
+<dd><p>Validate custom stages configuration.</p>
+<p>Checks:
+1. All parameter names are valid EEPAS parameters
+2. Bounds and initial values have correct lengths
+3. Fixed parameters + optimized parameters = 9 parameters
+4. No duplicate optimization of same parameter in same stage</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stages</strong> – List of stage configurations</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If validation fails</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.data_loader.DataLoader.detect_stage1_config_type">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">detect_stage1_config_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config.json'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/data_loader.html#DataLoader.detect_stage1_config_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.data_loader.DataLoader.detect_stage1_config_type" title="Link to this definition">#</a></dt>
+<dd><p>Detect whether stage1 configuration is for single-stage or three-stage optimization.</p>
+<p>Detection logic:
+- If stage1 optimizes all 8 parameters (am, Sm, at, bt, St, ba, Sa, u) → Single-stage
+- Otherwise → Three-stage (stage1 is part of three-stage optimization)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_file</strong> – Configuration file path</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>‘single’ if stage1 is single-stage config, ‘three’ if it’s three-stage config</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-utils.catalog_processor">
+<span id="catalog-processor"></span><h2>Catalog Processor<a class="headerlink" href="#module-utils.catalog_processor" title="Link to this heading">#</a></h2>
+<p>CatalogProcessor - Seismic Catalog Preprocessing Utility Class</p>
+<p>Provides unified earthquake catalog quality control, time conversion, and filtering functions.</p>
+<dl>
+<dt>Format Support:</dt><dd><dl class="simple">
+<dt>This module uses HORUS format (10 columns) as the internal standard:</dt><dd><p>year, month, day, hour, minute, second, lat, lon, depth, mag</p>
+</dd>
+<dt>Extended format conversion support (via catalog_processor_extensions):</dt><dd><ul class="simple">
+<li><p>Input formats: ZMAP, CSEP, QuakeML, DataFrame, SeismoStats, pyCSEP, INGV HORUS</p></li>
+<li><p>Output formats: MATLAB .mat, SeismoStats Catalog, pyCSEP CSEPCatalog</p></li>
+<li><dl class="simple">
+<dt>Methods: from_zmap(), from_csep(), from_quakeml(), from_dataframe(),</dt><dd><p>from_seismostats(), from_pycsep(), from_ingv_horus(),
+to_mat(), to_seismostats(), to_pycsep()</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<p>All conversion methods are available as static methods on CatalogProcessor class.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.catalog_processor.decyear">
+<span class="sig-prename descclassname"><span class="pre">utils.catalog_processor.</span></span><span class="sig-name descname"><span class="pre">decyear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#decyear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.decyear" title="Link to this definition">#</a></dt>
+<dd><p>Convert date to decimal year.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>date_array</strong> – Nx6 matrix [year, month, day, hour, minute, second]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Decimal year</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.catalog_processor.</span></span><span class="sig-name descname"><span class="pre">CatalogProcessor</span></span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Seismic catalog preprocessing utility class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.preprocess_catalog">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">preprocess_catalog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HORUS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_start_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_start_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_end_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">completeness_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_magnitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_target_mag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.preprocess_catalog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.preprocess_catalog" title="Link to this definition">#</a></dt>
+<dd><p>General preprocessing pipeline for earthquake catalogs.
+Standardizes magnitudes, filters quality, converts time coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>HORUS</strong> – Raw seismic catalog matrix</p></li>
+<li><p><strong>catalog_start_year</strong> – Catalog start year</p></li>
+<li><p><strong>learn_start_year</strong> – Learning start year</p></li>
+<li><p><strong>learn_end_year</strong> – Learning end year</p></li>
+<li><p><strong>completeness_threshold</strong> – Completeness magnitude threshold</p></li>
+<li><p><strong>max_depth</strong> – Maximum depth (km)</p></li>
+<li><p><strong>target_magnitude</strong> – PPE target magnitude</p></li>
+<li><p><strong>filter_target_mag</strong> – Whether to enable target magnitude filtering</p></li>
+<li><p><strong>verbose</strong> – Verbose output mode</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(HORUS_processed, T1, T2)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.create_catalogs">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_catalogs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HORUS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_start_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_end_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_start_year</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.create_catalogs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.create_catalogs" title="Link to this definition">#</a></dt>
+<dd><p>Create sub-catalogs from preprocessed earthquake catalog (without spatial filtering).</p>
+<p>This function creates three sub-catalogs for EEPAS learning. When no RegionManager
+is provided, all events are treated as being within both the Neighborhood Region
+and Testing Region (no spatial filtering applied).</p>
+<dl class="simple">
+<dt>Naming conventions (from main_gji.tex paper):</dt><dd><ul class="simple">
+<li><p>Index i: Historical source events (CatI), from Neighborhood Region N</p></li>
+<li><p>Index j: Target events (CatJ), from Testing Region R</p></li>
+<li><p>NLL = -Σ_j log λ(t_j, m_j, x_j, y_j | CatI) + ∫∫∫∫_R λ(…) dt dm dx dy</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>HORUS</strong> – Preprocessed earthquake catalog (numpy array, N×11)</p></li>
+<li><p><strong>params</strong> – Model parameters dictionary, must contain ‘mT’ (target magnitude threshold)</p></li>
+<li><p><strong>learn_start_year</strong> – Learning start year</p></li>
+<li><p><strong>learn_end_year</strong> – Learning end year</p></li>
+<li><p><strong>catalog_start_year</strong> – Catalog start year (for time conversion)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>(CatE, CatI, CatJ)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CatE: EEPAS precursor catalog (M≥m₀, all time)</p></li>
+<li><p>CatI: Historical source events (M≥mT, all time, Neighborhood Region) - paper’s index i</p></li>
+<li><p>CatJ: Target events (M≥mT, learning period, Testing Region) - paper’s index j</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Return order is (CatE, CatI, CatJ), corresponding to (precursor, i, j) in paper.
+This differs from versions before v1.1.0 (old order was CatE, CatJ, CatI).</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.filter_by_region">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_by_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_manager</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'testing'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.filter_by_region"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.filter_by_region" title="Link to this definition">#</a></dt>
+<dd><p>Filter earthquake catalog by spatial region.</p>
+<p>Purpose:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Integrates with RegionManager for spatial filtering</p></li>
+<li><p>Automatically handles both grid and polygon region formats</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>catalog</strong> – numpy array (N×M) earthquake catalog
+HORUS format: […, y(col6), x(col7), depth(col8), mag(col9), …]</p></li>
+<li><p><strong>region_manager</strong> – RegionManager instance</p></li>
+<li><p><strong>region_type</strong> – <p>‘testing’ or ‘neighborhood’</p>
+<ul>
+<li><p>’testing’: filter events within testing region (for target events)</p></li>
+<li><p>’neighborhood’: filter events within neighborhood region (for source events)</p></li>
+</ul>
+</p></li>
+<li><p><strong>x_col</strong> – X coordinate column (default 7)</p></li>
+<li><p><strong>y_col</strong> – Y coordinate column (default 6)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Filtered earthquake catalog</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.create_catalogs_with_regions">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_catalogs_with_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HORUS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_start_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_end_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_start_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_manager</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.create_catalogs_with_regions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.create_catalogs_with_regions" title="Link to this definition">#</a></dt>
+<dd><p>Create sub-catalogs from preprocessed earthquake catalog (with optional spatial filtering).</p>
+<p>This function supports both spatial filtering modes depending on the region_manager parameter.
+When region_manager is None, all events are used without spatial filtering.
+When region_manager is provided, events are filtered by Neighborhood and Testing Regions.</p>
+<p>Naming conventions (from main_gji.tex paper):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Index i: Historical source events (CatI), from Neighborhood Region N</p></li>
+<li><p>Index j: Target events (CatJ), from Testing Region R</p></li>
+<li><p>NLL = -Σ_j log λ(t_j, m_j, x_j, y_j | CatI) + ∫∫∫∫_R λ(…) dt dm dx dy</p></li>
+</ul>
+</div></blockquote>
+<p>Difference from create_catalogs():</p>
+<blockquote>
+<div><ul>
+<li><p>Supports RegionManager spatial filtering</p></li>
+<li><p>Without region_manager (None): Behaves identically to create_catalogs()</p></li>
+<li><p>With region_manager provided:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CatE: All events within Neighborhood Region N (for edge compensation)</p></li>
+<li><p>CatI: M≥mT events within Neighborhood Region N (historical sources, paper’s index i)</p></li>
+<li><p>CatJ: M≥mT events within Testing Region R during learning period (targets, paper’s index j)</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>HORUS</strong> – Preprocessed earthquake catalog (numpy array, N×11)</p></li>
+<li><p><strong>params</strong> – Model parameters dictionary, must contain ‘mT’ (target magnitude threshold)</p></li>
+<li><p><strong>learn_start_year</strong> – Learning start year</p></li>
+<li><p><strong>learn_end_year</strong> – Learning end year</p></li>
+<li><p><strong>catalog_start_year</strong> – Catalog start year (for time conversion)</p></li>
+<li><p><strong>region_manager</strong> – <p>RegionManager instance (optional)</p>
+<ul>
+<li><p>None: No spatial filtering applied</p></li>
+<li><p>RegionManager: Apply spatial filtering using Neighborhood and Testing Regions</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>(CatE, CatI, CatJ) containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CatE: EEPAS precursor catalog (M≥m₀)</p></li>
+<li><p>CatI: Historical source events (M≥mT, Neighborhood Region) - paper’s index i</p></li>
+<li><p>CatJ: Target events (M≥mT, learning period, Testing Region) - paper’s index j</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Return order is (CatE, CatI, CatJ), corresponding to (precursor, i, j) in paper.
+This differs from versions before v1.1.0 (old order was CatE, CatJ, CatI).</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.filter_by_magnitude">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_by_magnitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_magnitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.filter_by_magnitude"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.filter_by_magnitude" title="Link to this definition">#</a></dt>
+<dd><p>Filter earthquake catalog by magnitude.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>catalog</strong> – numpy array earthquake catalog</p></li>
+<li><p><strong>min_magnitude</strong> – Minimum magnitude threshold</p></li>
+<li><p><strong>mag_col</strong> – Magnitude column (default 9)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Filtered catalog</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.filter_by_time_range">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_by_time_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.filter_by_time_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.filter_by_time_range" title="Link to this definition">#</a></dt>
+<dd><p>Filter earthquake catalog by time range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>catalog</strong> – numpy array earthquake catalog</p></li>
+<li><p><strong>start_year</strong> – Start year</p></li>
+<li><p><strong>end_year</strong> – End year</p></li>
+<li><p><strong>year_col</strong> – Year column (default 0)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Filtered catalog</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.from_zmap">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skiprows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.from_zmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.from_zmap" title="Link to this definition">#</a></dt>
+<dd><p>Read ZMAP format and convert to HORUS format. See catalog_processor_extensions.from_zmap()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.from_csep">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_csep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.from_csep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.from_csep" title="Link to this definition">#</a></dt>
+<dd><p>Read CSEP ASCII format and convert to HORUS format. See catalog_processor_extensions.from_csep()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.from_quakeml">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_quakeml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.from_quakeml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.from_quakeml" title="Link to this definition">#</a></dt>
+<dd><p>Read QuakeML format and convert to HORUS format. See catalog_processor_extensions.from_quakeml()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.from_dataframe">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.from_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.from_dataframe" title="Link to this definition">#</a></dt>
+<dd><p>Convert Pandas DataFrame to HORUS format. See catalog_processor_extensions.from_dataframe()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.from_horus_text">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_horus_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skiprows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.from_horus_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.from_horus_text" title="Link to this definition">#</a></dt>
+<dd><p>Read HORUS text format. See catalog_processor_extensions.from_horus_text()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.from_ingv_horus">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ingv_horus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skiprows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.from_ingv_horus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.from_ingv_horus" title="Link to this definition">#</a></dt>
+<dd><p>Read INGV HORUS catalog format. See catalog_processor_extensions.from_ingv_horus()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.from_seismostats">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_seismostats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.from_seismostats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.from_seismostats" title="Link to this definition">#</a></dt>
+<dd><p>Convert SeismoStats Catalog object to HORUS format. See catalog_processor_extensions.from_seismostats()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.from_pycsep">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_pycsep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.from_pycsep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.from_pycsep" title="Link to this definition">#</a></dt>
+<dd><p>Convert pyCSEP CSEPCatalog object to HORUS format. See catalog_processor_extensions.from_pycsep()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.from_mat">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_mat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'HORUS'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.from_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.from_mat" title="Link to this definition">#</a></dt>
+<dd><p>Read HORUS catalog from MATLAB .mat file. See catalog_processor_extensions.from_mat()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.to_seismostats">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_seismostats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horus_catalog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.to_seismostats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.to_seismostats" title="Link to this definition">#</a></dt>
+<dd><p>Convert HORUS format to SeismoStats Catalog object. See catalog_processor_extensions.to_seismostats()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.to_pycsep">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_pycsep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horus_catalog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'EEPAS_catalog'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.to_pycsep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.to_pycsep" title="Link to this definition">#</a></dt>
+<dd><p>Convert HORUS format to pyCSEP CSEPCatalog object. See catalog_processor_extensions.to_pycsep()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.to_mat">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_mat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horus_catalog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'HORUS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matlab_compatible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.to_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.to_mat" title="Link to this definition">#</a></dt>
+<dd><p>Write HORUS format catalog to MATLAB .mat file. See catalog_processor_extensions.to_mat()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.catalog_processor.CatalogProcessor.detect_format">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">detect_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/catalog_processor.html#CatalogProcessor.detect_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.catalog_processor.CatalogProcessor.detect_format" title="Link to this definition">#</a></dt>
+<dd><p>Auto-detect earthquake catalog file format based on extension and content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> – Path to catalog file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Detected format (‘zmap’, ‘csep’, ‘quakeml’, ‘horus’, ‘mat’, ‘unknown’)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-utils.region_manager">
+<span id="region-manager"></span><h2>Region Manager<a class="headerlink" href="#module-utils.region_manager" title="Link to this heading">#</a></h2>
+<p>Region Manager - Spatial region handling for EEPAS.</p>
+<p>This module provides unified management of testing region and neighborhood region,
+supporting both grid and polygon region types.</p>
+<dl class="simple">
+<dt>Region Types:</dt><dd><ul class="simple">
+<li><p>‘grid’: Rectangular grid (e.g., CELLE_ter format)</p></li>
+<li><p>‘polygon’: Polygon boundary (e.g., CPTI15 format)</p></li>
+</ul>
+</dd>
+<dt>Regional Functions:</dt><dd><ul class="simple">
+<li><p>Testing Region (R): Used for likelihood calculation and forecast output</p></li>
+<li><p>Neighborhood Region (N): Used for edge effect compensation</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Single grid region (both regions use same grid):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mgr</span> <span class="o">=</span> <span class="n">RegionManager</span><span class="p">(</span><span class="n">celle_data</span><span class="p">,</span> <span class="n">celle_data</span><span class="p">,</span> <span class="s1">&#39;grid&#39;</span><span class="p">,</span> <span class="s1">&#39;grid&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Testing grid with neighborhood polygon:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mgr</span> <span class="o">=</span> <span class="n">RegionManager</span><span class="p">(</span><span class="n">celle_data</span><span class="p">,</span> <span class="n">cpti15_polygon</span><span class="p">,</span> <span class="s1">&#39;grid&#39;</span><span class="p">,</span> <span class="s1">&#39;polygon&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.region_manager.</span></span><span class="sig-name descname"><span class="pre">RegionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">testing_region_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhood_region_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">testing_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grid'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhood_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grid'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/region_manager.html#RegionManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.region_manager.RegionManager" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Region Manager - Handles spatial determination for testing and neighborhood regions</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.testing_region">
+<span class="sig-name descname"><span class="pre">testing_region</span></span><a class="headerlink" href="#utils.region_manager.RegionManager.testing_region" title="Link to this definition">#</a></dt>
+<dd><p>Testing region data (grid or polygon)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.neighborhood_region">
+<span class="sig-name descname"><span class="pre">neighborhood_region</span></span><a class="headerlink" href="#utils.region_manager.RegionManager.neighborhood_region" title="Link to this definition">#</a></dt>
+<dd><p>Neighborhood region data (grid or polygon)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.testing_type">
+<span class="sig-name descname"><span class="pre">testing_type</span></span><a class="headerlink" href="#utils.region_manager.RegionManager.testing_type" title="Link to this definition">#</a></dt>
+<dd><p>‘grid’ or ‘polygon’</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.neighborhood_type">
+<span class="sig-name descname"><span class="pre">neighborhood_type</span></span><a class="headerlink" href="#utils.region_manager.RegionManager.neighborhood_type" title="Link to this definition">#</a></dt>
+<dd><p>‘grid’ or ‘polygon’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">testing_region_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhood_region_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">testing_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grid'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhood_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grid'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/region_manager.html#RegionManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.region_manager.RegionManager.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize region manager.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>testing_region_data</strong> – <p>Testing region data</p>
+<ul>
+<li><p>If type=’grid’: numpy array (N×10), column format is [x_min, x_max, y_min, y_max, …, cell_id, …]</p></li>
+<li><p>If type=’polygon’: numpy array (M×2 or M×4), vertex coordinates</p></li>
+</ul>
+</p></li>
+<li><p><strong>neighborhood_region_data</strong> – <p>Neighborhood region data (optional)</p>
+<ul>
+<li><p>If None, then neighborhood = testing (same region for both)</p></li>
+<li><p>Same format as testing_region_data</p></li>
+</ul>
+</p></li>
+<li><p><strong>testing_type</strong> – ‘grid’ or ‘polygon’</p></li>
+<li><p><strong>neighborhood_type</strong> – ‘grid’ or ‘polygon’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.is_in_testing_region">
+<span class="sig-name descname"><span class="pre">is_in_testing_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/region_manager.html#RegionManager.is_in_testing_region"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.region_manager.RegionManager.is_in_testing_region" title="Link to this definition">#</a></dt>
+<dd><p>Determine if point (x, y) is within testing region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – X coordinate (can be scalar or array)</p></li>
+<li><p><strong>y</strong> – Y coordinate (can be scalar or array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool or numpy array of bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.is_in_neighborhood_region">
+<span class="sig-name descname"><span class="pre">is_in_neighborhood_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/region_manager.html#RegionManager.is_in_neighborhood_region"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.region_manager.RegionManager.is_in_neighborhood_region" title="Link to this definition">#</a></dt>
+<dd><p>Determine if point (x, y) is within neighborhood region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – X coordinate (can be scalar or array)</p></li>
+<li><p><strong>y</strong> – Y coordinate (can be scalar or array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool or numpy array of bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.filter_events_for_learning">
+<span class="sig-name descname"><span class="pre">filter_events_for_learning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/region_manager.html#RegionManager.filter_events_for_learning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.region_manager.RegionManager.filter_events_for_learning" title="Link to this definition">#</a></dt>
+<dd><p>Filter events for learning: events within neighborhood region.</p>
+<p>During PPE/EEPAS learning, use all events within neighborhood as source
+events to avoid edge effects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>catalog</strong> – numpy array (N×M) earthquake catalog</p></li>
+<li><p><strong>x_col</strong> – X coordinate column (default 7, HORUS format)</p></li>
+<li><p><strong>y_col</strong> – Y coordinate column (default 6, HORUS format)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Filtered catalog</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.filter_events_for_targets">
+<span class="sig-name descname"><span class="pre">filter_events_for_targets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/region_manager.html#RegionManager.filter_events_for_targets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.region_manager.RegionManager.filter_events_for_targets" title="Link to this definition">#</a></dt>
+<dd><p>Filter target events: events within testing region.</p>
+<p>During likelihood calculation and forecasting, only use/output events
+within the testing region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>catalog</strong> – numpy array (N×M) earthquake catalog</p></li>
+<li><p><strong>x_col</strong> – X coordinate column (default 7, HORUS format)</p></li>
+<li><p><strong>y_col</strong> – Y coordinate column (default 6, HORUS format)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Filtered catalog</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.get_active_cells">
+<span class="sig-name descname"><span class="pre">get_active_cells</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/region_manager.html#RegionManager.get_active_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.region_manager.RegionManager.get_active_cells" title="Link to this definition">#</a></dt>
+<dd><p>Get active cell list (only when testing region is grid type).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>[x_min, x_max, y_min, y_max] for each cell</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy array (N×4)</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If testing region is not grid type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.get_n_active_cells">
+<span class="sig-name descname"><span class="pre">get_n_active_cells</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/region_manager.html#RegionManager.get_n_active_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.region_manager.RegionManager.get_n_active_cells" title="Link to this definition">#</a></dt>
+<dd><p>Get number of active cells.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of cells (returns number of vertices if polygon)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.region_manager.RegionManager.get_region_summary">
+<span class="sig-name descname"><span class="pre">get_region_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/region_manager.html#RegionManager.get_region_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.region_manager.RegionManager.get_region_summary" title="Link to this definition">#</a></dt>
+<dd><p>Get region manager summary information (for debugging).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing region types, cell counts, and other metadata</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-utils.numerical_integration">
+<span id="numerical-integration"></span><h2>Numerical Integration<a class="headerlink" href="#module-utils.numerical_integration" title="Link to this heading">#</a></h2>
+<p>Numerical Integration Functions for EEPAS.</p>
+<p>This module provides low-level numerical integration functions with Numba acceleration.</p>
+<dl class="simple">
+<dt>Functions:</dt><dd><dl class="simple">
+<dt>PPE Spatial Integration:</dt><dd><ul class="simple">
+<li><p>fast_kernel_sum_2d: Cauchy kernel summation (Numba parallel)</p></li>
+<li><p>trapezoidal_2d: 2D trapezoidal integration (Numba parallel)</p></li>
+</ul>
+</dd>
+<dt>EEPAS Magnitude Integration:</dt><dd><ul class="simple">
+<li><p>fast_magnitude_integral: Midpoint rectangular rule (Numba JIT)</p></li>
+<li><p>magnitude_integral_accurate: quad_vec wrapper</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.numerical_integration.fast_kernel_sum_2d">
+<span class="sig-prename descclassname"><span class="pre">utils.numerical_integration.</span></span><span class="sig-name descname"><span class="pre">fast_kernel_sum_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/numerical_integration.html#fast_kernel_sum_2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.numerical_integration.fast_kernel_sum_2d" title="Link to this definition">#</a></dt>
+<dd><p>Calculate PPE spatial kernel summation on 2D grid (vectorized version).</p>
+<dl class="simple">
+<dt>Seismological Significance:</dt><dd><p>For each grid point (x,y), calculate the Cauchy kernel summation from all historical earthquakes:
+h₀(x,y) = Σⱼ [wⱼ/(π(d²+rⱼ²))]</p>
+</dd>
+<dt>Mathematical Principle:</dt><dd><p>Cauchy kernel κ(r) = 1/(π(d²+r²)) is the spatial distribution function in PPE model.
+By summing contributions from all historical earthquakes, obtain spatial background rate.</p>
+</dd>
+</dl>
+<p>Optimization Strategy:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Numba JIT compilation: boost pure Python loop performance</p></li>
+<li><p>Parallelization (prange): multi-core computation for grid points</p></li>
+<li><p>fastmath: allow floating-point optimizations (tiny precision loss for speed gain)</p></li>
+</ol>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_grid</strong> – 2D grid coordinate matrices (meshgrid format) [nx × ny]</p></li>
+<li><p><strong>y_grid</strong> – 2D grid coordinate matrices (meshgrid format) [nx × ny]</p></li>
+<li><p><strong>d</strong> – Characteristic distance (km)</p></li>
+<li><p><strong>xj</strong> – Historical earthquake location arrays [n_events]</p></li>
+<li><p><strong>yj</strong> – Historical earthquake location arrays [n_events]</p></li>
+<li><p><strong>weights</strong> – Magnitude weight array wⱼ = a·(mⱼ-mT)·t_integral [n_events]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Kernel function summation on 2D grid [nx × ny]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)">numpy.ndarray</a></p>
+</dd>
+</dl>
+<p>Usage Scenarios:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ppe_optimization.py: PPE Learning spatial integration</p></li>
+<li><p>neg_log_like_aftershock.py: Fit Aftershock spatial integration</p></li>
+<li><p>ppe_make_forecast.py: PPE Forecast grid integration</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.numerical_integration.trapezoidal_2d">
+<span class="sig-prename descclassname"><span class="pre">utils.numerical_integration.</span></span><span class="sig-name descname"><span class="pre">trapezoidal_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/numerical_integration.html#trapezoidal_2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.numerical_integration.trapezoidal_2d" title="Link to this definition">#</a></dt>
+<dd><p>2D trapezoidal integration method.</p>
+<dl class="simple">
+<dt>Mathematical Principle:</dt><dd><p>Divide integration region into regular grid, approximate each small rectangle using trapezoidal rule:
+∫∫ f(x,y) dx dy ≈ Σᵢⱼ [(f₀₀+f₁₀+f₀₁+f₁₁)/4] · Δx·Δy
+where f₀₀, f₁₀, f₀₁, f₁₁ are function values at the four vertices of rectangle</p>
+</dd>
+<dt>Error Analysis:</dt><dd><p>For smooth functions, error is O(Δx² + Δy²).
+PPE Cauchy kernel becomes relatively smooth after summing many earthquakes, trapezoidal method has good accuracy.</p>
+</dd>
+</dl>
+<p>Optimization Strategy:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Numba parallelization: multi-core computation for grid cell summation</p></li>
+<li><p>Vectorization-friendly: can be used together with fast_kernel_sum_2d</p></li>
+</ol>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f_values</strong> – 2D grid of function values (shape: nx × ny)</p></li>
+<li><p><strong>dx</strong> – Grid spacing (unit: km)</p></li>
+<li><p><strong>dy</strong> – Grid spacing (unit: km)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Integral value (scalar)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Accuracy Test Results:</dt><dd><p>Trapezoidal 50×50 vs Gauss-Legendre 10×10: relative error 0.0000%, speed improvement 2.9x</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.numerical_integration.ppe_spatial_integral_accurate">
+<span class="sig-prename descclassname"><span class="pre">utils.numerical_integration.</span></span><span class="sig-name descname"><span class="pre">ppe_spatial_integral_accurate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_coeff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_coeff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/numerical_integration.html#ppe_spatial_integral_accurate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.numerical_integration.ppe_spatial_integral_accurate" title="Link to this definition">#</a></dt>
+<dd><p>PPE spatial integration: accurate mode (dblquad adaptive integration).</p>
+<dl class="simple">
+<dt>Seismological Significance:</dt><dd><p>Calculate spatial integral of PPE background rate: ∫∫ h(x,y) dx dy
+where h(x,y) = a_coeff · [Σⱼ wⱼ/(π(d²+rⱼ²))] + s·s_coeff</p>
+</dd>
+<dt>Mathematical Principle:</dt><dd><p>Uses scipy.dblquad for adaptive double integration.
+Higher accuracy (relative error &lt;0.001%) but slower (about 10-20x).</p>
+</dd>
+</dl>
+<p>Applicable Scenarios:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>PPE Learning accurate integration mode</p></li>
+<li><p>Fit Aftershock accurate integration mode</p></li>
+<li><p>PPE Forecast accurate integration mode</p></li>
+<li><p>Paper validation or scenarios requiring extremely high precision</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_bounds</strong> – (x_min, x_max) integration range</p></li>
+<li><p><strong>y_bounds</strong> – (y_min, y_max) integration range</p></li>
+<li><p><strong>event_data</strong> – Event list, each event is (weight, x, y) tuple where weight already includes all coefficients (e.g., (m-mT)·t_integral)</p></li>
+<li><p><strong>d</strong> – PPE characteristic distance (km)</p></li>
+<li><p><strong>s</strong> – PPE background rate</p></li>
+<li><p><strong>s_coeff</strong> – Coefficient for s (e.g., mag_integral * t_sum)</p></li>
+<li><p><strong>a_coeff</strong> – <p>Coefficient for kernel summation term (default 1.0)</p>
+<ul>
+<li><p>PPE Learning/Fit Aftershock: a_coeff = a (PPE parameter)</p></li>
+<li><p>PPE Forecast: a_coeff = 1.0 (weight already includes a)</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Integral value (scalar)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is suitable for calling separately for each grid cell in a loop.
+Not suitable for overall vectorization (dblquad doesn’t support it).</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.numerical_integration.fast_magnitude_integral">
+<span class="sig-prename descclassname"><span class="pre">utils.numerical_integration.</span></span><span class="sig-name descname"><span class="pre">fast_magnitude_integral</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">am</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Sm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnitude_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/numerical_integration.html#fast_magnitude_integral"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.numerical_integration.fast_magnitude_integral" title="Link to this definition">#</a></dt>
+<dd><p>EEPAS magnitude integration: fast mode (midpoint rectangular rule).</p>
+<p>Calculate magnitude integral: ∫[m1,m2] fGme(m, me) dm, for all me values</p>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>gₑ(m|mₑ): Normal distribution N(am + bm·mₑ, Sm²)</p></li>
+<li><p>Δ(m): Normalization factor (calculated using erf function)</p></li>
+</ul>
+</div></blockquote>
+<p>Fast Mode Characteristics:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Midpoint rectangular rule: divide integral interval equally, approximate using midpoint values</p></li>
+<li><p>Numba acceleration: JIT compilation</p></li>
+<li><p>Fixed sampling: predictable computational cost</p></li>
+</ol>
+</div></blockquote>
+<dl class="simple">
+<dt>Error Analysis:</dt><dd><p>20 sample points: relative error ~3%, suitable for Forecast (speed priority)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m1</strong> – Integration range (scalar)</p></li>
+<li><p><strong>m2</strong> – Integration range (scalar)</p></li>
+<li><p><strong>mee</strong> – Precursor magnitude array (must be array)</p></li>
+<li><p><strong>am</strong> – Magnitude distribution parameters</p></li>
+<li><p><strong>bm</strong> – Magnitude distribution parameters</p></li>
+<li><p><strong>Sm</strong> – Magnitude distribution parameters</p></li>
+<li><p><strong>m0</strong> – Completeness magnitude</p></li>
+<li><p><strong>B</strong> – GR b-value</p></li>
+<li><p><strong>magnitude_samples</strong> – Number of sample points (default 20)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Integration result array of length len(mee)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.numerical_integration.magnitude_integral_accurate">
+<span class="sig-prename descclassname"><span class="pre">utils.numerical_integration.</span></span><span class="sig-name descname"><span class="pre">magnitude_integral_accurate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">am</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Sm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/numerical_integration.html#magnitude_integral_accurate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.numerical_integration.magnitude_integral_accurate" title="Link to this definition">#</a></dt>
+<dd><p>EEPAS magnitude integration: accurate mode (quad_vec vectorized adaptive integration).</p>
+<p>Uses scipy.quad_vec for adaptive integration, supports vectorization.</p>
+<p>Accurate Mode Characteristics:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Adaptive sampling: adjust integration points based on function characteristics</p></li>
+<li><p>Vectorization: can calculate multiple integrals simultaneously</p></li>
+<li><p>Extremely high precision: &lt;0.001%</p></li>
+</ol>
+</div></blockquote>
+<p>Applicable Scenarios:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>EEPAS Learning (parameter learning requires high precision)</p></li>
+<li><p>Paper validation</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m1</strong> – Integration range (scalar)</p></li>
+<li><p><strong>m2</strong> – Integration range (scalar)</p></li>
+<li><p><strong>mee</strong> – Precursor magnitude array</p></li>
+<li><p><strong>am</strong> – Magnitude distribution parameters</p></li>
+<li><p><strong>bm</strong> – Magnitude distribution parameters</p></li>
+<li><p><strong>Sm</strong> – Magnitude distribution parameters</p></li>
+<li><p><strong>m0</strong> – Completeness magnitude</p></li>
+<li><p><strong>B</strong> – GR b-value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Integral value (can be scalar or array, depending on input)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)">numpy.ndarray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-utils.get_paths">
+<span id="path-management"></span><h2>Path Management<a class="headerlink" href="#module-utils.get_paths" title="Link to this heading">#</a></h2>
+<p>Path Management Tool - Unified File Path Generation
+Generates standardized file paths based on configuration file and time parameters</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.get_paths.get_paths">
+<span class="sig-prename descclassname"><span class="pre">utils.get_paths.</span></span><span class="sig-name descname"><span class="pre">get_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fore_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fore_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/get_paths.html#get_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.get_paths.get_paths" title="Link to this definition">#</a></dt>
+<dd><p>Generate standardized file paths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfg</strong> – Configuration dictionary</p></li>
+<li><p><strong>learn_start</strong> – Learning start year</p></li>
+<li><p><strong>learn_end</strong> – Learning end year</p></li>
+<li><p><strong>fore_start</strong> – Forecast start year</p></li>
+<li><p><strong>fore_end</strong> – Forecast end year</p></li>
+<li><p><strong>config_file</strong> – Configuration file path (for resolving relative paths)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing various file paths (dataPath, resultsPath, eepasParam, ppeParam, etc.)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="module-utils.fminsearchcon">
+<span id="optimization-helpers"></span><h2>Optimization Helpers<a class="headerlink" href="#module-utils.fminsearchcon" title="Link to this heading">#</a></h2>
+<p>fminsearchcon - Constrained Nelder-Mead optimization
+Ported from MATLAB’s fminsearchcon.m (John D’Errico)</p>
+<p>Uses variable transformation to handle boundary constraints, uses penalty functions to handle linear and nonlinear inequality constraints.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.fminsearchcon.fminsearchcon">
+<span class="sig-prename descclassname"><span class="pre">utils.fminsearchcon.</span></span><span class="sig-name descname"><span class="pre">fminsearchcon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fun</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ub</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonlcon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/fminsearchcon.html#fminsearchcon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.fminsearchcon.fminsearchcon" title="Link to this definition">#</a></dt>
+<dd><p>Constrained Nelder-Mead optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fun</strong> – Objective function f(x, *args)</p></li>
+<li><p><strong>x0</strong> – Initial guess (array-like)</p></li>
+<li><p><strong>lb</strong> – Lower bounds, can include -inf (optional)</p></li>
+<li><p><strong>ub</strong> – Upper bounds, can include +inf (optional)</p></li>
+<li><p><strong>A</strong> – Linear inequality constraint matrix A &#64; x &lt;= b (optional)</p></li>
+<li><p><strong>b</strong> – Linear inequality constraint RHS vector (optional)</p></li>
+<li><p><strong>nonlcon</strong> – Nonlinear inequality constraint function, return &lt;= 0 (optional)</p></li>
+<li><p><strong>options</strong> – <p>Optimization options dict (optional), containing:</p>
+<ul>
+<li><p>maxiter: Maximum iterations (default: 200*n)</p></li>
+<li><p>maxfun: Maximum function evaluations (default: 200*n)</p></li>
+<li><p>xtol: Tolerance for x (default: 1e-4)</p></li>
+<li><p>ftol: Tolerance for function value (default: 1e-4)</p></li>
+<li><p>disp: Display progress (default: False)</p></li>
+</ul>
+</p></li>
+<li><p><strong>args</strong> – Additional arguments for objective and constraint functions (optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>(x, fval, exitflag, output) where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>x: Optimal solution (ndarray)</p></li>
+<li><p>fval: Optimal function value (float)</p></li>
+<li><p>exitflag: Exit flag (0=success, -1=failure)</p></li>
+<li><p>output: Optimization information (dict)</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.fminsearchcon.transform_forward">
+<span class="sig-prename descclassname"><span class="pre">utils.fminsearchcon.</span></span><span class="sig-name descname"><span class="pre">transform_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/fminsearchcon.html#transform_forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.fminsearchcon.transform_forward" title="Link to this definition">#</a></dt>
+<dd><p>Transform constrained variables to unconstrained variables</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.fminsearchcon.transform_backward">
+<span class="sig-prename descclassname"><span class="pre">utils.fminsearchcon.</span></span><span class="sig-name descname"><span class="pre">transform_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/fminsearchcon.html#transform_backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.fminsearchcon.transform_backward" title="Link to this definition">#</a></dt>
+<dd><p>Transform unconstrained variables back to constrained variables</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.fminsearchcon.intrafun">
+<span class="sig-prename descclassname"><span class="pre">utils.fminsearchcon.</span></span><span class="sig-name descname"><span class="pre">intrafun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/fminsearchcon.html#intrafun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.fminsearchcon.intrafun" title="Link to this definition">#</a></dt>
+<dd><p>Internal objective function: transform variables and check constraints</p>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="coordinate-transformation">
+<h2>Coordinate Transformation<a class="headerlink" href="#coordinate-transformation" title="Link to this heading">#</a></h2>
+<p>Convert WGS84 coordinates to various projected coordinate systems (RDN2008, TWD97, etc.).</p>
+<p id="module-utils.coordinate_transform">Coordinate Transformation Utility for Earthquake Catalogs</p>
+<p>Converts HORUS earthquake catalog and CELLE grid coordinates between different
+coordinate reference systems (CRS). Supports multiple regional projections.</p>
+<dl class="simple">
+<dt>Supported CRS:</dt><dd><ul class="simple">
+<li><p>WGS84 (EPSG:4326): Global lat/lon coordinate system</p></li>
+<li><p>RDN2008 (EPSG:7794): Italy zone projected system (default)</p></li>
+<li><p>TWD97 (EPSG:3826): Taiwan TM2 121°E projected system</p></li>
+<li><p>Custom: Any EPSG code supported by pyproj</p></li>
+</ul>
+</dd>
+</dl>
+<p>Transformed coordinates are in kilometers and replace original lat/lon columns
+in the output MATLAB .mat files.</p>
+<dl>
+<dt>Usage:</dt><dd><p># Default: WGS84 to RDN2008 (Italy)
+python coordinate_transform.py </p>
+<blockquote>
+<div><p>–horus-in HORUS_Italy.mat –celle-in CELLE_Italy.mat –horus-out HORUS_Italy_RDN2008.mat –celle-out CELLE_Italy_RDN2008.mat</p>
+</div></blockquote>
+<p># Taiwan: WGS84 to TWD97
+python coordinate_transform.py </p>
+<blockquote>
+<div><p>–horus-in HORUS_Taiwan.mat –celle-in CELLE_Taiwan.mat –horus-out HORUS_Taiwan_TWD97.mat –celle-out CELLE_Taiwan_TWD97.mat –target-crs epsg:3826 –region Taiwan</p>
+</div></blockquote>
+<p># Custom EPSG code
+python coordinate_transform.py </p>
+<blockquote>
+<div><p>–horus-in input.mat –celle-in grids.mat –horus-out output.mat –celle-out grids_out.mat –target-crs epsg:32633 –region “Custom Region”</p>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.coordinate_transform.get_crs_info">
+<span class="sig-prename descclassname"><span class="pre">utils.coordinate_transform.</span></span><span class="sig-name descname"><span class="pre">get_crs_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crs_key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/coordinate_transform.html#get_crs_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.coordinate_transform.get_crs_info" title="Link to this definition">#</a></dt>
+<dd><p>Get coordinate system information from preset or custom EPSG code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>crs_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – CRS preset key (‘rdn2008’, ‘twd97’) or EPSG code (‘epsg:3826’)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>CRS information including EPSG code, name, and bounds</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.coordinate_transform.validate_coordinates">
+<span class="sig-prename descclassname"><span class="pre">utils.coordinate_transform.</span></span><span class="sig-name descname"><span class="pre">validate_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'region'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/coordinate_transform.html#validate_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.coordinate_transform.validate_coordinates" title="Link to this definition">#</a></dt>
+<dd><p>Validate coordinates are within expected regional bounds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lon</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Longitude array (degrees East)</p></li>
+<li><p><strong>lat</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Latitude array (degrees North)</p></li>
+<li><p><strong>bounds</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Dictionary with ‘lat’ and ‘lon’ tuples (min, max)</p></li>
+<li><p><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name of region for warning messages</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(all_valid, invalid_count)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.coordinate_transform.convert_coordinates">
+<span class="sig-prename descclassname"><span class="pre">utils.coordinate_transform.</span></span><span class="sig-name descname"><span class="pre">convert_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'region'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meters_per_km</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/coordinate_transform.html#convert_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.coordinate_transform.convert_coordinates" title="Link to this definition">#</a></dt>
+<dd><p>Convert lat/lon coordinates in array to projected coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Array containing lat/lon data</p></li>
+<li><p><strong>lon_idx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Longitude column index</p></li>
+<li><p><strong>lat_idx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Latitude column index</p></li>
+<li><p><strong>transformer</strong> (<em>Transformer</em>) – pyproj Transformer object</p></li>
+<li><p><strong>bounds</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Coordinate validation bounds</p></li>
+<li><p><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Region name for validation messages</p></li>
+<li><p><strong>meters_per_km</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Meters to kilometers conversion factor (default: 1000.0)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Transformed array with coordinates in km</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Validates coordinates are within regional bounds and prints warnings
+for out-of-range coordinates.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.coordinate_transform.convert_celle_coordinates">
+<span class="sig-prename descclassname"><span class="pre">utils.coordinate_transform.</span></span><span class="sig-name descname"><span class="pre">convert_celle_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">celle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'region'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meters_per_km</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/coordinate_transform.html#convert_celle_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.coordinate_transform.convert_celle_coordinates" title="Link to this definition">#</a></dt>
+<dd><p>Convert CELLE grid boundary coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>celle</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – CELLE array (each row: lon_min, lon_max, lat_min, lat_max)</p></li>
+<li><p><strong>transformer</strong> (<em>Transformer</em>) – pyproj Transformer object</p></li>
+<li><p><strong>bounds</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Coordinate validation bounds</p></li>
+<li><p><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Region name for validation messages</p></li>
+<li><p><strong>meters_per_km</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Meters to kilometers conversion factor (default: 1000.0)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Transformed CELLE array (x_min, x_max, y_min, y_max in km)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>CELLE format columns:</dt><dd><ul class="simple">
+<li><p>Column 0: Minimum longitude (°E)</p></li>
+<li><p>Column 1: Maximum longitude (°E)</p></li>
+<li><p>Column 2: Minimum latitude (°N)</p></li>
+<li><p>Column 3: Maximum latitude (°N)</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.coordinate_transform.main">
+<span class="sig-prename descclassname"><span class="pre">utils.coordinate_transform.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horus_infile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">celle_infile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">horus_outfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">celle_outfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rdn2008'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/coordinate_transform.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.coordinate_transform.main" title="Link to this definition">#</a></dt>
+<dd><p>Main function to convert HORUS and CELLE coordinates between CRS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>horus_infile</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a><em> | </em><em>None</em>) – Input HORUS catalog .mat file path (optional)</p></li>
+<li><p><strong>celle_infile</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a><em> | </em><em>None</em>) – Input CELLE grid .mat file path (optional)</p></li>
+<li><p><strong>horus_outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a><em> | </em><em>None</em>) – Output HORUS .mat file path (optional)</p></li>
+<li><p><strong>celle_outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a><em> | </em><em>None</em>) – Output CELLE .mat file path (optional)</p></li>
+<li><p><strong>target_crs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Target coordinate system (‘rdn2008’, ‘twd97’, or ‘epsg:XXXX’)</p></li>
+<li><p><strong>region_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>None</em>) – Custom region name for messages (optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Writes transformed data to output files and prints status</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>HORUS format columns:</dt><dd><ul class="simple">
+<li><p>Column 7 (index 6): Latitude (°N)</p></li>
+<li><p>Column 8 (index 7): Longitude (°E)</p></li>
+</ul>
+</dd>
+<dt>After transformation, these columns contain:</dt><dd><ul class="simple">
+<li><p>Column 7 (index 6): Northing Y (km)</p></li>
+<li><p>Column 8 (index 7): Easting X (km)</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="core.html"><span class="doc">Core Modules</span></a> - Core modules that use these utilities</p></li>
+<li><p><a class="reference internal" href="../technical/numerical_integration.html"><span class="doc">Numerical Integration</span></a> - Detailed integration theory</p></li>
+<li><p><a class="reference internal" href="../user_guide/configuration.html"><span class="doc">Configuration Reference</span></a> - Configuration file reference</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="core.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Core Modules</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="analysis.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Analysis Modules</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.data_loader">Data Loader</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.load_config"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_config()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.load_catalogs"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_catalogs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.load_model_params"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_model_params()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.load_spatial_regions"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_spatial_regions()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.load_custom_stages"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_custom_stages()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.validate_custom_stages"><code class="docutils literal notranslate"><span class="pre">DataLoader.validate_custom_stages()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.data_loader.DataLoader.detect_stage1_config_type"><code class="docutils literal notranslate"><span class="pre">DataLoader.detect_stage1_config_type()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.catalog_processor">Catalog Processor</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.decyear"><code class="docutils literal notranslate"><span class="pre">decyear()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.preprocess_catalog"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.preprocess_catalog()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.create_catalogs"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.create_catalogs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.filter_by_region"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.filter_by_region()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.create_catalogs_with_regions"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.create_catalogs_with_regions()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.filter_by_magnitude"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.filter_by_magnitude()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.filter_by_time_range"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.filter_by_time_range()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_zmap"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_zmap()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_csep"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_csep()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_quakeml"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_quakeml()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_dataframe"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_dataframe()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_horus_text"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_horus_text()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_ingv_horus"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_ingv_horus()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_seismostats"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_seismostats()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_pycsep"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_pycsep()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.from_mat"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.from_mat()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.to_seismostats"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.to_seismostats()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.to_pycsep"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.to_pycsep()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.to_mat"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.to_mat()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.catalog_processor.CatalogProcessor.detect_format"><code class="docutils literal notranslate"><span class="pre">CatalogProcessor.detect_format()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.region_manager">Region Manager</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager"><code class="docutils literal notranslate"><span class="pre">RegionManager</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.testing_region"><code class="docutils literal notranslate"><span class="pre">RegionManager.testing_region</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.neighborhood_region"><code class="docutils literal notranslate"><span class="pre">RegionManager.neighborhood_region</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.testing_type"><code class="docutils literal notranslate"><span class="pre">RegionManager.testing_type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.neighborhood_type"><code class="docutils literal notranslate"><span class="pre">RegionManager.neighborhood_type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.__init__"><code class="docutils literal notranslate"><span class="pre">RegionManager.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.is_in_testing_region"><code class="docutils literal notranslate"><span class="pre">RegionManager.is_in_testing_region()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.is_in_neighborhood_region"><code class="docutils literal notranslate"><span class="pre">RegionManager.is_in_neighborhood_region()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.filter_events_for_learning"><code class="docutils literal notranslate"><span class="pre">RegionManager.filter_events_for_learning()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.filter_events_for_targets"><code class="docutils literal notranslate"><span class="pre">RegionManager.filter_events_for_targets()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.get_active_cells"><code class="docutils literal notranslate"><span class="pre">RegionManager.get_active_cells()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.get_n_active_cells"><code class="docutils literal notranslate"><span class="pre">RegionManager.get_n_active_cells()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.region_manager.RegionManager.get_region_summary"><code class="docutils literal notranslate"><span class="pre">RegionManager.get_region_summary()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.numerical_integration">Numerical Integration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.numerical_integration.fast_kernel_sum_2d"><code class="docutils literal notranslate"><span class="pre">fast_kernel_sum_2d()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.numerical_integration.trapezoidal_2d"><code class="docutils literal notranslate"><span class="pre">trapezoidal_2d()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.numerical_integration.ppe_spatial_integral_accurate"><code class="docutils literal notranslate"><span class="pre">ppe_spatial_integral_accurate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.numerical_integration.fast_magnitude_integral"><code class="docutils literal notranslate"><span class="pre">fast_magnitude_integral()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.numerical_integration.magnitude_integral_accurate"><code class="docutils literal notranslate"><span class="pre">magnitude_integral_accurate()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.get_paths">Path Management</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.get_paths.get_paths"><code class="docutils literal notranslate"><span class="pre">get_paths()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.fminsearchcon">Optimization Helpers</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.fminsearchcon.fminsearchcon"><code class="docutils literal notranslate"><span class="pre">fminsearchcon()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.fminsearchcon.transform_forward"><code class="docutils literal notranslate"><span class="pre">transform_forward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.fminsearchcon.transform_backward"><code class="docutils literal notranslate"><span class="pre">transform_backward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.fminsearchcon.intrafun"><code class="docutils literal notranslate"><span class="pre">intrafun()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-transformation">Coordinate Transformation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.coordinate_transform.get_crs_info"><code class="docutils literal notranslate"><span class="pre">get_crs_info()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.coordinate_transform.validate_coordinates"><code class="docutils literal notranslate"><span class="pre">validate_coordinates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.coordinate_transform.convert_coordinates"><code class="docutils literal notranslate"><span class="pre">convert_coordinates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.coordinate_transform.convert_celle_coordinates"><code class="docutils literal notranslate"><span class="pre">convert_celle_coordinates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.coordinate_transform.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,877 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Complete Workflows &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/workflows';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration Reference" href="configuration.html" />
+    <link rel="prev" title="Installation Guide" href="installation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/user_guide/workflows.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Complete Workflows</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorial-example-workflow">Tutorial Example Workflow</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#italy-earthquake-forecasting">Italy Earthquake Forecasting</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-execution">Step-by-Step Execution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-italy-workflow-script">Complete Italy Workflow Script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-to-your-region">Applying to Your Region</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-workflow-steps">General Workflow Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-processing">Batch Processing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-workflows">Advanced Workflows</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accurate-mode-final-verification">Accurate Mode (Final Verification)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-magnitude-threshold">Custom Magnitude Threshold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-optimization-parameters">Custom Optimization Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-results">Verify Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-parameter-values">Check Parameter Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate-forecast-lambda-sum">Validate Forecast Lambda Sum</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="complete-workflows">
+<h1>Complete Workflows<a class="headerlink" href="#complete-workflows" title="Link to this heading">#</a></h1>
+<p>This guide provides complete, step-by-step workflows for earthquake forecasting using EEPAS. The tutorial uses the Italy earthquake catalog as an example, but the same workflow can be applied to any seismic region.</p>
+<section id="tutorial-example-workflow">
+<h2>Tutorial Example Workflow<a class="headerlink" href="#tutorial-example-workflow" title="Link to this heading">#</a></h2>
+<section id="italy-earthquake-forecasting">
+<h3>Italy Earthquake Forecasting<a class="headerlink" href="#italy-earthquake-forecasting" title="Link to this heading">#</a></h3>
+<p>This tutorial demonstrates the complete EEPAS workflow using the Italy (CPTI15) earthquake catalog.</p>
+<section id="overview">
+<h4>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h4>
+<dl class="simple">
+<dt>This workflow demonstrates:</dt><dd><ul class="simple">
+<li><p>Magnitude anchoring with <code class="docutils literal notranslate"><span class="pre">--ppe-ref-mag</span> <span class="pre">mT</span></code> option</p></li>
+<li><p>Three-stage optimization for complex parameter spaces</p></li>
+<li><p>Handling larger spatial grids (177 cells)</p></li>
+<li><p>Best practices for edge effect management (separate testing/neighborhood regions)</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="step-by-step-execution">
+<h4>Step-by-Step Execution<a class="headerlink" href="#step-by-step-execution" title="Link to this heading">#</a></h4>
+<p><strong>Step 1: PPE Learning</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>ppe_learning.py<span class="w"> </span>--config<span class="w"> </span>config_italy.json
+</pre></div>
+</div>
+<p><strong>Expected Output</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Spatial region configuration:
+  Testing Region: grid (177 cells)
+  Neighborhood Region: polygon (CPTI15)
+PPE historical events (CatJ): 312, target events (CatI): 27
+
+✅ Saved: results_italy/Fitted_par_PPE_1990_2012.csv
+   a=0.616, d=29.64, s≈0
+</pre></div>
+</div>
+<p><strong>Step 2: Aftershock Fitting</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>fit_aftershock_params.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-mag<span class="w"> </span>mT
+</pre></div>
+</div>
+<p><strong>Expected Output</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>✅ Saved: results_italy/Fitted_par_aftershock_1990_2012.csv
+   v=0.577, k=0.205
+</pre></div>
+</div>
+<p><strong>Step 3: EEPAS Learning</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--three-stage<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max-rounds<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p><strong>Expected Output</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>🔄 Stage 1: Optimize am, at, Sa, u
+   Fixed parameters: bm=1.00, Sm=0.32, bt=0.40, St=0.23, ba=0.35
+   ...
+   ✅ Stage 1 completed
+
+🔄 Stage 2: Optimize Sm, bt, St, ba, u
+   🎯 Using multi-start search (3 starting points) + Stage 3 quick evaluation
+   ...
+   ✅ Stage 2 completed
+
+🔄 Stage 3: Joint optimization of all parameters
+   ...
+   ✅ Stage 3 completed
+   Final NLL: 495.394994
+
+✅ Saved: results_italy_causal_ew0/Fitted_par_EEPAS_1990_2012.csv
+</pre></div>
+</div>
+<p><strong>Step 4: PPE Forecast</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>ppe_make_forecast.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT
+</pre></div>
+</div>
+<p><strong>Step 5: EEPAS Forecast</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>eepas_make_forecast.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT
+</pre></div>
+</div>
+</section>
+<section id="complete-italy-workflow-script">
+<h4>Complete Italy Workflow Script<a class="headerlink" href="#complete-italy-workflow-script" title="Link to this heading">#</a></h4>
+<p>Save as <code class="docutils literal notranslate"><span class="pre">run_italy_workflow.sh</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1"># EEPAS Italy Workflow (Paper Validation)</span>
+
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== EEPAS Italy Workflow ===&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Configuration: config_italy.json&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mode: Paper validation (mT anchor, 3-stage)&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+
+<span class="c1"># Step 1: PPE Learning</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Step 1/5: PPE Learning...&quot;</span>
+python3<span class="w"> </span>ppe_learning.py<span class="w"> </span>--config<span class="w"> </span>config_italy.json
+
+<span class="c1"># Step 2: Aftershock Parameters (mT anchor)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Step 2/5: Aftershock Parameters...&quot;</span>
+python3<span class="w"> </span>fit_aftershock_params.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-mag<span class="w"> </span>mT
+
+<span class="c1"># Step 3: EEPAS Learning (3-stage, single round)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Step 3/5: EEPAS Learning (3-stage)...&quot;</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--three-stage<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max-rounds<span class="w"> </span><span class="m">1</span>
+
+<span class="c1"># Step 4: PPE Forecast</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Step 4/5: PPE Forecast...&quot;</span>
+python3<span class="w"> </span>ppe_make_forecast.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT
+
+<span class="c1"># Step 5: EEPAS Forecast (fast mode)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Step 5/5: EEPAS Forecast...&quot;</span>
+python3<span class="w"> </span>eepas_make_forecast.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Workflow Complete! ===&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Results saved in: results_italy/&quot;</span>
+ls<span class="w"> </span>-lh<span class="w"> </span>results_italy/
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="applying-to-your-region">
+<h2>Applying to Your Region<a class="headerlink" href="#applying-to-your-region" title="Link to this heading">#</a></h2>
+<section id="general-workflow-steps">
+<h3>General Workflow Steps<a class="headerlink" href="#general-workflow-steps" title="Link to this heading">#</a></h3>
+<p>To apply EEPAS to your own seismic region, follow these steps:</p>
+<p><strong>Prerequisites</strong></p>
+<ol class="arabic">
+<li><p><strong>Prepare Data Files</strong>:</p>
+<ul>
+<li><p>Earthquake catalog (.mat format):</p>
+<p>Variable name flexible (e.g., <code class="docutils literal notranslate"><span class="pre">HORUS</span></code>, <code class="docutils literal notranslate"><span class="pre">catalog</span></code>), matrix format (N_events × 10):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Column 1-6:  Date/time (Year, Month, Day, Hour, Minute, Second)
+Column 7:    Latitude (degrees N)
+Column 8:    Longitude (degrees E)
+Column 9:    Depth (km)
+Column 10:   Magnitude
+</pre></div>
+</div>
+<p>See <code class="docutils literal notranslate"><span class="pre">data/README.md</span></code> for detailed format specification.</p>
+</li>
+<li><p>Testing region grid (.mat format):</p>
+<p>Variable name flexible (e.g., <code class="docutils literal notranslate"><span class="pre">CELLESD</span></code>), matrix format (N_cells × 10):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Column 1-4:  Grid bounds (lon_min, lon_max, lat_min, lat_max)
+Column 5-8:  Reserved/unused
+Column 9:    Cell identifier (integer)
+Column 10:   Reserved
+</pre></div>
+</div>
+<p><strong>Only columns 1-4 are used</strong> for defining rectangular grid cells.</p>
+</li>
+<li><p>Neighborhood region (.mat format):</p>
+<p><strong>Grid format</strong> (same as testing region): N_cells × 10 matrix</p>
+<p><strong>Polygon format</strong>: N_vertices × 2 or N_vertices × 4 matrix</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Columns 1-2: (lon, lat) coordinates of polygon vertices
+Columns 3-4: (optional) projected coordinates
+</pre></div>
+</div>
+<p><strong>Important</strong>: Polygon vertices must be in <strong>clockwise order</strong> with no repetitions. The neighborhood region must <strong>strictly contain</strong> the testing region to avoid boundary effects (truncation of precursor events outside R that may influence target events near the edge).</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Create Configuration File</strong>:</p>
+<p>Copy <code class="docutils literal notranslate"><span class="pre">config_italy.json</span></code> and modify for your region:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+  &quot;resultsDir&quot;: &quot;results_yourregion&quot;,
+  &quot;catalogStartYear&quot;: YYYY,
+  &quot;learnStartYear&quot;: YYYY,
+  &quot;learnEndYear&quot;: YYYY,
+  &quot;forecastStartYear&quot;: YYYY,
+  &quot;forecastEndYear&quot;: YYYY,
+  &quot;inputFiles&quot;: {
+    &quot;catalogFile&quot;: &quot;your_catalog.mat&quot;,
+    &quot;neighborhoodRegionFile&quot;: &quot;your_neighborhood.mat&quot;,
+    &quot;testingRegionFile&quot;: &quot;your_testing.mat&quot;
+  },
+  &quot;modelParams&quot;: {
+    &quot;m0&quot;: 2.5,
+    &quot;mT&quot;: 5.0,
+    &quot;B&quot;: 1.036
+  }
+}
+</pre></div>
+</div>
+</li>
+</ol>
+<p><strong>Workflow Execution</strong></p>
+<p>Run the same 5-step workflow with your configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Step 1: PPE Learning</span>
+python3<span class="w"> </span>ppe_learning.py<span class="w"> </span>--config<span class="w"> </span>config_yourregion.json
+
+<span class="c1"># Step 2: Aftershock Parameters</span>
+python3<span class="w"> </span>fit_aftershock_params.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_yourregion.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-mag<span class="w"> </span>mT
+
+<span class="c1"># Step 3: EEPAS Learning (3-stage optimization)</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_yourregion.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--three-stage<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max-rounds<span class="w"> </span><span class="m">1</span>
+
+<span class="c1"># Step 4: PPE Forecast</span>
+python3<span class="w"> </span>ppe_make_forecast.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_yourregion.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT
+
+<span class="c1"># Step 5: EEPAS Forecast</span>
+python3<span class="w"> </span>eepas_make_forecast.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_yourregion.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT
+</pre></div>
+</div>
+</section>
+<section id="batch-processing">
+<h3>Batch Processing<a class="headerlink" href="#batch-processing" title="Link to this heading">#</a></h3>
+<p>To process multiple configurations or scenarios:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1"># Batch process multiple configurations</span>
+
+<span class="nv">CONFIGS</span><span class="o">=(</span>
+<span class="w">    </span><span class="s2">&quot;config_region1.json&quot;</span>
+<span class="w">    </span><span class="s2">&quot;config_region2.json&quot;</span>
+<span class="w">    </span><span class="s2">&quot;config_different_m0.json&quot;</span>
+<span class="o">)</span>
+
+<span class="k">for</span><span class="w"> </span>config<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CONFIGS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=========================================&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Processing: </span><span class="nv">$config</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=========================================&quot;</span>
+
+<span class="w">    </span>python3<span class="w"> </span>ppe_learning.py<span class="w"> </span>--config<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$config</span><span class="s2">&quot;</span>
+<span class="w">    </span>python3<span class="w"> </span>fit_aftershock_params.py<span class="w"> </span>--config<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$config</span><span class="s2">&quot;</span><span class="w"> </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span>--target-mag<span class="w"> </span>mT
+<span class="w">    </span>python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$config</span><span class="s2">&quot;</span><span class="w"> </span>--three-stage<span class="w"> </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span>--max-rounds<span class="w"> </span><span class="m">1</span>
+<span class="w">    </span>python3<span class="w"> </span>ppe_make_forecast.py<span class="w"> </span>--config<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$config</span><span class="s2">&quot;</span><span class="w"> </span>--ppe-ref-mag<span class="w"> </span>mT
+<span class="w">    </span>python3<span class="w"> </span>eepas_make_forecast.py<span class="w"> </span>--config<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$config</span><span class="s2">&quot;</span><span class="w"> </span>--ppe-ref-mag<span class="w"> </span>mT
+
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Completed: </span><span class="nv">$config</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;All configurations processed!&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="advanced-workflows">
+<h2>Advanced Workflows<a class="headerlink" href="#advanced-workflows" title="Link to this heading">#</a></h2>
+<section id="accurate-mode-final-verification">
+<h3>Accurate Mode (Final Verification)<a class="headerlink" href="#accurate-mode-final-verification" title="Link to this heading">#</a></h3>
+<p>For publication or final verification, use accurate mode instead of fast mode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># PPE Learning (dblquad integration)</span>
+python3<span class="w"> </span>ppe_learning.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--accurate
+
+<span class="c1"># Aftershock Fitting (accurate mode)</span>
+python3<span class="w"> </span>fit_aftershock_params.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--accurate
+
+<span class="c1"># EEPAS Learning (accurate mode)</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--accurate
+
+<span class="c1"># PPE Forecast (accurate mode)</span>
+python3<span class="w"> </span>ppe_make_forecast.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--accurate
+
+<span class="c1"># EEPAS Forecast (accurate mode)</span>
+python3<span class="w"> </span>eepas_make_forecast.py<span class="w"> </span>--config<span class="w"> </span>config.json<span class="w"> </span>--accurate
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Accurate mode is <strong>significantly slower</strong> than fast mode, but provides &lt; 0.2% difference in results.</p>
+</div>
+</section>
+<section id="custom-magnitude-threshold">
+<h3>Custom Magnitude Threshold<a class="headerlink" href="#custom-magnitude-threshold" title="Link to this heading">#</a></h3>
+<p>Override completeness magnitude (m0):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--m0<span class="w"> </span><span class="m">2</span>.05
+</pre></div>
+</div>
+</section>
+<section id="custom-optimization-parameters">
+<h3>Custom Optimization Parameters<a class="headerlink" href="#custom-optimization-parameters" title="Link to this heading">#</a></h3>
+<p>Adjust optimization behavior:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Increase maximum boundary adjustment rounds</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max-rounds<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tolerance<span class="w"> </span><span class="m">0</span>.01
+
+<span class="c1"># Use specific optimizer</span>
+python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--no-multistart
+</pre></div>
+</div>
+</section>
+</section>
+<section id="verification">
+<h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
+<section id="verify-results">
+<h3>Verify Results<a class="headerlink" href="#verify-results" title="Link to this heading">#</a></h3>
+<p>After workflow completion, verify outputs exist:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check all output files</span>
+ls<span class="w"> </span>-lh<span class="w"> </span>results/Fitted_par_PPE_*.csv
+ls<span class="w"> </span>-lh<span class="w"> </span>results/Fitted_par_aftershock_*.csv
+ls<span class="w"> </span>-lh<span class="w"> </span>results/Fitted_par_EEPAS_*.csv
+ls<span class="w"> </span>-lh<span class="w"> </span>results/PREVISIONI_3m_PPE_*.mat
+ls<span class="w"> </span>-lh<span class="w"> </span>results/PREVISIONI_3m_EEPAS_*.mat
+</pre></div>
+</div>
+</section>
+<section id="check-parameter-values">
+<h3>Check Parameter Values<a class="headerlink" href="#check-parameter-values" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># PPE parameters</span>
+cat<span class="w"> </span>results_yourregion/Fitted_par_PPE_*.csv
+
+<span class="c1"># EEPAS parameters</span>
+cat<span class="w"> </span>results_yourregion/Fitted_par_EEPAS_*.csv
+</pre></div>
+</div>
+</section>
+<section id="validate-forecast-lambda-sum">
+<h3>Validate Forecast Lambda Sum<a class="headerlink" href="#validate-forecast-lambda-sum" title="Link to this heading">#</a></h3>
+<p>Use the analysis tool to verify forecast correctness:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>analysis/analyze_forecast_lambda.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="configuration.html"><span class="doc">Configuration Reference</span></a> - Customize configuration files</p></li>
+<li><p><a class="reference internal" href="results.html"><span class="doc">Interpreting Results</span></a> - Interpret forecast results</p></li>
+<li><p><a class="reference internal" href="../api_reference/index.html"><span class="doc">API Reference</span></a> - API documentation</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="quickstart.html"><span class="doc">Quick Start Guide</span></a> - Quick introduction</p></li>
+<li><p><a class="reference internal" href="installation.html"><span class="doc">Installation Guide</span></a> - Installation guide</p></li>
+<li><p><a class="reference internal" href="../technical/numerical_integration.html"><span class="doc">Numerical Integration</span></a> - Technical details</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="installation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Installation Guide</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="configuration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Configuration Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorial-example-workflow">Tutorial Example Workflow</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#italy-earthquake-forecasting">Italy Earthquake Forecasting</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-execution">Step-by-Step Execution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-italy-workflow-script">Complete Italy Workflow Script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-to-your-region">Applying to Your Region</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-workflow-steps">General Workflow Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-processing">Batch Processing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-workflows">Advanced Workflows</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accurate-mode-final-verification">Accurate Mode (Final Verification)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-magnitude-threshold">Custom Magnitude Threshold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-optimization-parameters">Custom Optimization Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-results">Verify Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-parameter-values">Check Parameter Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate-forecast-lambda-sum">Validate Forecast Lambda Sum</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

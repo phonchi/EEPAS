@@ -1,0 +1,731 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Interpreting Results &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/results';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference" href="../api_reference/index.html" />
+    <link rel="prev" title="Configuration Reference" href="configuration.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/user_guide/results.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Interpreting Results</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-file-overview">Output File Overview</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-structure">Directory Structure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-files">Parameter Files</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe-parameters">PPE Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aftershock-parameters">Aftershock Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas-parameters">EEPAS Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forecast-files">Forecast Files</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure">File Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-structure">Matrix Structure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-and-quality-checks">Validation and Quality Checks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-sum-validation">Lambda Sum Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-likelihood-progression">Log-Likelihood Progression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="interpreting-results">
+<h1>Interpreting Results<a class="headerlink" href="#interpreting-results" title="Link to this heading">#</a></h1>
+<p>This guide explains how to interpret the output files generated by EEPAS workflows.</p>
+<section id="output-file-overview">
+<h2>Output File Overview<a class="headerlink" href="#output-file-overview" title="Link to this heading">#</a></h2>
+<p>EEPAS generates two types of output files:</p>
+<ol class="arabic simple">
+<li><p><strong>Parameter Files</strong> (.csv) - Fitted model parameters</p></li>
+<li><p><strong>Forecast Files</strong> (.mat) - Spatiotemporal earthquake rate forecasts</p></li>
+</ol>
+<section id="directory-structure">
+<h3>Directory Structure<a class="headerlink" href="#directory-structure" title="Link to this heading">#</a></h3>
+<p>After running a complete workflow, your results directory will contain:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>results_italy_causal_ew0/
+├── Fitted_par_PPE_1990_2012.csv           # PPE parameters (a, d, s)
+├── Fitted_par_aftershock_1990_2012.csv    # Aftershock parameters (v, k)
+├── Fitted_par_EEPAS_1990_2012.csv         # EEPAS parameters (8 params)
+├── PREVISIONI_3m_PPE_2012_2022.mat        # PPE forecast matrix
+└── PREVISIONI_3m_EEPAS_2012_2022.mat      # EEPAS forecast matrix
+</pre></div>
+</div>
+</section>
+</section>
+<section id="parameter-files">
+<h2>Parameter Files<a class="headerlink" href="#parameter-files" title="Link to this heading">#</a></h2>
+<section id="ppe-parameters">
+<h3>PPE Parameters<a class="headerlink" href="#ppe-parameters" title="Link to this heading">#</a></h3>
+<p><strong>File</strong>: <code class="docutils literal notranslate"><span class="pre">Fitted_par_PPE_YYYY1_YYYY2.csv</span></code></p>
+<p><strong>Format</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>a,d,s,ln_likelihood
+0.616,29.64,1e-15,-514.10
+</pre></div>
+</div>
+<p><strong>Parameters</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 15.0%" />
+<col style="width: 85.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
+<td><p>Normalization factor for PPE spatial kernel</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">d</span></code></p></td>
+<td><p>Characteristic distance (km)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td><p>Uniform background rate</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ln_likelihood</span></code></p></td>
+<td><p>Log-likelihood (higher is better)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="aftershock-parameters">
+<h3>Aftershock Parameters<a class="headerlink" href="#aftershock-parameters" title="Link to this heading">#</a></h3>
+<p><strong>File</strong>: <code class="docutils literal notranslate"><span class="pre">Fitted_par_aftershock_YYYY1_YYYY2.csv</span></code></p>
+<p><strong>Format</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>v,k,ln_likelihood
+0.577,0.205,-429.26
+</pre></div>
+</div>
+<p><strong>Mathematical Definition</strong> (from model equation λ’ = ν·λ₀ + κ·Σλᵢ’):</p>
+<ul class="simple">
+<li><p><strong>ν (nu/v)</strong>: Coefficient for PPE background rate λ₀</p></li>
+<li><p><strong>κ (kappa/k)</strong>: Coefficient for aftershock triggering rate Σλᵢ’</p></li>
+</ul>
+</section>
+<section id="eepas-parameters">
+<h3>EEPAS Parameters<a class="headerlink" href="#eepas-parameters" title="Link to this heading">#</a></h3>
+<p><strong>File</strong>: <code class="docutils literal notranslate"><span class="pre">Fitted_par_EEPAS_YYYY1_YYYY2.csv</span></code></p>
+<p><strong>Format</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>am,bm,Sm,at,bt,St,ba,Sa,u,ln_likelihood
+1.234,1.000,0.242,2.588,0.349,0.150,0.504,1.000,0.167,-495.39
+</pre></div>
+</div>
+<p><strong>Parameters</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 15.0%" />
+<col style="width: 85.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">am</span></code></p></td>
+<td><p>Magnitude scaling intercept (M_mainshock = am + bm·M_precursor)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bm</span></code></p></td>
+<td><p>Magnitude scaling slope (fixed = 1.0)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Sm</span></code></p></td>
+<td><p>Magnitude distribution standard deviation</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">at</span></code></p></td>
+<td><p>Time scaling intercept (log₁₀(T_precursor) = at + bt·M_precursor)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bt</span></code></p></td>
+<td><p>Time scaling slope</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">St</span></code></p></td>
+<td><p>Time distribution standard deviation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ba</span></code></p></td>
+<td><p>Spatial scaling exponent (σ² = σ_A²·10^(ba·m))</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Sa</span></code></p></td>
+<td><p>Spatial distribution base standard deviation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">u</span></code></p></td>
+<td><p>Failure-to-predict rate (<code class="docutils literal notranslate"><span class="pre">u</span></code> = PPE proportion, <code class="docutils literal notranslate"><span class="pre">1-u</span></code> = EEPAS proportion)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ln_likelihood</span></code></p></td>
+<td><p>Log-likelihood (higher is better)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="forecast-files">
+<h2>Forecast Files<a class="headerlink" href="#forecast-files" title="Link to this heading">#</a></h2>
+<section id="file-structure">
+<h3>File Structure<a class="headerlink" href="#file-structure" title="Link to this heading">#</a></h3>
+<p><strong>Files</strong>: <code class="docutils literal notranslate"><span class="pre">PREVISIONI_3m_PPE_YYYY1_YYYY2.mat</span></code> and <code class="docutils literal notranslate"><span class="pre">PREVISIONI_3m_EEPAS_YYYY1_YYYY2.mat</span></code></p>
+<p><strong>Format</strong>: MATLAB .mat file containing forecast matrices</p>
+<p><strong>Loading Forecast Files</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Load PPE forecast (adjust filename to your results)</span>
+<span class="n">mat_ppe</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;results_italy_causal_ew0/PREVISIONI_3m_PPE_2012_2022.mat&#39;</span><span class="p">)</span>
+<span class="n">ppe_forecast</span> <span class="o">=</span> <span class="n">mat_ppe</span><span class="p">[</span><span class="s1">&#39;PREVISIONI_3m&#39;</span><span class="p">]</span>
+
+<span class="c1"># Load EEPAS forecast</span>
+<span class="n">mat_eepas</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;results_italy_causal_ew0/PREVISIONI_3m_EEPAS_2012_2022.mat&#39;</span><span class="p">)</span>
+<span class="n">eepas_forecast</span> <span class="o">=</span> <span class="n">mat_eepas</span><span class="p">[</span><span class="s1">&#39;PREVISIONI_3m_less&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PPE forecast shape: </span><span class="si">{</span><span class="n">ppe_forecast</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># Actual output: (1000, 178) → 1000 rows (40 time windows × 25 magnitude bins), 178 columns (1 index + 177 spatial cells)</span>
+</pre></div>
+</div>
+</section>
+<section id="matrix-structure">
+<h3>Matrix Structure<a class="headerlink" href="#matrix-structure" title="Link to this heading">#</a></h3>
+<p><strong>Dimensions</strong>: <code class="docutils literal notranslate"><span class="pre">[N_rows</span> <span class="pre">×</span> <span class="pre">N_cols]</span></code></p>
+<dl class="simple">
+<dt>Where:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">N_rows</span> <span class="pre">=</span> <span class="pre">N_time_windows</span> <span class="pre">×</span> <span class="pre">N_mag_bins</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">N_mag_bins</span> <span class="pre">=</span> <span class="pre">25</span></code> (magnitude range from mT to mT+5.0 in 0.1 steps)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">N_cols</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">+</span> <span class="pre">N_spatial_cells</span></code> (first column is time window index)</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Important</strong>: The <strong>first column (column 0) is a time window index</strong>, not forecast data!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># WRONG - includes index column</span>
+<span class="n">total_rate_wrong</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="p">)</span>
+
+<span class="c1"># CORRECT - exclude index column</span>
+<span class="n">total_rate_correct</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ppe_forecast</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:])</span>
+</pre></div>
+</div>
+<p><strong>Column Layout</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Column 0: Time window index (1, 2, 3, ..., T)
+Column 1: Rate for spatial cell 1
+Column 2: Rate for spatial cell 2
+...
+Column N: Rate for spatial cell N
+</pre></div>
+</div>
+<p><strong>Row Organization</strong> (rows grouped by time window, with 25 magnitude bins per window):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Rows 0-24:    Time window 1, magnitude bins [mT, mT+5.0) in 0.1 steps
+Rows 25-49:   Time window 2, magnitude bins [mT, mT+5.0) in 0.1 steps
+Rows 50-74:   Time window 3, magnitude bins [mT, mT+5.0) in 0.1 steps
+...
+Rows (T-1)×25 to T×25-1:  Time window T, 25 magnitude bins
+</pre></div>
+</div>
+<p><strong>Example</strong>: For 177 spatial cells and 40 time windows:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Matrix shape: (1000, 178)
+Rows 0-24:    Time window 1 (25 magnitude bins × 177 spatial cells)
+Rows 25-49:   Time window 2 (25 magnitude bins × 177 spatial cells)
+...
+Rows 975-999: Time window 40 (25 magnitude bins × 177 spatial cells)
+</pre></div>
+</div>
+</section>
+</section>
+<section id="validation-and-quality-checks">
+<h2>Validation and Quality Checks<a class="headerlink" href="#validation-and-quality-checks" title="Link to this heading">#</a></h2>
+<section id="lambda-sum-validation">
+<h3>Lambda Sum Validation<a class="headerlink" href="#lambda-sum-validation" title="Link to this heading">#</a></h3>
+<p>The sum of forecast rates should approximately equal the observed number of target events.</p>
+<p><strong>Theory</strong>: For a Poisson process, E[N] = Λ where Λ = ∫∫∫∫ λ(t,x,y,m) dt dx dy dm</p>
+<p>Use the provided analysis tool to verify Lambda sum:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>analysis/analyze_forecast_lambda.py
+</pre></div>
+</div>
+<dl class="simple">
+<dt>This tool will:</dt><dd><ul class="simple">
+<li><p>Load forecast matrices from your results directory</p></li>
+<li><p>Calculate Lambda sums (correctly excluding index columns)</p></li>
+<li><p>Compare with observed event counts</p></li>
+<li><p>Report whether forecasts are well-calibrated</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="log-likelihood-progression">
+<h3>Log-Likelihood Progression<a class="headerlink" href="#log-likelihood-progression" title="Link to this heading">#</a></h3>
+<p>When running EEPAS learning with auto-boundary adjustment, check that NLL improves across rounds.</p>
+<p><strong>Good</strong>: NLL increases (less negative) across optimization rounds
+<strong>Warning</strong>: NLL decreases → Possible optimization issue</p>
+<p>The actual NLL values depend on your dataset (number of events, spatial extent, etc.).</p>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="workflows.html"><span class="doc">Complete Workflows</span></a> - How to generate these results</p></li>
+<li><p><a class="reference internal" href="configuration.html"><span class="doc">Configuration Reference</span></a> - Configuration options</p></li>
+<li><p><a class="reference internal" href="../technical/numerical_integration.html"><span class="doc">Numerical Integration</span></a> - Understanding the calculations</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="configuration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Configuration Reference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../api_reference/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-file-overview">Output File Overview</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-structure">Directory Structure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-files">Parameter Files</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe-parameters">PPE Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aftershock-parameters">Aftershock Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eepas-parameters">EEPAS Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forecast-files">Forecast Files</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure">File Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-structure">Matrix Structure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-and-quality-checks">Validation and Quality Checks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-sum-validation">Lambda Sum Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-likelihood-progression">Log-Likelihood Progression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

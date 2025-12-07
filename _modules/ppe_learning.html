@@ -1,0 +1,723 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ppe_learning &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ppe_learning';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for ppe_learning</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">PPE Model Parameter Learning</span>
+
+<span class="sd">Learn PPE (Proximity to Past Earthquakes) model parameters using Maximum Likelihood Estimation.</span>
+
+<span class="sd">The PPE model decomposes earthquake occurrence rate into:</span>
+<span class="sd">- Influence of historical earthquakes (seismic kernels)</span>
+<span class="sd">- Uniform background seismicity</span>
+
+<span class="sd">Parameters learned: a (intensity), d (distance decay, km), s (background rate)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="c1"># Add current directory to Python path for importing utils module</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.data_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.catalog_processor</span><span class="w"> </span><span class="kn">import</span> <span class="n">CatalogProcessor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.region_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">RegionManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.get_paths</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_paths</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.fminsearchcon</span><span class="w"> </span><span class="kn">import</span> <span class="n">fminsearchcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ppe_optimization</span><span class="w"> </span><span class="kn">import</span> <span class="n">optimization_ppe_taiwan</span>
+
+
+<div class="viewcode-block" id="ppe_learning_tw_fast">
+<a class="viewcode-back" href="../api_reference/core.html#ppe_learning.ppe_learning_tw_fast">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ppe_learning_tw_fast</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="s1">&#39;config.json&#39;</span><span class="p">,</span> <span class="n">catalog_start_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">learn_start_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                         <span class="n">learn_end_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">m0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mT</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fit_mode</span><span class="o">=</span><span class="s1">&#39;joint&#39;</span><span class="p">,</span> <span class="n">spatial_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                         <span class="n">use_fast_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ppe_ref_mag</span><span class="o">=</span><span class="s1">&#39;mT&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Learn PPE model parameters using Maximum Likelihood Estimation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        config_file: Configuration JSON file path</span>
+<span class="sd">        catalog_start_year: Catalog start year (optional, overrides config)</span>
+<span class="sd">        learn_start_year: Learning period start year (optional, overrides config)</span>
+<span class="sd">        learn_end_year: Learning period end year (optional, overrides config)</span>
+<span class="sd">        m0: Completeness magnitude (optional, overrides config)</span>
+<span class="sd">        mT: Target magnitude threshold (optional, overrides config)</span>
+<span class="sd">        fit_mode: &#39;joint&#39; (optimize a,d,s) or &#39;decoupled_gr&#39; (fix a=1)</span>
+<span class="sd">        spatial_samples: Grid resolution for integration (default: 50)</span>
+<span class="sd">        use_fast_mode: Use fast trapezoidal integration (default: True)</span>
+<span class="sd">        ppe_ref_mag: Magnitude reference: &#39;mT&#39; or &#39;m0&#39; (default: &#39;mT&#39;)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Fitted parameters containing {&#39;a&#39;: float, &#39;d&#39;: float, &#39;s&#39;: float, &#39;ln_L&#39;: float}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ===== Model Configuration Options =====</span>
+    <span class="n">profile_opts</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;kernelMagFilter&#39;</span><span class="p">:</span> <span class="n">ppe_ref_mag</span><span class="p">,</span>     <span class="c1"># Kernel magnitude filter criterion: &#39;mT&#39; or &#39;m0&#39;</span>
+        <span class="s1">&#39;integralLower&#39;</span><span class="p">:</span> <span class="n">ppe_ref_mag</span><span class="p">,</span>       <span class="c1"># Integration lower limit: &#39;mT&#39; or &#39;m0&#39;</span>
+        <span class="s1">&#39;magDistReference&#39;</span><span class="p">:</span> <span class="n">ppe_ref_mag</span><span class="p">,</span>    <span class="c1"># Magnitude distribution reference point: &#39;mT&#39; (paper version) or &#39;m0&#39; (old version)</span>
+        <span class="s1">&#39;mu&#39;</span><span class="p">:</span> <span class="mf">7.5</span><span class="p">,</span>                          <span class="c1"># Magnitude upper limit (for G-R relation normalization)</span>
+        <span class="s1">&#39;exact_boundary&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>             <span class="c1"># Use exact boundary calculation (vs approximation)</span>
+        <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="kc">True</span>                     <span class="c1"># Display verbose output</span>
+    <span class="p">}</span>
+
+    <span class="c1"># ===== Load Configuration and Data =====</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_model_params</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+    <span class="c1"># Set time ranges (use config file if not specified)</span>
+    <span class="k">if</span> <span class="n">catalog_start_year</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">catalog_start_year</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;catalogStartYear&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">learn_start_year</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">learn_start_year</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;learnStartYear&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">learn_end_year</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">learn_end_year</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;learnEndYear&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Check time logic validity</span>
+    <span class="c1"># Requirement: catalog_start &lt; learn_start &lt; learn_end</span>
+    <span class="c1"># Reason: Need historical earthquake data before learn_start to build the model</span>
+    <span class="k">if</span> <span class="n">learn_start_year</span> <span class="o">&lt;=</span> <span class="n">catalog_start_year</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Learning start year must be greater than catalog start year&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">learn_end_year</span> <span class="o">&lt;=</span> <span class="n">learn_start_year</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Learning end year must be greater than learning start year&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Set magnitude parameters</span>
+    <span class="k">if</span> <span class="n">m0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">m0</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;m0&#39;</span><span class="p">]</span>  <span class="c1"># Completeness magnitude</span>
+    <span class="k">if</span> <span class="n">mT</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mT</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;mT&#39;</span><span class="p">]</span>  <span class="c1"># Target magnitude threshold</span>
+    <span class="k">if</span> <span class="n">m0</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Completeness magnitude (m0) must be non-negative&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Load earthquake catalog</span>
+    <span class="c1"># HORUS: Main earthquake catalog (contains time, location, magnitude, etc.)</span>
+    <span class="c1"># CELLE: Grid cells of the study region (defines spatial boundaries)</span>
+    <span class="n">HORUS</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">CELLE</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_catalogs</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+    <span class="c1"># Load spatial region configuration (optional for spatial filtering)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">regions</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_spatial_regions</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+        <span class="c1"># Create RegionManager</span>
+        <span class="n">region_manager</span> <span class="o">=</span> <span class="n">RegionManager</span><span class="p">(</span>
+            <span class="n">regions</span><span class="p">[</span><span class="s1">&#39;testing_region&#39;</span><span class="p">],</span>
+            <span class="n">regions</span><span class="p">[</span><span class="s1">&#39;neighborhood_region&#39;</span><span class="p">],</span>
+            <span class="n">regions</span><span class="p">[</span><span class="s1">&#39;testing_type&#39;</span><span class="p">],</span>
+            <span class="n">regions</span><span class="p">[</span><span class="s1">&#39;neighborhood_type&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Spatial region configuration:&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Testing Region: </span><span class="si">{</span><span class="n">regions</span><span class="p">[</span><span class="s2">&quot;testing_type&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Neighborhood Region: </span><span class="si">{</span><span class="n">regions</span><span class="p">[</span><span class="s2">&quot;neighborhood_type&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># Backward compatibility: If region config cannot be loaded, no spatial filtering applied</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Region configuration not loaded (no spatial filtering): </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">region_manager</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># ===== Data Preprocessing =====</span>
+    <span class="c1"># Determine magnitude filtering threshold for seismic kernels</span>
+    <span class="c1"># kernelMagFilter=&#39;mT&#39;: Only historical earthquakes with M≥mT can form kernels</span>
+    <span class="c1"># kernelMagFilter=&#39;m0&#39;: All earthquakes with M≥m0 can form kernels</span>
+    <span class="n">filter_threshold</span> <span class="o">=</span> <span class="n">mT</span>
+    <span class="k">if</span> <span class="n">profile_opts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;kernelMagFilter&#39;</span><span class="p">,</span> <span class="s1">&#39;mT&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;m0&#39;</span><span class="p">:</span>
+        <span class="n">filter_threshold</span> <span class="o">=</span> <span class="n">m0</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Debug: kernelMagFilter=</span><span class="si">{</span><span class="n">profile_opts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;kernelMagFilter&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mT&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">, &#39;</span>
+          <span class="sa">f</span><span class="s1">&#39;filter_threshold=</span><span class="si">{</span><span class="n">filter_threshold</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, m0=</span><span class="si">{</span><span class="n">m0</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, mT=</span><span class="si">{</span><span class="n">mT</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Preprocess earthquake catalog: filter by time range and magnitude</span>
+    <span class="c1"># T1: Learning period start time (decimal year)</span>
+    <span class="c1"># T2: Learning period end time (decimal year)</span>
+    <span class="n">HORUS</span><span class="p">,</span> <span class="n">T1</span><span class="p">,</span> <span class="n">T2</span> <span class="o">=</span> <span class="n">CatalogProcessor</span><span class="o">.</span><span class="n">preprocess_catalog</span><span class="p">(</span>
+        <span class="n">HORUS</span><span class="p">,</span> <span class="n">catalog_start_year</span><span class="p">,</span> <span class="n">learn_start_year</span><span class="p">,</span> <span class="n">learn_end_year</span><span class="p">,</span>
+        <span class="n">completeness_threshold</span><span class="o">=</span><span class="n">m0</span><span class="p">,</span> <span class="n">filter_target_mag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">target_magnitude</span><span class="o">=</span><span class="n">filter_threshold</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="c1"># ===== Create Two Earthquake Catalogs =====</span>
+    <span class="c1"># Use region-aware catalog creation method</span>
+    <span class="c1"># - Without region filtering (region_manager=None): No spatial filtering</span>
+    <span class="c1"># - With region filtering (region_manager!=None): Use spatial region filtering</span>
+    <span class="c1">#   * CatI: Historical source events within neighborhood region N (paper&#39;s i) - for kernel contributions</span>
+    <span class="c1">#   * CatJ: Target events within testing region R (paper&#39;s j) - for likelihood sum</span>
+
+    <span class="c1"># First filter by magnitude threshold for historical source events</span>
+    <span class="n">CatI_all</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[</span><span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">filter_threshold</span><span class="p">]</span>
+
+    <span class="c1"># Apply spatial filtering (if region_manager exists)</span>
+    <span class="k">if</span> <span class="n">region_manager</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># With region filtering: Filter by neighborhood region</span>
+        <span class="n">CatI_all</span> <span class="o">=</span> <span class="n">CatalogProcessor</span><span class="o">.</span><span class="n">filter_by_region</span><span class="p">(</span>
+            <span class="n">CatI_all</span><span class="p">,</span> <span class="n">region_manager</span><span class="p">,</span> <span class="n">region_type</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># CatI (Historical source event catalog - paper&#39;s i): All historical earthquakes with M≥filter_threshold</span>
+    <span class="c1">#   - Used to calculate &quot;seismic kernel&quot; contributions</span>
+    <span class="c1">#   - Includes earthquakes before and during the learning period</span>
+    <span class="c1">#   - From neighborhood region N</span>
+    <span class="n">mi</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">xi</span> <span class="o">=</span> <span class="n">CatI_all</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">CatI_all</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">CatI_all</span><span class="p">[:,</span> <span class="mi">6</span><span class="p">],</span> <span class="n">CatI_all</span><span class="p">[:,</span> <span class="mi">7</span><span class="p">]</span>
+    <span class="c1"># mi: magnitude, ti: time (decimal year), yi: latitude, xi: longitude</span>
+
+    <span class="c1"># CatJ (Target event catalog - paper&#39;s j): Earthquakes with M≥mT during the learning period</span>
+    <span class="c1">#   - These are the actual observations used to &quot;validate&quot; the model</span>
+    <span class="c1">#   - Only includes earthquakes within the learning period (learn_start ~ learn_end)</span>
+    <span class="c1">#   - From testing region R</span>
+    <span class="n">CatJ</span> <span class="o">=</span> <span class="n">HORUS</span><span class="p">[</span><span class="n">HORUS</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">learn_start_year</span><span class="p">]</span>
+    <span class="n">CatJ</span> <span class="o">=</span> <span class="n">CatJ</span><span class="p">[</span><span class="n">CatJ</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">filter_threshold</span><span class="p">]</span>
+
+    <span class="c1"># Apply spatial filtering (if region_manager exists)</span>
+    <span class="k">if</span> <span class="n">region_manager</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># With region filtering: Filter by testing region (forecast region)</span>
+        <span class="n">CatJ</span> <span class="o">=</span> <span class="n">CatalogProcessor</span><span class="o">.</span><span class="n">filter_by_region</span><span class="p">(</span>
+            <span class="n">CatJ</span><span class="p">,</span> <span class="n">region_manager</span><span class="p">,</span> <span class="n">region_type</span><span class="o">=</span><span class="s1">&#39;testing&#39;</span>
+        <span class="p">)</span>
+
+    <span class="n">mj</span><span class="p">,</span> <span class="n">tj</span><span class="p">,</span> <span class="n">yj</span><span class="p">,</span> <span class="n">xj</span> <span class="o">=</span> <span class="n">CatJ</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">CatJ</span><span class="p">[:,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">CatJ</span><span class="p">[:,</span> <span class="mi">6</span><span class="p">],</span> <span class="n">CatJ</span><span class="p">[:,</span> <span class="mi">7</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PPE historical source events (CatI, paper</span><span class="se">\&#39;</span><span class="s1">s i): </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span><span class="si">}</span><span class="s1">, target events (CatJ, paper</span><span class="se">\&#39;</span><span class="s1">s j): </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mj</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># ===== Prepare Spatial Grid =====</span>
+    <span class="c1"># Convert CELLE grid cells to polygon vertices</span>
+    <span class="c1"># Each grid cell is a rectangle defined by 4 vertices</span>
+    <span class="n">Xpol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="n">Ypol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">CELLE</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]])</span>
+    <span class="c1"># Format: [bottom-left, top-left, top-right, bottom-right]</span>
+
+    <span class="c1"># ===== Load Fixed Parameters =====</span>
+    <span class="c1"># B: b-value of Gutenberg-Richter relation (converted to natural logarithm)</span>
+    <span class="c1">#    Commonly used in seismology: b≈1.0, i.e., log10(N) = a - b*M</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="c1"># delay: Time delay parameter (unit: years)</span>
+    <span class="c1">#    Physical meaning: How long after an earthquake occurs before it starts producing &quot;seismic kernel&quot; effects</span>
+    <span class="c1">#    Usually set to a small value (e.g., 0.01 years)</span>
+    <span class="n">delay</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;delay&#39;</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Starting PPE parameter optimization (grid resolution=</span><span class="si">{</span><span class="n">spatial_samples</span><span class="si">}</span><span class="s1">x</span><span class="si">{</span><span class="n">spatial_samples</span><span class="si">}</span><span class="s1">)...&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Warm up compiler (first call requires compilation)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">optimization_ppe_taiwan</span><span class="p">(</span>
+        <span class="n">CELLE</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="n">yj</span><span class="p">,</span> <span class="n">mj</span><span class="p">,</span> <span class="n">tj</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">mT</span><span class="p">,</span>
+        <span class="n">Xpol</span><span class="p">,</span> <span class="n">Ypol</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">fit_mode</span><span class="p">,</span> <span class="n">profile_opts</span><span class="p">,</span>
+        <span class="n">T1</span><span class="o">=</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="o">=</span><span class="n">T2</span><span class="p">,</span> <span class="n">spatial_samples</span><span class="o">=</span><span class="n">spatial_samples</span><span class="p">,</span>
+        <span class="n">region_manager</span><span class="o">=</span><span class="n">region_manager</span><span class="p">,</span> <span class="n">use_fast_mode</span><span class="o">=</span><span class="n">use_fast_mode</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting parameter optimization...</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># ===== Parameter Optimization =====</span>
+    <span class="c1"># Use Maximum Likelihood Estimation (MLE) to find optimal parameters</span>
+
+    <span class="k">if</span> <span class="n">fit_mode</span> <span class="o">==</span> <span class="s1">&#39;decoupled_gr&#39;</span><span class="p">:</span>
+        <span class="c1"># ===== Mode 1: decoupled_gr =====</span>
+        <span class="c1"># Assume a=1 (fixed), optimize only d and s</span>
+        <span class="c1"># Purpose: Simplify the problem, suitable for initial exploration</span>
+
+        <span class="c1"># Initial guess [d, s]</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+        <span class="c1"># d=10km (typical earthquake clustering scale)</span>
+        <span class="c1"># s=0.1 (background seismicity rate)</span>
+
+        <span class="c1"># Parameter bounds</span>
+        <span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>      <span class="c1"># Lower bounds: d≥0.1km, s≥0</span>
+        <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>   <span class="c1"># Upper bounds: d unlimited, s≤1</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="c1"># Calculate negative log-likelihood function (smaller is better)</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">optimization_ppe_taiwan</span><span class="p">(</span>
+                <span class="n">CELLE</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">xj</span><span class="p">,</span> <span class="n">yj</span><span class="p">,</span> <span class="n">mj</span><span class="p">,</span> <span class="n">tj</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">mT</span><span class="p">,</span>
+                <span class="n">Xpol</span><span class="p">,</span> <span class="n">Ypol</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">fit_mode</span><span class="p">,</span> <span class="n">profile_opts</span><span class="p">,</span>
+                <span class="n">T1</span><span class="o">=</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="o">=</span><span class="n">T2</span><span class="p">,</span> <span class="n">spatial_samples</span><span class="o">=</span><span class="n">spatial_samples</span><span class="p">,</span>
+                <span class="n">region_manager</span><span class="o">=</span><span class="n">region_manager</span><span class="p">,</span> <span class="n">use_fast_mode</span><span class="o">=</span><span class="n">use_fast_mode</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">val</span>
+
+        <span class="c1"># Execute constrained optimization</span>
+        <span class="n">final_params</span><span class="p">,</span> <span class="n">fval</span><span class="p">,</span> <span class="n">exitflag</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="n">fminsearchcon</span><span class="p">(</span>
+            <span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;maxiter&#39;</span><span class="p">:</span> <span class="mi">5500</span><span class="p">,</span> <span class="s1">&#39;xtol&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="s1">&#39;ftol&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">final_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">final_params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">final_params</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="c1"># Format: [a (to be calculated), d, s]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># ===== Mode 2: joint (recommended) =====</span>
+        <span class="c1"># Optimize a, d, s simultaneously</span>
+        <span class="c1"># Advantage: More flexible, can find global optimal solution</span>
+
+        <span class="c1"># Initial guess [a, d, s]</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+        <span class="c1"># a=0.005 (start with small value to avoid overfitting)</span>
+        <span class="c1"># d=10km, s=0.1 (same as above)</span>
+
+        <span class="c1"># Parameter bounds</span>
+        <span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1e-15</span><span class="p">])</span>      <span class="c1"># Lower bounds (s changed to 1e-15 to allow smaller values)</span>
+        <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>      <span class="c1"># Upper bounds</span>
+        <span class="c1"># a upper bound 2000: Prevent numerical overflow</span>
+        <span class="c1"># d upper bound 2000km: Exceeds Taiwan scale</span>
+        <span class="c1"># s lower bound 1e-15: Paper&#39;s s is approximately 9e-13</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="c1"># Calculate negative log-likelihood function</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">optimization_ppe_taiwan</span><span class="p">(</span>
+                <span class="n">CELLE</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">xj</span><span class="p">,</span> <span class="n">yj</span><span class="p">,</span> <span class="n">mj</span><span class="p">,</span> <span class="n">tj</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">mT</span><span class="p">,</span>
+                <span class="n">Xpol</span><span class="p">,</span> <span class="n">Ypol</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">fit_mode</span><span class="p">,</span> <span class="n">profile_opts</span><span class="p">,</span>
+                <span class="n">T1</span><span class="o">=</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="o">=</span><span class="n">T2</span><span class="p">,</span> <span class="n">spatial_samples</span><span class="o">=</span><span class="n">spatial_samples</span><span class="p">,</span>
+                <span class="n">region_manager</span><span class="o">=</span><span class="n">region_manager</span><span class="p">,</span> <span class="n">use_fast_mode</span><span class="o">=</span><span class="n">use_fast_mode</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">val</span>
+
+        <span class="c1"># Execute constrained optimization</span>
+        <span class="n">final_params</span><span class="p">,</span> <span class="n">fval</span><span class="p">,</span> <span class="n">exitflag</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="n">fminsearchcon</span><span class="p">(</span>
+            <span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;maxiter&#39;</span><span class="p">:</span> <span class="mi">5500</span><span class="p">,</span> <span class="s1">&#39;xtol&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="s1">&#39;ftol&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+        <span class="p">)</span>
+
+    <span class="c1"># ===== Calculate Final a Value =====</span>
+    <span class="c1"># If using decoupled_gr mode, need to back-calculate a from d and s</span>
+    <span class="k">if</span> <span class="n">fit_mode</span> <span class="o">==</span> <span class="s1">&#39;decoupled_gr&#39;</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">ppe_optimization</span><span class="w"> </span><span class="kn">import</span> <span class="n">J_of_d_closed</span><span class="p">,</span> <span class="n">single_J_i</span>
+
+        <span class="n">prof_threshold</span> <span class="o">=</span> <span class="n">mT</span>
+        <span class="n">weight_base_prof</span> <span class="o">=</span> <span class="n">mT</span>
+        <span class="k">if</span> <span class="n">profile_opts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;kernelMagFilter&#39;</span><span class="p">,</span> <span class="s1">&#39;mT&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;m0&#39;</span><span class="p">:</span>
+            <span class="n">prof_threshold</span> <span class="o">=</span> <span class="n">m0</span>
+            <span class="n">weight_base_prof</span> <span class="o">=</span> <span class="n">m0</span>
+
+        <span class="n">use_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">tj</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">ti</span><span class="p">)</span> <span class="o">-</span> <span class="n">delay</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">mj</span> <span class="o">&gt;=</span> <span class="n">prof_threshold</span><span class="p">)</span>
+        <span class="n">xjN</span><span class="p">,</span> <span class="n">yjN</span><span class="p">,</span> <span class="n">mjN</span> <span class="o">=</span> <span class="n">xj</span><span class="p">[</span><span class="n">use_idx</span><span class="p">],</span> <span class="n">yj</span><span class="p">[</span><span class="n">use_idx</span><span class="p">],</span> <span class="n">mj</span><span class="p">[</span><span class="n">use_idx</span><span class="p">]</span>
+
+        <span class="n">AR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">Xpol</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">Xpol</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ypol</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">Ypol</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="n">profile_opts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;exact_boundary&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="n">sum_wJ</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">mjN</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">weight_base_prof</span><span class="p">)</span> <span class="o">*</span> <span class="n">single_J_i</span><span class="p">(</span><span class="n">final_params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">xjN</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">yjN</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">Xpol</span><span class="p">,</span> <span class="n">Ypol</span><span class="p">)</span>
+                         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mjN</span><span class="p">)))</span>
+            <span class="n">sum_wJ</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">sum_wJ</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Jd</span> <span class="o">=</span> <span class="n">J_of_d_closed</span><span class="p">(</span><span class="n">final_params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">xjN</span><span class="p">,</span> <span class="n">yjN</span><span class="p">,</span> <span class="n">Xpol</span><span class="p">,</span> <span class="n">Ypol</span><span class="p">)</span>
+            <span class="n">wbar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mjN</span> <span class="o">-</span> <span class="n">weight_base_prof</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mjN</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
+            <span class="n">wbar</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">wbar</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
+            <span class="n">sum_wJ</span> <span class="o">=</span> <span class="n">wbar</span> <span class="o">*</span> <span class="n">Jd</span>
+
+        <span class="n">m_lower</span> <span class="o">=</span> <span class="n">mT</span>
+        <span class="k">if</span> <span class="n">profile_opts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;integralLower&#39;</span><span class="p">,</span> <span class="s1">&#39;mT&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;m0&#39;</span><span class="p">:</span>
+            <span class="n">m_lower</span> <span class="o">=</span> <span class="n">m0</span>
+        <span class="n">C_GR</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">B</span> <span class="o">*</span> <span class="p">(</span><span class="n">m_lower</span> <span class="o">-</span> <span class="n">m0</span><span class="p">))</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">B</span> <span class="o">*</span> <span class="p">(</span><span class="mf">7.5</span> <span class="o">-</span> <span class="n">m0</span><span class="p">)))</span>
+        <span class="n">a_star</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mjN</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">C_GR</span> <span class="o">-</span> <span class="n">final_params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">AR</span><span class="p">))</span> <span class="o">/</span> <span class="n">sum_wJ</span> <span class="k">if</span> <span class="n">sum_wJ</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+        <span class="n">a_star</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">a_star</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">a_star</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># joint mode: directly use the optimized a value</span>
+        <span class="n">a_star</span> <span class="o">=</span> <span class="n">final_params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># ===== Save Results =====</span>
+    <span class="n">fitted_par_ppe</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">a_star</span><span class="p">,</span>              <span class="c1"># Seismic kernel intensity</span>
+        <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="n">final_params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>     <span class="c1"># Spatial decay distance [km]</span>
+        <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="n">final_params</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>     <span class="c1"># Background seismicity rate</span>
+        <span class="s1">&#39;ln_likelihood&#39;</span><span class="p">:</span> <span class="o">-</span><span class="n">fval</span>    <span class="c1"># Log-likelihood value (larger is better)</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Get output path and save as CSV</span>
+    <span class="n">ppe_param_file</span> <span class="o">=</span> <span class="n">get_paths</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">learn_start_year</span><span class="p">,</span> <span class="n">learn_end_year</span><span class="p">)[</span><span class="s1">&#39;ppeParam&#39;</span><span class="p">]</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">ppe_param_file</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">fitted_par_ppe</span><span class="p">])</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">ppe_param_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Saved: </span><span class="si">{</span><span class="n">ppe_param_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   a=</span><span class="si">{</span><span class="n">fitted_par_ppe</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">, d=</span><span class="si">{</span><span class="n">fitted_par_ppe</span><span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">, &#39;</span>
+          <span class="sa">f</span><span class="s1">&#39;s=</span><span class="si">{</span><span class="n">fitted_par_ppe</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">, ln_L=</span><span class="si">{</span><span class="n">fitted_par_ppe</span><span class="p">[</span><span class="s2">&quot;ln_likelihood&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fitted_par_ppe</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;PPE Model Parameter Learning&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--config&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;../config.json&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Configuration file path&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--fit-mode&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;joint&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;joint&#39;</span><span class="p">,</span> <span class="s1">&#39;decoupled_gr&#39;</span><span class="p">],</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Fitting mode: joint (optimize a,d,s simultaneously) or decoupled_gr (fix a=1)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--spatial-samples&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Number of spatial integration sampling points (default 50, recommended 20-50)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--accurate&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use accurate mode (dblquad adaptive integration, slower but more precise)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--ppe-ref-mag&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;m0&#39;</span><span class="p">,</span> <span class="s1">&#39;mT&#39;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;mT&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;PPE reference magnitude: m0 or mT (default: mT, paper version)&#39;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="c1"># If using accurate mode, spatial_samples will be ignored</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">accurate</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WARNING: Using accurate mode (dblquad), slower but higher precision&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">use_fast_mode</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">spatial_res</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using fast mode (spatial_samples=</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">spatial_samples</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">use_fast_mode</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">spatial_res</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">spatial_samples</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using PPE reference magnitude: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">ppe_ref_mag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">ppe_learning_tw_fast</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">fit_mode</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">fit_mode</span><span class="p">,</span> <span class="n">spatial_samples</span><span class="o">=</span><span class="n">spatial_res</span><span class="p">,</span>
+                        <span class="n">use_fast_mode</span><span class="o">=</span><span class="n">use_fast_mode</span><span class="p">,</span> <span class="n">ppe_ref_mag</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">ppe_ref_mag</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

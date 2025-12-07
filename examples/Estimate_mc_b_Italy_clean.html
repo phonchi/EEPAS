@@ -1,0 +1,1150 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>EEPAS Italy Preprocessing: Estimation of Completeness (\(m_c\)) and \(b\)-value &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/Estimate_mc_b_Italy_clean';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mathematical Foundation" href="../technical/mathematical_foundation.html" />
+    <link rel="prev" title="EEPAS Italy Results: Visualization and PyCSEP Evaluation" href="EEPAS_Forecast_Evaluation_New.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../development/changelog.html">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/examples/Estimate_mc_b_Italy_clean.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>EEPAS Italy Preprocessing: Estimation of Completeness (m_c) and b-value</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📚-Background">📚 Background</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#1.-Magnitude-of-Completeness-(m_c-or-m_0)">1. Magnitude of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span> or <span class="math notranslate nohighlight">\(m_0\)</span>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#2.-The-Gutenberg-Richter-b-value">2. The Gutenberg-Richter <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#🎯-Notebook-Objectives">🎯 Notebook Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-Dataset-Profile">📊 Dataset Profile</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Install-related-packages">Install related packages</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Exploratory-data-analysis">Exploratory data analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Estimatie-mc-and-b-values">Estimatie mc and b values</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-Analysis-of-Completeness-(m_c)-Estimation-Results">📊 Analysis of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) Estimation Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#1.-Maximum-Curvature-(MaxC)-Method"><strong>1. Maximum Curvature (MaxC) Method</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#2.-:math:`b`-value-Stability-Method"><strong>2. :math:`b`-value Stability Method</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#3.-Kolmogorov-Smirnov-(KS)-Test"><strong>3. Kolmogorov-Smirnov (KS) Test</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#⚠️-Parameter-Selection-for-EEPAS-Modeling">⚠️ Parameter Selection for EEPAS Modeling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-Summary-of-b-value-Estimation">📊 Summary of b-value Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#Conclusion"><strong>Conclusion</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#🔗-Next-Steps">🔗 Next Steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <style>
+    .nbinput .prompt,
+    .nboutput .prompt {
+        display: none;
+    }
+</style><section id="EEPAS-Italy-Preprocessing:-Estimation-of-Completeness-(m_c)-and-b-value">
+<h1>EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value<a class="headerlink" href="#EEPAS-Italy-Preprocessing:-Estimation-of-Completeness-(m_c)-and-b-value" title="Link to this heading">#</a></h1>
+<section id="📚-Background">
+<h2>📚 Background<a class="headerlink" href="#📚-Background" title="Link to this heading">#</a></h2>
+<p>This notebook outlines the procedure for estimating key seismological parameters required to calibrate the <strong>EEPAS (Every Earthquake a Precursor According to Scale)</strong> model. Accurate estimation of these parameters is critical for minimizing bias in the forecasting model.</p>
+<section id="1.-Magnitude-of-Completeness-(m_c-or-m_0)">
+<h3>1. Magnitude of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span> or <span class="math notranslate nohighlight">\(m_0\)</span>)<a class="headerlink" href="#1.-Magnitude-of-Completeness-(m_c-or-m_0)" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Definition:</strong> The minimum magnitude threshold above which the earthquake catalog is considered 100% complete.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Role in EEPAS:</strong> This determines the <span class="math notranslate nohighlight">\(m_0\)</span> parameter. Events below this threshold are excluded from the learning process to prevent data quality artifacts from skewing the forecast.</p></li>
+</ul>
+</section>
+<section id="2.-The-Gutenberg-Richter-b-value">
+<h3>2. The Gutenberg-Richter <span class="math notranslate nohighlight">\(b\)</span>-value<a class="headerlink" href="#2.-The-Gutenberg-Richter-b-value" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Definition:</strong> The slope parameter in the empirical frequency-magnitude relationship:</p>
+<div class="math notranslate nohighlight">
+\[\log_{10} N = a - bM\]</div>
+<p>Where <span class="math notranslate nohighlight">\(N\)</span> is the cumulative number of events with magnitude <span class="math notranslate nohighlight">\(\ge M\)</span>.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Physical Interpretation:</strong></p>
+<ul>
+<li><p><strong>:math:`b approx 1.0`:</strong> Standard tectonic environment.</p></li>
+<li><p><strong>:math:`b &gt; 1.0`:</strong> High heterogeneity or low stress (e.g., volcanic regions, swarms).</p></li>
+<li><p><strong>:math:`b &lt; 1.0`:</strong> High stress accumulation or asperities.</p></li>
+</ul>
+</li>
+<li><p><strong>Role in EEPAS:</strong> The model utilizes a transformed parameter, <span class="math notranslate nohighlight">\(B\)</span>, calculated as: <span class="math notranslate nohighlight">\(B = b \cdot \ln(10)\)</span></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="🎯-Notebook-Objectives">
+<h2>🎯 Notebook Objectives<a class="headerlink" href="#🎯-Notebook-Objectives" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Software Integration:</strong> Demonstrate the integration of external libraries, specifically <a class="reference external" href="https://seismostats.readthedocs.io/v1.0.0/">SeismoStats</a>, for robust statistical analysis.</p></li>
+<li><p><strong>Completeness Analysis:</strong> Evaluate <span class="math notranslate nohighlight">\(m_c\)</span> using multiple statistical approaches to ensure stability:</p>
+<ul class="simple">
+<li><p>Maximum Curvature (MaxC)</p></li>
+<li><p><span class="math notranslate nohighlight">\(b\)</span>-value Stability</p></li>
+<li><p>Kolmogorov-Smirnov (KS) Test</p></li>
+</ul>
+</li>
+<li><p><strong>:math:`b`-value Estimation:</strong> Compare estimators to handle potential magnitude uncertainties:</p>
+<ul class="simple">
+<li><p>Utsu method (Maximum Likelihood)</p></li>
+<li><p><span class="math notranslate nohighlight">\(b\)</span>-positive</p></li>
+<li><p><span class="math notranslate nohighlight">\(b\)</span>-more-positive</p></li>
+</ul>
+</li>
+<li><p><strong>Parameter Selection:</strong> Define the final <span class="math notranslate nohighlight">\(m_0\)</span> and <span class="math notranslate nohighlight">\(B\)</span> values to be injected into the EEPAS configuration.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="📊-Dataset-Profile">
+<h2>📊 Dataset Profile<a class="headerlink" href="#📊-Dataset-Profile" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Catalog Source</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">HORUS_Italy_polygon_filtered.mat</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Spatial Filter</strong></p></td>
+<td><p>Italian CPTI15 polygon region</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Time Range</strong></p></td>
+<td><p>1960 – 2011 (Includes training and warm-up periods)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Depth Cutoff</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(\le 40\)</span> km</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Event Count</strong></p></td>
+<td><p>~174,701 earthquakes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="Install-related-packages">
+<h3>Install related packages<a class="headerlink" href="#Install-related-packages" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pycsep</span> <span class="o">-</span><span class="n">qq</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">24.3/24.3 MB</span> <span class="ansi-red-fg">26.9 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+  Preparing metadata (setup.py) ... done
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">11.8/11.8 MB</span> <span class="ansi-red-fg">130.7 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">14.5/14.5 MB</span> <span class="ansi-red-fg">89.4 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">1.6/1.6 MB</span> <span class="ansi-red-fg">64.4 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+  Building wheel for pycsep (setup.py) ... done
+<span class="ansi-red-fg">ERROR: pip&#39;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+ipython-sql 0.5.0 requires sqlalchemy&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.
+google-adk 1.19.0 requires sqlalchemy&lt;3.0.0,&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.</span><span class="ansi-red-fg">
+</span>
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">swiss</span><span class="o">-</span><span class="n">seismological</span><span class="o">-</span><span class="n">service</span><span class="o">/</span><span class="n">SeismoStats</span><span class="o">.</span><span class="n">git</span> <span class="o">-</span><span class="n">qq</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  Preparing metadata (pyproject.toml) ... done
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">62.0/62.0 kB</span> <span class="ansi-red-fg">2.5 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">40.2/40.2 MB</span> <span class="ansi-red-fg">83.2 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+  Building wheel for SeismoStats (pyproject.toml) ... done
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Mounted at /content/drive
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">HORUS_Italy_polygon_filtered</span><span class="o">.</span><span class="n">mat</span> <span class="o">.</span>
+<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">HORUS_Italy_RDN2008_polygon_filtered</span><span class="o">.</span><span class="n">mat</span> <span class="o">.</span>
+<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">earth_src</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">EEPAS_Taiwan</span><span class="o">-</span><span class="n">main</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">dataset</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">csep</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridSpec</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.io</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">csep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">time_utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">seismostats.catalogs.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">FDSNWSEventClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">seismostats</span><span class="w"> </span><span class="kn">import</span> <span class="n">Catalog</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">seismostats.utils.binning</span><span class="w"> </span><span class="kn">import</span> <span class="n">bin_to_precision</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">seismostats.analysis.bvalue</span><span class="w"> </span><span class="kn">import</span> <span class="n">UtsuBValueEstimator</span><span class="p">,</span> <span class="n">BPositiveBValueEstimator</span><span class="p">,</span> <span class="n">BMorePositiveBValueEstimator</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_period_forecast</span><span class="p">,</span> <span class="n">generate_all_periods_forecast</span><span class="p">,</span> <span class="n">create_csep_forecast_file</span><span class="p">,</span> <span class="n">calculate_date_range</span><span class="p">,</span> <span class="n">get_top_earthquakes</span><span class="p">,</span> <span class="n">my_custom_loader_function</span>
+</pre></div>
+</div>
+</div>
+<p>Transform the dataset for compatibility with <a class="reference external" href="https://seismostats.readthedocs.io/v1.0.0rc2/user/10minute_intro.html">SeismoStats</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MAT_FILE_PATH</span> <span class="o">=</span> <span class="s2">&quot;/content/HORUS_Italy_polygon_filtered.mat&quot;</span>
+<span class="n">mat_data</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">MAT_FILE_PATH</span><span class="p">)</span>
+<span class="n">df_raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mat_data</span><span class="p">[</span><span class="s2">&quot;HORUS&quot;</span><span class="p">][:,</span> <span class="p">:</span><span class="mi">10</span><span class="p">],</span>
+                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;Month&#39;</span><span class="p">,</span> <span class="s1">&#39;Day&#39;</span><span class="p">,</span> <span class="s1">&#39;Hour&#39;</span><span class="p">,</span> <span class="s1">&#39;Minute&#39;</span><span class="p">,</span> <span class="s1">&#39;Second&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Depth&#39;</span><span class="p">,</span> <span class="s1">&#39;Magnitude&#39;</span><span class="p">])</span>
+
+<span class="c1"># --- Process and Filter ---</span>
+<span class="n">MAX_YEAR</span> <span class="o">=</span> <span class="mi">2011</span>  <span class="c1"># Based on your original code (&lt;= 2011)</span>
+<span class="n">MAX_DEPTH</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">date_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;Month&#39;</span><span class="p">,</span> <span class="s1">&#39;Day&#39;</span><span class="p">,</span> <span class="s1">&#39;Hour&#39;</span><span class="p">,</span> <span class="s1">&#39;Minute&#39;</span><span class="p">,</span> <span class="s1">&#39;Second&#39;</span><span class="p">]</span>
+
+<span class="c1"># Chain all operations:</span>
+<span class="c1"># 1. Build the new DataFrame with correct column names and &#39;time&#39;</span>
+<span class="c1"># 2. Drop rows where date conversion failed</span>
+<span class="c1"># 3. Filter by year and depth using .query()</span>
+<span class="c1"># 4. Sort by time and reset the index</span>
+<span class="n">df_processed</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_raw</span><span class="p">[</span><span class="n">date_cols</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="n">df_raw</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="n">df_raw</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="n">df_raw</span><span class="p">[</span><span class="s1">&#39;Depth&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;magnitude&#39;</span><span class="p">:</span> <span class="n">df_raw</span><span class="p">[</span><span class="s1">&#39;Magnitude&#39;</span><span class="p">]</span>
+    <span class="p">})</span>
+    <span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>  <span class="c1"># Drop rows with invalid dates</span>
+    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;time.dt.year &lt;= </span><span class="si">{</span><span class="n">MAX_YEAR</span><span class="si">}</span><span class="s2"> &amp; depth &lt;= </span><span class="si">{</span><span class="n">MAX_DEPTH</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># --- Create Catalog ---</span>
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">Catalog</span><span class="p">(</span><span class="n">df_processed</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Catalog: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span><span class="si">}</span><span class="s2"> earthquakes (Years &lt;= </span><span class="si">{</span><span class="n">MAX_YEAR</span><span class="si">}</span><span class="s2">, Depth &lt;= </span><span class="si">{</span><span class="n">MAX_DEPTH</span><span class="si">}</span><span class="s2">km)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Time range: </span><span class="si">{</span><span class="n">catalog</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">catalog</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Catalog Head:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">catalog</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+✓ Catalog: 174701 earthquakes (Years &lt;= 2011, Depth &lt;= 40km)
+  Time range: 1960-01-04 09:20:00 to 2011-12-31 23:36:00
+
+Catalog Head:
+                 time  longitude  latitude  depth  magnitude
+0 1960-01-04 09:20:00    13.1667   43.1333    0.0       3.94
+1 1960-01-06 15:17:34    12.7000   46.4833    4.0       4.69
+2 1960-01-06 15:20:53    12.7000   46.4667    0.0       4.14
+3 1960-01-06 15:31:00    12.7500   46.4333    0.0       3.00
+4 1960-01-06 15:45:00    12.7500   46.4333    0.0       3.00
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">catalog</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Exploratory-data-analysis">
+<h2>Exploratory data analysis<a class="headerlink" href="#Exploratory-data-analysis" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">plot_in_space</span><span class="p">(</span><span class="n">include_map</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_Estimate_mc_b_Italy_clean_11_0.png" src="../_images/examples_Estimate_mc_b_Italy_clean_11_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">plot_cum_fmd</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Legend added to the plot.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_Estimate_mc_b_Italy_clean_12_1.png" src="../_images/examples_Estimate_mc_b_Italy_clean_12_1.png" />
+</div>
+</div>
+</section>
+<section id="Estimatie-mc-and-b-values">
+<h2>Estimatie mc and b values<a class="headerlink" href="#Estimatie-mc-and-b-values" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">delta_m</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">cat</span><span class="o">.</span><span class="n">bin_magnitudes</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">magnitude</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0    3.9
+1    4.7
+2    4.1
+3    3.0
+4    3.0
+Name: magnitude, dtype: float64
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_mc_maxc</span><span class="p">(</span><span class="n">fmd_bin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">mc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.2
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_mc_b_stability</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">mc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/usr/local/lib/python3.12/dist-packages/seismostats/analysis/bvalue/base.py:119: UserWarning: No magnitudes in the lowest magnitude bin are present.Check if mc is chosen correctly.
+  warnings.warn(
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+return_vals: {&#39;best_b_value&#39;: np.float64(1.2367860665754902), &#39;mcs_tested&#39;: [-1.1, -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0, 4.1, 4.2, 4.3], &#39;b_values_tested&#39;: [np.float64(0.16790685868041283), np.float64(0.17465943301674644), np.float64(0.18197908090152223), np.float64(0.18993694893188395), np.float64(0.19862518995655062), np.float64(0.2081465401622785), np.float64(0.21862560648738794), np.float64(0.23021200901415856), np.float64(0.24309157254678213), np.float64(0.2574956953176918), np.float64(0.2736996493719224), np.float64(0.29206560795636644), np.float64(0.24720985767330805), np.float64(0.2618242150634443), np.float64(0.278046614949295), np.float64(0.29592283556129456), np.float64(0.31560309837206063), np.float64(0.3368741424242198), np.float64(0.3594503673585294), np.float64(0.38329113092410827), np.float64(0.4071023862867639), np.float64(0.43017557034560927), np.float64(0.45494106256128247), np.float64(0.4773512112609477), np.float64(0.49990549191218875), np.float64(0.5221196145492875), np.float64(0.5453540805580092), np.float64(0.5731848037319659), np.float64(0.599916534223974), np.float64(0.630660138932678), np.float64(0.6672370981972202), np.float64(0.7115212975139338), np.float64(0.7245391091295244), np.float64(0.7425191459822538), np.float64(0.7490903983022029), np.float64(0.7646534864201573), np.float64(0.788839587282107), np.float64(0.8076898925051835), np.float64(0.8164789868055397), np.float64(0.8470217519317532), np.float64(0.856609400454), np.float64(0.8808434899293852), np.float64(0.8901477508574067), np.float64(0.9095241834907367), np.float64(0.9203068582391521), np.float64(0.9078753283912105), np.float64(0.9470389491754286), np.float64(0.9512114037369656), np.float64(0.9791149074935798), np.float64(1.0037517268064955), np.float64(1.0200525900961777), np.float64(1.0903035580727285), np.float64(1.155102042353682), np.float64(1.179189946654381), np.float64(1.2367860665754902)], &#39;diff_bs&#39;: [np.float64(94.27010069203584), np.float64(94.79248776175965), np.float64(95.35737081195482), np.float64(95.99100238820368), np.float64(96.67124330308685), np.float64(97.42118391824606), np.float64(98.2510548054851), np.float64(99.18285020830005), np.float64(59.975935012365284), np.float64(24.41953196116216), np.float64(7.548906994827571), np.float64(36.11150513804572), np.float64(111.10366406765273), np.float64(109.33725703494262), np.float64(106.14014327696151), np.float64(101.65982247718847), np.float64(95.19375830453798), np.float64(257.46988668659066), np.float64(78.66808407721992), np.float64(69.19315451013311), np.float64(60.99468350984678), np.float64(54.718163856570506), np.float64(47.13338399535899), np.float64(43.87799686528286), np.float64(41.48188259608638), np.float64(40.79907277447163), np.float64(41.10460777413207), np.float64(40.14556918926843), np.float64(122.40687678586697), np.float64(32.527110226836406), np.float64(22.659124432576917), np.float64(10.04690686876608), np.float64(10.000666618891175), np.float64(8.600776821219744), np.float64(10.275786992318809), np.float64(10.349294054903208), np.float64(7.872642071119778), np.float64(6.961437438576223), np.float64(7.798232199145408), np.float64(4.866380509881664), np.float64(5.163568906165096), np.float64(2.7264714298193127), np.float64(2.9278367819804267), np.float64(1.8476796290774615), np.float64(1.956488311766398), np.float64(4.419424288407353), np.float64(2.531601247013667), np.float64(4.01911397886171), np.float64(4.322146723828746), np.float64(4.647247983988147), np.float64(17.782536324432517), np.float64(3.68449196503098), np.float64(1.911258223301), np.float64(1.3550050542552179), np.float64(0.009169789057256707)]}
+4.3
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mcs_test</span> <span class="o">=</span> <span class="n">bin_to_precision</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="mf">0.1</span>
+<span class="p">)</span>
+<span class="n">best_mc</span><span class="p">,</span> <span class="n">mc_info</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">estimate_mc_ks</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mcs_test</span><span class="o">=</span><span class="n">mcs_test</span><span class="p">,</span> <span class="n">p_value_pass</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">delta_m</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">mc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Testing mc: 1.5.
+..p-value: 0.0
+
+Testing mc: 1.6.
+..p-value: 0.0
+
+Testing mc: 1.7.
+..p-value: 0.0
+
+Testing mc: 1.8.
+..p-value: 0.0
+
+Testing mc: 1.9.
+..p-value: 0.0
+
+Testing mc: 2.0.
+..p-value: 0.0
+
+Testing mc: 2.1.
+..p-value: 0.0
+
+Testing mc: 2.2.
+..p-value: 0.0
+
+Testing mc: 2.3.
+..p-value: 0.0
+
+Testing mc: 2.4.
+..p-value: 0.0
+
+Testing mc: 2.5.
+..p-value: 0.0
+
+Testing mc: 2.6.
+..p-value: 0.0
+
+Testing mc: 2.7.
+..p-value: 0.0
+
+Testing mc: 2.8.
+..p-value: 0.0
+
+Testing mc: 2.9.
+..p-value: 0.0
+
+Testing mc: 3.0.
+..p-value: 0.0
+
+Testing mc: 3.1.
+..p-value: 0.003
+
+Testing mc: 3.2.
+..p-value: 0.002
+
+Testing mc: 3.3.
+..p-value: 0.003
+
+Testing mc: 3.4.
+..p-value: 0.0
+
+Testing mc: 3.5.
+..p-value: 0.0
+
+Testing mc: 3.6.
+..p-value: 0.0
+
+Testing mc: 3.7.
+..p-value: 0.0
+
+Testing mc: 3.8.
+..p-value: 0.0
+
+Testing mc: 3.9.
+..p-value: 0.0
+
+Testing mc: 4.0.
+..p-value: 0.003
+
+Testing mc: 4.1.
+..p-value: 0.046
+
+Testing mc: 4.2.
+..p-value: 0.102
+
+
+Best mc to pass the test: 4.200
+with a b-value of: 1.179.
+4.2
+</pre></div></div>
+</div>
+<section id="📊-Analysis-of-Completeness-(m_c)-Estimation-Results">
+<h3>📊 Analysis of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) Estimation Results<a class="headerlink" href="#📊-Analysis-of-Completeness-(m_c)-Estimation-Results" title="Link to this heading">#</a></h3>
+<p>We evaluated three statistical approaches to determine the magnitude of completeness for the catalog:</p>
+<section id="1.-Maximum-Curvature-(MaxC)-Method">
+<h4><strong>1. Maximum Curvature (MaxC) Method</strong><a class="headerlink" href="#1.-Maximum-Curvature-(MaxC)-Method" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Result:</strong> <span class="math notranslate nohighlight">\(m_c = 0.2\)</span></p></li>
+<li><p><strong>Methodology:</strong> Identifies the magnitude bin with the highest frequency of events (the peak of the non-cumulative frequency-magnitude distribution).</p></li>
+</ul>
+</section>
+<section id="2.-:math:`b`-value-Stability-Method">
+<h4><strong>2. :math:`b`-value Stability Method</strong><a class="headerlink" href="#2.-:math:`b`-value-Stability-Method" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Result:</strong> <span class="math notranslate nohighlight">\(m_c = 4.3\)</span></p></li>
+<li><p><strong>Methodology:</strong> Scans for the lowest magnitude threshold where the estimated <span class="math notranslate nohighlight">\(b\)</span>-value stabilizes and ceases to fluctuate significantly with increasing cutoffs.</p></li>
+</ul>
+</section>
+<section id="3.-Kolmogorov-Smirnov-(KS)-Test">
+<h4><strong>3. Kolmogorov-Smirnov (KS) Test</strong><a class="headerlink" href="#3.-Kolmogorov-Smirnov-(KS)-Test" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Result:</strong> <span class="math notranslate nohighlight">\(m_c = 4.2\)</span> (with <span class="math notranslate nohighlight">\(p\text{-value} = 0.102 &gt; 0.05\)</span>)</p></li>
+<li><p><strong>Methodology:</strong> Minimizes the KS distance between the observed data and a theoretical Gutenberg-Richter distribution to find the best goodness-of-fit.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="⚠️-Parameter-Selection-for-EEPAS-Modeling">
+<h3>⚠️ Parameter Selection for EEPAS Modeling<a class="headerlink" href="#⚠️-Parameter-Selection-for-EEPAS-Modeling" title="Link to this heading">#</a></h3>
+<p>While the statistical tests (Stability and KS) suggest a conservative completeness threshold around <span class="math notranslate nohighlight">\(M \approx 4.2\)</span>, the EEPAS model requires a sufficient dynamic range between the completeness threshold (<span class="math notranslate nohighlight">\(m_0\)</span>) and the target forecasting magnitude (<span class="math notranslate nohighlight">\(m_T\)</span>).</p>
+<ul class="simple">
+<li><p><strong>Target Magnitude (:math:`m_T`):</strong> <span class="math notranslate nohighlight">\(5.0\)</span></p></li>
+<li><p><strong>EEPAS Constraint:</strong> The model requires that <span class="math notranslate nohighlight">\(m_0 \le m_T - 2.0\)</span> to ensure a sufficient hierarchy of precursor magnitudes are included in the learning process.</p></li>
+<li><p><strong>Calculation:</strong> <span class="math notranslate nohighlight">\(5.0 - 2.0 = 3.0\)</span>.</p></li>
+</ul>
+<p><strong>Conclusion:</strong> To satisfy the model’s structural requirements while maximizing data usage, we select a threshold of <strong>:math:`m_0 = 3.0`</strong>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_b</span><span class="p">(</span><span class="n">mc</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">delta_m</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">cat</span><span class="o">.</span><span class="n">b_value</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.8808434899293852)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_b</span><span class="p">(</span><span class="n">mc</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">delta_m</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">UtsuBValueEstimator</span><span class="p">)</span>
+<span class="n">cat</span><span class="o">.</span><span class="n">b_value</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.8778362810987849)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_b</span><span class="p">(</span><span class="n">mc</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">delta_m</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">BPositiveBValueEstimator</span><span class="p">)</span>
+<span class="n">cat</span><span class="o">.</span><span class="n">b_value</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.9698519369113587)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_b</span><span class="p">(</span><span class="n">mc</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">delta_m</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">BMorePositiveBValueEstimator</span><span class="p">)</span>
+<span class="n">cat</span><span class="o">.</span><span class="n">b_value</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(1.0133107669744423)
+</pre></div></div>
+</div>
+</section>
+<section id="📊-Summary-of-b-value-Estimation">
+<h3>📊 Summary of b-value Estimation<a class="headerlink" href="#📊-Summary-of-b-value-Estimation" title="Link to this heading">#</a></h3>
+<p>We tested three different b-value estimation methods at mc = 3.0:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>mc</p></th>
+<th class="head"><p>b-value</p></th>
+<th class="head"><p>B = b·ln(10)</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Utsu (MLE)</strong></p></td>
+<td><p>3.0</p></td>
+<td><p>0.878</p></td>
+<td><p>2.02</p></td>
+<td><p>Maximum Likelihood, unbiased for large samples</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>B-positive</strong></p></td>
+<td><p>3.0</p></td>
+<td><p>0.970</p></td>
+<td><p>2.23</p></td>
+<td><p>Corrects positive bias</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>B-more-positive</strong></p></td>
+<td><p>3.0</p></td>
+<td><p>1.013</p></td>
+<td><p>2.33</p></td>
+<td><p>Additional bias correction</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="Conclusion">
+<h4><strong>Conclusion</strong><a class="headerlink" href="#Conclusion" title="Link to this heading">#</a></h4>
+<div class="line-block">
+<div class="line">✅ The mc and b-value estimation provides a <strong>range of reasonable values</strong></div>
+<div class="line">✅ Proceed to <strong>PPE Learning</strong> (Step 1) using these parameters</div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="🔗-Next-Steps">
+<h2>🔗 Next Steps<a class="headerlink" href="#🔗-Next-Steps" title="Link to this heading">#</a></h2>
+<p>After parameter estimation, the EEPAS workflow proceeds as:</p>
+<ol class="arabic simple">
+<li><p><strong>PPE Learning</strong> (<code class="docutils literal notranslate"><span class="pre">ppe_learning.py</span></code>): Fit parameters a, d, s</p></li>
+<li><p><strong>Aftershock Fitting</strong> (<code class="docutils literal notranslate"><span class="pre">fit_aftershock_params.py</span></code>): Fit parameters ν, κ</p></li>
+<li><p><strong>EEPAS Learning</strong> (<code class="docutils literal notranslate"><span class="pre">eepas_learning_auto_boundary.py</span></code>): Fit all EEPAS parameters</p></li>
+<li><p><strong>Forecast Generation</strong>: Generate forecasts for testing period</p></li>
+</ol>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="EEPAS_Forecast_Evaluation_New.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">EEPAS Italy Results: Visualization and PyCSEP Evaluation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../technical/mathematical_foundation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mathematical Foundation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📚-Background">📚 Background</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#1.-Magnitude-of-Completeness-(m_c-or-m_0)">1. Magnitude of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span> or <span class="math notranslate nohighlight">\(m_0\)</span>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#2.-The-Gutenberg-Richter-b-value">2. The Gutenberg-Richter <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#🎯-Notebook-Objectives">🎯 Notebook Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-Dataset-Profile">📊 Dataset Profile</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Install-related-packages">Install related packages</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Exploratory-data-analysis">Exploratory data analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Estimatie-mc-and-b-values">Estimatie mc and b values</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-Analysis-of-Completeness-(m_c)-Estimation-Results">📊 Analysis of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) Estimation Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#1.-Maximum-Curvature-(MaxC)-Method"><strong>1. Maximum Curvature (MaxC) Method</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#2.-:math:`b`-value-Stability-Method"><strong>2. :math:`b`-value Stability Method</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#3.-Kolmogorov-Smirnov-(KS)-Test"><strong>3. Kolmogorov-Smirnov (KS) Test</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#⚠️-Parameter-Selection-for-EEPAS-Modeling">⚠️ Parameter Selection for EEPAS Modeling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#📊-Summary-of-b-value-Estimation">📊 Summary of b-value Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#Conclusion"><strong>Conclusion</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#🔗-Next-Steps">🔗 Next Steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

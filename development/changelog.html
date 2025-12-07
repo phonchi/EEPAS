@@ -1,0 +1,801 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Changelog &#8212; EEPAS 0.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2cf66e76" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'development/changelog';</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Optimization Strategies" href="../technical/optimization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Complete Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/results.html">Interpreting Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_reference/index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/core.html">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/utils.html">Utility Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/analysis.html">Analysis Modules</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples and Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical/mathematical_foundation.html">Mathematical Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/numerical_integration.html">Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/optimization.html">Optimization Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Changelog</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/development/changelog.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Changelog</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-3-0-2025-11-06">Version 1.3.0 (2025-11-06)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#added">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changed">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fixed">Fixed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validated">Validated</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-2-0-2025-10-30">Version 1.2.0 (2025-10-30)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Fixed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Validated</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1-0-2025-10-19">Version 1.1.0 (2025-10-19)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Fixed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#research-findings">Research Findings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#archived">Archived</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-0-0-2025-10-15">Version 1.0.0 (2025-10-15)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Fixed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-details">Technical Details</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">Contributing</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading">#</a></h1>
+<p>All notable changes to this project are documented here.</p>
+<p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
+and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<section id="version-1-3-0-2025-11-06">
+<h2>Version 1.3.0 (2025-11-06)<a class="headerlink" href="#version-1-3-0-2025-11-06" title="Link to this heading">#</a></h2>
+<p>Numerical Integration Refactoring and Validation</p>
+<section id="added">
+<h3>Added<a class="headerlink" href="#added" title="Link to this heading">#</a></h3>
+<p><strong>Numerical Integration Refactoring (Core Feature)</strong></p>
+<ul class="simple">
+<li><p>Unified numerical integration interface: <code class="docutils literal notranslate"><span class="pre">utils/numerical_integration.py</span></code></p></li>
+<li><p>Implemented ACCURATE mode (scipy.dblquad double integration)</p></li>
+<li><p>Implemented FAST mode (trapezoidal rule integration, default)</p></li>
+<li><p>All modules support <code class="docutils literal notranslate"><span class="pre">--accurate</span></code> parameter (fast mode is default)</p></li>
+<li><p>Complete ACCURATE vs FAST comparison report</p></li>
+</ul>
+<p><strong>Numerical Integration Validation Results</strong></p>
+<ul class="simple">
+<li><p>Two causality settings tested: useCausalEW=0 (Fixed EW) and useCausalEW=1 (Dynamic EW)</p></li>
+<li><p><strong>All parameter relative differences &lt; 0.2%</strong>, validating sufficient trapezoidal rule precision</p></li>
+<li><p>PPE parameter difference &lt; 0.001%</p></li>
+<li><p>EEPAS parameter difference &lt; 0.16%</p></li>
+<li><p>Forecast Lambda difference &lt; 0.004%</p></li>
+</ul>
+<p><strong>Performance Benchmarking</strong></p>
+<ul class="simple">
+<li><p>FAST mode provides <strong>significant speedup</strong> (especially for forecast stage)</p></li>
+<li><p><strong>Recommended strategy</strong>: Use FAST mode for daily research, ACCURATE mode for final paper validation</p></li>
+</ul>
+<p><strong>Lambda Integration Validation Tools</strong></p>
+<ul class="simple">
+<li><p>Learning stage Λ_PPE validation: should approximate target event count N</p></li>
+<li><p>Forecast stage Lambda sum validation tool (<code class="docutils literal notranslate"><span class="pre">analysis/analyze_forecast_lambda.py</span></code>)</p></li>
+<li><p>Fixed index column handling issue, correctly calculates prediction rate sum</p></li>
+<li><p><strong>Validation results</strong>:</p>
+<ul>
+<li><p>Learning: Λ_PPE ≈ 27.00 (target 27 events) ✓</p></li>
+<li><p>Forecast: PPE ~14 + EEPAS ~16 = ~30 (close to observed 27) ✓</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Automated Workflow Scripts</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">run_full_workflow_two_periods.sh</span></code> - FAST mode dual causality setting complete workflow</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run_full_workflow_two_periods_accurate.sh</span></code> - ACCURATE mode dual causality setting complete workflow</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run_causal_ew_comparison.sh</span></code> - Causality weight comparison script</p></li>
+<li><p>Support for <code class="docutils literal notranslate"><span class="pre">--no-boundary-adjustment</span></code> parameter</p></li>
+</ul>
+</section>
+<section id="changed">
+<h3>Changed<a class="headerlink" href="#changed" title="Link to this heading">#</a></h3>
+<p><strong>Core Module Updates</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ppe_optimization.py</span></code> - Support for ACCURATE/FAST mode switching</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eepas_likelihood.py</span></code> - Unified use of numerical_integration module</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ppe_make_forecast.py</span></code> - Support for <code class="docutils literal notranslate"><span class="pre">--accurate</span></code> parameter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eepas_make_forecast.py</span></code> - Support for <code class="docutils literal notranslate"><span class="pre">--accurate</span></code> parameter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fit_aftershock_params.py</span></code> - Support for <code class="docutils literal notranslate"><span class="pre">--accurate</span></code> parameter</p></li>
+<li><p>All numerical integration calls unified interface</p></li>
+</ul>
+<p><strong>Documentation Updates</strong></p>
+<ul class="simple">
+<li><p>README.md updated to v1.3.0, emphasizing numerical integration validation achievements</p></li>
+<li><p>CHANGELOG.md detailed recording of refactoring process and validation results</p></li>
+<li><p>CLAUDE.md added ACCURATE vs FAST mode usage guide</p></li>
+<li><p>CLAUDE.md added Lambda sum validation methodology explanation</p></li>
+<li><p>Configuration list updated (EW0/EW1 test configurations)</p></li>
+</ul>
+</section>
+<section id="fixed">
+<h3>Fixed<a class="headerlink" href="#fixed" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Fixed issue of not excluding index column when calculating Forecast Lambda</p></li>
+<li><p>Unified numerical integration calling method, eliminated duplicate code</p></li>
+<li><p>Improved EEPAS Learning boundary adjustment strategy</p></li>
+</ul>
+</section>
+<section id="validated">
+<h3>Validated<a class="headerlink" href="#validated" title="Link to this heading">#</a></h3>
+<p><strong>Numerical Integration Refactoring Successfully Validated</strong></p>
+<ul class="simple">
+<li><p>Trapezoidal rule (FAST) and dblquad (ACCURATE) results highly consistent</p></li>
+<li><p>Parameter differences &lt; 0.2% for all test configurations</p></li>
+<li><p>Lambda integration validation passed (Learning and Forecast stages)</p></li>
+<li><p><strong>Conclusion</strong>: Refactored numerical integration implementation is correct, FAST mode can be safely used for daily research</p></li>
+</ul>
+</section>
+<section id="performance">
+<h3>Performance<a class="headerlink" href="#performance" title="Link to this heading">#</a></h3>
+<p>FAST mode compared to ACCURATE mode:</p>
+<ul class="simple">
+<li><p>PPE Learning: ~1.3x speedup</p></li>
+<li><p>Aftershock Fitting: ~1.5x speedup</p></li>
+<li><p>EEPAS Learning: ~1.3x speedup</p></li>
+<li><p>PPE Forecast: ~4.0x speedup</p></li>
+<li><p>EEPAS Forecast: ~4.0x speedup</p></li>
+<li><p><strong>Overall</strong>: ~1.75x speedup</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="version-1-2-0-2025-10-30">
+<h2>Version 1.2.0 (2025-10-30)<a class="headerlink" href="#version-1-2-0-2025-10-30" title="Link to this heading">#</a></h2>
+<p>Italy Mode Support and Paper Validation</p>
+<section id="id1">
+<h3>Added<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p><strong>Complete Italy Mode Support and Paper Validation</strong></p>
+<ul class="simple">
+<li><p>Testing Region and Neighborhood Region area management</p></li>
+<li><p>All modules support Italy earthquake data (PPE/EEPAS Learning/Forecast + Aftershock)</p></li>
+<li><p>Compliant with Biondini et al. (2023) Equation 1 mathematical definition</p></li>
+<li><p><strong>Paper Consistency Validation Completed</strong>:</p>
+<ul>
+<li><p>PPE and EEPAS forecast formulas fully consistent with paper</p></li>
+<li><p>mT anchor support (<code class="docutils literal notranslate"><span class="pre">--ppe-ref-mag</span> <span class="pre">mT</span> <span class="pre">--target-mag</span> <span class="pre">mT</span></code>)</p></li>
+<li><p>Single-round optimization mode (<code class="docutils literal notranslate"><span class="pre">--max-rounds</span> <span class="pre">1</span></code>) matches paper methodology</p></li>
+<li><p>Complete validation results in <code class="docutils literal notranslate"><span class="pre">results_italy_paper_1round_full/</span></code> (archived)</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Performance Optimization</strong></p>
+<ul class="simple">
+<li><p>PPE Forecast fast mode (Numba JIT): significantly faster with Numba acceleration, precision loss &lt;0.03%</p></li>
+<li><p>EEPAS Forecast optimization: significant performance improvement with fast mode</p></li>
+</ul>
+<p><strong>Complete Validation</strong></p>
+<ul class="simple">
+<li><p>Region implementation fully correct (source events, target events, integration range)</p></li>
+<li><p>Backward compatible with existing configurations</p></li>
+<li><p>Parameter results consistent with paper (1990-2012 learning period, 2012-2022 forecast period)</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>Changed<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p><strong>Documentation Updates</strong></p>
+<ul class="simple">
+<li><p>README.md added paper validation workflow and latest achievements</p></li>
+<li><p>Added Italy quick start guide</p></li>
+<li><p>Updated directory structure description</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>Fixed<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Improved region filtering logic (Testing vs Neighborhood)</p></li>
+<li><p>Italy data loading and processing</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Validated<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>PPE Learning: a=0.616, d=29.64, s≈0 (mT=5.0 anchor)</p></li>
+<li><p>Aftershock parameters: v=0.577, k=0.205</p></li>
+<li><p>EEPAS parameters: NLL=-495.41 (8 parameters single-round optimization)</p></li>
+<li><p>Mathematical formula validation: PPE and EEPAS forecast logic fully consistent with Biondini et al. (2023)</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="version-1-1-0-2025-10-19">
+<h2>Version 1.1.0 (2025-10-19)<a class="headerlink" href="#version-1-1-0-2025-10-19" title="Link to this heading">#</a></h2>
+<p>Optimizer Support Expansion</p>
+<section id="id5">
+<h3>Added<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p><strong>Optimizer Support Expansion</strong></p>
+<ul class="simple">
+<li><p>Added L-BFGS-B, TNC, SLSQP, Powell optimizers</p></li>
+<li><p>Basin-Hopping global optimization strategy</p></li>
+<li><p>Multistart multiple starting point strategy (customizable number of starting points)</p></li>
+</ul>
+<p><strong>Optimizer Comparison Study</strong></p>
+<ul class="simple">
+<li><p>Complete optimizer comparison report (OPTIMIZER_COMPARISON_REPORT.md)</p></li>
+<li><p>Systematic comparison of 5 optimizers across 4 configurations</p></li>
+<li><p>Tested Multistart (3/10 starting points), Basin-Hopping, Hybrid strategies</p></li>
+</ul>
+<p><strong>Single-Stage Optimization Mode</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-multistart</span></code> parameter support for single starting point optimization</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--optimizer</span></code> parameter for optimizer selection</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--n-starts</span></code> parameter for customizable multistart starting points</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--basinhopping</span></code> and <code class="docutils literal notranslate"><span class="pre">--basinhopping-niter</span></code> parameters</p></li>
+</ul>
+</section>
+<section id="id6">
+<h3>Changed<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p><strong>Convergence Criteria Optimization</strong></p>
+<ul class="simple">
+<li><p>Adjusted convergence tolerances for different optimizers to ensure fair comparison</p></li>
+<li><p>scipy gradient optimizers use relative ftol, fmin uses absolute ftol</p></li>
+<li><p>L-BFGS-B: ftol=1e-9, gtol=1e-7</p></li>
+<li><p>SLSQP: ftol=1e-12</p></li>
+<li><p>TNC: ftol=1e-9, gtol=1e-3</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>Fixed<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Fixed optimizer convergence criteria inconsistency issue</p></li>
+<li><p>Improved boundary adjustment logic</p></li>
+</ul>
+</section>
+<section id="research-findings">
+<h3>Research Findings<a class="headerlink" href="#research-findings" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>fminsearchcon (Nelder-Mead) most robust</strong> (finds high-quality solutions on all configurations)</p></li>
+<li><p><strong>Gradient methods fast but unstable</strong> (50% success rate, prone to local optima)</p></li>
+<li><p><strong>Basin-Hopping and large Multistart (&gt;10) ineffective for this problem</strong></p></li>
+<li><p><strong>Recommended strategy</strong>: Run fminsearchcon and L-BFGS-B + Multistart in parallel, select better result</p></li>
+</ul>
+</section>
+<section id="archived">
+<h3>Archived<a class="headerlink" href="#archived" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>All optimizer test data moved to <code class="docutils literal notranslate"><span class="pre">archive/optimizer_tests_2025_10_19/</span></code></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="version-1-0-0-2025-10-15">
+<h2>Version 1.0.0 (2025-10-15)<a class="headerlink" href="#version-1-0-0-2025-10-15" title="Link to this heading">#</a></h2>
+<p>Initial Python Release</p>
+<section id="id8">
+<h3>Added<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p><strong>Initial Features</strong></p>
+<ul class="simple">
+<li><p>Complete EEPAS model implementation (PPE, EEPAS, Aftershock learning)</p></li>
+<li><p>Automatic boundary adjustment for EEPAS learning</p></li>
+<li><p>Analysis tools:</p>
+<ul>
+<li><p>Earthquake distribution analysis (6 vs 24 regions)</p></li>
+<li><p>Weight analysis across 4 configurations</p></li>
+<li><p>Region subdivision tool (6 → 24 regions)</p></li>
+</ul>
+</li>
+<li><p>Coordinate conversion tool (WGS84 ↔ TWD97)</p></li>
+<li><p>4 pre-configured setups:</p>
+<ul>
+<li><p>Standard (m0=2.35)</p></li>
+<li><p>Declustered (m0=2.05)</p></li>
+<li><p>Include 921 earthquake (m0=2.35)</p></li>
+<li><p>m0=2.05 variant</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Documentation</strong></p>
+<ul class="simple">
+<li><p>README.md with quick start guide</p></li>
+<li><p>USAGE.md with detailed instructions</p></li>
+<li><p>Analysis documentation in docs/</p></li>
+</ul>
+<p><strong>Validation</strong></p>
+<ul class="simple">
+<li><p>Full validation against MATLAB version (100% match)</p></li>
+<li><p>Standalone python_src directory (no external dependencies)</p></li>
+</ul>
+<p><strong>Performance</strong></p>
+<ul class="simple">
+<li><p>Performance optimization with Numba JIT</p></li>
+</ul>
+</section>
+<section id="id9">
+<h3>Changed<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Migrated all MATLAB analysis scripts to Python</p></li>
+<li><p>Refactored code structure for better organization</p></li>
+<li><p>Updated directory layout for professional project structure</p></li>
+</ul>
+</section>
+<section id="id10">
+<h3>Fixed<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Boundary touching issues in EEPAS optimization</p></li>
+<li><p>Coordinate conversion precision (&lt; 0.01m error)</p></li>
+<li><p>Path handling for cross-platform compatibility</p></li>
+</ul>
+</section>
+<section id="technical-details">
+<h3>Technical Details<a class="headerlink" href="#technical-details" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Python 3.8+ support</p></li>
+<li><p>Dependencies: numpy, scipy, numba, pandas, h5py, matplotlib, pyproj</p></li>
+<li><p>MIT License</p></li>
+<li><p>Git-friendly structure with .gitignore</p></li>
+</ul>
+</section>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">#</a></h2>
+<p>For guidelines on how to contribute to this project, please contact the development team.</p>
+<p>For detailed information about each version, see the full CHANGELOG in the repository.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../technical/optimization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Optimization Strategies</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-3-0-2025-11-06">Version 1.3.0 (2025-11-06)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#added">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changed">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fixed">Fixed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validated">Validated</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-2-0-2025-10-30">Version 1.2.0 (2025-10-30)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Fixed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Validated</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1-0-2025-10-19">Version 1.1.0 (2025-10-19)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Fixed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#research-findings">Research Findings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#archived">Archived</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-0-0-2025-10-15">Version 1.0.0 (2025-10-15)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Fixed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-details">Technical Details</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">Contributing</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By EEPAS Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, EEPAS Development Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

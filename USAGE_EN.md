@@ -1,4 +1,4 @@
-# EEPAS Taiwan & Italy - Detailed Usage Guide
+# EEPAS - Detailed Usage Guide
 
 ## Table of Contents
 
@@ -41,10 +41,10 @@ python3 -c "import numpy, scipy, numba, pandas, h5py; print('✅ All dependencie
 ### Standard 5-Step Workflow
 
 ```bash
-cd /home/math/EEPAS_Taiwan-main/src/python_src
+cd /path/to/EEPAS/src/python_src
 
 # Step 1: PPE Learning
-python3 ppe_learning.py --config ../config.json
+python3 ppe_learning.py --config config_italy_causal_ew0.json
 
 # Step 2: Aftershock Learning
 python3 fit_aftershock_params.py --config ../config.json
@@ -600,8 +600,8 @@ Cannot find results/xxx.csv
 **Solution**:
 ```bash
 # Must execute from python_src
-cd /home/math/EEPAS_Taiwan-main/src/python_src
-python3 xxx.py --config ../config.json
+cd /path/to/EEPAS/src/python_src
+python3 xxx.py --config config_italy_causal_ew0.json
 ```
 
 ---

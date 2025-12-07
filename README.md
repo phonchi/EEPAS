@@ -1,6 +1,6 @@
 <div align="center">
   <img src="logos/logo.png" alt="EEPAS Logo" width="200"/>
-  <h1>EEPAS Taiwan & Italy - Python Implementation</h1>
+  <h1>EEPAS - Python Implementation</h1>
 
   [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -8,16 +8,16 @@
 
 <br/>
 
-Python implementation of the **EEPAS** (Every Earthquake a Precursor According to Scale) earthquake forecasting model, supporting earthquake forecasting for Taiwan and Italy regions.
+Python implementation of the **EEPAS** (Every Earthquake a Precursor According to Scale) earthquake forecasting model for Italy seismic hazard assessment.
 
 ## ✨ Features
 
 - 🎯 **Complete Implementation** - Includes PPE, EEPAS, and aftershock parameter learning
-- 🌍 **Multi-Region Support** - Supports Taiwan and Italy modes with correct handling of Testing/Neighborhood regions
+- 🌍 **Italy Application** - Optimized for Italy seismicity with proper Testing/Neighborhood region handling
 - 🚀 **Automatic Optimization** - Automatic boundary adjustment ensuring convergence
-- 📊 **Multiple Configurations** - Taiwan: standard, declustered, include921, m0=2.05; Italy: standard, three-stage optimization
+- 📊 **Multiple Configurations** - Standard mode and three-stage optimization
 - ⚡ **High Performance** - Numba JIT acceleration, PPE forecasting 60-70x faster with <0.03% accuracy loss
-- 🧪 **Fully Validated** - Complete consistency with mathematical definitions in the paper (ggad123.pdf), backward compatible with Taiwan mode
+- 🧪 **Fully Validated** - Complete consistency with mathematical definitions and empirical validation
 
 ## 📊 Latest Achievements (v1.3.0)
 
@@ -81,8 +81,8 @@ This version completes the refactoring of numerical integration methods, unifyin
 
 ```bash
 # Clone repository
-git clone https://github.com/your-org/EEPAS_Taiwan.git
-cd EEPAS_Taiwan/src/python_src
+git clone https://github.com/your-org/EEPAS.git
+cd EEPAS/src/python_src
 
 # Install dependencies
 pip install -r requirements.txt
@@ -96,46 +96,23 @@ python3 -c "import numpy, scipy, numba, pandas; print('✓ All dependencies inst
 
 ## ⚡ Quick Start
 
-### Taiwan Mode - Complete Forecasting Workflow
+### Italy Mode - Complete Forecasting Workflow
 
 ```bash
 # 1. PPE parameter learning
-python3 ppe_learning.py --config config.json
+python3 ppe_learning.py --config config_italy_causal_ew0.json
 
 # 2. Aftershock parameter learning
-python3 fit_aftershock_params.py --config config.json
+python3 fit_aftershock_params.py --config config_italy_causal_ew0.json --ppe-ref-mag mT --target-mag mT
 
-# 3. EEPAS parameter learning (automatic boundary adjustment)
-python3 eepas_learning_auto_boundary.py --config config.json
+# 3. EEPAS parameter learning (automatic boundary adjustment + three-stage optimization)
+python3 eepas_learning_auto_boundary.py --config config_italy_causal_ew0.json --three-stage --ppe-ref-mag mT --max-rounds 1
 
-# 4. PPE forecast (fast mode, enabled by default)
-python3 ppe_make_forecast.py --config config.json
+# 4. PPE forecast (fast mode recommended)
+python3 ppe_make_forecast.py --config config_italy_causal_ew0.json --fast --ppe-ref-mag mT
 
-# 5. EEPAS forecast (fast mode, enabled by default)
-python3 eepas_make_forecast.py --config config.json --fast
-```
-
-### Italy Mode - Standard Workflow (Recommended)
-
-Using automated scripts for complete workflow:
-
-```bash
-# FAST mode - daily research (fast, sufficient precision)
-bash run_full_workflow_two_periods.sh
-
-# ACCURATE mode - final validation (slow, highest precision)
-bash run_full_workflow_two_periods_accurate.sh
-```
-
-Or manually execute step-by-step:
-
-```bash
-# Italy standard configuration (automatically handles Testing/Neighborhood regions)
-python3 ppe_learning.py --config config_italy.json --fast
-python3 fit_aftershock_params.py --config config_italy.json --fast
-python3 eepas_learning_auto_boundary.py --config config_italy.json --three-stage --fast
-python3 ppe_make_forecast.py --config config_italy.json --fast
-python3 eepas_make_forecast.py --config config_italy.json --fast
+# 5. EEPAS forecast (fast mode recommended)
+python3 eepas_make_forecast.py --config config_italy_causal_ew0.json --fast --ppe-ref-mag mT
 
 # Causality weight test configurations
 # EW0: Fixed EW

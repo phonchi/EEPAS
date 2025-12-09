@@ -121,14 +121,14 @@
   "modelParams": {
     "delay": 50,
     "B": 1.0133107669744423,
-    "m0": 3.0,
+    "m0": 2.95,
     "mT": 5.0,
     "delta": 0.7,
     "p": 1.2,
     "c": 0.03,
     "sigmaU": 0.006,
     "weightFlag": 1,
-    "useCausalEW": 1,
+    "useCausalEW": 0,
     "useRollingUpdate": true,
     "forecastPeriodDays": 91.31,
     "timeComp": {

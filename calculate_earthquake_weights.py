@@ -1,28 +1,28 @@
 #!/usr/bin/env python3
 """
-EEPAS地震權重計算 - 餘震去權重核心模組
+EEPAS Earthquake Weight Calculation - Aftershock Deweighting Core Module
 
-== 地震學背景 ==
-在EEPAS模型中，每個地震都被視為潛在的「前震」。
-但地震目錄中包含大量餘震，它們不是真正的前兆信號。
+== Seismological Background ==
+In the EEPAS model, every earthquake is viewed as a potential "precursor".
+However, earthquake catalogs contain many aftershocks, which are not true precursory signals.
 
-本模組計算每個地震的「獨立性權重」wᵢ：
-  - wᵢ ≈ 1: 地震很可能是獨立事件（非餘震）→ 應被視為前震
-  - wᵢ ≈ 0: 地震很可能是餘震 → 應降低其前震地位
+This module calculates the "independence weight" wᵢ for each earthquake:
+  - wᵢ ≈ 1: earthquake is likely an independent event (not an aftershock) → should be treated as precursor
+  - wᵢ ≈ 0: earthquake is likely an aftershock → should reduce its precursor status
 
-== 權重公式 ==
+== Weight Formula ==
   wᵢ = ν·λ₀(tᵢ,mᵢ,xᵢ,yᵢ) / λ'(tᵢ,mᵢ,xᵢ,yᵢ)
 
-其中：
-  - λ₀: PPE背景率（第一步學習的）
-  - λ': 餘震模型預測的總率（背景 + 所有前面地震的餘震貢獻）
-  - ν: 非餘震比例（第二步學習的）
+Where:
+  - λ₀: PPE baseline rate (learned in Step 1)
+  - λ': Total rate predicted by aftershock model (baseline + aftershock contributions from all previous events)
+  - ν: Non-aftershock proportion (learned in Step 2)
 
-== 使用場景 ==
-權重 wᵢ 在EEPAS第三步優化中使用：
-  - 加權對數概似函數
-  - 降低餘震對前震信號的污染
-  - 提高模型對真正前兆的敏感度
+== Usage ==
+Weights wᵢ are used in EEPAS Step 3 optimization:
+  - Weighted log-likelihood function
+  - Reduce contamination of precursory signals by aftershocks
+  - Improve model sensitivity to true precursors
 """
 
 import numpy as np
@@ -36,48 +36,61 @@ from utils.data_loader import DataLoader
 
 def calculate_earthquake_weights(CatE, CatI, params, weight_flag, delay, config_file='config.json', ppe_ref_mag=None):
     """
-    計算每個地震的獨立性權重 wᵢ
+    Calculate independence weight wᵢ for each earthquake
 
-    參數說明:
-        CatE: EEPAS完整目錄（M≥m0的所有地震）
-              每一列是一個地震事件，包含時間、位置、震級等
-        CatI: PPE背景目錄（M≥mT的歷史地震，來自 neighborhood region N）- 論文中的 i
-              用於計算PPE背景率 λ₀
-        params: 模型參數字典，包含：
-              - B: b-value（Gutenberg-Richter關係）
-              - delta: Bath's law 參數（餘震震級上限）
-              - mT, m0, mu: 震級閾值
-              - a, d, s: PPE參數（第一步學習的）
-        weight_flag: 權重模式
-              0 = 均勻權重（wᵢ=1，不考慮餘震）
-              1 = 計算權重（使用餘震模型）
-        delay: 延遲天數（地震發生後多久才開始計入）
-        config_file: 配置文件路徑
+    Parameters
+    ----------
+    CatE : ndarray
+        EEPAS complete catalog (all earthquakes with M≥m0)
+        Each row is an earthquake event with time, location, magnitude, etc.
+    CatI : ndarray
+        PPE background catalog (historical earthquakes with M≥mT from neighborhood region N) - 'i' in paper
+        Used to calculate PPE baseline rate λ₀
+    params : dict
+        Model parameter dictionary containing:
+        - B: b-value (Gutenberg-Richter relation)
+        - delta: Bath's law parameter (aftershock magnitude upper bound)
+        - mT, m0, mu: magnitude thresholds
+        - a, d, s: PPE parameters (learned in Step 1)
+    weight_flag : int
+        Weight mode
+        0 = uniform weights (wᵢ=1, ignore aftershocks)
+        1 = calculate weights (using aftershock model)
+    delay : float
+        Delay period in days (how long after earthquake occurrence to start counting)
+    config_file : str
+        Configuration file path
+    ppe_ref_mag : str or float, optional
+        PPE reference magnitude ('m0', 'mT', or numeric value)
 
-    返回:
-        W: 權重向量（長度=len(CatE)）
-           每個元素 wᵢ ∈ [0,1] 表示第i個地震的獨立性
-        EW: 期望權重（所有權重的平均值）
-        CatE_updated: 清理NaN後的目錄矩陣
+    Returns
+    -------
+    W : ndarray
+        Weight vector (length=len(CatE))
+        Each element wᵢ ∈ [0,1] represents independence of i-th earthquake
+    EW : float
+        Expected weight (average of all weights)
+    CatE_updated : ndarray
+        Catalog matrix after removing NaN values
     """
 
-    # ===== 提取地震屬性 =====
-    # CatE: 待計算權重的地震目錄
-    me = CatE[:, 9]   # 震級
-    te = CatE[:, 10]  # 時間（天）
-    ye = CatE[:, 6]   # 緯度
-    xe = CatE[:, 7]   # 經度
+    # ===== Extract earthquake attributes =====
+    # CatE: catalog for weight calculation
+    me = CatE[:, 9]   # magnitude
+    te = CatE[:, 10]  # time (days)
+    ye = CatE[:, 6]   # latitude
+    xe = CatE[:, 7]   # longitude
 
-    # CatI: PPE背景目錄（歷史源事件，論文中的 i，用於計算 λ₀）
+    # CatI: PPE background catalog (historical source events, 'i' in paper, for calculating λ₀)
     mi = CatI[:, 9]
     ti = CatI[:, 10]
     yi = CatI[:, 6]
     xi = CatI[:, 7]
 
-    # b-value（轉換為自然對數）
+    # b-value (convert to natural logarithm)
     B = params['B'] * np.log(10)
 
-    # PPE參考震級：默認使用mT，但可以指定為m0
+    # PPE reference magnitude: default uses mT, but can be specified as m0
     if ppe_ref_mag is None:
         ppe_ref_mag_value = params['mT']
     elif ppe_ref_mag == 'm0':
@@ -87,18 +100,18 @@ def calculate_earthquake_weights(CatE, CatI, params, weight_flag, delay, config_
         ppe_ref_mag_value = params['mT']
         print(f'Using PPE reference magnitude: mT = {ppe_ref_mag_value}')
     else:
-        ppe_ref_mag_value = ppe_ref_mag  # 直接使用數值
+        ppe_ref_mag_value = ppe_ref_mag  # use numeric value directly
 
-    # ===== 權重計算模式 =====
+    # ===== Weight calculation mode =====
     if weight_flag == 0:
-        # 模式0：均勻權重（不考慮餘震）
-        # 所有地震都被平等對待，wᵢ = 1
+        # Mode 0: Uniform weights (ignore aftershocks)
+        # All earthquakes are treated equally, wᵢ = 1
         W = np.ones(len(CatE))
     else:
-        # 模式1：計算餘震去權重
-        Del = params['delta']  # Bath's law 參數
+        # Mode 1: Calculate aftershock deweighting
+        Del = params['delta']  # Bath's law parameter
 
-        # 載入第二步學習的餘震參數 (ν, κ)
+        # Load aftershock parameters (ν, κ) learned in Step 2
         cfg = DataLoader.load_config(config_file)
         aftershock_param_pattern = cfg['outputFiles']['AftershockParamPattern']
         results_dir = cfg['resultsDir']
@@ -111,8 +124,8 @@ def calculate_earthquake_weights(CatE, CatI, params, weight_flag, delay, config_
 
         if not os.path.exists(aftershock_param_file):
             raise FileNotFoundError(
-                f'找不到 aftershock 參數檔案: {aftershock_param_file}\n'
-                f'請先執行 fit_aftershock_params 來產生此檔案'
+                f'Cannot find aftershock parameter file: {aftershock_param_file}\n'
+                f'Please run fit_aftershock_params first to generate this file'
             )
 
         aftershock_params = np.genfromtxt(aftershock_param_file, delimiter=',', names=True)
@@ -122,7 +135,7 @@ def calculate_earthquake_weights(CatE, CatI, params, weight_flag, delay, config_
 
         print(f'⚖️  Calculating earthquake weights ({len(CatE)} events)...')
 
-        # 使用 Numba 加速的權重計算
+        # Use Numba-accelerated weight calculation
         @njit(parallel=True, fastmath=True)
         def compute_weights_numba(me, te, ye, xe, mi, ti, yi, xi, B, delay, Del,
                                   a, d, s, m0, ppe_ref_mag_value, p, c, sigmaU):
@@ -131,7 +144,7 @@ def calculate_earthquake_weights(CatE, CatI, params, weight_flag, delay, config_
             WFORE = np.zeros(n)
 
             for e in prange(n):
-                # 計算PPE權重
+                # Calculate PPE weight
                 ppe_sum = 0.0
                 for i in range(len(mi)):
                     if ti[i] < te[e] - delay:
@@ -140,7 +153,7 @@ def calculate_earthquake_weights(CatE, CatI, params, weight_flag, delay, config_
 
                 WPPE[e] = (B / te[e]) * np.exp(-B * (me[e] - ppe_ref_mag_value)) * ppe_sum
 
-                # 計算前震權重
+                # Calculate foreshock weight
                 fore_sum = 0.0
                 for j in range(e):
                     if me[j] - Del - me[e] > 0:
@@ -171,7 +184,7 @@ def calculate_earthquake_weights(CatE, CatI, params, weight_flag, delay, config_
             W = W[~ww]
             CatE = CatE[~ww]
 
-    # 計算平均權重
+    # Calculate average weight
     EW = np.mean(W)
 
     return W, EW, CatE

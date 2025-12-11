@@ -213,11 +213,11 @@ See `docs/source/technical/mathematical_foundation.rst` for detailed derivations
 If you use EEPAS in your research, please cite:
 
 ```bibtex
-@article{eepas2024,
-  title={EEPAS: Every Earthquake a Precursor According to Scale},
+@article{eepas2025,
+  title={The EEPAS Model Revisited: Statistical Formalism and a High-Performance, Reproducible Open-Source Framework},
   author={Author Names},
   journal={Journal Name},
-  year={2024}
+  year={2025}
 }
 ```
 
@@ -241,3 +241,4 @@ This project is licensed under the MIT License - see LICENSE file for details.
 ---
 
 **Version:** 0.4.0 | **Last Updated:** 2025-12-11
+

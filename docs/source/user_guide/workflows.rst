@@ -152,6 +152,18 @@ Save as ``run_italy_workflow.sh``:
        --config config_italy.json \
        --ppe-ref-mag mT
 
+   # Step 6: Archive Results (Optional)
+   echo "Step 6/6: Archiving Results..."
+   python3 archive_results.py \
+       --config config_italy.json \
+       --results-dir results_italy/ \
+       --workflow "EEPAS 5-step workflow" \
+       --logs step1_ppe.log step2_aftershock.log step3_eepas.log step4_ppe_forecast.log step5_eepas_forecast.log \
+       --ppe-ref-mag mT \
+       --target-mag mT \
+       --three-stage \
+       --max-rounds 1
+
    echo ""
    echo "=== Workflow Complete! ==="
    echo "Results saved in: results_italy/"
@@ -392,6 +404,27 @@ Use the analysis tool to verify forecast correctness:
 .. code-block:: bash
 
    python3 analysis/analyze_forecast_lambda.py
+
+Archive Workflow Results
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Archive configuration and logs for reproducibility:
+
+.. code-block:: bash
+
+   python3 archive_results.py \
+       --config config_yourregion.json \
+       --results-dir results_yourregion/ \
+       --workflow "EEPAS complete workflow" \
+       --logs step*.log \
+       --ppe-ref-mag mT \
+       --target-mag mT
+
+This saves:
+   - ``config_used.json``: Configuration snapshot
+   - ``execution_info.txt``: Execution metadata
+   - ``execution.log``: Combined logs
+   - ``README_REPRODUCE.md``: Reproduction guide
 
 Next Steps
 ----------

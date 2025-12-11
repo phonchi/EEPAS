@@ -4,425 +4,239 @@
 
   [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![Version](https://img.shields.io/badge/version-0.4.0-blue.svg)](CHANGELOG_EN.md)
 </div>
 
 <br/>
 
-Python implementation of the **EEPAS** (Every Earthquake a Precursor According to Scale) earthquake forecasting model for Italy seismic hazard assessment.
+**EEPAS** (Every Earthquake a Precursor According to Scale) is a state-of-the-art medium- to long-term earthquake forecasting model. This is the first fully documented, high-performance open-source Python implementation.
 
-## ✨ Features
+## ✨ Key Features
 
-- 🎯 **Complete Implementation** - Includes PPE, EEPAS, and aftershock parameter learning
-- 🌍 **Italy Application** - Optimized for Italy seismicity with proper Testing/Neighborhood region handling
-- 🚀 **Automatic Optimization** - Automatic boundary adjustment ensuring convergence
-- 📊 **Multiple Configurations** - Standard mode and three-stage optimization
-- ⚡ **High Performance** - Numba JIT acceleration, PPE forecasting 60-70x faster with <0.03% accuracy loss
-- 🧪 **Fully Validated** - Complete consistency with mathematical definitions and empirical validation
+- 🎯 **Complete EEPAS Implementation** - PPE background model + EEPAS short-term triggering
+- 🌍 **Universal Application** - Apply to any seismic region worldwide
+- 🚀 **Automated Workflow** - End-to-end pipeline from raw catalog to forecast evaluation
+- ⚡ **High Performance** - Numba JIT acceleration, 4x faster forecasting
+- 🔬 **Scientifically Validated** - Reproduces published results + better automated pipeline
+- 📊 **PyCSEP Integration** - Standardized forecast evaluation and comparison
 
-## 📊 Latest Achievements (v1.3.0)
+## 🎯 Latest Update (v0.4.0)
 
-### 🔬 Numerical Integration Refactoring and Validation
+### Major Improvements
 
-**Core Achievement: Unified numerical integration interface with verified correctness**
+**1. Documentation and Usability**
+- ✅ Complete Sphinx documentation with interactive notebooks
+- ✅ Archive functionality for reproducible research
+- ✅ Single-stage boundary adjustment fix
+- ✅ Hard parameter caps to prevent unreasonable optimization
 
-This version completes the refactoring of numerical integration methods, unifying the integration calling interface across all modules, and validating the implementation correctness through comprehensive FAST vs ACCURATE mode comparison.
+**2. Dual Validation Approach**
+- **Reproduce Published Results** (`config_italy_causal_ew0_rerun.json`)
+  - Validates framework can replicate Biondini et al. (2023) within 1 hour
+  - Uses literature-reported initial parameters
 
-**Refactoring Contents**:
-- Unified numerical integration interface (`utils/numerical_integration.py`)
-- ACCURATE mode: scipy.dblquad double integration (highest precision)
-- FAST mode: Trapezoidal rule integration (default, high performance)
-- All modules support `--accurate` / `--fast` parameter switching
+- **End-to-End Automated Pipeline** (`config_italy_target_m0.json`)
+  - Automated parameter estimation using rectangular algorithm
+  - Achieves better log-likelihood (-483) than manual initialization
+  - Passes all PyCSEP consistency tests
 
-**Validation Results** (`ACCURATE_VS_FAST_COMPARISON_REPORT.md`):
-- **Testing Period**: Learning 1990-2012, Forecast 2012-2022
-- **Test Configurations**: useCausalEW=0 (Fixed EW) and useCausalEW=1 (Dynamic EW)
-- **Parameter Consistency**:
-  - PPE parameter difference < 0.001%
-  - EEPAS parameter difference < 0.16%
-  - Forecast Lambda difference < 0.004%
-- **Lambda Integration Validation**:
-  - Learning: Λ_PPE ≈ 27.00 (target event count) ✓
-  - Forecast: PPE ~14 + EEPAS ~16 = ~30 (close to 27) ✓
-- **Performance Improvement**: FAST mode overall **1.75x faster** (Forecast **4x faster**)
+**3. Interactive Examples**
+- Automated Ψ phenomenon detection (Notebook 1)
+- PyCSEP forecast evaluation - Reproduce paper (Notebook 2)
+- PyCSEP forecast evaluation - End-to-end pipeline (Notebook 3)
+- Catalog preprocessing with SeismoStats (Notebook 4)
 
-**Conclusion**: ✅ Refactoring successful, trapezoidal rule highly consistent with dblquad (< 0.2% difference), FAST mode safe for daily research use
+See [CHANGELOG_EN.md](CHANGELOG_EN.md) for complete version history.
 
-### 🌍 Italy Region Validation
+## 📚 Documentation
 
-**Mathematical Formula Consistency**: All formulas fully consistent with the paper (ggad123.pdf) ✓
+**Full documentation available at:** `docs/build/html/index.html`
 
-**Typical Parameters** (1990-2012, validated with both integration modes):
-- PPE: a=0.616, d=29.64, s≈0
-- Aftershock: v=0.577 (57.7% non-aftershocks), k=0.205
-- EEPAS: am=1.23, bm=1.00, Sm=0.24, at=2.59, bt=0.35, St=0.15, ba=0.50, Sa=1.00, u=0.17
-- NLL ≈ -495 to -496
+### Quick Links
+- **Installation Guide** - `docs/source/user_guide/installation.rst`
+- **Quick Start** - `docs/source/user_guide/quickstart.rst`
+- **Complete Workflows** - `docs/source/user_guide/workflows.rst`
+- **Configuration Reference** - `docs/source/user_guide/configuration.rst`
+- **API Documentation** - `docs/source/api_reference/index.rst`
+- **Interactive Examples** - `docs/source/examples/index.rst`
 
-## 📋 Table of Contents
+## 🚀 Quick Start
 
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Directory Structure](#directory-structure)
-- [Usage Guide](#usage-guide)
-- [Analysis Tools](#analysis-tools)
-- [Configuration](#configuration)
-- [Development](#development)
-- [Documentation](#documentation)
-- [Citation](#citation)
-
-## 🚀 Installation
-
-### System Requirements
-
-- Python 3.8 or higher
-- 8GB+ RAM (recommended)
-- Linux / macOS / Windows
-
-### Dependency Installation
+### Installation
 
 ```bash
 # Clone repository
-git clone https://github.com/your-org/EEPAS.git
+git clone https://github.com/phonchi/EEPAS.git
 cd EEPAS/src/python_src
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
-### Verify Installation
+### Italy Region - 5-Step Workflow
 
 ```bash
-python3 -c "import numpy, scipy, numba, pandas; print('✓ All dependencies installed')"
+# Step 1: PPE Learning
+python3 ppe_learning.py --config config_italy_target_m0.json
+
+# Step 2: Aftershock Parameters
+python3 fit_aftershock_params.py \
+    --config config_italy_target_m0.json \
+    --ppe-ref-mag mT \
+    --target-mag mT
+
+# Step 3: EEPAS Learning (three-stage optimization)
+python3 eepas_learning_auto_boundary.py \
+    --config config_italy_target_m0.json \
+    --three-stage \
+    --ppe-ref-mag mT \
+    --max-rounds 1
+
+# Step 4: PPE Forecast
+python3 ppe_make_forecast.py \
+    --config config_italy_target_m0.json \
+    --ppe-ref-mag mT
+
+# Step 5: EEPAS Forecast
+python3 eepas_make_forecast.py \
+    --config config_italy_target_m0.json \
+    --ppe-ref-mag mT
+
+# Step 6: Archive Results (Optional)
+python3 archive_results.py \
+    --config config_italy_target_m0.json \
+    --results-dir results_italy_target_m0/ \
+    --workflow "EEPAS 5-step workflow" \
+    --logs *.log \
+    --ppe-ref-mag mT \
+    --target-mag mT
 ```
 
-## ⚡ Quick Start
+**Expected Runtime:** ~1 hour on 8-core laptop
 
-### Italy Mode - Complete Forecasting Workflow
-
-```bash
-# 1. PPE parameter learning
-python3 ppe_learning.py --config config_italy_causal_ew0.json
-
-# 2. Aftershock parameter learning
-python3 fit_aftershock_params.py --config config_italy_causal_ew0.json --ppe-ref-mag mT --target-mag mT
-
-# 3. EEPAS parameter learning (automatic boundary adjustment + three-stage optimization)
-python3 eepas_learning_auto_boundary.py --config config_italy_causal_ew0.json --three-stage --ppe-ref-mag mT --max-rounds 1
-
-# 4. PPE forecast (fast mode recommended)
-python3 ppe_make_forecast.py --config config_italy_causal_ew0.json --fast --ppe-ref-mag mT
-
-# 5. EEPAS forecast (fast mode recommended)
-python3 eepas_make_forecast.py --config config_italy_causal_ew0.json --fast --ppe-ref-mag mT
-
-# Causality weight test configurations
-# EW0: Fixed EW
-python3 eepas_learning_auto_boundary.py --config config_italy_causal_ew0.json --three-stage --no-boundary-adjustment --fast
-
-# EW1: Dynamic EW
-python3 eepas_learning_auto_boundary.py --config config_italy_causal_ew1.json --three-stage --no-boundary-adjustment --fast
-```
+See `docs/source/user_guide/workflows.rst` for complete workflow details.
 
 ## 📁 Directory Structure
 
 ```
 python_src/
-├── README.md                          # This file
-├── USAGE.md                           # Detailed usage guide
-├── requirements.txt                   # Python dependencies
-│
-├── Configuration Files/
-│   ├── config_italy.json                    # Italy standard configuration
-│   ├── config_italy_3stage.json             # Italy three-stage optimization
-│   ├── config_italy_causal_ew0.json         # EW0 test configuration
-│   ├── config_italy_causal_ew0_accurate.json # EW0 accurate mode
-│   └── config_italy_causal_ew1.json         # EW1 test configuration
-│
-├── Core Programs/
-│   ├── ppe_learning.py                      # PPE parameter learning
-│   ├── fit_aftershock_params.py             # Aftershock parameter learning
-│   ├── eepas_learning.py                    # EEPAS basic learning
-│   ├── eepas_learning_auto_boundary.py      # EEPAS auto boundary adjustment (recommended)
-│   ├── ppe_make_forecast.py                 # PPE forecasting
-│   ├── eepas_make_forecast.py               # EEPAS forecasting
-│   ├── optimize_eepas_parameters.py         # EEPAS optimizer
-│   ├── eepas_likelihood.py                  # EEPAS likelihood function
-│   ├── ppe_optimization.py                  # PPE optimization
-│   ├── neg_log_like_aftershock.py           # Aftershock likelihood function
-│   └── calculate_earthquake_weights.py      # Earthquake weight calculation
-│
-├── utils/                             # Utility modules
-│   ├── data_loader.py                       # Data loading (supports region configuration)
-│   ├── catalog_processor.py                 # Catalog processing (supports region filtering)
-│   ├── region_manager.py                    # Region management (Testing/Neighborhood)
-│   ├── auto_boundary_adjustment.py          # Boundary adjustment logic
-│   ├── get_paths.py                         # Path handling
-│   └── fminsearchcon.py                     # Optimization tools
-│
-├── data/                              # Earthquake data
-│   ├── CELLE_ter.mat                        # Testing region (177 grid cells)
-│   ├── HORUS_Italy_RDN2008_polygon_filtered.mat  # Italy earthquake catalog
-│   └── CPTI15.mat                           # Neighborhood region polygon
-│
-├── docs/                              # Documentation and reports
-│   ├── README.md                            # Subdirectory overview
-│   └── ...
-│
-├── results_italy/                     # Italy standard results
-├── results_italy_3stage/              # Italy three-stage results
-├── results_italy_causal_ew0/          # Italy EW0 results
-├── results_italy_causal_ew0_accurate/ # Italy EW0 accurate mode results
-└── results_italy_causal_ew1/          # Italy EW1 results
+├── ppe_learning.py              # Step 1: PPE parameter learning
+├── fit_aftershock_params.py     # Step 2: Aftershock parameters
+├── eepas_learning_auto_boundary.py  # Step 3: EEPAS parameter learning
+├── ppe_make_forecast.py         # Step 4: PPE forecast
+├── eepas_make_forecast.py       # Step 5: EEPAS forecast
+├── archive_results.py           # Archive workflow results
+├── utils/                       # Core utilities
+│   ├── data_loader.py          # Configuration and data loading
+│   ├── numerical_integration.py # Numerical integration (FAST/ACCURATE)
+│   ├── catalog_processor.py    # Catalog filtering
+│   └── region_manager.py       # Region management
+├── analysis/                    # Analysis and validation tools
+│   ├── EEPAS_Forecast_Evaluation_New.ipynb  # Reproduce paper results
+│   ├── EEPAS_Forecast_Evaluation_End_to_End.ipynb  # End-to-end pipeline
+│   ├── Examine_Psi_Italy_clean.ipynb  # Ψ phenomenon detection
+│   └── Estimate_mc_b_Italy_clean.ipynb  # b-value estimation
+├── data/                        # Earthquake catalogs and regions
+├── docs/                        # Sphinx documentation
+└── config*.json                 # Configuration files
 ```
 
-## 📖 Usage Guide
+## 🔧 Configuration Files
 
-### Core Workflow
+- `config_italy_target_m0.json` - **End-to-end automated pipeline** (recommended)
+  - Automated parameter initialization
+  - mT = 4.95, m0 = 2.95
+  - Better log-likelihood results
 
-#### 1. PPE Parameter Learning
+- `config_italy_causal_ew0_rerun.json` - **Reproduce published results**
+  - Uses literature-reported parameters
+  - Validates framework correctness
 
+See `docs/source/user_guide/configuration.rst` for creating custom configurations.
+
+## 📊 Validation Results
+
+### Reproduce Published Results (Biondini et al. 2023)
+- Configuration: `config_italy_causal_ew0_rerun.json`
+- Learning: 1990-2012, Forecast: 2012-2022
+- Runtime: < 1 hour
+- ✅ Successfully replicates published parameters
+
+### End-to-End Automated Pipeline
+- Configuration: `config_italy_target_m0.json`
+- **Automated** parameter estimation (no manual Ψ identification needed)
+- Log-likelihood: **-483** (better than manual initialization)
+- ✅ Passes all PyCSEP consistency tests (L-test, N-test, S-test, M-test)
+
+## 🧪 Analysis Tools
+
+### Interactive Notebooks
+1. **Automated Ψ Detection** - `analysis/Examine_Psi_Italy_clean.ipynb`
+2. **Forecast Evaluation (Reproduce Paper)** - `analysis/EEPAS_Forecast_Evaluation_New.ipynb`
+3. **Forecast Evaluation (End-to-End)** - `analysis/EEPAS_Forecast_Evaluation_End_to_End.ipynb`
+4. **Catalog Preprocessing** - `analysis/Estimate_mc_b_Italy_clean.ipynb`
+
+### Validation Scripts
 ```bash
-python3 ppe_learning.py --config config.json
+# Validate forecast Lambda sums
+python3 analysis/analyze_forecast_lambda.py
 ```
 
-**Output**: `results/Fitted_par_PPE_2002_2016.csv`
+## 🔬 Scientific Background
 
-#### 2. Aftershock Parameter Learning
+EEPAS is grounded in the **Ψ phenomenon** - empirical observation that most large earthquakes are preceded by increased seismicity. The model combines:
 
-```bash
-python3 fit_aftershock_params.py --config config.json
+- **PPE (Proximity to Past Earthquakes)** - Background seismicity model
+- **EEPAS** - Short-term earthquake triggering based on scaling relations
+
+**Mathematical Framework:**
+```
+λ(t,m,x,y) = μ·λ₀ + (1-μ)·Σᵢ ηᵢ·λᵢ
 ```
 
-**Output**: `results/Fitted_par_aftershock_2002_2016.csv`
+Where:
+- μ: Failure-to-predict rate
+- λ₀: PPE baseline rate
+- λᵢ: Contribution from precursor event i
 
-#### 3. EEPAS Parameter Learning
+See `docs/source/technical/mathematical_foundation.rst` for detailed derivations.
 
-Using automatic boundary adjustment (**Recommended**):
+## 🤝 Integration with Seismological Tools
 
-```bash
-python3 eepas_learning_auto_boundary.py \
-    --config config.json \
-    --max-rounds 3 \
-    --tolerance 0.01 \
-    --expansion 2.0 \
-    --nll-threshold 0.1
-```
+- **PyCSEP** - Forecast evaluation (consistency tests, scoring rules)
+- **SeismoStats** - b-value estimation, catalog preprocessing
+- **Rectangular Algorithm** - Automated Ψ phenomenon detection
 
-**Output**: `results/Fitted_par_EEPAS_2002_2016.csv`
+## 📄 Citation
 
-**Parameter Description**:
-- `--max-rounds`: Maximum boundary adjustment rounds (default 3)
-- `--tolerance`: Boundary touching tolerance (default 0.01 = 1%)
-- `--expansion`: Boundary expansion factor (default 2.0)
-- `--nll-threshold`: NLL convergence threshold (default 0.1)
-- `--optimizer`: Optimizer selection (fminsearchcon, L-BFGS-B, TNC, SLSQP, Powell, default fminsearchcon)
-- `--no-multistart`: Disable multi-start (default enabled with 3 starting points)
-- `--n-starts`: Number of multi-start points (default 3)
-- `--basinhopping`: Use Basin-Hopping global optimization
-- `--basinhopping-niter`: Basin-Hopping iteration count (default 20)
+If you use EEPAS in your research, please cite:
 
-**Optimizer Selection Recommendations** (see [OPTIMIZER_COMPARISON_REPORT.md](OPTIMIZER_COMPARISON_REPORT.md)):
-- **Recommended**: `fminsearchcon` (most robust, finds high-quality solutions for all configurations)
-- **Fast**: `L-BFGS-B` + `--n-starts 3` (fast but 50% chance of local optima)
-- **Balanced**: Run both in parallel, take better result
-
-**Examples**:
-```bash
-# Using L-BFGS-B + Multistart (3 starting points)
-python3 eepas_learning_auto_boundary.py \
-    --config config.json \
-    --optimizer L-BFGS-B \
-    --n-starts 3
-
-# Using fminsearchcon (single point, most robust)
-python3 eepas_learning_auto_boundary.py \
-    --config config.json \
-    --optimizer fminsearchcon \
-    --no-multistart
-```
-
-#### 4-5. Forecasting
-
-```bash
-# PPE forecast
-python3 ppe_make_forecast.py --config config.json
-
-# EEPAS forecast
-python3 eepas_make_forecast.py --config config.json
-```
-
-**Output**: `results/PREVISIONI_3m_*_2016_2024_24.mat`
-
-## 🔬 Analysis Tools
-
-### Forecast Evaluation
-
-Evaluate forecast Lambda sums and verify numerical integration:
-
-```bash
-python3 analysis/analyze_forecast_lambda.py --results-dir results_italy_causal_ew0
-```
-
-**Output**:
-- PPE Lambda sum verification
-- EEPAS Lambda sum verification
-- Comparison with target event count
-
-### PyCSEP Format Conversion
-
-Convert forecasts to PyCSEP format for CSEP evaluation:
-
-```bash
-python3 analysis/forecast_converter.py \
-    --input results_italy/PREVISIONI_3m_EEPAS_2012_2022.mat \
-    --output forecasts/eepas_forecast.csv \
-    --format pycsep
-```
-
-**Supported Formats**:
-- PyCSEP (for CSEP testing)
-- CSV (tabular format)
-- JSON (with metadata)
-
-## ⚙️ Configuration
-
-### Italy Configurations
-
-| Config File | Description | Learning Period | Forecast Period | useCausalEW | Results Directory |
-|------------|-------------|-----------------|-----------------|-------------|-------------------|
-| `config_italy.json` | Standard configuration | 1990-2012 | 2012-2022 | 0 | results_italy/ |
-| `config_italy_3stage.json` | Three-stage optimization | 1990-2012 | 2012-2022 | 0 | results_italy_3stage/ |
-| `config_italy_causal_ew0.json` | EW0 test | 1990-2012 | 2012-2022 | 0 | results_italy_causal_ew0/ |
-| `config_italy_causal_ew0_accurate.json` | EW0 accurate mode | 1990-2012 | 2012-2022 | 0 | results_italy_causal_ew0_accurate/ |
-| `config_italy_causal_ew1.json` | EW1 test | 1990-2012 | 2012-2022 | 1 | results_italy_causal_ew1/ |
-
-**Region Handling**:
-- Testing Region: 177 grid cells (30√2 km)
-- Neighborhood Region: CPTI15 polygon (includes offshore areas, avoids edge effects)
-
-**Causality Settings** (for numerical integration validation tests):
-- useCausalEW=0: Fixed EW
-- useCausalEW=1: Dynamic EW (dynamic causal weighting)
-
-### Configuration File Structure
-
-```json
-{
-  "dataDir": "data",
-  "resultsDir": "results_italy_causal_ew0",
-  "catalogStartYear": 1985,
-  "learnStartYear": 1990,
-  "learnEndYear": 2012,
-  "forecastStartYear": 2012,
-  "forecastEndYear": 2022,
-  "inputFiles": {
-    "catalogFile": "HORUS_Italy_RDN2008_polygon_filtered.mat",
-    "neighborhoodRegionFile": "CPTI15.mat",
-    "testingRegionFile": "CELLE_ter.mat"
-  },
-  "modelParams": {
-    "m0": 3.0,
-    "mT": 5.0,
-    "B": 0.96,
-    ...
-  }
+```bibtex
+@article{eepas2024,
+  title={EEPAS: Every Earthquake a Precursor According to Scale},
+  author={Author Names},
+  journal={Journal Name},
+  year={2024}
 }
 ```
 
-## 🧪 Testing and Validation
+## 📝 License
 
-### Italy Mode - Region Implementation Validation
-
-Fully compliant with mathematical definitions in ggad123.pdf Equation 1:
-
-- ✅ **Source Events**: From Neighborhood Region (avoids edge effects)
-- ✅ **Target Event Summation**: Restricted to Testing Region R
-- ✅ **Integration Range**: Integrated over Testing Region R (177 grid cells)
-
-### Performance Validation
-
-**PPE Forecast Integration Method Comparison**:
-- Accurate (scipy.integrate.quad_vec): Slow but precise
-- Fast (Numba JIT midpoint): **60-70x faster**, accuracy loss **<0.03%**
-
-**EEPAS Forecast Optimization**:
-- Initial version: 277 seconds
-- Optimized: **56 seconds** (5x speedup)
-
-## 🛠️ Development
-
-### Coding Standards
-
-- Python 3.8+ syntax
-- Type hints
-- Docstring documentation
-- PEP 8 code style
-
-### Performance Optimization
-
-- Numba JIT compilation of core functions
-- Vectorized computation
-- Sparse matrix operations
-
-### Contributing Guidelines
-
-1. Fork the project
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Submit Pull Request
-
-## 📚 Documentation
-
-### Main Documentation
-- **README.md** (this file) - Project overview and quick start
-- **USAGE.md** - Detailed usage guide
-- **docs/README.md** - Subdirectory documentation overview
-
-### Analysis Reports
-- **docs/README_DISTRIBUTION_ANALYSIS.md** - Earthquake distribution analysis documentation
-- **docs/README_WEIGHT_ANALYSIS.md** - Earthquake weight analysis documentation
-- **docs/REGION_SUBDIVISION_VERIFICATION.md** - Region subdivision validation report
-
-### Test Data
-Test files and intermediate results moved to `archive_test_files/` directory
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
-- Original EEPAS model developers
-- CPTI15 Italian earthquake catalog maintenance team
-- HORUS earthquake catalog contributors
+- Based on the original EEPAS model by Rhoades, Christophersen, and colleagues
+- Italy earthquake data from CPTI15 and HORUS catalogs
+- Integration with PyCSEP framework (Savran et al., 2022)
+- SeismoStats package (Mirwald et al., 2025)
 
-## 📖 Citation
+## 📞 Support
 
-If you use this project in your research, please cite:
-
-```bibtex
-@software{eepas_python,
-  title = {EEPAS - Python Implementation},
-  author = {Your Name},
-  year = {2025},
-  url = {https://github.com/your-org/EEPAS}
-}
-```
-
-## 🔗 Related Resources
-
-- [CPTI15 - Italian Parametric Earthquake Catalog](https://emidius.mi.ingv.it/CPTI15-DBMI15/)
-- [INGV - Istituto Nazionale di Geofisica e Vulcanologia](https://www.ingv.it/)
+- **Documentation:** `docs/build/html/index.html`
+- **Issues:** [GitHub Issues](https://github.com/phonchi/EEPAS/issues)
+- **Changelog:** [CHANGELOG_EN.md](CHANGELOG_EN.md)
 
 ---
 
-**Version**: 1.3.0
-**Python**: 3.8+
-**Last Updated**: 2025-11-06
-
-### 📝 Latest Updates (v1.3.0)
-- 🔬 **Numerical Integration Refactoring**: Unified integration interface, supports ACCURATE/FAST mode switching
-- ✅ **Validation Complete**: FAST vs ACCURATE parameter difference < 0.2%, refactoring correctness confirmed
-- ⚡ **Performance Improvement**: FAST mode 1.75x faster, Forecast stage 4x faster
-- 📊 **Lambda Validation**: Learning and Forecast stage integration validation passed
-- 🚀 **Automated Workflow**: Complete workflow scripts for dual causality settings
+**Version:** 0.4.0 | **Last Updated:** 2025-12-11

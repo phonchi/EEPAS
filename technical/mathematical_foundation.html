@@ -410,10 +410,10 @@ document.write(`
 \[\lambda(t,m,x,y) = \mu \lambda_0(t,m,x,y) + \sum_{t_i \geq t_0;\, m_i \geq m_0}^{t - \mathrm{delay}} \eta(m_i) \frac{\lambda_i(t,m,x,y)}{\Delta(m)}\]</div>
 <p>where:</p>
 <ul class="simple">
-<li><p><strong>μ</strong>: Failure-to-predict rate (PPE proportion, background)</p></li>
-<li><p><strong>1-μ</strong>: Precursor-driven rate (EEPAS proportion)</p></li>
-<li><p><strong>λ₀</strong>: PPE baseline rate density</p></li>
-<li><p><strong>λᵢ</strong>: Contribution from precursor event i</p></li>
+<li><p><strong>μ</strong>: Failure-to-predict rate (proportion without detectable medium-term precursors)</p></li>
+<li><p><strong>1-μ</strong>: Precursor-driven rate (proportion with medium-term precursory scaling)</p></li>
+<li><p><strong>λ₀</strong>: PPE baseline intensity (in the absence of medium-term precursory build-up)</p></li>
+<li><p><strong>λᵢ</strong>: Medium-term precursory contribution from event i</p></li>
 <li><p><strong>η(m)</strong>: Magnitude-dependent scaling function</p></li>
 <li><p><strong>Δ(m)</strong>: Incompleteness correction factor</p></li>
 </ul>

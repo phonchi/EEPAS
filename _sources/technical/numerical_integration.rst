@@ -8,10 +8,10 @@ Overview
 
 EEPAS requires numerical integration at multiple stages:
 
-1. **PPE Learning**: Spatial integration over testing region
-2. **Aftershock Fitting**: Spatial integration for normalization
-3. **EEPAS Learning**: Magnitude integration for triggering kernels
-4. **Forecasting**: Spatiotemporal integration for rate calculation
+1. **PPE Learning**: Spatial integration over testing region (baseline intensity)
+2. **Aftershock Fitting**: Spatial integration for normalization (short-term exclusion calibration)
+3. **EEPAS Learning**: Magnitude integration for precursory scaling kernels
+4. **Forecasting**: Spatiotemporal integration for rate calculation (medium-term predictions)
 
 Two integration modes are available:
 

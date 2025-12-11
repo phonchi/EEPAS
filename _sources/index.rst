@@ -5,7 +5,7 @@ EEPAS - Earthquake Forecasting System
 
 **Version:** 0.4.0
 
-**EEPAS** (Every Earthquake a Precursor According to Scale) is a state-of-the-art earthquake forecasting model that combines the PPE (Proximity to Past Earthquares) background seismicity model with the EEPAS short-term aftershock triggering model. This implementation provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.
+**EEPAS** (Every Earthquake a Precursor According to Scale) is a state-of-the-art medium- to long-term earthquake forecasting model that combines the PPE (Proximity to Past Earthquakes) baseline intensity model with the EEPAS medium-term precursory component. This implementation provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.
 
 .. image:: https://img.shields.io/badge/version-0.4.0-blue.svg
    :alt: Version
@@ -28,9 +28,9 @@ Key Features
    - Flexible configuration for different catalogs and spatial grids
 
 🎯 **Complete EEPAS Implementation**
-   - PPE Model: Background seismicity with spatial and magnitude decay
-   - EEPAS Model: Short-term earthquake triggering
-   - Aftershock Parameters: Triggering intensity calibration
+   - PPE Model: Baseline intensity in the absence of medium-term precursory build-up
+   - EEPAS Precursory Component: Medium-term precursory scaling (magnitude, time, spatial)
+   - Aftershock Parameters: Calibration for excluding short-term clustering effects
 
 ⚡ **Performance Optimized**
    - FAST mode: Trapezoidal rule integration (default, 1.75x faster)

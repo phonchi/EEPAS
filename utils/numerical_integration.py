@@ -354,7 +354,7 @@ def magnitude_integral_accurate(m1, m2, mee, am, bm, Sm, m0, B):
 # Version Information
 # ============================================================================
 
-__version__ = "1.0.0"
+__version__ = "0.4.0"
 __date__ = "2025-11-03"
 
 # Exported public interface

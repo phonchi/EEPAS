@@ -431,8 +431,8 @@ Output Example
       Final NLL = -495.406852
 
    Checking if Stage3 parameters hit boundaries...
-      ⚠️  St=0.150000 接近下界 0.150000 (距離比例=0.0000)
-      ⚠️  Sa=1.000000 接近下界 1.000000 (距離比例=0.0000)
+      ⚠️  St=0.150000 near lower bound 0.150000 (distance ratio=0.0000)
+      ⚠️  Sa=1.000000 near lower bound 1.000000 (distance ratio=0.0000)
 
    💡 Suggesting boundary adjustments (expansion factor = 2.0x):
       St lower bound: 0.150000 → 0.075000

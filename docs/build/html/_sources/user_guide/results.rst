@@ -71,8 +71,8 @@ Aftershock Parameters
 
 **Mathematical Definition** (from model equation λ' = ν·λ₀ + κ·Σλᵢ'):
 
-- **ν (nu/v)**: Coefficient for PPE background rate λ₀
-- **κ (kappa/k)**: Coefficient for aftershock triggering rate Σλᵢ'
+- **ν (nu/v)**: Coefficient for PPE baseline rate λ₀
+- **κ (kappa/k)**: Coefficient for precursor rate Σλᵢ' (after short-term exclusion)
 
 EEPAS Parameters
 ^^^^^^^^^^^^^^^^

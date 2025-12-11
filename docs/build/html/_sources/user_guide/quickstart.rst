@@ -55,7 +55,7 @@ Learn background seismicity parameters using the Italy configuration:
 
 **Step 2: Aftershock Parameters**
 
-Fit aftershock triggering parameters with mT magnitude anchoring:
+Calibrate short-term exclusion parameters with mT magnitude anchoring:
 
 .. code-block:: bash
 

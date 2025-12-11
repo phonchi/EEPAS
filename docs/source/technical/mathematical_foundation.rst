@@ -26,10 +26,10 @@ The complete EEPAS+PPE rate density is:
 
 where:
 
-- **μ**: Failure-to-predict rate (PPE proportion, background)
-- **1-μ**: Precursor-driven rate (EEPAS proportion)
-- **λ₀**: PPE baseline rate density
-- **λᵢ**: Contribution from precursor event i
+- **μ**: Failure-to-predict rate (proportion without detectable medium-term precursors)
+- **1-μ**: Precursor-driven rate (proportion with medium-term precursory scaling)
+- **λ₀**: PPE baseline intensity (in the absence of medium-term precursory build-up)
+- **λᵢ**: Medium-term precursory contribution from event i
 - **η(m)**: Magnitude-dependent scaling function
 - **Δ(m)**: Incompleteness correction factor
 

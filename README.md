@@ -13,7 +13,7 @@
 
 ## ✨ Key Features
 
-- 🎯 **Complete EEPAS Implementation** - PPE background model + EEPAS short-term triggering
+- 🎯 **Complete EEPAS Implementation** - PPE background model + EEPAS medium-term precursory component
 - 🌍 **Universal Application** - Apply to any seismic region worldwide
 - 🚀 **Automated Workflow** - End-to-end pipeline from raw catalog to forecast evaluation
 - ⚡ **High Performance** - Numba JIT acceleration, 4x faster forecasting
@@ -187,8 +187,8 @@ python3 analysis/analyze_forecast_lambda.py
 
 EEPAS is grounded in the **Ψ phenomenon** - empirical observation that most large earthquakes are preceded by increased seismicity. The model combines:
 
-- **PPE (Proximity to Past Earthquakes)** - Background seismicity model
-- **EEPAS** - Short-term earthquake triggering based on scaling relations
+- **PPE (Proximity to Past Earthquakes)** - Baseline intensity in the absence of medium-term precursory build-up
+- **EEPAS precursory component** - Medium-term precursory scaling based on magnitude, time, and spatial relationships
 
 **Mathematical Framework:**
 ```

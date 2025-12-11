@@ -151,7 +151,7 @@ man_pages = [
 # -- Options for Texinfo output ----------------------------------------------
 texinfo_documents = [
     ('index', 'EEPAS', 'EEPAS Documentation',
-     author, 'EEPAS', 'Earthquake forecasting models with spatiotemporal ETAS.',
+     author, 'EEPAS', 'Medium- to long-term earthquake forecasting with PPE and EEPAS models.',
      'Miscellaneous'),
 ]
 

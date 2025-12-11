@@ -378,7 +378,7 @@ document.write(`
   <section id="eepas-earthquake-forecasting-system">
 <h1>EEPAS - Earthquake Forecasting System<a class="headerlink" href="#eepas-earthquake-forecasting-system" title="Link to this heading">#</a></h1>
 <p><strong>Version:</strong> 0.4.0</p>
-<p><strong>EEPAS</strong> (Every Earthquake a Precursor According to Scale) is a state-of-the-art earthquake forecasting model that combines the PPE (Proximity to Past Earthquares) background seismicity model with the EEPAS short-term aftershock triggering model. This implementation provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.</p>
+<p><strong>EEPAS</strong> (Every Earthquake a Precursor According to Scale) is a state-of-the-art medium- to long-term earthquake forecasting model that combines the PPE (Proximity to Past Earthquakes) baseline intensity model with the EEPAS medium-term precursory component. This implementation provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.</p>
 <a class="reference external image-reference" href="https://github.com/phonchi/EEPAS"><img alt="Version" src="https://img.shields.io/badge/version-0.4.0-blue.svg" />
 </a>
 <a class="reference external image-reference" href="https://www.python.org/downloads/"><img alt="Python Version" src="https://img.shields.io/badge/python-3.8+-blue.svg" />
@@ -395,9 +395,9 @@ document.write(`
 </ul>
 </dd>
 <dt>🎯 <strong>Complete EEPAS Implementation</strong></dt><dd><ul class="simple">
-<li><p>PPE Model: Background seismicity with spatial and magnitude decay</p></li>
-<li><p>EEPAS Model: Short-term earthquake triggering</p></li>
-<li><p>Aftershock Parameters: Triggering intensity calibration</p></li>
+<li><p>PPE Model: Baseline intensity in the absence of medium-term precursory build-up</p></li>
+<li><p>EEPAS Precursory Component: Medium-term precursory scaling (magnitude, time, spatial)</p></li>
+<li><p>Aftershock Parameters: Calibration for excluding short-term clustering effects</p></li>
 </ul>
 </dd>
 <dt>⚡ <strong>Performance Optimized</strong></dt><dd><ul class="simple">

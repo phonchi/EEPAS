@@ -409,7 +409,7 @@ document.write(`
 <p>For your own region, create a custom config file following the same structure as <code class="docutils literal notranslate"><span class="pre">config_italy_causal_ew0_rerun.json</span></code></p>
 </div>
 <p><strong>Step 2: Aftershock Parameters</strong></p>
-<p>Fit aftershock triggering parameters with mT magnitude anchoring:</p>
+<p>Calibrate short-term exclusion parameters with mT magnitude anchoring:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>fit_aftershock_params.py<span class="w"> </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json<span class="w"> </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span>--target-mag<span class="w"> </span>mT
 </pre></div>
 </div>

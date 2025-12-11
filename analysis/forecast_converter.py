@@ -8,9 +8,9 @@ Complete forecast format conversion tool supporting:
 - Spatial downsampling (coarse grids → 0.1° sub-grids)
 - Time period handling (3-month/1-year periods)
 
-Author: EEPAS Team
+Author: EEPAS Development Team
 Date: 2025-11-26
-Version: 1.0.0
+Version: 0.4.0
 """
 
 import numpy as np

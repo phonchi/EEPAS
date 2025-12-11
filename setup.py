@@ -20,18 +20,18 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
     ]
 
 setup(
-    name="eepas-taiwan",
-    version="1.0.0",
-    author="EEPAS Taiwan Project",
-    author_email="your-email@example.com",
-    description="EEPAS earthquake prediction model - Python implementation for Taiwan",
+    name="eepas",
+    version="0.4.0",
+    author="EEPAS Development Team",
+    author_email="steve2003121@gmail.com",
+    description="EEPAS earthquake forecasting model - First fully documented open-source Python implementation",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/your-org/EEPAS_Taiwan",
+    url="https://github.com/phonchi/EEPAS",
     project_urls={
-        "Bug Tracker": "https://github.com/your-org/EEPAS_Taiwan/issues",
-        "Documentation": "https://github.com/your-org/EEPAS_Taiwan/blob/master/src/python_src/README.md",
-        "Source Code": "https://github.com/your-org/EEPAS_Taiwan",
+        "Bug Tracker": "https://github.com/phonchi/EEPAS/issues",
+        "Documentation": "https://github.com/phonchi/EEPAS/tree/master/src/python_src/docs",
+        "Source Code": "https://github.com/phonchi/EEPAS",
     },
     packages=find_packages(include=["analysis", "utils"]),
     classifiers=[

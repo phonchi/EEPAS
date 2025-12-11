@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>eepas_learning_auto_boundary &#8212; EEPAS 0.3.0 documentation</title>
+    <title>eepas_learning_auto_boundary &#8212; EEPAS 0.4.0 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/documentation_options.js?v=9453eeee"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -138,8 +138,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -178,6 +178,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_End_to_End.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
 </ul>
 </details></li>
@@ -507,11 +508,17 @@ document.write(`
             <span class="k">return</span> <span class="n">result_params</span>
 
         <span class="c1"># ===== Check boundary hits =====</span>
-        <span class="c1"># Load Stage3 boundary settings</span>
-        <span class="n">stage3_config</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;optimization&#39;</span><span class="p">][</span><span class="s1">&#39;stage3&#39;</span><span class="p">]</span>
-        <span class="n">param_names</span> <span class="o">=</span> <span class="n">stage3_config</span><span class="p">[</span><span class="s1">&#39;parameters&#39;</span><span class="p">]</span>
-        <span class="n">lower_bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">stage3_config</span><span class="p">[</span><span class="s1">&#39;lowerBounds&#39;</span><span class="p">])</span>
-        <span class="n">upper_bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">stage3_config</span><span class="p">[</span><span class="s1">&#39;upperBounds&#39;</span><span class="p">])</span>
+        <span class="c1"># Load boundary settings (Stage3 for three-stage, Stage1 for single-stage)</span>
+        <span class="k">if</span> <span class="s1">&#39;stage3&#39;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;optimization&#39;</span><span class="p">]:</span>
+            <span class="c1"># Three-stage mode: use stage3 boundaries</span>
+            <span class="n">boundary_config</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;optimization&#39;</span><span class="p">][</span><span class="s1">&#39;stage3&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Single-stage mode: use stage1 boundaries</span>
+            <span class="n">boundary_config</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;optimization&#39;</span><span class="p">][</span><span class="s1">&#39;stage1&#39;</span><span class="p">]</span>
+
+        <span class="n">param_names</span> <span class="o">=</span> <span class="n">boundary_config</span><span class="p">[</span><span class="s1">&#39;parameters&#39;</span><span class="p">]</span>
+        <span class="n">lower_bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">boundary_config</span><span class="p">[</span><span class="s1">&#39;lowerBounds&#39;</span><span class="p">])</span>
+        <span class="n">upper_bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">boundary_config</span><span class="p">[</span><span class="s1">&#39;upperBounds&#39;</span><span class="p">])</span>
 
         <span class="c1"># Extract 8 EEPAS parameter values from results</span>
         <span class="n">params_values</span> <span class="o">=</span> <span class="p">[]</span>
@@ -550,7 +557,7 @@ document.write(`
                 <span class="n">new_bound</span> <span class="o">=</span> <span class="n">suggest_boundary_adjustment</span><span class="p">(</span>
                     <span class="n">param_name</span><span class="p">,</span> <span class="n">current_value</span><span class="p">,</span> <span class="n">old_bound</span><span class="p">,</span> <span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">expansion_factor</span>
                 <span class="p">)</span>
-                <span class="n">stage3_config</span><span class="p">[</span><span class="s1">&#39;lowerBounds&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_bound</span>
+                <span class="n">boundary_config</span><span class="p">[</span><span class="s1">&#39;lowerBounds&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_bound</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   </span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1"> lower bound: </span><span class="si">{</span><span class="n">old_bound</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1"> → </span><span class="si">{</span><span class="n">new_bound</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="n">adjusted</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -560,7 +567,7 @@ document.write(`
                 <span class="n">new_bound</span> <span class="o">=</span> <span class="n">suggest_boundary_adjustment</span><span class="p">(</span>
                     <span class="n">param_name</span><span class="p">,</span> <span class="n">current_value</span><span class="p">,</span> <span class="n">old_bound</span><span class="p">,</span> <span class="s1">&#39;upper&#39;</span><span class="p">,</span> <span class="n">expansion_factor</span>
                 <span class="p">)</span>
-                <span class="n">stage3_config</span><span class="p">[</span><span class="s1">&#39;upperBounds&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_bound</span>
+                <span class="n">boundary_config</span><span class="p">[</span><span class="s1">&#39;upperBounds&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_bound</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   </span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1"> upper bound: </span><span class="si">{</span><span class="n">old_bound</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1"> → </span><span class="si">{</span><span class="n">new_bound</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="n">adjusted</span> <span class="o">=</span> <span class="kc">True</span>
 

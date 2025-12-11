@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>EEPAS Italy Preprocessing: Estimation of Completeness (\(m_c\)) and \(b\)-value &#8212; EEPAS 0.3.0 documentation</title>
+    <title>EEPAS Italy Preprocessing: Estimation of Completeness (\(m_c\)) and \(b\)-value &#8212; EEPAS 0.4.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/documentation_options.js?v=9453eeee"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -50,7 +50,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Mathematical Foundation" href="../technical/mathematical_foundation.html" />
-    <link rel="prev" title="EEPAS Italy Results: Visualization and PyCSEP Evaluation" href="EEPAS_Forecast_Evaluation_New.html" />
+    <link rel="prev" title="EEPAS Italy Results: Visualization and PyCSEP Evaluation" href="EEPAS_Forecast_Evaluation_End_to_End.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -142,8 +142,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -182,6 +182,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EEPAS_Forecast_Evaluation_End_to_End.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
 </ul>
 </details></li>
@@ -472,7 +473,7 @@ document.write(`
 <section id="Install-related-packages">
 <h3>Install related packages<a class="headerlink" href="#Install-related-packages" title="Link to this heading">#</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pycsep</span> <span class="o">-</span><span class="n">qq</span>
@@ -484,20 +485,20 @@ document.write(`
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">24.3/24.3 MB</span> <span class="ansi-red-fg">26.9 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">24.3/24.3 MB</span> <span class="ansi-red-fg">50.2 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
   Preparing metadata (setup.py) ... done
-   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">11.8/11.8 MB</span> <span class="ansi-red-fg">130.7 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
-   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">14.5/14.5 MB</span> <span class="ansi-red-fg">89.4 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
-   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">1.6/1.6 MB</span> <span class="ansi-red-fg">64.4 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">11.8/11.8 MB</span> <span class="ansi-red-fg">117.1 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">14.5/14.5 MB</span> <span class="ansi-red-fg">63.2 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">1.6/1.6 MB</span> <span class="ansi-red-fg">64.1 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
   Building wheel for pycsep (setup.py) ... done
 <span class="ansi-red-fg">ERROR: pip&#39;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
-ipython-sql 0.5.0 requires sqlalchemy&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.
-google-adk 1.19.0 requires sqlalchemy&lt;3.0.0,&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.</span><span class="ansi-red-fg">
+google-adk 1.20.0 requires sqlalchemy&lt;3.0.0,&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.
+ipython-sql 0.5.0 requires sqlalchemy&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.</span><span class="ansi-red-fg">
 </span>
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">swiss</span><span class="o">-</span><span class="n">seismological</span><span class="o">-</span><span class="n">service</span><span class="o">/</span><span class="n">SeismoStats</span><span class="o">.</span><span class="n">git</span> <span class="o">-</span><span class="n">qq</span>
@@ -512,13 +513,13 @@ google-adk 1.19.0 requires sqlalchemy&lt;3.0.0,&gt;=2.0, but you have sqlalchemy
   Installing build dependencies ... done
   Getting requirements to build wheel ... done
   Preparing metadata (pyproject.toml) ... done
-     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">62.0/62.0 kB</span> <span class="ansi-red-fg">2.5 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
-   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">40.2/40.2 MB</span> <span class="ansi-red-fg">83.2 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">62.0/62.0 kB</span> <span class="ansi-red-fg">4.2 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">40.2/40.2 MB</span> <span class="ansi-red-fg">50.9 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
   Building wheel for SeismoStats (pyproject.toml) ... done
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
@@ -535,17 +536,17 @@ Mounted at /content/drive
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">HORUS_Italy_polygon_filtered</span><span class="o">.</span><span class="n">mat</span> <span class="o">.</span>
 <span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">HORUS_Italy_RDN2008_polygon_filtered</span><span class="o">.</span><span class="n">mat</span> <span class="o">.</span>
-<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">earth_src</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">EEPAS_Taiwan</span><span class="o">-</span><span class="n">main</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">dataset</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
+<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">EEPAS</span><span class="o">-</span><span class="n">master</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">dataset</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">csep</span>
@@ -567,7 +568,7 @@ Mounted at /content/drive
 </div>
 <p>Transform the dataset for compatibility with <a class="reference external" href="https://seismostats.readthedocs.io/v1.0.0rc2/user/10minute_intro.html">SeismoStats</a></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MAT_FILE_PATH</span> <span class="o">=</span> <span class="s2">&quot;/content/HORUS_Italy_polygon_filtered.mat&quot;</span>
@@ -628,7 +629,7 @@ Catalog Head:
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">catalog</span>
@@ -640,22 +641,31 @@ Catalog Head:
 <section id="Exploratory-data-analysis">
 <h2>Exploratory data analysis<a class="headerlink" href="#Exploratory-data-analysis" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">plot_in_space</span><span class="p">(</span><span class="n">include_map</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/usr/local/lib/python3.12/dist-packages/cartopy/io/__init__.py:242: DownloadWarning: Downloading: https://naturalearth.s3.amazonaws.com/10m_cultural/ne_10m_admin_0_countries.zip
+  warnings.warn(f&#39;Downloading: {url}&#39;, DownloadWarning)
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_Estimate_mc_b_Italy_clean_11_0.png" src="../_images/examples_Estimate_mc_b_Italy_clean_11_0.png" />
+<img alt="../_images/examples_Estimate_mc_b_Italy_clean_11_1.png" src="../_images/examples_Estimate_mc_b_Italy_clean_11_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">plot_cum_fmd</span><span class="p">();</span>
@@ -681,7 +691,7 @@ Legend added to the plot.
 <section id="Estimatie-mc-and-b-values">
 <h2>Estimatie mc and b values<a class="headerlink" href="#Estimatie-mc-and-b-values" title="Link to this heading">#</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">delta_m</span> <span class="o">=</span> <span class="mf">0.1</span>
@@ -690,7 +700,7 @@ Legend added to the plot.
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">magnitude</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
@@ -711,7 +721,7 @@ Name: magnitude, dtype: float64
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_mc_maxc</span><span class="p">(</span><span class="n">fmd_bin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
@@ -728,7 +738,7 @@ Name: magnitude, dtype: float64
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_mc_b_stability</span><span class="p">()</span>
@@ -755,7 +765,7 @@ return_vals: {&#39;best_b_value&#39;: np.float64(1.2367860665754902), &#39;mcs_t
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mcs_test</span> <span class="o">=</span> <span class="n">bin_to_precision</span><span class="p">(</span>
@@ -818,13 +828,13 @@ Testing mc: 2.9.
 ..p-value: 0.0
 
 Testing mc: 3.0.
-..p-value: 0.0
+..p-value: 0.001
 
 Testing mc: 3.1.
-..p-value: 0.003
+..p-value: 0.001
 
 Testing mc: 3.2.
-..p-value: 0.002
+..p-value: 0.001
 
 Testing mc: 3.3.
 ..p-value: 0.003
@@ -839,7 +849,7 @@ Testing mc: 3.6.
 ..p-value: 0.0
 
 Testing mc: 3.7.
-..p-value: 0.0
+..p-value: 0.001
 
 Testing mc: 3.8.
 ..p-value: 0.0
@@ -848,18 +858,15 @@ Testing mc: 3.9.
 ..p-value: 0.0
 
 Testing mc: 4.0.
-..p-value: 0.003
+..p-value: 0.001
 
 Testing mc: 4.1.
-..p-value: 0.046
-
-Testing mc: 4.2.
-..p-value: 0.102
+..p-value: 0.059
 
 
-Best mc to pass the test: 4.200
-with a b-value of: 1.179.
-4.2
+Best mc to pass the test: 4.100
+with a b-value of: 1.155.
+4.1
 </pre></div></div>
 </div>
 <section id="📊-Analysis-of-Completeness-(m_c)-Estimation-Results">
@@ -898,7 +905,7 @@ with a b-value of: 1.179.
 </ul>
 <p><strong>Conclusion:</strong> To satisfy the model’s structural requirements while maximizing data usage, we select a threshold of <strong>:math:`m_0 = 3.0`</strong>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_b</span><span class="p">(</span><span class="n">mc</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">delta_m</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
@@ -907,7 +914,8 @@ with a b-value of: 1.179.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
@@ -915,7 +923,7 @@ np.float64(0.8808434899293852)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_b</span><span class="p">(</span><span class="n">mc</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">delta_m</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">UtsuBValueEstimator</span><span class="p">)</span>
@@ -924,7 +932,8 @@ np.float64(0.8808434899293852)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
@@ -932,7 +941,7 @@ np.float64(0.8778362810987849)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_b</span><span class="p">(</span><span class="n">mc</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">delta_m</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">BPositiveBValueEstimator</span><span class="p">)</span>
@@ -941,7 +950,8 @@ np.float64(0.8778362810987849)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
@@ -949,7 +959,7 @@ np.float64(0.9698519369113587)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">estimate_b</span><span class="p">(</span><span class="n">mc</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">delta_m</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">BMorePositiveBValueEstimator</span><span class="p">)</span>
@@ -958,7 +968,8 @@ np.float64(0.9698519369113587)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
@@ -1034,7 +1045,7 @@ np.float64(1.0133107669744423)
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="EEPAS_Forecast_Evaluation_New.html"
+       href="EEPAS_Forecast_Evaluation_End_to_End.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">

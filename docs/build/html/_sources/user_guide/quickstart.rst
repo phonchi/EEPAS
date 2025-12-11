@@ -42,7 +42,7 @@ Learn background seismicity parameters using the Italy configuration:
 
 .. code-block:: bash
 
-   python3 ppe_learning.py --config config_italy.json
+   python3 ppe_learning.py --config config_italy_causal_ew0_rerun.json
 
 **Output**: ``results_italy/Fitted_par_PPE_1990_2012.csv``
 
@@ -51,7 +51,7 @@ Learn background seismicity parameters using the Italy configuration:
 - ``s``: Uniform background rate
 
 .. note::
-   For your own region, create a custom config file following the same structure as ``config_italy.json``
+   For your own region, create a custom config file following the same structure as ``config_italy_causal_ew0_rerun.json``
 
 **Step 2: Aftershock Parameters**
 
@@ -59,7 +59,7 @@ Fit aftershock triggering parameters with mT magnitude anchoring:
 
 .. code-block:: bash
 
-   python3 fit_aftershock_params.py --config config_italy.json --ppe-ref-mag mT --target-mag mT
+   python3 fit_aftershock_params.py --config config_italy_causal_ew0_rerun.json --ppe-ref-mag mT --target-mag mT
 
 **Output**: ``results_italy/Fitted_par_aftershock_1990_2012.csv``
 
@@ -76,7 +76,7 @@ Learn EEPAS model parameters with automatic boundary adjustment and three-stage 
 .. code-block:: bash
 
    python3 eepas_learning_auto_boundary.py \
-       --config config_italy.json \
+       --config config_italy_causal_ew0_rerun.json \
        --three-stage \
        --ppe-ref-mag mT \
        --max-rounds 1
@@ -96,7 +96,7 @@ Generate PPE background seismicity forecast:
 
 .. code-block:: bash
 
-   python3 ppe_make_forecast.py --config config_italy.json --ppe-ref-mag mT
+   python3 ppe_make_forecast.py --config config_italy_causal_ew0_rerun.json --ppe-ref-mag mT
 
 **Output**: ``results_italy/PREVISIONI_3m_PPE_2012_2022.mat``
 
@@ -106,7 +106,7 @@ Generate complete EEPAS forecast:
 
 .. code-block:: bash
 
-   python3 eepas_make_forecast.py --config config_italy.json --ppe-ref-mag mT
+   python3 eepas_make_forecast.py --config config_italy_causal_ew0_rerun.json --ppe-ref-mag mT
 
 **Output**: ``results_italy/PREVISIONI_3m_EEPAS_2012_2022.mat``
 

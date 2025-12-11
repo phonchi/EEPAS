@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Examining the \(\Psi\) Phenomenon in Italian Seismicity &#8212; EEPAS 0.3.0 documentation</title>
+    <title>Examining the \(\Psi\) Phenomenon in Italian Seismicity &#8212; EEPAS 0.4.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/documentation_options.js?v=9453eeee"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -142,8 +142,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -182,6 +182,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EEPAS_Forecast_Evaluation_End_to_End.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
 </ul>
 </details></li>
@@ -474,7 +475,7 @@ document.write(`
 <hr class="docutils" />
 <p>Let’s begin!</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pycsep</span> <span class="o">-</span><span class="n">qq</span>
@@ -486,20 +487,20 @@ document.write(`
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">24.3/24.3 MB</span> <span class="ansi-red-fg">66.0 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">24.3/24.3 MB</span> <span class="ansi-red-fg">25.5 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
   Preparing metadata (setup.py) ... done
-   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">11.8/11.8 MB</span> <span class="ansi-red-fg">55.4 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
-   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">14.5/14.5 MB</span> <span class="ansi-red-fg">37.9 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
-   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">1.6/1.6 MB</span> <span class="ansi-red-fg">34.2 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">11.8/11.8 MB</span> <span class="ansi-red-fg">99.9 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">14.5/14.5 MB</span> <span class="ansi-red-fg">65.2 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">1.6/1.6 MB</span> <span class="ansi-red-fg">59.7 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
   Building wheel for pycsep (setup.py) ... done
 <span class="ansi-red-fg">ERROR: pip&#39;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
-ipython-sql 0.5.0 requires sqlalchemy&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.
-google-adk 1.19.0 requires sqlalchemy&lt;3.0.0,&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.</span><span class="ansi-red-fg">
+google-adk 1.20.0 requires sqlalchemy&lt;3.0.0,&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.
+ipython-sql 0.5.0 requires sqlalchemy&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.</span><span class="ansi-red-fg">
 </span>
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
@@ -516,25 +517,25 @@ Mounted at /content/drive
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">EEPAS_CODE</span><span class="o">/</span><span class="n">HORUS_40ter</span><span class="o">.</span><span class="n">mat</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
 <span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">HORUS_Ita_Catalog</span><span class="o">/</span><span class="n">HORUS_Ita_Catalog</span><span class="o">.</span><span class="n">txt</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
 <span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">EEPAS_CODE</span><span class="o">/</span><span class="n">CELLE_ter</span><span class="o">.</span><span class="n">mat</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
 <span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">EEPAS_CODE</span><span class="o">/</span><span class="n">CPTI15</span><span class="o">.</span><span class="n">mat</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
-<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">earth_src</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">EEPAS_Taiwan</span><span class="o">-</span><span class="n">main</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">dataset</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
-<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">earth_src</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">EEPAS_Taiwan</span><span class="o">-</span><span class="n">main</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">select_m5plus</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
-<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">earth_src</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">EEPAS_Taiwan</span><span class="o">-</span><span class="n">main</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">decimal_time</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
-<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">earth_src</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">EEPAS_Taiwan</span><span class="o">-</span><span class="n">main</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">optimize_psi_results</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
-<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">earth_src</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">EEPAS_Taiwan</span><span class="o">-</span><span class="n">main</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">optimize_psi_working</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
-<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">earth_src</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">EEPAS_Taiwan</span><span class="o">-</span><span class="n">main</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">plot_relations</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
-<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">earth_src</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">EEPAS_Taiwan</span><span class="o">-</span><span class="n">main</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">convert_to_rdn2008</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
+<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">EEPAS</span><span class="o">-</span><span class="n">master</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">dataset</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
+<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">EEPAS</span><span class="o">-</span><span class="n">master</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">select_m5plus</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
+<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">EEPAS</span><span class="o">-</span><span class="n">master</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">decimal_time</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
+<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">EEPAS</span><span class="o">-</span><span class="n">master</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">optimize_psi_results</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
+<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">EEPAS</span><span class="o">-</span><span class="n">master</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">optimize_psi_working</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
+<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">EEPAS</span><span class="o">-</span><span class="n">master</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">plot_relations</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
+<span class="err">!</span><span class="n">cp</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="mi">00</span><span class="n">_Image</span>\ <span class="n">meeting</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="mi">01</span><span class="n">_Scratchpad</span><span class="o">/</span><span class="n">earthquake</span><span class="o">/</span><span class="n">EEPAS</span><span class="o">-</span><span class="n">master</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">coordinate_transform</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -565,7 +566,7 @@ Mounted at /content/drive
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mat_data</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s2">&quot;/content/CELLE_ter.mat&quot;</span><span class="p">)</span>
@@ -575,7 +576,8 @@ Mounted at /content/drive
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
@@ -589,7 +591,7 @@ Mounted at /content/drive
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;output.csv&#39;</span><span class="p">,</span> <span class="n">aa</span><span class="p">[:,:</span><span class="mi">4</span><span class="p">],</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
@@ -597,7 +599,7 @@ Mounted at /content/drive
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mat_data</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s2">&quot;/content/CPTI15.mat&quot;</span><span class="p">)</span>
@@ -606,7 +608,8 @@ Mounted at /content/drive
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
@@ -631,7 +634,7 @@ array([[1.63980000e+01, 3.50500000e+01, 3.87196399e+03, 7.40126811e+03],
 <section id="Testing-Region-vs-Neighborhood-Region">
 <h2>Testing Region vs Neighborhood Region<a class="headerlink" href="#Testing-Region-vs-Neighborhood-Region" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">italy_polygon</span> <span class="o">=</span> <span class="n">mat_data</span><span class="p">[</span><span class="s1">&#39;cpti15&#39;</span><span class="p">]</span>
@@ -884,7 +887,7 @@ Converting coordinates to lat/lon...
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-Processing cells: 100%|██████████| 177/177 [00:00&lt;00:00, 87360.77it/s]
+Processing cells: 100%|██████████| 177/177 [00:00&lt;00:00, 82451.33it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -906,7 +909,9 @@ Drawing grid cells...
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-Drawing cells: 100%|██████████| 177/177 [00:00&lt;00:00, 1432.05it/s]
+Drawing cells: 100%|██████████| 177/177 [00:00&lt;00:00, 1422.82it/s]
+/tmp/ipython-input-3694189746.py:135: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax.legend(loc=&#39;upper right&#39;, fontsize=10)
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -922,9 +927,6 @@ Saving Figure 1...
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-
-/tmp/ipython-input-3070535217.py:143: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
-  ax.legend(loc=&#39;upper right&#39;, fontsize=10)
 /usr/local/lib/python3.12/dist-packages/cartopy/io/__init__.py:242: DownloadWarning: Downloading: https://naturalearth.s3.amazonaws.com/10m_physical/ne_10m_land.zip
   warnings.warn(f&#39;Downloading: {url}&#39;, DownloadWarning)
 /usr/local/lib/python3.12/dist-packages/cartopy/io/__init__.py:242: DownloadWarning: Downloading: https://naturalearth.s3.amazonaws.com/10m_physical/ne_10m_ocean.zip
@@ -969,7 +971,7 @@ Drawing all cells with labels...
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-Drawing labeled cells: 100%|██████████| 177/177 [00:00&lt;00:00, 1185.67it/s]
+Drawing labeled cells: 100%|██████████| 177/177 [00:00&lt;00:00, 719.94it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1011,7 +1013,7 @@ Polygon vertices: 15
 <section id="Transform-coordinates">
 <h2>Transform coordinates<a class="headerlink" href="#Transform-coordinates" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Define column names</span>
@@ -1103,7 +1105,7 @@ First 5 records of the data:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_target</span>
@@ -1111,10 +1113,11 @@ First 5 records of the data:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
-  <div id="df-1d659ff5-c967-42bf-ad8d-6eb726ba12cd" class="colab-df-container">
+  <div id="df-a7374039-6faa-4a90-b04a-3fd5f3152ba8" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1296,7 +1299,7 @@ First 5 records of the data:
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-1d659ff5-c967-42bf-ad8d-6eb726ba12cd')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-a7374039-6faa-4a90-b04a-3fd5f3152ba8')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1348,12 +1351,12 @@ First 5 records of the data:
 
     <script>
       const buttonEl =
-        document.querySelector('#df-1d659ff5-c967-42bf-ad8d-6eb726ba12cd button.colab-df-convert');
+        document.querySelector('#df-a7374039-6faa-4a90-b04a-3fd5f3152ba8 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-1d659ff5-c967-42bf-ad8d-6eb726ba12cd');
+        const element = document.querySelector('#df-a7374039-6faa-4a90-b04a-3fd5f3152ba8');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1373,8 +1376,8 @@ First 5 records of the data:
   </div>
 
 
-    <div id="df-e1241036-d370-44d2-9a75-28d0c15f1cb0">
-      <button class="colab-df-quickchart" onclick="quickchart('df-e1241036-d370-44d2-9a75-28d0c15f1cb0')"
+    <div id="df-f5bc58e8-fa34-4061-9fd6-6861c55d4725">
+      <button class="colab-df-quickchart" onclick="quickchart('df-f5bc58e8-fa34-4061-9fd6-6861c55d4725')"
                 title="Suggest charts"
                 style="display:none;">
 
@@ -1493,14 +1496,14 @@ First 5 records of the data:
         }
         (() => {
           let quickchartButtonEl =
-            document.querySelector('#df-e1241036-d370-44d2-9a75-28d0c15f1cb0 button');
+            document.querySelector('#df-f5bc58e8-fa34-4061-9fd6-6861c55d4725 button');
           quickchartButtonEl.style.display =
             google.colab.kernel.accessAllowed ? 'block' : 'none';
         })();
       </script>
     </div>
 
-  <div id="id_483e0c34-0806-446d-aa53-3fd66d6beb1b">
+  <div id="id_527b9f89-7632-47b8-9bb9-33a35d813dd0">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -1544,7 +1547,7 @@ First 5 records of the data:
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_483e0c34-0806-446d-aa53-3fd66d6beb1b button.colab-df-generate');
+        document.querySelector('#id_527b9f89-7632-47b8-9bb9-33a35d813dd0 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -1559,10 +1562,10 @@ First 5 records of the data:
   </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">python</span> <span class="n">convert_to_rdn2008</span><span class="o">.</span><span class="n">py</span> \
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">python</span> <span class="n">coordinate_transform</span><span class="o">.</span><span class="n">py</span> \
   <span class="o">--</span><span class="n">horus</span><span class="o">-</span><span class="ow">in</span> <span class="n">HORUS</span><span class="o">.</span><span class="n">mat</span> \
   <span class="o">--</span><span class="n">celle</span><span class="o">-</span><span class="ow">in</span> <span class="n">CELLE_ter</span><span class="o">.</span><span class="n">mat</span> \
   <span class="o">--</span><span class="n">horus</span><span class="o">-</span><span class="n">out</span> <span class="n">HORUS_Italy_RDN2008</span><span class="o">.</span><span class="n">mat</span> \
@@ -1575,32 +1578,41 @@ First 5 records of the data:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Created coordinate transformer: epsg:4326 -&gt; epsg:7794
+============================================================
+Coordinate Transformation Tool
+============================================================
+Target Coordinate System: RDN2008 Italy Zone (epsg:7794)
+Description: Italy national projected coordinate system
+Region: RDN2008 Italy Zone
+============================================================
+
+✓ Coordinate transformer created: epsg:4326 -&gt; epsg:7794
 
 Processing HORUS file: HORUS.mat
   Original data shape: (493418, 10)
   Coordinate range:
     Latitude: [34.12, 48.80]°N
     Longitude: [5.11, 20.00]°E
-Warning: Found 498 records with coordinates outside Italy region. Transformation results may be inaccurate.
-  Invalid coordinate range: latitude [34.12, 48.80]°N, longitude [5.11, 19.30]°E
+⚠️  Warning: 498 coordinates out of bounds for RDN2008 Italy Zone, transformation may be inaccurate
+   Invalid range: lat [34.12, 48.80]°N, lon [5.11, 19.30]°E
+   Expected range: lat [35, 48]°N, lon [6, 20]°E
   Transformed coordinate range (km):
     Easting (X): [6386.26, 7713.82] km
     Northing (Y): [3775.51, 5408.56] km
-✓ Saved data to HORUS_Italy_RDN2008.mat
-  Variable name `HORUS` unchanged, original lat/lon replaced with RDN2008 coordinates (km)
+✓ Data written to HORUS_Italy_RDN2008.mat
+  Variable name `HORUS` preserved, original lat/lon replaced with projected coordinates (km)
 
 Processing CELLE file: CELLE_ter.mat
 ❌ Error processing CELLE file: &#39;Variable `CELLE` not found in CELLE_ter.mat&#39;
 
 ============================================================
-✓ Coordinate transformation complete!
+✓ Coordinate transformation completed!
 ============================================================
 </pre></div></div>
 </div>
 <p>Obtain data in the testing region.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============= 1. Reading Grid Cell Definitions =============</span>
@@ -2001,7 +2013,7 @@ Final retained: 418257 (84.77%)
 </div>
 <p>Obtain data in neighborhood region</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============= 1. Reading Polygon Definition =============</span>
@@ -2527,7 +2539,7 @@ Earthquakes in polygon without cell assignment: 19935
 <section id="\Psi-Analysis">
 <h2><span class="math notranslate nohighlight">\(\Psi\)</span> Analysis<a class="headerlink" href="#\Psi-Analysis" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Step 1: Read and Prepare Mainshock List ---</span>
@@ -2577,7 +2589,7 @@ Selected 11 M5.45+ earthquakes (year &gt;= 1990 and &lt; 2012, depth &lt; 40.0km
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use neighborhood region</span>
@@ -2617,7 +2629,208 @@ Selected 11 M5.45+ earthquakes (year &gt;= 1990 and &lt; 2012, depth &lt; 40.0km
 <p>These initial estimates <strong>bootstrap the EEPAS learning process</strong> in Step 3!</p>
 <hr class="docutils" />
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract fields</span>
+<span class="n">na</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y4</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">m3</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">m4</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">d1</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">d3</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">d4</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">long</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">co</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">ms_h</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">ms_m</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">ms_s</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">m_m</span> <span class="o">=</span> <span class="n">ca_data</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># --- Step 2: Clean up old output files ---</span>
+<span class="n">output_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;testopt.ou4a&quot;</span><span class="p">,</span> <span class="s2">&quot;testopt.ou5a&quot;</span><span class="p">,</span> <span class="s2">&quot;optimized_psi.ou4&quot;</span><span class="p">,</span> <span class="s2">&quot;optimized_psi.ou5&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">output_files</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Deleted old file: </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Step 3: Run PSI Analysis for Each Earthquake ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Starting PSI Analysis ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Note: Using absolute time of mainshock instead of relative time&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">na</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Processing earthquake </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">na</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">na</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Set depth range</span>
+    <span class="n">dp_rg</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="c1"># Calculate absolute time (Important correction!)</span>
+    <span class="c1"># Mainshock time (including hour, minute, second)</span>
+    <span class="n">t3_abs</span> <span class="o">=</span> <span class="n">decimal_time_precise</span><span class="p">(</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">y3</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">m3</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">d3</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">ms_h</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">ms_m</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">ms_s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Start and end times (year, month, day only)</span>
+    <span class="n">t1_abs</span> <span class="o">=</span> <span class="n">decimal_time_precise</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">y1</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">m1</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">d1</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">t4_abs</span> <span class="o">=</span> <span class="n">decimal_time_precise</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">y4</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">m4</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">d4</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+    <span class="c1"># Calculate time window</span>
+    <span class="n">tprior</span> <span class="o">=</span> <span class="n">t3_abs</span> <span class="o">-</span> <span class="n">t1_abs</span>  <span class="c1"># Search time before mainshock</span>
+    <span class="n">tpost</span> <span class="o">=</span> <span class="n">t4_abs</span> <span class="o">-</span> <span class="n">t3_abs</span>   <span class="c1"># Time after mainshock (though not used by the algorithm)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Mainshock Absolute Time: </span><span class="si">{</span><span class="n">t3_abs</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Search Time Window: </span><span class="si">{</span><span class="n">tprior</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> years&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Location: (</span><span class="si">{</span><span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">long</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">), Magnitude: </span><span class="si">{</span><span class="n">m_m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">catsel</span> <span class="o">=</span> <span class="n">earthquake_catalog_file</span>
+    <span class="c1"># Execute PSI Analysis</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">optimize_psi</span><span class="p">(</span>
+            <span class="n">main_time</span><span class="o">=</span><span class="n">t3_abs</span><span class="p">,</span>       <span class="c1"># Use absolute time!</span>
+            <span class="n">tprior</span><span class="o">=</span><span class="n">tprior</span><span class="p">,</span>          <span class="c1"># Length of time to search backward</span>
+            <span class="n">tpost</span><span class="o">=</span><span class="n">tpost</span><span class="p">,</span>            <span class="c1"># Time backward (unused)</span>
+            <span class="n">loc</span><span class="o">=</span><span class="p">(</span><span class="n">long</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>             <span class="c1"># Use radius from the paper</span>
+            <span class="n">depth_range</span><span class="o">=</span><span class="n">dp_rg</span><span class="p">,</span>
+            <span class="n">catalog</span><span class="o">=</span><span class="n">_load_catalog</span><span class="p">(</span><span class="n">catsel</span><span class="p">),</span>
+            <span class="n">heading</span><span class="o">=</span><span class="s2">&quot;testopt&quot;</span><span class="p">,</span>      <span class="c1"># Fixed output prefix</span>
+            <span class="n">cutoff</span><span class="o">=</span><span class="n">co</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">mm</span><span class="o">=</span><span class="n">m_m</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">eq_name</span><span class="o">=</span><span class="n">na</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">tp_ratio_min</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+            <span class="n">tp_ratio_max</span><span class="o">=</span><span class="mf">0.6</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ✓ Analysis completed for </span><span class="si">{</span><span class="n">na</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ✗ Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== PSI Analysis Completed ===&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Step 4: Execute Result Optimization (Step 9) ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Executing Step 9 Optimization (tolerance mode) ===&quot;</span><span class="p">)</span>
+<span class="n">n0</span><span class="p">,</span> <span class="n">n91</span><span class="p">,</span> <span class="n">n92</span> <span class="o">=</span> <span class="n">optimize_psi_results</span><span class="p">(</span>
+    <span class="n">input_file</span><span class="o">=</span><span class="s2">&quot;testopt.ou4a&quot;</span><span class="p">,</span>
+    <span class="n">output_file</span><span class="o">=</span><span class="s2">&quot;optimized_psi.ou4&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;tolerance&quot;</span><span class="p">,</span>
+    <span class="n">t_tol</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>   <span class="c1"># ≈ 3.65 days ← Equivalent to t_decimals=2</span>
+    <span class="n">mp_tol</span><span class="o">=</span><span class="mf">0.10</span><span class="p">,</span>  <span class="c1"># ← Equivalent to mp_decimals=1</span>
+    <span class="n">r_tol</span><span class="o">=</span><span class="mf">1.00</span><span class="p">,</span>   <span class="c1"># ← Equivalent to r_decimals=0 (integer)</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_relax</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Step9] Original </span><span class="si">{</span><span class="n">n0</span><span class="si">}</span><span class="s2"> → After 9.1 </span><span class="si">{</span><span class="n">n91</span><span class="si">}</span><span class="s2"> → After 9.2 </span><span class="si">{</span><span class="n">n92</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+=== Starting PSI Analysis ===
+Note: Using absolute time of mainshock instead of relative time
+
+Processing earthquake 1/11: K7EQ1
+  Mainshock Absolute Time: 1990.3405
+  Search Time Window: 30.34 years
+  Location: (4502.14, 7327.87), Magnitude: 5.77
+  ✓ Analysis completed for K7EQ1
+
+Processing earthquake 2/11: K7EQ2
+  Mainshock Absolute Time: 1997.7342
+  Search Time Window: 30.73 years
+  Location: (4758.49, 7072.52), Magnitude: 5.66
+  ✓ Analysis completed for K7EQ2
+
+Processing earthquake 3/11: K7EQ3
+  Mainshock Absolute Time: 1997.7353
+  Search Time Window: 30.74 years
+  Location: (4757.56, 7069.50), Magnitude: 5.97
+  ✓ Analysis completed for K7EQ3
+
+Processing earthquake 4/11: K7EQ4
+  Mainshock Absolute Time: 1997.7643
+  Search Time Window: 30.76 years
+  Location: (4758.97, 7068.91), Magnitude: 5.47
+  ✓ Analysis completed for K7EQ4
+
+Processing earthquake 5/11: K7EQ5
+  Mainshock Absolute Time: 1997.7853
+  Search Time Window: 30.79 years
+  Location: (4744.67, 7073.29), Magnitude: 5.62
+  ✓ Analysis completed for K7EQ5
+
+Processing earthquake 6/11: K7EQ6
+  Mainshock Absolute Time: 1998.2779
+  Search Time Window: 30.28 years
+  Location: (5121.02, 7120.87), Magnitude: 5.64
+  ✓ Analysis completed for K7EQ6
+
+Processing earthquake 7/11: K7EQ7
+  Mainshock Absolute Time: 1998.6889
+  Search Time Window: 30.69 years
+  Location: (4437.01, 7336.47), Magnitude: 5.53
+  ✓ Analysis completed for K7EQ7
+
+Processing earthquake 8/11: K7EQ8
+  Mainshock Absolute Time: 2002.8313
+  Search Time Window: 30.83 years
+  Location: (4617.28, 7240.41), Magnitude: 5.74
+  ✓ Analysis completed for K7EQ8
+
+Processing earthquake 9/11: K7EQ9
+  Mainshock Absolute Time: 2002.8346
+  Search Time Window: 30.83 years
+  Location: (4619.89, 7236.17), Magnitude: 5.72
+  ✓ Analysis completed for K7EQ9
+
+Processing earthquake 10/11: K7EQ10
+  Mainshock Absolute Time: 2009.2604
+  Search Time Window: 30.26 years
+  Location: (4683.51, 7113.55), Magnitude: 6.29
+  ✓ Analysis completed for K7EQ10
+
+Processing earthquake 11/11: K7EQ11
+  Mainshock Absolute Time: 2009.2650
+  Search Time Window: 30.26 years
+  Location: (4679.33, 7122.35), Magnitude: 5.54
+  ✓ Analysis completed for K7EQ11
+
+=== PSI Analysis Completed ===
+
+=== Executing Step 9 Optimization (tolerance mode) ===
+=== PSI Result Optimization (Step 9) ===
+Following the exact algorithm from the paper
+Read 153 raw Ψ identification records
+Mode: tolerance
+
+Step 9.1: For identical tmin, tp, mp → keep max sloperatio...
+  After first filter: 150 records
+
+Step 9.2: For identical tp, sloperatio → keep min ap...
+  After second filter: 103 records
+
+After optimization: 6 earthquakes have Ψ identifications
+Number of Ψ identifications per earthquake (top 10):
+eq_name
+K7EQ2     28
+K7EQ7     19
+K7EQ8     17
+K7EQ1     16
+K7EQ10    12
+K7EQ6     11
+Name: count, dtype: int64
+
+Saved to optimized_psi.ou4 (fixed 14 columns)
+[Step9] Original 153 → After 9.1 150 → After 9.2 103
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Step 5: Plot Scaling Relations ---</span>
@@ -2672,14 +2885,14 @@ Saved M_m vs M_P plot to final_scaling_mm_mp.png
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_Examine_Psi_Italy_clean_24_1.png" src="../_images/examples_Examine_Psi_Italy_clean_24_1.png" />
+<img alt="../_images/examples_Examine_Psi_Italy_clean_25_1.png" src="../_images/examples_Examine_Psi_Italy_clean_25_1.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_Examine_Psi_Italy_clean_24_2.png" src="../_images/examples_Examine_Psi_Italy_clean_24_2.png" />
+<img alt="../_images/examples_Examine_Psi_Italy_clean_25_2.png" src="../_images/examples_Examine_Psi_Italy_clean_25_2.png" />
 </div>
 </div>
 </section>

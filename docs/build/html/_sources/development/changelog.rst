@@ -6,7 +6,72 @@ All notable changes to this project are documented here.
 The format is based on `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_,
 and this project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
-Version 1.3.0 (2025-11-06)
+Version 0.4.0 (2025-12-11)
+--------------------------
+
+Documentation and Dual Validation Approach
+
+Added
+^^^^^
+
+**Complete Sphinx Documentation**
+
+- Comprehensive user guide (installation, quickstart, workflows, configuration, results)
+- API reference documentation for all modules
+- Technical documentation (mathematical foundation, numerical integration, optimization)
+- Interactive examples (4 Jupyter notebooks)
+
+**Interactive Example Notebooks**
+
+- Automated Ψ phenomenon detection (``Examine_Psi_Italy_clean.ipynb``)
+- PyCSEP evaluation - Reproduce paper results (``EEPAS_Forecast_Evaluation_New.ipynb``)
+- PyCSEP evaluation - End-to-end pipeline (``EEPAS_Forecast_Evaluation_End_to_End.ipynb``)
+- Catalog preprocessing with SeismoStats (``Estimate_mc_b_Italy_clean.ipynb``)
+
+**Archive Functionality**
+
+- ``archive_results.py`` - Archive workflow results for reproducibility
+- Saves configuration snapshot, execution metadata, combined logs, and reproduction guide
+- Integrated into workflow documentation
+
+**Dual Validation Approach**
+
+- **Reproduce Published Results**: ``config_italy_causal_ew0_rerun.json``
+- **End-to-End Automated Pipeline**: ``config_italy_target_m0.json``
+
+Changed
+^^^^^^^
+
+**Documentation Overhaul**
+
+- README.md simplified (428 → 243 lines) and updated to v0.4.0
+- USAGE_EN.md simplified (689 → 329 lines) focusing on essential workflows
+- All documentation now references comprehensive Sphinx docs
+- Version numbering adjusted (v1.x.0 → v0.x.0)
+
+Fixed
+^^^^^
+
+**Single-Stage Mode Boundary Adjustment**
+
+- Previously only worked with three-stage optimization (stage3)
+- Now automatically detects single-stage mode and uses stage1 boundaries
+
+**Parameter Hard Caps**
+
+- Prevents unreasonable parameter expansion during boundary adjustment
+- Caps: am≤4.5, at≤3.0, ba≤6.0, bt≤2.0, Sm/St/Sa≤2.0/1.0/2.0, u≤0.75
+
+Validated
+^^^^^^^^^
+
+- **Reproduce Published Results**: Successfully replicates Biondini et al. (2023) within 1 hour
+- **End-to-End Pipeline**: Achieves log-likelihood -483 (better than manual initialization)
+- **PyCSEP Integration**: Passes all consistency tests (L-test, N-test, S-test, M-test)
+
+----
+
+Version 0.3.0 (2025-11-06)
 --------------------------
 
 Numerical Integration Refactoring and Validation
@@ -66,7 +131,7 @@ Changed
 
 **Documentation Updates**
 
-- README.md updated to v1.3.0, emphasizing numerical integration validation achievements
+- README.md updated to v0.3.0, emphasizing numerical integration validation achievements
 - CHANGELOG.md detailed recording of refactoring process and validation results
 - CLAUDE.md added ACCURATE vs FAST mode usage guide
 - CLAUDE.md added Lambda sum validation methodology explanation
@@ -103,7 +168,7 @@ FAST mode compared to ACCURATE mode:
 
 ----
 
-Version 1.2.0 (2025-10-30)
+Version 0.2.0 (2025-10-30)
 --------------------------
 
 Italy Mode Support and Paper Validation
@@ -159,7 +224,7 @@ Validated
 
 ----
 
-Version 1.1.0 (2025-10-19)
+Version 0.1.0 (2025-10-19)
 --------------------------
 
 Optimizer Support Expansion
@@ -218,7 +283,7 @@ Archived
 
 ----
 
-Version 1.0.0 (2025-10-15)
+Version 0.0.0 (2025-10-15)
 --------------------------
 
 Initial Python Release

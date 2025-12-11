@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>EEPAS - Earthquake Forecasting System &#8212; EEPAS 0.3.0 documentation</title>
+    <title>EEPAS - Earthquake Forecasting System &#8212; EEPAS 0.4.0 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=6512192e"></script>
+    <script src="_static/documentation_options.js?v=9453eeee"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -142,8 +142,8 @@
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -182,6 +182,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/EEPAS_Forecast_Evaluation_End_to_End.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
 </ul>
 </details></li>
@@ -345,7 +346,8 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">EEPAS - Earthquake Forecasting System</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-updates-v1-3-0">Latest Updates (v1.3.0)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-updates-v0-4-0">Latest Updates (v0.4.0)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#previous-updates-v0-3-0">Previous Updates (v0.3.0)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-links">Quick Links</a><ul class="visible nav section-nav flex-column">
 </ul>
 </li>
@@ -375,9 +377,9 @@ document.write(`
                   
   <section id="eepas-earthquake-forecasting-system">
 <h1>EEPAS - Earthquake Forecasting System<a class="headerlink" href="#eepas-earthquake-forecasting-system" title="Link to this heading">#</a></h1>
-<p><strong>Version:</strong> 1.3.0</p>
-<p><strong>EEPAS</strong> (Every Earthquake a Precursor According to Scale) is a state-of-the-art earthquake forecasting model that combines the PPE (Proximity to Past Earthquakes) background seismicity model with the EEPAS short-term aftershock triggering model. This implementation provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.</p>
-<a class="reference external image-reference" href="https://github.com/your-repo/EEPAS"><img alt="Version" src="https://img.shields.io/badge/version-1.3.0-blue.svg" />
+<p><strong>Version:</strong> 0.4.0</p>
+<p><strong>EEPAS</strong> (Every Earthquake a Precursor According to Scale) is a state-of-the-art earthquake forecasting model that combines the PPE (Proximity to Past Earthquares) background seismicity model with the EEPAS short-term aftershock triggering model. This implementation provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.</p>
+<a class="reference external image-reference" href="https://github.com/phonchi/EEPAS"><img alt="Version" src="https://img.shields.io/badge/version-0.4.0-blue.svg" />
 </a>
 <a class="reference external image-reference" href="https://www.python.org/downloads/"><img alt="Python Version" src="https://img.shields.io/badge/python-3.8+-blue.svg" />
 </a>
@@ -406,7 +408,7 @@ document.write(`
 </dd>
 <dt>🔬 <strong>Scientifically Validated</strong></dt><dd><ul class="simple">
 <li><p>Validated against Biondini et al. (2023) paper methodology</p></li>
-<li><p>Comprehensive numerical integration verification (v1.3.0)</p></li>
+<li><p>Comprehensive numerical integration verification (v0.3.0)</p></li>
 </ul>
 </dd>
 <dt>🚀 <strong>Production Ready</strong></dt><dd><ul class="simple">
@@ -417,10 +419,20 @@ document.write(`
 </dd>
 </dl>
 </section>
-<section id="latest-updates-v1-3-0">
-<h2>Latest Updates (v1.3.0)<a class="headerlink" href="#latest-updates-v1-3-0" title="Link to this heading">#</a></h2>
+<section id="latest-updates-v0-4-0">
+<h2>Latest Updates (v0.4.0)<a class="headerlink" href="#latest-updates-v0-4-0" title="Link to this heading">#</a></h2>
+<p><strong>Documentation and Dual Validation Approach</strong></p>
+<p>This release focuses on comprehensive documentation and validation:</p>
+<ul class="simple">
+<li><p><strong>Complete Sphinx Documentation</strong>: User guide, API reference, technical docs, interactive examples</p></li>
+<li><p><strong>Dual Validation</strong>: Reproduce published results + end-to-end automated pipeline</p></li>
+<li><p><strong>Archive Functionality</strong>: Save workflow results for reproducibility</p></li>
+<li><p><strong>Bug Fixes</strong>: Single-stage boundary adjustment, parameter hard caps</p></li>
+</ul>
+</section>
+<section id="previous-updates-v0-3-0">
+<h2>Previous Updates (v0.3.0)<a class="headerlink" href="#previous-updates-v0-3-0" title="Link to this heading">#</a></h2>
 <p><strong>Numerical Integration Refactoring and Validation</strong></p>
-<p>This release focuses on unifying and validating numerical integration across all modules:</p>
 <ul class="simple">
 <li><p><strong>Unified Interface</strong>: All numerical integration now uses <code class="docutils literal notranslate"><span class="pre">utils/numerical_integration.py</span></code></p></li>
 <li><p><strong>Dual Modes</strong>: ACCURATE (scipy.dblquad) and FAST (trapezoidal rule)</p></li>
@@ -718,7 +730,8 @@ M_m &amp;= a_M + b_M M_p\end{split}\]</div>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">EEPAS - Earthquake Forecasting System</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-updates-v1-3-0">Latest Updates (v1.3.0)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-updates-v0-4-0">Latest Updates (v0.4.0)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#previous-updates-v0-3-0">Previous Updates (v0.3.0)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-links">Quick Links</a><ul class="visible nav section-nav flex-column">
 </ul>
 </li>

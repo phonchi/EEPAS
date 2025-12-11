@@ -22,6 +22,7 @@ Notebooks
 
    Examine_Psi_Italy_clean
    EEPAS_Forecast_Evaluation_New
+   EEPAS_Forecast_Evaluation_End_to_End
    Estimate_mc_b_Italy_clean
 
 Notebook 1: Automated :math:`\Psi` Phenomenon Detection
@@ -50,12 +51,32 @@ Notebook 1: Automated :math:`\Psi` Phenomenon Detection
 
 **Key Advantage**: Replaces manual :math:`\Psi` identification (a major barrier to EEPAS adoption) with a fully automated, reproducible procedure.
 
-Notebook 2: Forecast Evaluation with pyCSEP
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Notebook 2: Forecast Evaluation (Reproduce Published Results)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 :doc:`EEPAS_Forecast_Evaluation_New`
 
-**Purpose**: Rigorous statistical evaluation of EEPAS and PPE forecasts using pyCSEP.
+**Purpose**: Evaluate EEPAS forecasts from ``config_italy_causal_ew0_rerun.json`` using pyCSEP.
+
+**Configuration**: Reproduces Biondini et al. (2023) published results using the same initial parameters as reported in literature.
+
+**Key Features**:
+   - Validates our framework can replicate published results within an hour
+   - Uses manually-determined initial EEPAS parameters from literature
+   - Demonstrates computational efficiency of the Python implementation
+
+Notebook 3: End-to-End Pipeline Evaluation (Automated Parameter Estimation)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:doc:`EEPAS_Forecast_Evaluation_End_to_End`
+
+**Purpose**: Evaluate EEPAS forecasts from ``config_italy_target_m0.json`` — the complete automated end-to-end workflow.
+
+**Configuration**: Full automated pipeline from raw catalog to forecast evaluation
+   - mT = 4.95 (target magnitude threshold)
+   - m0 = 2.95 (completeness magnitude, ~2 units below mT)
+   - Initial parameters **automatically estimated** using rectangular algorithm and fixed-effects regression
+   - Automatic boundary adjustment during optimization
 
 **Integration Highlights**:
 
@@ -74,9 +95,15 @@ Notebook 2: Forecast Evaluation with pyCSEP
 
 - **pyCSEP-Compatible Output**: EEPAS generates gridded forecasts in the standard format required by pyCSEP, enabling seamless integration with the Collaboratory for the Study of Earthquake Predictability (CSEP) testing framework.
 
-**Key Advantage**: End-to-end validation using established statistical benchmarks, ensuring reproducibility and comparability with other forecasting models.
+**Key Outputs**:
+   - Spatial forecast maps with observed earthquakes
+   - PyCSEP consistency test results (L-test, N-test, S-test, M-test)
+   - Comparative scoring metrics (log-likelihood, Brier score)
+   - Better log-likelihood scores compared to manually-initialized parameters
 
-Notebook 3: Catalog Preprocessing with SeismoStats
+**Key Advantage**: Demonstrates that **automatically estimated parameters** can be directly used for forecasting without manual Ψ identification, passing strict consistency tests and achieving improved performance. This removes a major barrier to EEPAS adoption in new regions.
+
+Notebook 4: Catalog Preprocessing with SeismoStats
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 :doc:`Estimate_mc_b_Italy_clean`

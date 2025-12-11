@@ -39,12 +39,12 @@ python3 -c "import numpy, scipy, numba, pandas, h5py; print('✅ All dependencie
 ### 5-Step EEPAS Workflow
 
 **Configuration Files:**
-- **`config_italy_target_m0.json`** - End-to-end automated pipeline (recommended)
-- **`config_italy_causal_ew0_rerun.json`** - Reproduce published results
+- **`config_italy_causal_ew0_rerun.json`** - Reproduce published results (recommended for standard workflow)
+- **`config_italy_target_m0.json`** - End-to-end automated pipeline (advanced)
 
 ```bash
 # Set configuration file
-CONFIG=config_italy_target_m0.json
+CONFIG=config_italy_causal_ew0_rerun.json
 
 # Step 1: PPE Learning
 python3 ppe_learning.py --config $CONFIG
@@ -188,8 +188,8 @@ Archive workflow results for reproducibility:
 
 ```bash
 python3 archive_results.py \
-    --config config_italy_target_m0.json \
-    --results-dir results_italy_target_m0/ \
+    --config config_italy_causal_ew0_rerun.json \
+    --results-dir results_italy_causal_ew0_rerun/ \
     --workflow "EEPAS 5-step workflow" \
     --logs step1_ppe.log step2_aftershock.log step3_eepas.log \
     --ppe-ref-mag mT \
@@ -289,7 +289,7 @@ See interactive notebooks:
 ### Workflow Steps
 
 1. Prepare data files in `.mat` format
-2. Create configuration file (copy `config_italy_target_m0.json`)
+2. Create configuration file (copy `config_italy_causal_ew0_rerun.json` for standard workflow)
 3. Estimate b-value using SeismoStats
 4. Run 5-step workflow
 5. Evaluate results with PyCSEP

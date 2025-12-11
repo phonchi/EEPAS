@@ -73,39 +73,39 @@ cd EEPAS/src/python_src
 pip install -r requirements.txt
 ```
 
-### Italy Region - 5-Step Workflow
+### Italy Region - 5-Step Workflow (Reproduce Published Results)
 
 ```bash
 # Step 1: PPE Learning
-python3 ppe_learning.py --config config_italy_target_m0.json
+python3 ppe_learning.py --config config_italy_causal_ew0_rerun.json
 
 # Step 2: Aftershock Parameters
 python3 fit_aftershock_params.py \
-    --config config_italy_target_m0.json \
+    --config config_italy_causal_ew0_rerun.json \
     --ppe-ref-mag mT \
     --target-mag mT
 
 # Step 3: EEPAS Learning (three-stage optimization)
 python3 eepas_learning_auto_boundary.py \
-    --config config_italy_target_m0.json \
+    --config config_italy_causal_ew0_rerun.json \
     --three-stage \
     --ppe-ref-mag mT \
     --max-rounds 1
 
 # Step 4: PPE Forecast
 python3 ppe_make_forecast.py \
-    --config config_italy_target_m0.json \
+    --config config_italy_causal_ew0_rerun.json \
     --ppe-ref-mag mT
 
 # Step 5: EEPAS Forecast
 python3 eepas_make_forecast.py \
-    --config config_italy_target_m0.json \
+    --config config_italy_causal_ew0_rerun.json \
     --ppe-ref-mag mT
 
 # Step 6: Archive Results (Optional)
 python3 archive_results.py \
-    --config config_italy_target_m0.json \
-    --results-dir results_italy_target_m0/ \
+    --config config_italy_causal_ew0_rerun.json \
+    --results-dir results_italy_causal_ew0_rerun/ \
     --workflow "EEPAS 5-step workflow" \
     --logs *.log \
     --ppe-ref-mag mT \
@@ -143,14 +143,15 @@ python_src/
 
 ## 🔧 Configuration Files
 
-- `config_italy_target_m0.json` - **End-to-end automated pipeline** (recommended)
-  - Automated parameter initialization
-  - mT = 4.95, m0 = 2.95
-  - Better log-likelihood results
+- `config_italy_causal_ew0_rerun.json` - **Reproduce published results** (recommended for standard workflow)
+  - Uses literature-reported parameters from Biondini et al. (2023)
+  - Validates framework can replicate published results
+  - Standard 5-step workflow example
 
-- `config_italy_causal_ew0_rerun.json` - **Reproduce published results**
-  - Uses literature-reported parameters
-  - Validates framework correctness
+- `config_italy_target_m0.json` - **End-to-end automated pipeline** (advanced)
+  - Automated parameter initialization using rectangular algorithm
+  - mT = 4.95, m0 = 2.95
+  - Better log-likelihood results (-483)
 
 See `docs/source/user_guide/configuration.rst` for creating custom configurations.
 

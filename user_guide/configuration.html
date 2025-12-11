@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Configuration Reference &#8212; EEPAS 0.3.0 documentation</title>
+    <title>Configuration Reference &#8212; EEPAS 0.4.0 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/documentation_options.js?v=9453eeee"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -139,8 +139,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -179,6 +179,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_End_to_End.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
 </ul>
 </details></li>
@@ -886,7 +887,7 @@ Column 10:   Reserved
 <section id="tutorial-configuration-italy">
 <h3>Tutorial Configuration (Italy)<a class="headerlink" href="#tutorial-configuration-italy" title="Link to this heading">#</a></h3>
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">config_italy.json (Tutorial Example)</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text">config_italy_causal_ew0_rerun.json (Tutorial Example - Reproduce Published Results)</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;dataDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;resultsDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;results_italy&quot;</span><span class="p">,</span>
@@ -916,29 +917,29 @@ Column 10:   Reserved
 <span class="w">        </span><span class="s2">&quot;u&quot;</span>
 <span class="w">      </span><span class="p">],</span>
 <span class="w">      </span><span class="nt">&quot;initialValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="mf">2.27</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">-0.9</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">0.87</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">2.32</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">-1.06</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.48</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">0.2</span>
 <span class="w">      </span><span class="p">],</span>
 <span class="w">      </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="mf">0.5</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">-2.0</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">0.01</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.0001</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">0.0</span>
 <span class="w">      </span><span class="p">],</span>
 <span class="w">      </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="mf">4.0</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">2.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">0.75</span>
 <span class="w">      </span><span class="p">],</span>
 <span class="w">      </span><span class="nt">&quot;fixedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.78</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;Sm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.12</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;bt&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.83</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;St&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.17</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ba&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span>
+<span class="w">        </span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.76</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Sm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.14</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;bt&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.85</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;St&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.20</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ba&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.93</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nt">&quot;stage2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -950,24 +951,24 @@ Column 10:   Reserved
 <span class="w">        </span><span class="s2">&quot;u&quot;</span>
 <span class="w">      </span><span class="p">],</span>
 <span class="w">      </span><span class="nt">&quot;initialValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="mf">0.12</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">0.83</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">0.17</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">0.8</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.14</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.85</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.20</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.93</span><span class="p">,</span>
 <span class="w">        </span><span class="s2">&quot;u_from_stage1&quot;</span>
 <span class="w">      </span><span class="p">],</span>
 <span class="w">      </span><span class="nt">&quot;lowerBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="mf">0.05</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">0.05</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">0.001</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">0.05</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">0.05</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">0.0</span>
 <span class="w">      </span><span class="p">],</span>
 <span class="w">      </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">2.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">2.0</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">1.2</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">2.4</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">0.75</span>
 <span class="w">      </span><span class="p">]</span>
 <span class="w">    </span><span class="p">},</span>
@@ -994,30 +995,30 @@ Column 10:   Reserved
 <span class="w">      </span><span class="p">],</span>
 <span class="w">      </span><span class="nt">&quot;upperBounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="mf">4.0</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">4.0</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">1.2</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">4.8</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">2.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">2.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">2.4</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1.0</span><span class="p">,</span>
 <span class="w">        </span><span class="mf">0.75</span>
 <span class="w">      </span><span class="p">],</span>
 <span class="w">      </span><span class="nt">&quot;fixedValues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.78</span>
+<span class="w">        </span><span class="nt">&quot;bm&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.76</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">&quot;modelParams&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;delay&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;B&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.036128326435468</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;m0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;B&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0133107669744423</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;m0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.95</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;mT&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;delta&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;p&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;c&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.03</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;sigmaU&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.006</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;weightFlag&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;useCausalEW&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;useCausalEW&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;useRollingUpdate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;forecastPeriodDays&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">91.31</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;timeComp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -1070,7 +1071,7 @@ Column 10:   Reserved
 <section id="step-1-copy-tutorial-configuration">
 <h3>Step 1: Copy Tutorial Configuration<a class="headerlink" href="#step-1-copy-tutorial-configuration" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Copy Italy tutorial configuration as template</span>
-cp<span class="w"> </span>config_italy.json<span class="w"> </span>config_yourregion.json
+cp<span class="w"> </span>config_italy_causal_ew0_rerun.json<span class="w"> </span>config_yourregion.json
 </pre></div>
 </div>
 </section>

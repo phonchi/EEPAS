@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>EEPAS Italy Results: Visualization and PyCSEP Evaluation &#8212; EEPAS 0.3.0 documentation</title>
+    <title>EEPAS Italy Results: Visualization and PyCSEP Evaluation &#8212; EEPAS 0.4.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/documentation_options.js?v=9453eeee"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -49,7 +49,7 @@
     <link rel="icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="EEPAS Italy Preprocessing: Estimation of Completeness (\(m_c\)) and \(b\)-value" href="Estimate_mc_b_Italy_clean.html" />
+    <link rel="next" title="EEPAS Italy Results: Visualization and PyCSEP Evaluation" href="EEPAS_Forecast_Evaluation_End_to_End.html" />
     <link rel="prev" title="Examining the \(\Psi\) Phenomenon in Italian Seismicity" href="Examine_Psi_Italy_clean.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -142,8 +142,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -182,6 +182,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EEPAS_Forecast_Evaluation_End_to_End.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
 </ul>
 </details></li>
@@ -530,7 +531,7 @@ document.write(`
 <hr class="docutils" />
 <p>Let’s begin!</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pycsep<span class="w"> </span>-qq
@@ -542,20 +543,20 @@ document.write(`
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">24.3/24.3 MB</span> <span class="ansi-red-fg">20.8 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">24.3/24.3 MB</span> <span class="ansi-red-fg">48.4 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
   Preparing metadata (setup.py) ... done
-   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">11.8/11.8 MB</span> <span class="ansi-red-fg">39.3 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
-   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">14.5/14.5 MB</span> <span class="ansi-red-fg">84.2 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
-   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">1.6/1.6 MB</span> <span class="ansi-red-fg">53.7 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">11.8/11.8 MB</span> <span class="ansi-red-fg">94.1 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">14.5/14.5 MB</span> <span class="ansi-red-fg">57.2 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">1.6/1.6 MB</span> <span class="ansi-red-fg">63.0 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
   Building wheel for pycsep (setup.py) ... done
 <span class="ansi-red-fg">ERROR: pip&#39;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
-google-adk 1.19.0 requires sqlalchemy&lt;3.0.0,&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.
+google-adk 1.20.0 requires sqlalchemy&lt;3.0.0,&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.
 ipython-sql 0.5.0 requires sqlalchemy&gt;=2.0, but you have sqlalchemy 1.4.54 which is incompatible.</span><span class="ansi-red-fg">
 </span>
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
@@ -572,7 +573,7 @@ Mounted at /content/drive
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/HORUS_Italy_polygon_filtered.mat<span class="w"> </span>/content/
@@ -581,13 +582,13 @@ Mounted at /content/drive
 <span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/HORUS_Italy_RDN2008_filtered.mat<span class="w"> </span>/content/
 <span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/EEPAS_CODE/CELLE_ter.mat<span class="w"> </span>/content/
 <span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/EEPAS_CODE/CPTI15.mat<span class="w"> </span>/content/
-<span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/earth_src/src/EEPAS_Taiwan-main/src/analysis/forecast_converter.py<span class="w"> </span>/content/
-<span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/earth_src/src/EEPAS_Taiwan-main/src/analysis/patch_pycsep.py<span class="w"> </span>/content/
+<span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/EEPAS-master/analysis/forecast_converter.py<span class="w"> </span>/content/
+<span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/00_Image<span class="se">\ </span>meeting/Researches/01_Scratchpad/earthquake/EEPAS-master/analysis/patch_pycsep.py<span class="w"> </span>/content/
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cp<span class="w"> </span>/content/drive/MyDrive/results_italy_paper.zip<span class="w"> </span>/content/
@@ -610,7 +611,7 @@ Archive:  /content/results_italy_paper.zip
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python<span class="w"> </span>patch_pycsep.py
@@ -641,7 +642,7 @@ Checking file: /usr/local/lib/python3.12/dist-packages/csep/core/regions.py
 <section id="1.-Setup-and-Imports">
 <h2>1. Setup and Imports<a class="headerlink" href="#1.-Setup-and-Imports" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
@@ -682,7 +683,7 @@ Checking file: /usr/local/lib/python3.12/dist-packages/csep/core/regions.py
 <section id="2.-Initialize-Forecast-Converters">
 <h2>2. Initialize Forecast Converters<a class="headerlink" href="#2.-Initialize-Forecast-Converters" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># File paths</span>
@@ -745,7 +746,7 @@ Loading grid definition: CELLE_ter.mat
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Converting grids: 100%|██████████| 177/177 [00:00&lt;00:00, 13726.14it/s]
+   Converting grids: 100%|██████████| 177/177 [00:00&lt;00:00, 19496.61it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -773,7 +774,7 @@ Loading grid definition: CELLE_ter.mat
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Converting grids: 100%|██████████| 177/177 [00:00&lt;00:00, 13383.42it/s]
+   Converting grids: 100%|██████████| 177/177 [00:00&lt;00:00, 19682.69it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -803,7 +804,7 @@ Magnitude range: M5.0 - M7.5
 <section id="3.-Convert-All-Periods-and-Export">
 <h2>3. Convert All Periods and Export<a class="headerlink" href="#3.-Convert-All-Periods-and-Export" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert EEPAS forecast (all periods summed)</span>
@@ -843,7 +844,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:07&lt;00:00, 610.20it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1696.90it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -863,7 +864,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1210.58it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1662.24it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -883,7 +884,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1538.00it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 995.15it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -903,7 +904,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1501.07it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1633.01it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -923,7 +924,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1090.30it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1061.05it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -943,7 +944,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1501.71it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1228.84it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -963,7 +964,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1584.90it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1444.05it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -983,7 +984,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1657.25it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1719.97it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1003,7 +1004,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1049.58it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1670.82it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1023,7 +1024,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1656.13it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1080.38it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1043,7 +1044,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1544.88it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1487.07it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1063,7 +1064,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1656.90it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1635.52it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1083,7 +1084,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1065.40it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1661.30it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1103,7 +1104,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1679.45it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1278.29it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1123,7 +1124,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1572.94it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1374.80it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1143,7 +1144,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1582.33it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1662.57it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1163,7 +1164,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 993.83it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1688.76it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1183,7 +1184,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1662.63it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1255.00it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1203,7 +1204,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1691.83it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1324.63it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1223,7 +1224,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1578.57it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1669.50it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1243,7 +1244,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1007.56it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1660.45it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1263,7 +1264,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1569.20it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 919.31it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1283,7 +1284,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1702.69it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1662.03it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1303,7 +1304,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1066.12it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1687.04it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1323,7 +1324,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1429.81it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1757.28it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1343,7 +1344,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1561.13it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 973.62it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1363,7 +1364,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1587.26it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1617.84it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1383,7 +1384,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1142.88it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1648.56it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1403,7 +1404,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1441.60it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1530.32it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1423,7 +1424,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1197.94it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1049.53it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1443,7 +1444,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1671.98it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1669.13it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1463,7 +1464,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1083.03it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1679.32it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1483,7 +1484,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1688.99it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1661.66it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1503,7 +1504,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1197.85it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1034.29it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1523,7 +1524,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1176.52it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1767.40it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1543,7 +1544,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1404.37it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1641.68it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1563,7 +1564,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1660.10it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1653.15it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1583,7 +1584,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1708.48it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1122.15it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1603,7 +1604,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1315.63it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1613.94it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1623,7 +1624,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1359.42it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1709.93it/s]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1653,7 +1654,7 @@ All periods conversion complete!
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert PPE forecast (all periods summed)</span>
@@ -1691,7 +1692,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1543.10it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1455.54it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1711,7 +1712,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1190.53it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1682.39it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1731,7 +1732,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1712.38it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1657.22it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1751,7 +1752,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1659.85it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1269.15it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1771,7 +1772,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1695.93it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1357.01it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1791,7 +1792,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1139.18it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1636.90it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1811,7 +1812,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1704.85it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1668.90it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1831,7 +1832,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1698.62it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1294.04it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1851,7 +1852,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1674.01it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1328.43it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1871,7 +1872,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1096.60it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1639.19it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1891,7 +1892,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1702.14it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1650.74it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1911,7 +1912,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1693.98it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1235.28it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1931,7 +1932,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1689.89it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1354.82it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1951,7 +1952,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1053.95it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1647.67it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1971,7 +1972,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1689.11it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1631.23it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1991,7 +1992,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1696.43it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1292.66it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2011,7 +2012,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1681.43it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1348.53it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2031,7 +2032,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1063.79it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1667.23it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2051,7 +2052,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1672.13it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1686.27it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2071,7 +2072,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1690.30it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1402.09it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2091,7 +2092,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1675.20it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1369.83it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2111,7 +2112,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:04&lt;00:00, 1093.80it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1736.70it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2131,7 +2132,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1699.77it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1677.74it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2151,7 +2152,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1685.81it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1283.70it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2171,7 +2172,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1689.19it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1426.16it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2191,7 +2192,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1178.58it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1747.40it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2211,7 +2212,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1574.84it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1746.03it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2231,7 +2232,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1708.27it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1324.60it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2251,7 +2252,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1688.49it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1369.98it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2271,7 +2272,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1248.43it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1612.07it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2291,7 +2292,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1434.46it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1641.10it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2311,7 +2312,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1701.03it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1390.29it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2331,7 +2332,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1691.19it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1236.34it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2351,7 +2352,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1292.28it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1636.59it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2371,7 +2372,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1390.96it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1654.40it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2391,7 +2392,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1679.30it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1382.70it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2411,7 +2412,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1700.30it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1236.23it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2431,7 +2432,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1381.20it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1628.89it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2451,7 +2452,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:03&lt;00:00, 1312.98it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1677.16it/s]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2471,7 +2472,7 @@ Performing spatial downsampling (→ 0.1° × 0.1°)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1680.68it/s]
+   Processing sub-grids: 100%|██████████| 4425/4425 [00:02&lt;00:00, 1551.04it/s]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2502,7 +2503,7 @@ All periods conversion complete!
 <section id="4.-Create-PyCSEP-Forecast-Objects">
 <h2>4. Create PyCSEP Forecast Objects<a class="headerlink" href="#4.-Create-PyCSEP-Forecast-Objects" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define time range</span>
@@ -2539,10 +2540,10 @@ All periods conversion complete!
 <div class="highlight"><pre>
 Creating PyCSEP forecast objects...
 
-Exporting PyCSEP format: /tmp/tmpcxjnjit7.dat
+Exporting PyCSEP format: /tmp/tmp_1qmog5u.dat
    Successfully exported 88500 rows
 
-Exporting PyCSEP format: /tmp/tmphvo570o3.dat
+Exporting PyCSEP format: /tmp/tmpv65m4ct8.dat
    Successfully exported 88500 rows
 
 ✅ PyCSEP forecasts created!
@@ -2555,7 +2556,7 @@ Exporting PyCSEP format: /tmp/tmphvo570o3.dat
 <h2>5. Load and Filter Catalog<a class="headerlink" href="#5.-Load-and-Filter-Catalog" title="Link to this heading">#</a></h2>
 <p>Load observed earthquakes from HORUS catalog</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Custom loader for HORUS format</span>
@@ -2635,7 +2636,7 @@ Loading earthquake catalog...
 <section id="6.-Visualize-Forecasts">
 <h2>6. Visualize Forecasts<a class="headerlink" href="#6.-Visualize-Forecasts" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot EEPAS forecast</span>
@@ -2670,6 +2671,8 @@ Loading earthquake catalog...
 <div class="highlight"><pre>
 /tmp/ipython-input-1022497928.py:20: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
+/usr/local/lib/python3.12/dist-packages/cartopy/io/__init__.py:242: DownloadWarning: Downloading: https://naturalearth.s3.amazonaws.com/10m_physical/ne_10m_coastline.zip
+  warnings.warn(f&#39;Downloading: {url}&#39;, DownloadWarning)
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -2693,7 +2696,7 @@ Loading earthquake catalog...
 <section id="EEPAS-Tests">
 <h3>EEPAS Tests<a class="headerlink" href="#EEPAS-Tests" title="Link to this heading">#</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seed</span> <span class="o">=</span> <span class="mi">123456</span>
@@ -2799,7 +2802,7 @@ M-test: δ=0.1038
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running EEPAS consistency tests...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -2946,7 +2949,7 @@ S-test: δ=0.7101
 <section id="PPE-Tests">
 <h3>PPE Tests<a class="headerlink" href="#PPE-Tests" title="Link to this heading">#</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running PPE consistency tests...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -3049,7 +3052,7 @@ M-test: δ=0.2385
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running PPE consistency tests...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -3171,7 +3174,7 @@ S-test: δ=0.9970
 <section id="8.-Compare-EEPAS-vs.-PPE">
 <h2>8. Compare EEPAS vs. PPE<a class="headerlink" href="#8.-Compare-EEPAS-vs.-PPE" title="Link to this heading">#</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_brier_score_ndarray</span><span class="p">(</span><span class="n">forecast</span><span class="p">,</span> <span class="n">observations</span><span class="p">):</span>
@@ -3199,7 +3202,7 @@ S-test: δ=0.9970
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate comparison metrics</span>
@@ -3267,7 +3270,7 @@ Brier score                         -0.0111      -0.0111      EEPAS
 <section id="9.-Plot-Comparison-Summary">
 <h2>9. Plot Comparison Summary<a class="headerlink" href="#9.-Plot-Comparison-Summary" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -3355,11 +3358,11 @@ Brier score                         -0.0111      -0.0111      EEPAS
       </div>
     </a>
     <a class="right-next"
-       href="Estimate_mc_b_Italy_clean.html"
+       href="EEPAS_Forecast_Evaluation_End_to_End.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</p>
+        <p class="prev-next-title">EEPAS Italy Results: Visualization and PyCSEP Evaluation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

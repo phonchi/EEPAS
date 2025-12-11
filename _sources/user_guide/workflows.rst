@@ -27,7 +27,7 @@ Step-by-Step Execution
 
 .. code-block:: bash
 
-   python3 ppe_learning.py --config config_italy.json
+   python3 ppe_learning.py --config config_italy_causal_ew0_rerun.json
 
 **Expected Output**:
 
@@ -46,7 +46,7 @@ Step-by-Step Execution
 .. code-block:: bash
 
    python3 fit_aftershock_params.py \
-       --config config_italy.json \
+       --config config_italy_causal_ew0_rerun.json \
        --ppe-ref-mag mT \
        --target-mag mT
 
@@ -62,7 +62,7 @@ Step-by-Step Execution
 .. code-block:: bash
 
    python3 eepas_learning_auto_boundary.py \
-       --config config_italy.json \
+       --config config_italy_causal_ew0_rerun.json \
        --three-stage \
        --ppe-ref-mag mT \
        --max-rounds 1
@@ -93,7 +93,7 @@ Step-by-Step Execution
 .. code-block:: bash
 
    python3 ppe_make_forecast.py \
-       --config config_italy.json \
+       --config config_italy_causal_ew0_rerun.json \
        --ppe-ref-mag mT
 
 **Step 5: EEPAS Forecast**
@@ -101,7 +101,7 @@ Step-by-Step Execution
 .. code-block:: bash
 
    python3 eepas_make_forecast.py \
-       --config config_italy.json \
+       --config config_italy_causal_ew0_rerun.json \
        --ppe-ref-mag mT
 
 Complete Italy Workflow Script
@@ -112,30 +112,30 @@ Save as ``run_italy_workflow.sh``:
 .. code-block:: bash
 
    #!/bin/bash
-   # EEPAS Italy Workflow (Paper Validation)
+   # EEPAS Italy Workflow (Reproduce Published Results)
 
    set -e
 
    echo "=== EEPAS Italy Workflow ==="
-   echo "Configuration: config_italy.json"
-   echo "Mode: Paper validation (mT anchor, 3-stage)"
+   echo "Configuration: config_italy_causal_ew0_rerun.json"
+   echo "Mode: Reproduce Biondini et al. (2023) results"
    echo ""
 
    # Step 1: PPE Learning
    echo "Step 1/5: PPE Learning..."
-   python3 ppe_learning.py --config config_italy.json
+   python3 ppe_learning.py --config config_italy_causal_ew0_rerun.json
 
    # Step 2: Aftershock Parameters (mT anchor)
    echo "Step 2/5: Aftershock Parameters..."
    python3 fit_aftershock_params.py \
-       --config config_italy.json \
+       --config config_italy_causal_ew0_rerun.json \
        --ppe-ref-mag mT \
        --target-mag mT
 
    # Step 3: EEPAS Learning (3-stage, single round)
    echo "Step 3/5: EEPAS Learning (3-stage)..."
    python3 eepas_learning_auto_boundary.py \
-       --config config_italy.json \
+       --config config_italy_causal_ew0_rerun.json \
        --three-stage \
        --ppe-ref-mag mT \
        --max-rounds 1
@@ -143,19 +143,31 @@ Save as ``run_italy_workflow.sh``:
    # Step 4: PPE Forecast
    echo "Step 4/5: PPE Forecast..."
    python3 ppe_make_forecast.py \
-       --config config_italy.json \
+       --config config_italy_causal_ew0_rerun.json \
        --ppe-ref-mag mT
 
-   # Step 5: EEPAS Forecast (fast mode)
+   # Step 5: EEPAS Forecast
    echo "Step 5/5: EEPAS Forecast..."
    python3 eepas_make_forecast.py \
-       --config config_italy.json \
+       --config config_italy_causal_ew0_rerun.json \
        --ppe-ref-mag mT
+
+   # Step 6: Archive Results (Optional)
+   echo "Step 6/6: Archiving Results..."
+   python3 archive_results.py \
+       --config config_italy_causal_ew0_rerun.json \
+       --results-dir results_italy_causal_ew0_rerun/ \
+       --workflow "EEPAS 5-step workflow" \
+       --logs step1_ppe.log step2_aftershock.log step3_eepas.log step4_ppe_forecast.log step5_eepas_forecast.log \
+       --ppe-ref-mag mT \
+       --target-mag mT \
+       --three-stage \
+       --max-rounds 1
 
    echo ""
    echo "=== Workflow Complete! ==="
-   echo "Results saved in: results_italy/"
-   ls -lh results_italy/
+   echo "Results saved in: results_italy_causal_ew0_rerun/"
+   ls -lh results_italy_causal_ew0_rerun/
 
 Applying to Your Region
 ------------------------
@@ -211,7 +223,7 @@ To apply EEPAS to your own seismic region, follow these steps:
 
 2. **Create Configuration File**:
 
-   Copy ``config_italy.json`` and modify for your region:
+   Copy ``config_italy_causal_ew0_rerun.json`` and modify for your region:
 
    .. code-block:: text
 
@@ -392,6 +404,27 @@ Use the analysis tool to verify forecast correctness:
 .. code-block:: bash
 
    python3 analysis/analyze_forecast_lambda.py
+
+Archive Workflow Results
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Archive configuration and logs for reproducibility:
+
+.. code-block:: bash
+
+   python3 archive_results.py \
+       --config config_yourregion.json \
+       --results-dir results_yourregion/ \
+       --workflow "EEPAS complete workflow" \
+       --logs step*.log \
+       --ppe-ref-mag mT \
+       --target-mag mT
+
+This saves:
+   - ``config_used.json``: Configuration snapshot
+   - ``execution_info.txt``: Execution metadata
+   - ``execution.log``: Combined logs
+   - ``README_REPRODUCE.md``: Reproduction guide
 
 Next Steps
 ----------

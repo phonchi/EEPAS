@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Complete Workflows &#8212; EEPAS 0.3.0 documentation</title>
+    <title>Complete Workflows &#8212; EEPAS 0.4.0 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/documentation_options.js?v=9453eeee"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -139,8 +139,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -179,6 +179,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_End_to_End.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
 </ul>
 </details></li>
@@ -364,6 +365,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-results">Verify Results</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-parameter-values">Check Parameter Values</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate-forecast-lambda-sum">Validate Forecast Lambda Sum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#archive-workflow-results">Archive Workflow Results</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
@@ -401,7 +403,7 @@ document.write(`
 <section id="step-by-step-execution">
 <h4>Step-by-Step Execution<a class="headerlink" href="#step-by-step-execution" title="Link to this heading">#</a></h4>
 <p><strong>Step 1: PPE Learning</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>ppe_learning.py<span class="w"> </span>--config<span class="w"> </span>config_italy.json
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>ppe_learning.py<span class="w"> </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json
 </pre></div>
 </div>
 <p><strong>Expected Output</strong>:</p>
@@ -416,7 +418,7 @@ PPE historical events (CatJ): 312, target events (CatI): 27
 </div>
 <p><strong>Step 2: Aftershock Fitting</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>fit_aftershock_params.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--target-mag<span class="w"> </span>mT
 </pre></div>
@@ -428,7 +430,7 @@ PPE historical events (CatJ): 312, target events (CatI): 27
 </div>
 <p><strong>Step 3: EEPAS Learning</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--three-stage<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--max-rounds<span class="w"> </span><span class="m">1</span>
@@ -455,13 +457,13 @@ PPE historical events (CatJ): 312, target events (CatI): 27
 </div>
 <p><strong>Step 4: PPE Forecast</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>ppe_make_forecast.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT
 </pre></div>
 </div>
 <p><strong>Step 5: EEPAS Forecast</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>eepas_make_forecast.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT
 </pre></div>
 </div>
@@ -470,30 +472,30 @@ PPE historical events (CatJ): 312, target events (CatI): 27
 <h4>Complete Italy Workflow Script<a class="headerlink" href="#complete-italy-workflow-script" title="Link to this heading">#</a></h4>
 <p>Save as <code class="docutils literal notranslate"><span class="pre">run_italy_workflow.sh</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-<span class="c1"># EEPAS Italy Workflow (Paper Validation)</span>
+<span class="c1"># EEPAS Italy Workflow (Reproduce Published Results)</span>
 
 <span class="nb">set</span><span class="w"> </span>-e
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== EEPAS Italy Workflow ===&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Configuration: config_italy.json&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mode: Paper validation (mT anchor, 3-stage)&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Configuration: config_italy_causal_ew0_rerun.json&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mode: Reproduce Biondini et al. (2023) results&quot;</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
 
 <span class="c1"># Step 1: PPE Learning</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Step 1/5: PPE Learning...&quot;</span>
-python3<span class="w"> </span>ppe_learning.py<span class="w"> </span>--config<span class="w"> </span>config_italy.json
+python3<span class="w"> </span>ppe_learning.py<span class="w"> </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json
 
 <span class="c1"># Step 2: Aftershock Parameters (mT anchor)</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Step 2/5: Aftershock Parameters...&quot;</span>
 python3<span class="w"> </span>fit_aftershock_params.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--target-mag<span class="w"> </span>mT
 
 <span class="c1"># Step 3: EEPAS Learning (3-stage, single round)</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Step 3/5: EEPAS Learning (3-stage)...&quot;</span>
 python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--three-stage<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--max-rounds<span class="w"> </span><span class="m">1</span>
@@ -501,19 +503,31 @@ python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> <
 <span class="c1"># Step 4: PPE Forecast</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Step 4/5: PPE Forecast...&quot;</span>
 python3<span class="w"> </span>ppe_make_forecast.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT
 
-<span class="c1"># Step 5: EEPAS Forecast (fast mode)</span>
+<span class="c1"># Step 5: EEPAS Forecast</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Step 5/5: EEPAS Forecast...&quot;</span>
 python3<span class="w"> </span>eepas_make_forecast.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--config<span class="w"> </span>config_italy.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT
+
+<span class="c1"># Step 6: Archive Results (Optional)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Step 6/6: Archiving Results...&quot;</span>
+python3<span class="w"> </span>archive_results.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_italy_causal_ew0_rerun.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--results-dir<span class="w"> </span>results_italy_causal_ew0_rerun/<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--workflow<span class="w"> </span><span class="s2">&quot;EEPAS 5-step workflow&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--logs<span class="w"> </span>step1_ppe.log<span class="w"> </span>step2_aftershock.log<span class="w"> </span>step3_eepas.log<span class="w"> </span>step4_ppe_forecast.log<span class="w"> </span>step5_eepas_forecast.log<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--three-stage<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max-rounds<span class="w"> </span><span class="m">1</span>
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Workflow Complete! ===&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Results saved in: results_italy/&quot;</span>
-ls<span class="w"> </span>-lh<span class="w"> </span>results_italy/
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Results saved in: results_italy_causal_ew0_rerun/&quot;</span>
+ls<span class="w"> </span>-lh<span class="w"> </span>results_italy_causal_ew0_rerun/
 </pre></div>
 </div>
 </section>
@@ -561,7 +575,7 @@ Columns 3-4: (optional) projected coordinates
 </ul>
 </li>
 <li><p><strong>Create Configuration File</strong>:</p>
-<p>Copy <code class="docutils literal notranslate"><span class="pre">config_italy.json</span></code> and modify for your region:</p>
+<p>Copy <code class="docutils literal notranslate"><span class="pre">config_italy_causal_ew0_rerun.json</span></code> and modify for your region:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
   &quot;resultsDir&quot;: &quot;results_yourregion&quot;,
   &quot;catalogStartYear&quot;: YYYY,
@@ -729,6 +743,28 @@ cat<span class="w"> </span>results_yourregion/Fitted_par_EEPAS_*.csv
 </pre></div>
 </div>
 </section>
+<section id="archive-workflow-results">
+<h3>Archive Workflow Results<a class="headerlink" href="#archive-workflow-results" title="Link to this heading">#</a></h3>
+<p>Archive configuration and logs for reproducibility:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>archive_results.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span>config_yourregion.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--results-dir<span class="w"> </span>results_yourregion/<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--workflow<span class="w"> </span><span class="s2">&quot;EEPAS complete workflow&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--logs<span class="w"> </span>step*.log<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ppe-ref-mag<span class="w"> </span>mT<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-mag<span class="w"> </span>mT
+</pre></div>
+</div>
+<dl class="simple">
+<dt>This saves:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">config_used.json</span></code>: Configuration snapshot</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">execution_info.txt</span></code>: Execution metadata</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">execution.log</span></code>: Combined logs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">README_REPRODUCE.md</span></code>: Reproduction guide</p></li>
+</ul>
+</dd>
+</dl>
+</section>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -817,6 +853,7 @@ cat<span class="w"> </span>results_yourregion/Fitted_par_EEPAS_*.csv
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-results">Verify Results</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-parameter-values">Check Parameter Values</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate-forecast-lambda-sum">Validate Forecast Lambda Sum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#archive-workflow-results">Archive Workflow Results</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>

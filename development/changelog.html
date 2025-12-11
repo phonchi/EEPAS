@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Changelog &#8212; EEPAS 0.3.0 documentation</title>
+    <title>Changelog &#8212; EEPAS 0.4.0 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=6512192e"></script>
+    <script src="../_static/documentation_options.js?v=9453eeee"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -138,8 +138,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.3.0 documentation - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.3.0 documentation - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -178,6 +178,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples and Tutorials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../examples/Examine_Psi_Italy_clean.html">Examining the <span class="math notranslate nohighlight">\(\Psi\)</span> Phenomenon in Italian Seismicity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_New.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EEPAS_Forecast_Evaluation_End_to_End.html">EEPAS Italy Results: Visualization and PyCSEP Evaluation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/Estimate_mc_b_Italy_clean.html">EEPAS Italy Preprocessing: Estimation of Completeness (<span class="math notranslate nohighlight">\(m_c\)</span>) and <span class="math notranslate nohighlight">\(b\)</span>-value</a></li>
 </ul>
 </details></li>
@@ -339,33 +340,40 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-3-0-2025-11-06">Version 1.3.0 (2025-11-06)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-0-4-0-2025-12-11">Version 0.4.0 (2025-12-11)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#added">Added</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changed">Changed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fixed">Fixed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validated">Validated</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-2-0-2025-10-30">Version 1.2.0 (2025-10-30)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-0-3-0-2025-11-06">Version 0.3.0 (2025-11-06)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Added</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Changed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Fixed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Validated</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1-0-2025-10-19">Version 1.1.0 (2025-10-19)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-0-2-0-2025-10-30">Version 0.2.0 (2025-10-30)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Added</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Changed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Fixed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Validated</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-0-1-0-2025-10-19">Version 0.1.0 (2025-10-19)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Fixed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#research-findings">Research Findings</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#archived">Archived</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-0-0-2025-10-15">Version 1.0.0 (2025-10-15)</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Added</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Changed</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Fixed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-0-0-0-2025-10-15">Version 0.0.0 (2025-10-15)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Fixed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-details">Technical Details</a></li>
 </ul>
 </li>
@@ -386,11 +394,75 @@ document.write(`
 <p>All notable changes to this project are documented here.</p>
 <p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
-<section id="version-1-3-0-2025-11-06">
-<h2>Version 1.3.0 (2025-11-06)<a class="headerlink" href="#version-1-3-0-2025-11-06" title="Link to this heading">#</a></h2>
-<p>Numerical Integration Refactoring and Validation</p>
+<section id="version-0-4-0-2025-12-11">
+<h2>Version 0.4.0 (2025-12-11)<a class="headerlink" href="#version-0-4-0-2025-12-11" title="Link to this heading">#</a></h2>
+<p>Documentation and Dual Validation Approach</p>
 <section id="added">
 <h3>Added<a class="headerlink" href="#added" title="Link to this heading">#</a></h3>
+<p><strong>Complete Sphinx Documentation</strong></p>
+<ul class="simple">
+<li><p>Comprehensive user guide (installation, quickstart, workflows, configuration, results)</p></li>
+<li><p>API reference documentation for all modules</p></li>
+<li><p>Technical documentation (mathematical foundation, numerical integration, optimization)</p></li>
+<li><p>Interactive examples (4 Jupyter notebooks)</p></li>
+</ul>
+<p><strong>Interactive Example Notebooks</strong></p>
+<ul class="simple">
+<li><p>Automated Ψ phenomenon detection (<code class="docutils literal notranslate"><span class="pre">Examine_Psi_Italy_clean.ipynb</span></code>)</p></li>
+<li><p>PyCSEP evaluation - Reproduce paper results (<code class="docutils literal notranslate"><span class="pre">EEPAS_Forecast_Evaluation_New.ipynb</span></code>)</p></li>
+<li><p>PyCSEP evaluation - End-to-end pipeline (<code class="docutils literal notranslate"><span class="pre">EEPAS_Forecast_Evaluation_End_to_End.ipynb</span></code>)</p></li>
+<li><p>Catalog preprocessing with SeismoStats (<code class="docutils literal notranslate"><span class="pre">Estimate_mc_b_Italy_clean.ipynb</span></code>)</p></li>
+</ul>
+<p><strong>Archive Functionality</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">archive_results.py</span></code> - Archive workflow results for reproducibility</p></li>
+<li><p>Saves configuration snapshot, execution metadata, combined logs, and reproduction guide</p></li>
+<li><p>Integrated into workflow documentation</p></li>
+</ul>
+<p><strong>Dual Validation Approach</strong></p>
+<ul class="simple">
+<li><p><strong>Reproduce Published Results</strong>: <code class="docutils literal notranslate"><span class="pre">config_italy_causal_ew0_rerun.json</span></code></p></li>
+<li><p><strong>End-to-End Automated Pipeline</strong>: <code class="docutils literal notranslate"><span class="pre">config_italy_target_m0.json</span></code></p></li>
+</ul>
+</section>
+<section id="changed">
+<h3>Changed<a class="headerlink" href="#changed" title="Link to this heading">#</a></h3>
+<p><strong>Documentation Overhaul</strong></p>
+<ul class="simple">
+<li><p>README.md simplified (428 → 243 lines) and updated to v0.4.0</p></li>
+<li><p>USAGE_EN.md simplified (689 → 329 lines) focusing on essential workflows</p></li>
+<li><p>All documentation now references comprehensive Sphinx docs</p></li>
+<li><p>Version numbering adjusted (v1.x.0 → v0.x.0)</p></li>
+</ul>
+</section>
+<section id="fixed">
+<h3>Fixed<a class="headerlink" href="#fixed" title="Link to this heading">#</a></h3>
+<p><strong>Single-Stage Mode Boundary Adjustment</strong></p>
+<ul class="simple">
+<li><p>Previously only worked with three-stage optimization (stage3)</p></li>
+<li><p>Now automatically detects single-stage mode and uses stage1 boundaries</p></li>
+</ul>
+<p><strong>Parameter Hard Caps</strong></p>
+<ul class="simple">
+<li><p>Prevents unreasonable parameter expansion during boundary adjustment</p></li>
+<li><p>Caps: am≤4.5, at≤3.0, ba≤6.0, bt≤2.0, Sm/St/Sa≤2.0/1.0/2.0, u≤0.75</p></li>
+</ul>
+</section>
+<section id="validated">
+<h3>Validated<a class="headerlink" href="#validated" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Reproduce Published Results</strong>: Successfully replicates Biondini et al. (2023) within 1 hour</p></li>
+<li><p><strong>End-to-End Pipeline</strong>: Achieves log-likelihood -483 (better than manual initialization)</p></li>
+<li><p><strong>PyCSEP Integration</strong>: Passes all consistency tests (L-test, N-test, S-test, M-test)</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="version-0-3-0-2025-11-06">
+<h2>Version 0.3.0 (2025-11-06)<a class="headerlink" href="#version-0-3-0-2025-11-06" title="Link to this heading">#</a></h2>
+<p>Numerical Integration Refactoring and Validation</p>
+<section id="id1">
+<h3>Added<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p><strong>Numerical Integration Refactoring (Core Feature)</strong></p>
 <ul class="simple">
 <li><p>Unified numerical integration interface: <code class="docutils literal notranslate"><span class="pre">utils/numerical_integration.py</span></code></p></li>
@@ -432,8 +504,8 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p>Support for <code class="docutils literal notranslate"><span class="pre">--no-boundary-adjustment</span></code> parameter</p></li>
 </ul>
 </section>
-<section id="changed">
-<h3>Changed<a class="headerlink" href="#changed" title="Link to this heading">#</a></h3>
+<section id="id2">
+<h3>Changed<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p><strong>Core Module Updates</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ppe_optimization.py</span></code> - Support for ACCURATE/FAST mode switching</p></li>
@@ -445,23 +517,23 @@ and this project adheres to <a class="reference external" href="https://semver.o
 </ul>
 <p><strong>Documentation Updates</strong></p>
 <ul class="simple">
-<li><p>README.md updated to v1.3.0, emphasizing numerical integration validation achievements</p></li>
+<li><p>README.md updated to v0.3.0, emphasizing numerical integration validation achievements</p></li>
 <li><p>CHANGELOG.md detailed recording of refactoring process and validation results</p></li>
 <li><p>CLAUDE.md added ACCURATE vs FAST mode usage guide</p></li>
 <li><p>CLAUDE.md added Lambda sum validation methodology explanation</p></li>
 <li><p>Configuration list updated (EW0/EW1 test configurations)</p></li>
 </ul>
 </section>
-<section id="fixed">
-<h3>Fixed<a class="headerlink" href="#fixed" title="Link to this heading">#</a></h3>
+<section id="id3">
+<h3>Fixed<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Fixed issue of not excluding index column when calculating Forecast Lambda</p></li>
 <li><p>Unified numerical integration calling method, eliminated duplicate code</p></li>
 <li><p>Improved EEPAS Learning boundary adjustment strategy</p></li>
 </ul>
 </section>
-<section id="validated">
-<h3>Validated<a class="headerlink" href="#validated" title="Link to this heading">#</a></h3>
+<section id="id4">
+<h3>Validated<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p><strong>Numerical Integration Refactoring Successfully Validated</strong></p>
 <ul class="simple">
 <li><p>Trapezoidal rule (FAST) and dblquad (ACCURATE) results highly consistent</p></li>
@@ -484,11 +556,11 @@ and this project adheres to <a class="reference external" href="https://semver.o
 </section>
 </section>
 <hr class="docutils" />
-<section id="version-1-2-0-2025-10-30">
-<h2>Version 1.2.0 (2025-10-30)<a class="headerlink" href="#version-1-2-0-2025-10-30" title="Link to this heading">#</a></h2>
+<section id="version-0-2-0-2025-10-30">
+<h2>Version 0.2.0 (2025-10-30)<a class="headerlink" href="#version-0-2-0-2025-10-30" title="Link to this heading">#</a></h2>
 <p>Italy Mode Support and Paper Validation</p>
-<section id="id1">
-<h3>Added<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h3>Added<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p><strong>Complete Italy Mode Support and Paper Validation</strong></p>
 <ul class="simple">
 <li><p>Testing Region and Neighborhood Region area management</p></li>
@@ -515,8 +587,8 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p>Parameter results consistent with paper (1990-2012 learning period, 2012-2022 forecast period)</p></li>
 </ul>
 </section>
-<section id="id2">
-<h3>Changed<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<section id="id6">
+<h3>Changed<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <p><strong>Documentation Updates</strong></p>
 <ul class="simple">
 <li><p>README.md added paper validation workflow and latest achievements</p></li>
@@ -524,15 +596,15 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p>Updated directory structure description</p></li>
 </ul>
 </section>
-<section id="id3">
-<h3>Fixed<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<section id="id7">
+<h3>Fixed<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Improved region filtering logic (Testing vs Neighborhood)</p></li>
 <li><p>Italy data loading and processing</p></li>
 </ul>
 </section>
-<section id="id4">
-<h3>Validated<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<section id="id8">
+<h3>Validated<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>PPE Learning: a=0.616, d=29.64, s≈0 (mT=5.0 anchor)</p></li>
 <li><p>Aftershock parameters: v=0.577, k=0.205</p></li>
@@ -542,11 +614,11 @@ and this project adheres to <a class="reference external" href="https://semver.o
 </section>
 </section>
 <hr class="docutils" />
-<section id="version-1-1-0-2025-10-19">
-<h2>Version 1.1.0 (2025-10-19)<a class="headerlink" href="#version-1-1-0-2025-10-19" title="Link to this heading">#</a></h2>
+<section id="version-0-1-0-2025-10-19">
+<h2>Version 0.1.0 (2025-10-19)<a class="headerlink" href="#version-0-1-0-2025-10-19" title="Link to this heading">#</a></h2>
 <p>Optimizer Support Expansion</p>
-<section id="id5">
-<h3>Added<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<section id="id9">
+<h3>Added<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <p><strong>Optimizer Support Expansion</strong></p>
 <ul class="simple">
 <li><p>Added L-BFGS-B, TNC, SLSQP, Powell optimizers</p></li>
@@ -567,8 +639,8 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p><code class="docutils literal notranslate"><span class="pre">--basinhopping</span></code> and <code class="docutils literal notranslate"><span class="pre">--basinhopping-niter</span></code> parameters</p></li>
 </ul>
 </section>
-<section id="id6">
-<h3>Changed<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<section id="id10">
+<h3>Changed<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
 <p><strong>Convergence Criteria Optimization</strong></p>
 <ul class="simple">
 <li><p>Adjusted convergence tolerances for different optimizers to ensure fair comparison</p></li>
@@ -578,8 +650,8 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p>TNC: ftol=1e-9, gtol=1e-3</p></li>
 </ul>
 </section>
-<section id="id7">
-<h3>Fixed<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<section id="id11">
+<h3>Fixed<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Fixed optimizer convergence criteria inconsistency issue</p></li>
 <li><p>Improved boundary adjustment logic</p></li>
@@ -602,11 +674,11 @@ and this project adheres to <a class="reference external" href="https://semver.o
 </section>
 </section>
 <hr class="docutils" />
-<section id="version-1-0-0-2025-10-15">
-<h2>Version 1.0.0 (2025-10-15)<a class="headerlink" href="#version-1-0-0-2025-10-15" title="Link to this heading">#</a></h2>
+<section id="version-0-0-0-2025-10-15">
+<h2>Version 0.0.0 (2025-10-15)<a class="headerlink" href="#version-0-0-0-2025-10-15" title="Link to this heading">#</a></h2>
 <p>Initial Python Release</p>
-<section id="id8">
-<h3>Added<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<section id="id12">
+<h3>Added<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
 <p><strong>Initial Features</strong></p>
 <ul class="simple">
 <li><p>Complete EEPAS model implementation (PPE, EEPAS, Aftershock learning)</p></li>
@@ -644,16 +716,16 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p>Performance optimization with Numba JIT</p></li>
 </ul>
 </section>
-<section id="id9">
-<h3>Changed<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<section id="id13">
+<h3>Changed<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Migrated all MATLAB analysis scripts to Python</p></li>
 <li><p>Refactored code structure for better organization</p></li>
 <li><p>Updated directory layout for professional project structure</p></li>
 </ul>
 </section>
-<section id="id10">
-<h3>Fixed<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<section id="id14">
+<h3>Fixed<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Boundary touching issues in EEPAS optimization</p></li>
 <li><p>Coordinate conversion precision (&lt; 0.01m error)</p></li>
@@ -713,33 +785,40 @@ and this project adheres to <a class="reference external" href="https://semver.o
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-3-0-2025-11-06">Version 1.3.0 (2025-11-06)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-0-4-0-2025-12-11">Version 0.4.0 (2025-12-11)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#added">Added</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changed">Changed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fixed">Fixed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validated">Validated</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-2-0-2025-10-30">Version 1.2.0 (2025-10-30)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-0-3-0-2025-11-06">Version 0.3.0 (2025-11-06)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Added</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Changed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Fixed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Validated</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1-0-2025-10-19">Version 1.1.0 (2025-10-19)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-0-2-0-2025-10-30">Version 0.2.0 (2025-10-30)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Added</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Changed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Fixed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Validated</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-0-1-0-2025-10-19">Version 0.1.0 (2025-10-19)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Fixed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#research-findings">Research Findings</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#archived">Archived</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-0-0-2025-10-15">Version 1.0.0 (2025-10-15)</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Added</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Changed</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Fixed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-0-0-0-2025-10-15">Version 0.0.0 (2025-10-15)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Added</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Fixed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-details">Technical Details</a></li>
 </ul>
 </li>

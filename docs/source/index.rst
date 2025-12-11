@@ -3,13 +3,13 @@
 EEPAS - Earthquake Forecasting System
 ======================================
 
-**Version:** 1.3.0
+**Version:** 0.4.0
 
-**EEPAS** (Every Earthquake a Precursor According to Scale) is a state-of-the-art earthquake forecasting model that combines the PPE (Proximity to Past Earthquakes) background seismicity model with the EEPAS short-term aftershock triggering model. This implementation provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.
+**EEPAS** (Every Earthquake a Precursor According to Scale) is a state-of-the-art earthquake forecasting model that combines the PPE (Proximity to Past Earthquares) background seismicity model with the EEPAS short-term aftershock triggering model. This implementation provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.
 
-.. image:: https://img.shields.io/badge/version-1.3.0-blue.svg
+.. image:: https://img.shields.io/badge/version-0.4.0-blue.svg
    :alt: Version
-   :target: https://github.com/your-repo/EEPAS
+   :target: https://github.com/phonchi/EEPAS
 
 .. image:: https://img.shields.io/badge/python-3.8+-blue.svg
    :alt: Python Version
@@ -39,19 +39,29 @@ Key Features
 
 🔬 **Scientifically Validated**
    - Validated against Biondini et al. (2023) paper methodology
-   - Comprehensive numerical integration verification (v1.3.0)
+   - Comprehensive numerical integration verification (v0.3.0)
 
 🚀 **Production Ready**
    - Automatic boundary adjustment for parameter optimization
    - Automated workflows for batch processing
    - Extensive documentation and examples
 
-Latest Updates (v1.3.0)
+Latest Updates (v0.4.0)
 -----------------------
 
-**Numerical Integration Refactoring and Validation**
+**Documentation and Dual Validation Approach**
 
-This release focuses on unifying and validating numerical integration across all modules:
+This release focuses on comprehensive documentation and validation:
+
+- **Complete Sphinx Documentation**: User guide, API reference, technical docs, interactive examples
+- **Dual Validation**: Reproduce published results + end-to-end automated pipeline
+- **Archive Functionality**: Save workflow results for reproducibility
+- **Bug Fixes**: Single-stage boundary adjustment, parameter hard caps
+
+Previous Updates (v0.3.0)
+--------------------------
+
+**Numerical Integration Refactoring and Validation**
 
 - **Unified Interface**: All numerical integration now uses ``utils/numerical_integration.py``
 - **Dual Modes**: ACCURATE (scipy.dblquad) and FAST (trapezoidal rule)

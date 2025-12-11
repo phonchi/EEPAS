@@ -123,6 +123,16 @@ def suggest_boundary_adjustment(
     - Sm, St, Sa > 0: Standard deviations of time/magnitude/space distributions, must be positive
     - am, at can be negative: Intercept terms, physically can be negative
 
+    Hard caps (based on main_gji.tex and empirical results):
+    - am ≤ 4.5: Italy observed 3.5, add safety margin
+    - at ≤ 3.0: Paper search range upper bound
+    - ba ≤ 6.0: Italy observed 5.6, add safety margin
+    - bt ≤ 2.0: Reasonable range based on Taiwan/Italy experiments
+    - Sm ≤ 2.0: Prevents unreasonable variance
+    - St ≤ 1.0: Prevents unreasonable variance
+    - Sa ≤ 2.0: Prevents unreasonable spatial spread
+    - u ≤ 0.75: Maximum failure rate
+
     Args:
         param_name: Parameter name
         current_value: Current parameter value
@@ -131,8 +141,20 @@ def suggest_boundary_adjustment(
         expansion_factor: Expansion multiplier (default 2x)
 
     Returns:
-        Suggested new boundary value (respecting physical constraints)
+        Suggested new boundary value (respecting physical constraints and hard caps)
     """
+    # Hard caps based on main_gji.tex (prevents physically unreasonable expansions)
+    HARD_CAPS = {
+        'am': 4.5,   # Italy: 3.5, California: 1.2, add safety margin
+        'at': 3.0,   # Paper search range: 1.0-3.0
+        'ba': 6.0,   # Italy: 5.6, add safety margin
+        'bt': 2.0,   # Reasonable based on empirical data
+        'Sm': 2.0,   # Prevents unreasonable variance
+        'St': 1.0,   # Prevents unreasonable variance
+        'Sa': 2.0,   # Prevents unreasonable spatial spread
+        'u': 0.75,   # Maximum failure rate
+    }
+
     # Classify parameters according to seismological physical meaning
     positive_params = ['Sm', 'St', 'Sa', 'bm', 'bt', 'ba']  # Must be positive
     can_be_negative = ['am', 'at']  # Can be negative (intercept terms)
@@ -170,6 +192,13 @@ def suggest_boundary_adjustment(
         else:
             # Negative upper bound (rare), take value closer to 0
             new_bound = current_bound / expansion_factor
+
+        # ===== Apply hard cap for upper bounds =====
+        if param_name in HARD_CAPS:
+            hard_cap = HARD_CAPS[param_name]
+            if new_bound > hard_cap:
+                print(f'      🛑 Hard cap applied: {param_name} upper bound limited to {hard_cap} (suggested {new_bound:.2f})')
+                new_bound = hard_cap
 
     return new_bound
 

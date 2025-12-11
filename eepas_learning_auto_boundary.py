@@ -206,11 +206,17 @@ def eepas_with_auto_boundary(
             return result_params
 
         # ===== Check boundary hits =====
-        # Load Stage3 boundary settings
-        stage3_config = config['optimization']['stage3']
-        param_names = stage3_config['parameters']
-        lower_bounds = np.array(stage3_config['lowerBounds'])
-        upper_bounds = np.array(stage3_config['upperBounds'])
+        # Load boundary settings (Stage3 for three-stage, Stage1 for single-stage)
+        if 'stage3' in config['optimization']:
+            # Three-stage mode: use stage3 boundaries
+            boundary_config = config['optimization']['stage3']
+        else:
+            # Single-stage mode: use stage1 boundaries
+            boundary_config = config['optimization']['stage1']
+
+        param_names = boundary_config['parameters']
+        lower_bounds = np.array(boundary_config['lowerBounds'])
+        upper_bounds = np.array(boundary_config['upperBounds'])
 
         # Extract 8 EEPAS parameter values from results
         params_values = []
@@ -249,7 +255,7 @@ def eepas_with_auto_boundary(
                 new_bound = suggest_boundary_adjustment(
                     param_name, current_value, old_bound, 'lower', expansion_factor
                 )
-                stage3_config['lowerBounds'][idx] = new_bound
+                boundary_config['lowerBounds'][idx] = new_bound
                 print(f'   {param_name} lower bound: {old_bound:.6f} → {new_bound:.6f}')
                 adjusted = True
 
@@ -259,7 +265,7 @@ def eepas_with_auto_boundary(
                 new_bound = suggest_boundary_adjustment(
                     param_name, current_value, old_bound, 'upper', expansion_factor
                 )
-                stage3_config['upperBounds'][idx] = new_bound
+                boundary_config['upperBounds'][idx] = new_bound
                 print(f'   {param_name} upper bound: {old_bound:.6f} → {new_bound:.6f}')
                 adjusted = True
 

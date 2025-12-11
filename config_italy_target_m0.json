@@ -1,6 +1,6 @@
 {
   "dataDir": "data",
-  "resultsDir": "results_italy_biondini2023",
+  "resultsDir": "results_italy_target_m0",
   "catalogStartYear": 1960,
   "learnStartYear": 1990,
   "learnEndYear": 2012,
@@ -19,12 +19,38 @@
     "PPEForecastPattern": "PREVISIONI_3m_PPE_%d_%d.mat"
   },
   "optimization": {
-    "strategy": "biondini2023"
+    "stage1": {
+      "parameters": ["am", "at", "Sa", "u"],
+      "initialValues": [2.32, -1.06, 0.48, 0.20],
+      "lowerBounds": [0.5, -2.0, 0.01, 0.0],
+      "upperBounds": [4.0, 1.0, 2.0, 0.75],
+      "fixedValues": {
+        "bm": 0.76,
+        "Sm": 0.14,
+        "bt": 0.85,
+        "St": 0.20,
+        "ba": 0.93
+      }
+    },
+    "stage2": {
+      "parameters": ["Sm", "bt", "St", "ba", "u"],
+      "initialValues": [0.14, 0.85, 0.20, 0.93, "u_from_stage1"],
+      "lowerBounds": [0.05, 0.05, 0.05, 0.05, 0.0],
+      "upperBounds": [1.0, 1.2, 1.0, 1.2, 0.75]
+    },
+    "stage3": {
+      "parameters": ["am", "Sm", "at", "bt", "St", "ba", "Sa", "u"],
+      "lowerBounds": [0.5, 0.05, -2.0, 0.05, 0.05, 0.05, 0.01, 0.0],
+      "upperBounds": [4.0, 1.0, 1.0, 1.2, 1.0, 1.2, 2.0, 0.75],
+      "fixedValues": {
+        "bm": 0.76
+      }
+    }
   },
   "modelParams": {
     "delay": 50,
-    "B": 1.084,
-    "m0": 2.45,
+    "B": 1.0133107669744423,
+    "m0": 2.95,
     "mT": 5.0,
     "delta": 0.7,
     "p": 1.2,

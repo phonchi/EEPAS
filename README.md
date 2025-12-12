@@ -67,7 +67,7 @@ See [CHANGELOG_EN.md](CHANGELOG_EN.md) for complete version history.
 ```bash
 # Clone repository
 git clone https://github.com/phonchi/EEPAS.git
-cd EEPAS/src/python_src
+cd EEPAS
 
 # Install dependencies
 pip install -r requirements.txt
@@ -241,4 +241,5 @@ This project is licensed under the MIT License - see LICENSE file for details.
 ---
 
 **Version:** 0.4.0 | **Last Updated:** 2025-12-11
+
 

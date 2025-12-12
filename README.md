@@ -119,7 +119,7 @@ See `docs/source/user_guide/workflows.rst` for complete workflow details.
 ## 📁 Directory Structure
 
 ```
-python_src/
+EEPAS/
 ├── ppe_learning.py              # Step 1: PPE parameter learning
 ├── fit_aftershock_params.py     # Step 2: Aftershock parameters
 ├── eepas_learning_auto_boundary.py  # Step 3: EEPAS parameter learning
@@ -241,5 +241,6 @@ This project is licensed under the MIT License - see LICENSE file for details.
 ---
 
 **Version:** 0.4.0 | **Last Updated:** 2025-12-11
+
 
 

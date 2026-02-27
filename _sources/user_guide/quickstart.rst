@@ -29,7 +29,7 @@ Installation
 
    .. code-block:: bash
 
-      cd /path/to/EEPAS/src/EEPAS
+      cd /path/to/EEPAS
 
 Tutorial Example: Italy Workflow (5 Steps)
 -------------------------------------------
@@ -42,16 +42,16 @@ Learn background seismicity parameters using the Italy configuration:
 
 .. code-block:: bash
 
-   python3 ppe_learning.py --config config_italy_causal_ew0_rerun.json
+   python3 ppe_learning.py --config config_italy_reproduce.json
 
-**Output**: ``results_italy_causal_ew0_rerun/Fitted_par_PPE_1990_2012.csv``
+**Output**: ``results_italy_reproduce/Fitted_par_PPE_1990_2012.csv``
 
 - ``a``: Background seismicity rate
 - ``d``: Spatial decay parameter (km)
 - ``s``: Uniform background rate
 
 .. note::
-   For your own region, create a custom config file following the same structure as ``config_italy_causal_ew0_rerun.json``
+   For your own region, create a custom config file following the same structure as ``config_italy_reproduce.json``
 
 **Step 2: Aftershock Parameters**
 
@@ -59,9 +59,9 @@ Calibrate short-term exclusion parameters with mT magnitude anchoring:
 
 .. code-block:: bash
 
-   python3 fit_aftershock_params.py --config config_italy_causal_ew0_rerun.json --ppe-ref-mag mT --target-mag mT
+   python3 fit_aftershock_params.py --config config_italy_reproduce.json --ppe-ref-mag mT --target-mag mT
 
-**Output**: ``results_italy_causal_ew0_rerun/Fitted_par_aftershock_1990_2012.csv``
+**Output**: ``results_italy_reproduce/Fitted_par_aftershock_1990_2012.csv``
 
 - ``v``: Independent event proportion
 - ``k``: Aftershock normalization constant
@@ -76,12 +76,12 @@ Learn EEPAS model parameters with automatic boundary adjustment and three-stage 
 .. code-block:: bash
 
    python3 eepas_learning_auto_boundary.py \
-       --config config_italy_causal_ew0_rerun.json \
+       --config config_italy_reproduce.json \
        --three-stage \
        --ppe-ref-mag mT \
        --max-rounds 1
 
-**Output**: ``results_italy_causal_ew0_rerun/Fitted_par_EEPAS_1990_2012.csv``
+**Output**: ``results_italy_reproduce/Fitted_par_EEPAS_1990_2012.csv``
 
 - 9 parameters: ``am, bm, Sm, at, bt, St, ba, Sa, u``
 - Three-stage optimization improves convergence
@@ -96,9 +96,9 @@ Generate PPE background seismicity forecast:
 
 .. code-block:: bash
 
-   python3 ppe_make_forecast.py --config config_italy_causal_ew0_rerun.json --ppe-ref-mag mT
+   python3 ppe_make_forecast.py --config config_italy_reproduce.json --ppe-ref-mag mT
 
-**Output**: ``results_italy_causal_ew0_rerun/PREVISIONI_3m_PPE_2012_2022.mat``
+**Output**: ``results_italy_reproduce/PREVISIONI_3m_PPE_2012_2022.mat``
 
 **Step 5: EEPAS Forecast**
 
@@ -106,9 +106,9 @@ Generate complete EEPAS forecast:
 
 .. code-block:: bash
 
-   python3 eepas_make_forecast.py --config config_italy_causal_ew0_rerun.json --ppe-ref-mag mT
+   python3 eepas_make_forecast.py --config config_italy_reproduce.json --ppe-ref-mag mT
 
-**Output**: ``results_italy_causal_ew0_rerun/PREVISIONI_3m_EEPAS_2012_2022.mat``
+**Output**: ``results_italy_reproduce/PREVISIONI_3m_EEPAS_2012_2022.mat``
 
 .. note::
 
@@ -123,7 +123,7 @@ Verifying Results
 
 .. code-block:: bash
 
-   cat results_italy_causal_ew0_rerun/Fitted_par_PPE_1990_2012.csv
+   cat results_italy_reproduce/Fitted_par_PPE_1990_2012.csv
 
 Expected output:
 
@@ -136,7 +136,7 @@ Expected output:
 
 .. code-block:: bash
 
-   cat results_italy_causal_ew0_rerun/Fitted_par_EEPAS_1990_2012.csv
+   cat results_italy_reproduce/Fitted_par_EEPAS_1990_2012.csv
 
 Expected output:
 

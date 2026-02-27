@@ -459,9 +459,9 @@ Configuration Examples
 Tutorial Configuration (Italy)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../../../config_italy_causal_ew0_rerun.json
+.. literalinclude:: ../../../config_italy_reproduce.json
    :language: json
-   :caption: config_italy_causal_ew0_rerun.json (Tutorial Example - Reproduce Published Results)
+   :caption: config_italy_reproduce.json (Tutorial Example - Reproduce Published Results)
 
 This configuration demonstrates best practices and can serve as a template for your own region.
 
@@ -511,7 +511,7 @@ Step 1: Copy Tutorial Configuration
 .. code-block:: bash
 
    # Copy Italy tutorial configuration as template
-   cp config_italy_causal_ew0_rerun.json config_yourregion.json
+   cp config_italy_reproduce.json config_yourregion.json
 
 Step 2: Modify Key Fields
 ^^^^^^^^^^^^^^^^^^^^^^^^^^

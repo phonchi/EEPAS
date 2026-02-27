@@ -27,7 +27,7 @@ Step-by-Step Execution
 
 .. code-block:: bash
 
-   python3 ppe_learning.py --config config_italy_causal_ew0_rerun.json
+   python3 ppe_learning.py --config config_italy_reproduce.json
 
 **Expected Output**:
 
@@ -38,7 +38,7 @@ Step-by-Step Execution
      Neighborhood Region: polygon (CPTI15)
    PPE historical events (CatJ): 312, target events (CatI): 27
 
-   ✅ Saved: results_italy_causal_ew0_rerun/Fitted_par_PPE_1990_2012.csv
+   ✅ Saved: results_italy_reproduce/Fitted_par_PPE_1990_2012.csv
       a=0.616, d=29.64, s≈0
 
 **Step 2: Aftershock Fitting**
@@ -46,7 +46,7 @@ Step-by-Step Execution
 .. code-block:: bash
 
    python3 fit_aftershock_params.py \
-       --config config_italy_causal_ew0_rerun.json \
+       --config config_italy_reproduce.json \
        --ppe-ref-mag mT \
        --target-mag mT
 
@@ -54,7 +54,7 @@ Step-by-Step Execution
 
 .. code-block:: text
 
-   ✅ Saved: results_italy_causal_ew0_rerun/Fitted_par_aftershock_1990_2012.csv
+   ✅ Saved: results_italy_reproduce/Fitted_par_aftershock_1990_2012.csv
       v=0.577, k=0.205
 
 **Step 3: EEPAS Learning**
@@ -62,7 +62,7 @@ Step-by-Step Execution
 .. code-block:: bash
 
    python3 eepas_learning_auto_boundary.py \
-       --config config_italy_causal_ew0_rerun.json \
+       --config config_italy_reproduce.json \
        --three-stage \
        --ppe-ref-mag mT \
        --max-rounds 1
@@ -86,14 +86,14 @@ Step-by-Step Execution
       ✅ Stage 3 completed
       Final NLL: 495.394994
 
-   ✅ Saved: results_italy_causal_ew0_rerun/Fitted_par_EEPAS_1990_2012.csv
+   ✅ Saved: results_italy_reproduce/Fitted_par_EEPAS_1990_2012.csv
 
 **Step 4: PPE Forecast**
 
 .. code-block:: bash
 
    python3 ppe_make_forecast.py \
-       --config config_italy_causal_ew0_rerun.json \
+       --config config_italy_reproduce.json \
        --ppe-ref-mag mT
 
 **Step 5: EEPAS Forecast**
@@ -101,7 +101,7 @@ Step-by-Step Execution
 .. code-block:: bash
 
    python3 eepas_make_forecast.py \
-       --config config_italy_causal_ew0_rerun.json \
+       --config config_italy_reproduce.json \
        --ppe-ref-mag mT
 
 Complete Italy Workflow Script
@@ -117,25 +117,25 @@ Save as ``run_italy_workflow.sh``:
    set -e
 
    echo "=== EEPAS Italy Workflow ==="
-   echo "Configuration: config_italy_causal_ew0_rerun.json"
+   echo "Configuration: config_italy_reproduce.json"
    echo "Mode: Reproduce Biondini et al. (2023) results"
    echo ""
 
    # Step 1: PPE Learning
    echo "Step 1/5: PPE Learning..."
-   python3 ppe_learning.py --config config_italy_causal_ew0_rerun.json
+   python3 ppe_learning.py --config config_italy_reproduce.json
 
    # Step 2: Aftershock Parameters (mT anchor)
    echo "Step 2/5: Aftershock Parameters..."
    python3 fit_aftershock_params.py \
-       --config config_italy_causal_ew0_rerun.json \
+       --config config_italy_reproduce.json \
        --ppe-ref-mag mT \
        --target-mag mT
 
    # Step 3: EEPAS Learning (3-stage, single round)
    echo "Step 3/5: EEPAS Learning (3-stage)..."
    python3 eepas_learning_auto_boundary.py \
-       --config config_italy_causal_ew0_rerun.json \
+       --config config_italy_reproduce.json \
        --three-stage \
        --ppe-ref-mag mT \
        --max-rounds 1
@@ -143,20 +143,20 @@ Save as ``run_italy_workflow.sh``:
    # Step 4: PPE Forecast
    echo "Step 4/5: PPE Forecast..."
    python3 ppe_make_forecast.py \
-       --config config_italy_causal_ew0_rerun.json \
+       --config config_italy_reproduce.json \
        --ppe-ref-mag mT
 
    # Step 5: EEPAS Forecast
    echo "Step 5/5: EEPAS Forecast..."
    python3 eepas_make_forecast.py \
-       --config config_italy_causal_ew0_rerun.json \
+       --config config_italy_reproduce.json \
        --ppe-ref-mag mT
 
    # Step 6: Archive Results (Optional)
    echo "Step 6/6: Archiving Results..."
    python3 archive_results.py \
-       --config config_italy_causal_ew0_rerun.json \
-       --results-dir results_italy_causal_ew0_rerun/ \
+       --config config_italy_reproduce.json \
+       --results-dir results_italy_reproduce/ \
        --workflow "EEPAS 5-step workflow" \
        --logs step1_ppe.log step2_aftershock.log step3_eepas.log step4_ppe_forecast.log step5_eepas_forecast.log \
        --ppe-ref-mag mT \
@@ -166,13 +166,13 @@ Save as ``run_italy_workflow.sh``:
 
    echo ""
    echo "=== Workflow Complete! ==="
-   echo "Results saved in: results_italy_causal_ew0_rerun/"
-   ls -lh results_italy_causal_ew0_rerun/
+   echo "Results saved in: results_italy_reproduce/"
+   ls -lh results_italy_reproduce/
 
 End-to-End Automated Pipeline
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This workflow uses ``config_italy_target_m0.json`` for a fully automated pipeline
+This workflow uses ``config_italy_endtoend.json`` for a fully automated pipeline
 with wider optimization boundaries and automatic boundary adjustment (Section 5.2
 of the manuscript).
 
@@ -185,7 +185,7 @@ Key differences from the reproduce-published workflow:
 
 .. code-block:: bash
 
-   CONFIG=config_italy_target_m0.json
+   CONFIG=config_italy_endtoend.json
 
    # Step 1: PPE Learning
    python3 ppe_learning.py --config $CONFIG --ppe-ref-mag mT
@@ -203,7 +203,7 @@ Key differences from the reproduce-published workflow:
    python3 eepas_make_forecast.py --config $CONFIG --ppe-ref-mag mT
 
    # Step 7: Verify Forecasts
-   python3 analysis/step7_verify_forecasts.py \
+   python3 analysis/verify_forecasts.py \
        --catalog analysis/HORUS_Italy_filtered.mat \
        --source-crs EPSG:7794 \
        $CONFIG
@@ -267,7 +267,7 @@ To apply EEPAS to your own seismic region, follow these steps:
 
 2. **Create Configuration File**:
 
-   Copy ``config_italy_causal_ew0_rerun.json`` and modify for your region:
+   Copy ``config_italy_reproduce.json`` and modify for your region:
 
    .. code-block:: text
 

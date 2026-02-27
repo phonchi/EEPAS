@@ -37,7 +37,7 @@
 
 - **End-to-End Automated Pipeline** (`config_italy_target_m0.json`)
   - Automated parameter estimation using rectangular algorithm
-  - Achieves better log-likelihood (-483) than manual initialization
+  - Achieves better log-likelihood (-484.23) than manual initialization
   - Passes all PyCSEP consistency tests
 
 **3. Interactive Examples**
@@ -110,6 +110,31 @@ python3 archive_results.py \
     --logs *.log \
     --ppe-ref-mag mT \
     --target-mag mT
+
+# Step 7: Verify Forecasts (PyCSEP Statistical Tests)
+python3 analysis/step7_verify_forecasts.py \
+    --catalog observation_catalog.mat \
+    config_italy_causal_ew0_rerun.json
+
+```
+
+### Italy Region - End-to-End Automated Pipeline
+
+```bash
+CONFIG=config_italy_target_m0.json
+
+# Step 1-5 (same structure, key difference: --target-mag m0)
+python3 ppe_learning.py --config $CONFIG --ppe-ref-mag mT
+python3 fit_aftershock_params.py --config $CONFIG --ppe-ref-mag mT --target-mag m0
+python3 eepas_learning_auto_boundary.py --config $CONFIG --three-stage --ppe-ref-mag mT
+python3 ppe_make_forecast.py --config $CONFIG --ppe-ref-mag mT
+python3 eepas_make_forecast.py --config $CONFIG --ppe-ref-mag mT
+
+# Step 7: Verify Forecasts
+python3 analysis/step7_verify_forecasts.py \
+    --catalog analysis/HORUS_Italy_filtered.mat \
+    --source-crs EPSG:7794 \
+    $CONFIG
 ```
 
 **Expected Runtime:** ~1 hour on 8-core laptop
@@ -150,8 +175,8 @@ EEPAS/
 
 - `config_italy_target_m0.json` - **End-to-end automated pipeline** (advanced)
   - Automated parameter initialization using rectangular algorithm
-  - mT = 4.95, m0 = 2.95
-  - Better log-likelihood results (-483)
+  - mT = 5.0, m0 = 2.95
+  - Better log-likelihood results (-484.23)
 
 See `docs/source/user_guide/configuration.rst` for creating custom configurations.
 
@@ -166,7 +191,7 @@ See `docs/source/user_guide/configuration.rst` for creating custom configuration
 ### End-to-End Automated Pipeline
 - Configuration: `config_italy_target_m0.json`
 - **Automated** parameter estimation (no manual Ψ identification needed)
-- Log-likelihood: **-483** (better than manual initialization)
+- Log-likelihood: **-484.23** (better than manual initialization)
 - ✅ Passes all PyCSEP consistency tests (L-test, N-test, S-test, M-test)
 
 ## 🧪 Analysis Tools
@@ -240,7 +265,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 
 ---
 
-**Version:** 0.4.0 | **Last Updated:** 2025-12-11
+**Version:** 0.4.0 | **Last Updated:** 2026-02-27
 
 
 

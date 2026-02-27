@@ -26,7 +26,8 @@ def optimize_eepas_parameters(mj, xj, tj, yj, xi, yi, mi, ti,
                               CELLE, params, config_file='config.json',
                               multi_start=False, n_starts=3, single_stage=False,
                               use_basinhopping=False, basinhopping_niter=20, optimizer='fminsearchcon',
-                              region_manager=None, use_fast_mode=False, magnitude_samples=20):
+                              region_manager=None, use_fast_mode=False, magnitude_samples=20,
+                              lead_time_days=None):
     """
     Main function for EEPAS model parameter optimization.
 
@@ -52,6 +53,9 @@ def optimize_eepas_parameters(mj, xj, tj, yj, xi, yi, mi, ti,
             - True: Use Numba JIT accelerated midpoint rectangle method (fast)
             - False: Use accurate quad_vec integration (slow but precise)
         magnitude_samples: Number of sampling points in fast mode (default 20, increase for higher accuracy)
+        lead_time_days: Fixed lead time L in days for FLEEPAS (default None)
+            - None: Use all historical earthquakes as precursors (original EEPAS)
+            - float: Only use earthquakes within [t-L, t-delay] as precursors (FLEEPAS)
 
     Returns:
         result: Dictionary containing optimal EEPAS parameters and negative log-likelihood
@@ -204,7 +208,8 @@ def optimize_eepas_parameters(mj, xj, tj, yj, xi, yi, mi, ti,
                 P[0], bm, P[1], P[2], P[3], P[4], P[5], P[6], P[7],
                 mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
                 W, EW, B, T1, T2, m0, CELLE, params,
-                region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+                region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples,
+                lead_time_days=lead_time_days
             )
             iteration_count[0] += 1
             if iteration_count[0] % 10 == 0:
@@ -227,7 +232,8 @@ def optimize_eepas_parameters(mj, xj, tj, yj, xi, yi, mi, ti,
                     P[0], bm, P[1], P[2], P[3], P[4], P[5], P[6], P[7],
                     mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
                     W, EW, B, T1, T2, m0, CELLE, params,
-                    region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+                    region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples,
+                    lead_time_days=lead_time_days
                 )
                 return fd
 
@@ -465,7 +471,8 @@ def optimize_eepas_parameters(mj, xj, tj, yj, xi, yi, mi, ti,
             P[0], bm, Sm, P[1], bt, St, ba, P[2], P[3],  # 8 parameters (4 optimized + 5 fixed)
             mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
             W, EW, B, T1, T2, m0, CELLE, params,
-            region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+            region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples,
+            lead_time_days=lead_time_days
         )
         # Output progress every 10 iterations
         iteration_count[0] += 1
@@ -518,7 +525,8 @@ def optimize_eepas_parameters(mj, xj, tj, yj, xi, yi, mi, ti,
             am, bm, P[0], at, P[1], P[2], P[3], Sa, P[4],
             mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
             W, EW, B, T1, T2, m0, CELLE, params,
-            region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+            region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples,
+            lead_time_days=lead_time_days
         )
         return fd
 
@@ -600,7 +608,8 @@ def optimize_eepas_parameters(mj, xj, tj, yj, xi, yi, mi, ti,
                     P[0], bm, P[1], P[2], P[3], P[4], P[5], P[6], P[7],
                     mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
                     W, EW, B, T1, T2, m0, CELLE, params,
-                    region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+                    region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples,
+                    lead_time_days=lead_time_days
                 )
                 return fd
 
@@ -672,7 +681,8 @@ def optimize_eepas_parameters(mj, xj, tj, yj, xi, yi, mi, ti,
             P[0], bm, P[1], P[2], P[3], P[4], P[5], P[6], P[7],  # 8 parameters (bm=1 fixed)
             mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
             W, EW, B, T1, T2, m0, CELLE, params,
-            region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+            region_manager=region_manager, use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples,
+            lead_time_days=lead_time_days
         )
         iteration_count[0] += 1
         if iteration_count[0] % 10 == 0:
@@ -725,7 +735,8 @@ def optimize_custom_stages(mj, xj, tj, yj, xi, yi, mi, ti,
                            me, xe, te, ye, W, EW, B, T1, T2, m0,
                            CELLE, params, config_file='config.json',
                            optimizer='SLSQP',
-                           region_manager=None, use_fast_mode=False, magnitude_samples=20):
+                           region_manager=None, use_fast_mode=False, magnitude_samples=20,
+                           lead_time_days=None):
     """
     Custom stages EEPAS parameter optimization.
 
@@ -744,6 +755,7 @@ def optimize_custom_stages(mj, xj, tj, yj, xi, yi, mi, ti,
         region_manager: Region manager instance
         use_fast_mode: Whether to use fast mode
         magnitude_samples: Magnitude sampling points
+        lead_time_days: Fixed lead time L in days for FLEEPAS (default None)
 
     Returns:
         dict: Final optimized parameters
@@ -879,7 +891,7 @@ def optimize_custom_stages(mj, xj, tj, yj, xi, yi, mi, ti,
                 mj, xj, tj, yj, xi, yi, mi, ti, me, xe, te, ye,
                 W, EW, B, T1, T2, m0, CELLE, params,
                 region_manager=region_manager, use_fast_mode=use_fast_mode,
-                magnitude_samples=magnitude_samples
+                magnitude_samples=magnitude_samples, lead_time_days=lead_time_days
             )
 
             iteration_count[0] += 1

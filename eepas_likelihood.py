@@ -196,7 +196,8 @@ def eepas_likelihood(am, bm, Sm, at, bt, St, ba, Sa, u,
                      mj, xj, tj, yj, xi, yi, mi, ti,
                      me, xe, te, ye, W, EW, B, T1, T2, m0,
                      CELLE, params, region_manager=None,
-                     use_fast_mode=False, magnitude_samples=20):
+                     use_fast_mode=False, magnitude_samples=20,
+                     lead_time_days=None):
     """
     EEPAS model negative log-likelihood function (Stage 3 objective function).
 
@@ -231,6 +232,9 @@ def eepas_likelihood(am, bm, Sm, at, bt, St, ba, Sa, u,
             - True: Use Numba JIT accelerated midpoint rectangle method (fast)
             - False: Use exact quad_vec integration (slow but precise)
         magnitude_samples: Number of sampling points in fast mode (default 20, increase for higher accuracy)
+        lead_time_days: Fixed lead time L in days for FLEEPAS (default None)
+            - None: Use all historical earthquakes as precursors (original EEPAS)
+            - float: Only use earthquakes within [tj-L, tj-delay] as precursors (FLEEPAS)
 
     Returns:
         Negative log-likelihood value (smaller is better)
@@ -297,8 +301,19 @@ def eepas_likelihood(am, bm, Sm, at, bt, St, ba, Sa, u,
     for j in range(len(mj_filtered)):
         # Temporal filtering: Only consider events occurring at least delay days before target earthquake
         # Seismological meaning: delay period has high aftershock activity, excluded to avoid interference
-        eventsBefore_eepas = te < tj_filtered[j] - delay  # EEPAS foreshock filtering
-        ppeEventsBefore = ti < tj_filtered[j] - delay     # PPE background filtering (from historical source events)
+
+        # FLEEPAS: If lead_time_days is specified, only use precursors within [tj-L, tj-delay]
+        # Original EEPAS: Use all historical earthquakes before tj-delay
+        if lead_time_days is not None:
+            # FLEEPAS mode: Restrict precursors to fixed lead time window
+            eventsBefore_eepas = (te < tj_filtered[j] - delay) & \
+                                 (te >= tj_filtered[j] - lead_time_days)
+        else:
+            # Original EEPAS: Use all historical precursors
+            eventsBefore_eepas = te < tj_filtered[j] - delay
+
+        # PPE background filtering (NOT affected by FLEEPAS - PPE is not a precursor model)
+        ppeEventsBefore = ti < tj_filtered[j] - delay
 
         # ===== Compute E(w) =====
         # Dynamic mode (useCausalEW=1): Use only events before target earthquake to compute E(w)
@@ -433,7 +448,13 @@ def eepas_likelihood(am, bm, Sm, at, bt, St, ba, Sa, u,
     # Seismological meaning: Temporal distribution of mainshock triggering after foreshock occurrence, during learning period [T1,T2]
     # fₑ(t) ~ LogNormal(at+bt·mₑ, St²): Larger magnitude, longer precursory time
     time_integrals = np.zeros(L)
-    valid_mask = te < T2  # Only consider foreshocks occurring before end of learning period
+
+    # FLEEPAS: If lead_time_days is specified, also constrain valid_mask
+    if lead_time_days is not None:
+        # Foreshock must be within [T1-L, T2] to contribute
+        valid_mask = (te < T2) & (te >= T1 - lead_time_days)
+    else:
+        valid_mask = te < T2  # Only consider foreshocks occurring before end of learning period
 
     if np.any(valid_mask):
         te_valid = te[valid_mask]
@@ -448,12 +469,24 @@ def eepas_likelihood(am, bm, Sm, at, bt, St, ba, Sa, u,
             me_v = me_valid[valid_time_mask]
             t_lower_v = t_lower[valid_time_mask]
 
+            # FLEEPAS: Upper integration bound is min(T2 - te, L)
+            # This ensures temporal contribution is limited to lead time window
+            if lead_time_days is not None:
+                t_upper_v = np.minimum(T2 - te_v, lead_time_days)
+            else:
+                t_upper_v = T2 - te_v
+
+            # Ensure t_upper > t_lower (integration interval is valid)
+            valid_integral_mask = t_upper_v > (t_lower_v - te_v)
+
             # Use analytical solution with erf to compute log-normal distribution integral
             # ∫ LogNormal(μ,σ²) dt = Φ((log₁₀(t)-μ)/σ)
-            time_int_v = 0.5 * (
-                erf((np.log10(T2 - te_v) - at - bt * me_v) / (np.sqrt(2) * St)) -
-                erf((np.log10(t_lower_v - te_v) - at - bt * me_v) / (np.sqrt(2) * St))
-            )
+            time_int_v = np.zeros(len(te_v))
+            if np.any(valid_integral_mask):
+                time_int_v[valid_integral_mask] = 0.5 * (
+                    erf((np.log10(t_upper_v[valid_integral_mask]) - at - bt * me_v[valid_integral_mask]) / (np.sqrt(2) * St)) -
+                    erf((np.log10(t_lower_v[valid_integral_mask] - te_v[valid_integral_mask]) - at - bt * me_v[valid_integral_mask]) / (np.sqrt(2) * St))
+                )
 
             # Fill results into corresponding positions
             valid_indices = np.where(valid_mask)[0]

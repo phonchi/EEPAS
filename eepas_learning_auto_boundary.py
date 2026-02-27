@@ -70,7 +70,8 @@ def eepas_with_auto_boundary(
     optimizer: str = 'fminsearchcon',
     ppe_ref_mag: str = None,
     use_fast_mode: bool = False,
-    magnitude_samples: int = 50
+    magnitude_samples: int = 50,
+    lead_time_days: float = None
 ):
     """
     EEPAS parameter learning with automatic boundary adjustment.
@@ -99,6 +100,9 @@ def eepas_with_auto_boundary(
         ppe_ref_mag: PPE reference magnitude: 'mT' or 'm0' (default: None, uses config)
         use_fast_mode: Whether to use fast magnitude integration (default: False)
         magnitude_samples: Number of magnitude samples for fast mode (default: 50)
+        lead_time_days: Fixed lead time L in days for FLEEPAS (default: None)
+            - None: Read from config's timeComp.lead_time_days, or use all historical precursors if not set
+            - float: Only use earthquakes within [t-L, t-delay] as precursors (FLEEPAS mode)
 
     Returns:
         dict: Final parameter dictionary containing optimized EEPAS parameters
@@ -159,7 +163,8 @@ def eepas_with_auto_boundary(
                          optimizer=optimizer,
                          ppe_ref_mag=ppe_ref_mag,
                          use_fast_mode=use_fast_mode,
-                         magnitude_samples=magnitude_samples)
+                         magnitude_samples=magnitude_samples,
+                         lead_time_days=lead_time_days)
         except Exception as e:
             print(f'❌ Optimization failed: {e}')
             return None
@@ -405,6 +410,12 @@ def main():
         default=50,
         help='Number of sampling points for fast mode (default: 50)'
     )
+    parser.add_argument(
+        '--lead-time-days',
+        type=float,
+        default=None,
+        help='Fixed lead time L in days for FLEEPAS mode (default: None, read from config)'
+    )
 
     args = parser.parse_args()
 
@@ -479,7 +490,8 @@ def main():
         optimizer=args.optimizer,
         ppe_ref_mag=args.ppe_ref_mag,
         use_fast_mode=use_fast_mode,
-        magnitude_samples=args.magnitude_samples
+        magnitude_samples=args.magnitude_samples,
+        lead_time_days=args.lead_time_days
     )
 
     if result is not None:

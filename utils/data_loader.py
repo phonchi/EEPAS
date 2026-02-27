@@ -192,8 +192,14 @@ class DataLoader:
 
         # If config file contains modelParams field, read parameters
         if 'modelParams' in cfg:
+            # First, load default keys
             for key in defaults.keys():
                 if key in cfg['modelParams']:
+                    params[key] = cfg['modelParams'][key]
+
+            # Also load additional keys not in defaults (e.g., timeComp)
+            for key in cfg['modelParams'].keys():
+                if key not in params:
                     params[key] = cfg['modelParams'][key]
 
         return params

@@ -24,6 +24,10 @@ Core utility modules for the EEPAS earthquake forecasting system.
 
 - **auto_boundary_adjustment.py** - Automatic parameter boundary adjustment
 - **result_archiver.py** - Archive workflow results for reproducibility
+- **time_compensation.py** - Forecast time compensation
+- **catalog_processor_extensions.py** - Extended catalog processing
+- **translate_utils.py** - Translation utilities
+- **analyze_auto_boundary_result.py** - Auto-boundary result analysis
 
 ## Usage
 
@@ -47,4 +51,4 @@ For detailed API documentation, see:
 ---
 
 **Version:** 0.4.0
-**Last Updated:** 2025-12-13
+**Last Updated:** 2026-02-27

@@ -16,7 +16,7 @@ Quick Installation
 
    # Clone repository
    git clone https://github.com/your-repo/EEPAS.git
-   cd EEPAS/src/python_src
+   cd EEPAS/src/EEPAS
 
    # Install core dependencies (required)
    pip install numpy scipy pandas h5py numba joblib

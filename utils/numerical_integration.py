@@ -14,6 +14,7 @@ Functions:
 """
 
 from typing import Union
+import math
 import numpy as np
 from numba import jit, prange
 from scipy.integrate import quad_vec
@@ -273,7 +274,7 @@ def fast_magnitude_integral(m1, m2, mee, am, bm, Sm, m0, B, magnitude_samples=20
             # Denominator: normalization factor (depends on m, not me!)
             # Use erf function to calculate cumulative distribution
             erf_arg = (m - am - bm * m0 - Sm**2 * B) / (sqrt_2 * Sm)
-            denominator = 0.5 * (np.math.erf(erf_arg) + 1.0)
+            denominator = 0.5 * (math.erf(erf_arg) + 1.0)
 
             # Safe division (avoid dividing by extremely small values)
             integral += numerator / np.maximum(denominator, 1e-100)

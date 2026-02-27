@@ -19,6 +19,10 @@ Analysis tools and interactive notebooks for EEPAS earthquake forecasting.
 - **decimal_time.py** - Time format conversion
 - **optimize_psi_working.py** - Ψ phenomenon detection
 - **plot_relations.py** - Scaling relationship visualization
+- **step7_verify_forecasts.py** - PyCSEP forecast verification (Step 7)
+- **patch_pycsep.py** - PyCSEP compatibility patches
+- **select_m5plus.py** - Select M5+ events from catalog
+- **optimize_psi_results.py** - Ψ optimization result analysis
 
 ## 📖 Documentation
 
@@ -28,4 +32,4 @@ For detailed usage, see:
 
 ---
 
-**Version:** 0.4.0 | **Last Updated:** 2025-12-13
+**Version:** 0.4.0 | **Last Updated:** 2026-02-27

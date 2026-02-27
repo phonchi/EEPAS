@@ -42,7 +42,8 @@ def eepas_learning(config_file='config.json',
                         optimizer='fminsearchcon',
                         ppe_ref_mag=None,
                         use_fast_mode=False,
-                        magnitude_samples=20):
+                        magnitude_samples=20,
+                        lead_time_days=None):
     """
     EEPAS model parameter learning main function.
 
@@ -63,6 +64,9 @@ def eepas_learning(config_file='config.json',
         multi_start: Whether to use multi-start search (default False)
         n_starts: Number of multi-start points (default 3)
         single_stage: Whether to use single-stage full parameter optimization (default False, use three-stage)
+        lead_time_days: Fixed lead time L in days for FLEEPAS (default None)
+            - None: Use all historical earthquakes as precursors (original EEPAS)
+            - float: Only use earthquakes within [t-L, t-delay] as precursors (FLEEPAS)
 
     Returns:
         result: Dictionary containing optimal EEPAS parameters and negative log-likelihood value
@@ -97,6 +101,15 @@ def eepas_learning(config_file='config.json',
         print(f'Using PPE reference magnitude: mT = {params["mT"]}')
     else:
         params['ppe_ref_mag_value'] = ppe_ref_mag  # Use numeric value directly
+
+    # FLEEPAS: Read fixed lead time from config if not specified
+    if lead_time_days is None:
+        time_comp_config = params.get('timeComp', {})
+        if time_comp_config.get('enable', False):
+            lead_time_days = time_comp_config.get('lead_time_days', None)
+
+    if lead_time_days is not None:
+        print(f'FLEEPAS mode: Using fixed lead time L = {lead_time_days} days')
 
     paths = get_paths(cfg, learn_start_year, learn_end_year,
                       cfg['forecastStartYear'], cfg['forecastEndYear'])
@@ -158,7 +171,7 @@ def eepas_learning(config_file='config.json',
     if not os.path.exists(ppe_param_file):
         raise FileNotFoundError(
             f'PPE parameter file not found: {ppe_param_file}\n'
-            f'Please run ppe_learning_tw_fast.py first to generate this file'
+            f'Please run ppe_learning.py first to generate this file'
         )
 
     ppe_params = np.genfromtxt(ppe_param_file, delimiter=',', names=True)
@@ -230,7 +243,8 @@ def eepas_learning(config_file='config.json',
             me, xe, te, ye, W, EW, B, T1, T2, params['m0'],
             CELLE, params, config_file,
             optimizer=optimizer, region_manager=region_manager,
-            use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+            use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples,
+            lead_time_days=lead_time_days
         )
     else:
         # Use standard optimization (three-stage or single-stage)
@@ -246,7 +260,8 @@ def eepas_learning(config_file='config.json',
             multi_start=multi_start, n_starts=n_starts, single_stage=single_stage,
             use_basinhopping=use_basinhopping, basinhopping_niter=basinhopping_niter,
             optimizer=optimizer, region_manager=region_manager,
-            use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples
+            use_fast_mode=use_fast_mode, magnitude_samples=magnitude_samples,
+            lead_time_days=lead_time_days
         )
 
     # Save results

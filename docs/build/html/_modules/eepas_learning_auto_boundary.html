@@ -372,7 +372,8 @@ document.write(`
     <span class="n">optimizer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;fminsearchcon&#39;</span><span class="p">,</span>
     <span class="n">ppe_ref_mag</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">use_fast_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">magnitude_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">magnitude_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="n">lead_time_days</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    EEPAS parameter learning with automatic boundary adjustment.</span>
@@ -401,6 +402,9 @@ document.write(`
 <span class="sd">        ppe_ref_mag: PPE reference magnitude: &#39;mT&#39; or &#39;m0&#39; (default: None, uses config)</span>
 <span class="sd">        use_fast_mode: Whether to use fast magnitude integration (default: False)</span>
 <span class="sd">        magnitude_samples: Number of magnitude samples for fast mode (default: 50)</span>
+<span class="sd">        lead_time_days: Fixed lead time L in days for FLEEPAS (default: None)</span>
+<span class="sd">            - None: Read from config&#39;s timeComp.lead_time_days, or use all historical precursors if not set</span>
+<span class="sd">            - float: Only use earthquakes within [t-L, t-delay] as precursors (FLEEPAS mode)</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        dict: Final parameter dictionary containing optimized EEPAS parameters</span>
@@ -461,7 +465,8 @@ document.write(`
                          <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
                          <span class="n">ppe_ref_mag</span><span class="o">=</span><span class="n">ppe_ref_mag</span><span class="p">,</span>
                          <span class="n">use_fast_mode</span><span class="o">=</span><span class="n">use_fast_mode</span><span class="p">,</span>
-                         <span class="n">magnitude_samples</span><span class="o">=</span><span class="n">magnitude_samples</span><span class="p">)</span>
+                         <span class="n">magnitude_samples</span><span class="o">=</span><span class="n">magnitude_samples</span><span class="p">,</span>
+                         <span class="n">lead_time_days</span><span class="o">=</span><span class="n">lead_time_days</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;❌ Optimization failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -710,6 +715,12 @@ document.write(`
         <span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Number of sampling points for fast mode (default: 50)&#39;</span>
     <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--lead-time-days&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Fixed lead time L in days for FLEEPAS mode (default: None, read from config)&#39;</span>
+    <span class="p">)</span>
 
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
@@ -784,7 +795,8 @@ document.write(`
         <span class="n">optimizer</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">optimizer</span><span class="p">,</span>
         <span class="n">ppe_ref_mag</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">ppe_ref_mag</span><span class="p">,</span>
         <span class="n">use_fast_mode</span><span class="o">=</span><span class="n">use_fast_mode</span><span class="p">,</span>
-        <span class="n">magnitude_samples</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">magnitude_samples</span>
+        <span class="n">magnitude_samples</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">magnitude_samples</span><span class="p">,</span>
+        <span class="n">lead_time_days</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">lead_time_days</span>
     <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

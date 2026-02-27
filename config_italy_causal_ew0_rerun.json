@@ -132,7 +132,7 @@
     "useRollingUpdate": true,
     "forecastPeriodDays": 91.31,
     "timeComp": {
-      "enable": true,
+      "enable": false,
       "mode": "B",
       "omega": 0.0,
       "lead_time_days": 90

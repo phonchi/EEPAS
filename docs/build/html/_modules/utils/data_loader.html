@@ -499,8 +499,14 @@ document.write(`
 
         <span class="c1"># If config file contains modelParams field, read parameters</span>
         <span class="k">if</span> <span class="s1">&#39;modelParams&#39;</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">:</span>
+            <span class="c1"># First, load default keys</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">defaults</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;modelParams&#39;</span><span class="p">]:</span>
+                    <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;modelParams&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
+
+            <span class="c1"># Also load additional keys not in defaults (e.g., timeComp)</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;modelParams&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
                     <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;modelParams&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">params</span></div>

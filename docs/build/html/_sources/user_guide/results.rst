@@ -18,7 +18,7 @@ After running a complete workflow, your results directory will contain:
 
 .. code-block:: text
 
-   results_italy_causal_ew0/
+   results_italy_causal_ew0_rerun/
    ├── Fitted_par_PPE_1990_2012.csv           # PPE parameters (a, d, s)
    ├── Fitted_par_aftershock_1990_2012.csv    # Aftershock parameters (v, k)
    ├── Fitted_par_EEPAS_1990_2012.csv         # EEPAS parameters (8 params)
@@ -133,11 +133,11 @@ File Structure
    import numpy as np
 
    # Load PPE forecast (adjust filename to your results)
-   mat_ppe = sio.loadmat('results_italy_causal_ew0/PREVISIONI_3m_PPE_2012_2022.mat')
+   mat_ppe = sio.loadmat('results_italy_causal_ew0_rerun/PREVISIONI_3m_PPE_2012_2022.mat')
    ppe_forecast = mat_ppe['PREVISIONI_3m']
 
    # Load EEPAS forecast
-   mat_eepas = sio.loadmat('results_italy_causal_ew0/PREVISIONI_3m_EEPAS_2012_2022.mat')
+   mat_eepas = sio.loadmat('results_italy_causal_ew0_rerun/PREVISIONI_3m_EEPAS_2012_2022.mat')
    eepas_forecast = mat_eepas['PREVISIONI_3m_less']
 
    print(f'PPE forecast shape: {ppe_forecast.shape}')

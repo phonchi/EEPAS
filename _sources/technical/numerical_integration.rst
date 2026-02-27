@@ -247,7 +247,7 @@ Lambda Sum Validation
    import numpy as np
 
    # Load forecast (adjust path to your results directory)
-   mat = sio.loadmat('results_italy_causal_ew0/PREVISIONI_3m_PPE_2012_2022.mat')
+   mat = sio.loadmat('results_italy_causal_ew0_rerun/PREVISIONI_3m_PPE_2012_2022.mat')
    forecast = mat['PREVISIONI_3m']
 
    # Calculate Lambda (EXCLUDE index column!)

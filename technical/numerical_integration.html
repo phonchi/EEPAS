@@ -593,7 +593,7 @@ python3<span class="w"> </span>eepas_make_forecast.py<span class="w"> </span>--c
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Load forecast (adjust path to your results directory)</span>
-<span class="n">mat</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;results_italy_causal_ew0/PREVISIONI_3m_PPE_2012_2022.mat&#39;</span><span class="p">)</span>
+<span class="n">mat</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;results_italy_causal_ew0_rerun/PREVISIONI_3m_PPE_2012_2022.mat&#39;</span><span class="p">)</span>
 <span class="n">forecast</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="s1">&#39;PREVISIONI_3m&#39;</span><span class="p">]</span>
 
 <span class="c1"># Calculate Lambda (EXCLUDE index column!)</span>

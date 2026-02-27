@@ -38,7 +38,7 @@ Step-by-Step Execution
      Neighborhood Region: polygon (CPTI15)
    PPE historical events (CatJ): 312, target events (CatI): 27
 
-   ✅ Saved: results_italy/Fitted_par_PPE_1990_2012.csv
+   ✅ Saved: results_italy_causal_ew0_rerun/Fitted_par_PPE_1990_2012.csv
       a=0.616, d=29.64, s≈0
 
 **Step 2: Aftershock Fitting**
@@ -54,7 +54,7 @@ Step-by-Step Execution
 
 .. code-block:: text
 
-   ✅ Saved: results_italy/Fitted_par_aftershock_1990_2012.csv
+   ✅ Saved: results_italy_causal_ew0_rerun/Fitted_par_aftershock_1990_2012.csv
       v=0.577, k=0.205
 
 **Step 3: EEPAS Learning**
@@ -86,7 +86,7 @@ Step-by-Step Execution
       ✅ Stage 3 completed
       Final NLL: 495.394994
 
-   ✅ Saved: results_italy_causal_ew0/Fitted_par_EEPAS_1990_2012.csv
+   ✅ Saved: results_italy_causal_ew0_rerun/Fitted_par_EEPAS_1990_2012.csv
 
 **Step 4: PPE Forecast**
 
@@ -168,6 +168,50 @@ Save as ``run_italy_workflow.sh``:
    echo "=== Workflow Complete! ==="
    echo "Results saved in: results_italy_causal_ew0_rerun/"
    ls -lh results_italy_causal_ew0_rerun/
+
+End-to-End Automated Pipeline
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This workflow uses ``config_italy_target_m0.json`` for a fully automated pipeline
+with wider optimization boundaries and automatic boundary adjustment (Section 5.2
+of the manuscript).
+
+Key differences from the reproduce-published workflow:
+
+- m0 = 2.95 (vs 2.45)
+- bM = 0.764 fixed (vs 1.0)
+- Aftershock fitting uses ``--target-mag m0`` (not mT)
+- Auto boundary adjustment with up to 3 rounds
+
+.. code-block:: bash
+
+   CONFIG=config_italy_target_m0.json
+
+   # Step 1: PPE Learning
+   python3 ppe_learning.py --config $CONFIG --ppe-ref-mag mT
+
+   # Step 2: Aftershock Parameters (target-mag m0)
+   python3 fit_aftershock_params.py --config $CONFIG --ppe-ref-mag mT --target-mag m0
+
+   # Step 3: EEPAS Learning (auto boundary, up to 3 rounds)
+   python3 eepas_learning_auto_boundary.py --config $CONFIG --three-stage --ppe-ref-mag mT
+
+   # Step 4: PPE Forecast
+   python3 ppe_make_forecast.py --config $CONFIG --ppe-ref-mag mT
+
+   # Step 5: EEPAS Forecast
+   python3 eepas_make_forecast.py --config $CONFIG --ppe-ref-mag mT
+
+   # Step 7: Verify Forecasts
+   python3 analysis/step7_verify_forecasts.py \
+       --catalog analysis/HORUS_Italy_filtered.mat \
+       --source-crs EPSG:7794 \
+       $CONFIG
+
+Expected results (Table 2 in manuscript):
+   - NLL = -484.23
+   - aM=3.474, σM=0.308, aT=-1.604, bT=1.200, σT=0.618
+   - bA=1.509, σA=0.010, μ=0.395
 
 Applying to Your Region
 ------------------------

@@ -386,7 +386,7 @@ document.write(`
 <section id="directory-structure">
 <h3>Directory Structure<a class="headerlink" href="#directory-structure" title="Link to this heading">#</a></h3>
 <p>After running a complete workflow, your results directory will contain:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>results_italy_causal_ew0/
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>results_italy_causal_ew0_rerun/
 ├── Fitted_par_PPE_1990_2012.csv           # PPE parameters (a, d, s)
 ├── Fitted_par_aftershock_1990_2012.csv    # Aftershock parameters (v, k)
 ├── Fitted_par_EEPAS_1990_2012.csv         # EEPAS parameters (8 params)
@@ -514,11 +514,11 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Load PPE forecast (adjust filename to your results)</span>
-<span class="n">mat_ppe</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;results_italy_causal_ew0/PREVISIONI_3m_PPE_2012_2022.mat&#39;</span><span class="p">)</span>
+<span class="n">mat_ppe</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;results_italy_causal_ew0_rerun/PREVISIONI_3m_PPE_2012_2022.mat&#39;</span><span class="p">)</span>
 <span class="n">ppe_forecast</span> <span class="o">=</span> <span class="n">mat_ppe</span><span class="p">[</span><span class="s1">&#39;PREVISIONI_3m&#39;</span><span class="p">]</span>
 
 <span class="c1"># Load EEPAS forecast</span>
-<span class="n">mat_eepas</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;results_italy_causal_ew0/PREVISIONI_3m_EEPAS_2012_2022.mat&#39;</span><span class="p">)</span>
+<span class="n">mat_eepas</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;results_italy_causal_ew0_rerun/PREVISIONI_3m_EEPAS_2012_2022.mat&#39;</span><span class="p">)</span>
 <span class="n">eepas_forecast</span> <span class="o">=</span> <span class="n">mat_eepas</span><span class="p">[</span><span class="s1">&#39;PREVISIONI_3m_less&#39;</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PPE forecast shape: </span><span class="si">{</span><span class="n">ppe_forecast</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>

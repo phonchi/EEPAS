@@ -31,11 +31,11 @@
 - ✅ Hard parameter caps to prevent unreasonable optimization
 
 **2. Dual Validation Approach**
-- **Reproduce Published Results** (`config_italy_causal_ew0_rerun.json`)
+- **Reproduce Published Results** (`config_italy_reproduce.json`)
   - Validates framework can replicate Biondini et al. (2023) within 1 hour
   - Uses literature-reported initial parameters
 
-- **End-to-End Automated Pipeline** (`config_italy_target_m0.json`)
+- **End-to-End Automated Pipeline** (`config_italy_endtoend.json`)
   - Automated parameter estimation using rectangular algorithm
   - Achieves better log-likelihood (-484.23) than manual initialization
   - Passes all PyCSEP consistency tests
@@ -77,51 +77,51 @@ pip install -r requirements.txt
 
 ```bash
 # Step 1: PPE Learning
-python3 ppe_learning.py --config config_italy_causal_ew0_rerun.json
+python3 ppe_learning.py --config config_italy_reproduce.json
 
 # Step 2: Aftershock Parameters
 python3 fit_aftershock_params.py \
-    --config config_italy_causal_ew0_rerun.json \
+    --config config_italy_reproduce.json \
     --ppe-ref-mag mT \
     --target-mag mT
 
 # Step 3: EEPAS Learning (three-stage optimization)
 python3 eepas_learning_auto_boundary.py \
-    --config config_italy_causal_ew0_rerun.json \
+    --config config_italy_reproduce.json \
     --three-stage \
     --ppe-ref-mag mT \
     --max-rounds 1
 
 # Step 4: PPE Forecast
 python3 ppe_make_forecast.py \
-    --config config_italy_causal_ew0_rerun.json \
+    --config config_italy_reproduce.json \
     --ppe-ref-mag mT
 
 # Step 5: EEPAS Forecast
 python3 eepas_make_forecast.py \
-    --config config_italy_causal_ew0_rerun.json \
+    --config config_italy_reproduce.json \
     --ppe-ref-mag mT
 
 # Step 6: Archive Results (Optional)
 python3 archive_results.py \
-    --config config_italy_causal_ew0_rerun.json \
-    --results-dir results_italy_causal_ew0_rerun/ \
+    --config config_italy_reproduce.json \
+    --results-dir results_italy_reproduce/ \
     --workflow "EEPAS 5-step workflow" \
     --logs *.log \
     --ppe-ref-mag mT \
     --target-mag mT
 
 # Step 7: Verify Forecasts (PyCSEP Statistical Tests)
-python3 analysis/step7_verify_forecasts.py \
+python3 analysis/verify_forecasts.py \
     --catalog observation_catalog.mat \
-    config_italy_causal_ew0_rerun.json
+    config_italy_reproduce.json
 
 ```
 
 ### Italy Region - End-to-End Automated Pipeline
 
 ```bash
-CONFIG=config_italy_target_m0.json
+CONFIG=config_italy_endtoend.json
 
 # Step 1-5 (same structure, key difference: --target-mag m0)
 python3 ppe_learning.py --config $CONFIG --ppe-ref-mag mT
@@ -131,7 +131,7 @@ python3 ppe_make_forecast.py --config $CONFIG --ppe-ref-mag mT
 python3 eepas_make_forecast.py --config $CONFIG --ppe-ref-mag mT
 
 # Step 7: Verify Forecasts
-python3 analysis/step7_verify_forecasts.py \
+python3 analysis/verify_forecasts.py \
     --catalog analysis/HORUS_Italy_filtered.mat \
     --source-crs EPSG:7794 \
     $CONFIG
@@ -168,12 +168,12 @@ EEPAS/
 
 ## 🔧 Configuration Files
 
-- `config_italy_causal_ew0_rerun.json` - **Reproduce published results** (recommended for standard workflow)
+- `config_italy_reproduce.json` - **Reproduce published results** (recommended for standard workflow)
   - Uses literature-reported parameters from Biondini et al. (2023)
   - Validates framework can replicate published results
   - Standard 5-step workflow example
 
-- `config_italy_target_m0.json` - **End-to-end automated pipeline** (advanced)
+- `config_italy_endtoend.json` - **End-to-end automated pipeline** (advanced)
   - Automated parameter initialization using rectangular algorithm
   - mT = 5.0, m0 = 2.95
   - Better log-likelihood results (-484.23)
@@ -183,13 +183,13 @@ See `docs/source/user_guide/configuration.rst` for creating custom configuration
 ## 📊 Validation Results
 
 ### Reproduce Published Results (Biondini et al. 2023)
-- Configuration: `config_italy_causal_ew0_rerun.json`
+- Configuration: `config_italy_reproduce.json`
 - Learning: 1990-2012, Forecast: 2012-2022
 - Runtime: < 1 hour
 - ✅ Successfully replicates published parameters
 
 ### End-to-End Automated Pipeline
-- Configuration: `config_italy_target_m0.json`
+- Configuration: `config_italy_endtoend.json`
 - **Automated** parameter estimation (no manual Ψ identification needed)
 - Log-likelihood: **-484.23** (better than manual initialization)
 - ✅ Passes all PyCSEP consistency tests (L-test, N-test, S-test, M-test)
@@ -207,6 +207,73 @@ See `docs/source/user_guide/configuration.rst` for creating custom configuration
 # Validate forecast Lambda sums
 python3 analysis/analyze_forecast_lambda.py
 ```
+
+## ⚙️ Advanced Options
+
+### EEPAS Learning Options
+
+```bash
+# Three-stage optimization (recommended)
+python3 eepas_learning_auto_boundary.py --config $CONFIG --three-stage --ppe-ref-mag mT --max-rounds 1
+
+# Custom boundary rounds
+python3 eepas_learning_auto_boundary.py --config $CONFIG --ppe-ref-mag mT --max-rounds 5
+```
+
+### Integration Mode
+
+- **Fast Mode** (default): Trapezoidal rule, 1.75x faster, <0.2% difference
+- **Accurate Mode** (`--accurate`): scipy.dblquad, for final paper validation
+
+### Magnitude Reference
+
+| Option | Description | Use Case |
+|--------|-------------|----------|
+| `--ppe-ref-mag mT` | Anchor to target magnitude | Recommended |
+| `--ppe-ref-mag m0` | Anchor to completeness magnitude | Legacy mode |
+
+## 📦 Output Files
+
+### Learning Phase
+
+| File | Description |
+|------|-------------|
+| `Fitted_par_PPE_YYYY_YYYY.csv` | PPE parameters (a, d, s) |
+| `Fitted_par_aftershock_YYYY_YYYY.csv` | Aftershock parameters (ν, κ) |
+| `Fitted_par_EEPAS_YYYY_YYYY.csv` | EEPAS parameters (8 params) |
+
+### Forecast Phase
+
+| File | Description |
+|------|-------------|
+| `PREVISIONI_3m_PPE_YYYY_YYYY.mat` | PPE forecast rates |
+| `PREVISIONI_3m_EEPAS_YYYY_YYYY.mat` | EEPAS forecast rates |
+
+## 🔧 Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Parameters hitting boundaries | Increase `--max-rounds` (default: 3, try 5) |
+| Optimization not converging | Use `--three-stage` for complex parameter spaces |
+| Memory errors | Reduce catalog size or use fast mode |
+| Integration warnings | Usually valid if <1% of integrations fail |
+
+## 🌍 Adapting to Your Region
+
+Required data files (all `.mat` format):
+1. **Earthquake Catalog** — Year, Month, Day, Hour, Minute, Second, Lat, Lon, Depth, Magnitude
+2. **Testing Region** — Grid cells: lon_min, lon_max, lat_min, lat_max
+3. **Neighborhood Region** — Must strictly contain testing region
+
+Copy `config_italy_reproduce.json`, modify parameters, and run the 5-step workflow.
+See `docs/source/user_guide/workflows.rst` for detailed guide.
+
+## ⚡ Performance Tips
+
+- **Fast Mode** for daily research (1.75x speedup, <0.2% difference)
+- **Accurate Mode** for final paper validation only
+- **Three-stage** for large regions (>50 cells); single-stage for smaller
+- First run slower due to Numba JIT compilation warmup
 
 ## 🔬 Scientific Background
 

@@ -1,6 +1,6 @@
 {
   "dataDir": "data",
-  "resultsDir": "results_italy_target_m0",
+  "resultsDir": "results_italy_endtoend",
   "catalogStartYear": 1960,
   "learnStartYear": 1990,
   "learnEndYear": 2012,

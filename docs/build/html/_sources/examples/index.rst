@@ -56,7 +56,7 @@ Notebook 2: Forecast Evaluation (Reproduce Published Results)
 
 :doc:`EEPAS_Forecast_Evaluation_New`
 
-**Purpose**: Evaluate EEPAS forecasts from ``config_italy_causal_ew0_rerun.json`` using pyCSEP.
+**Purpose**: Evaluate EEPAS forecasts from ``config_italy_reproduce.json`` using pyCSEP.
 
 **Configuration**: Reproduces Biondini et al. (2023) published results using the same initial parameters as reported in literature.
 
@@ -70,7 +70,7 @@ Notebook 3: End-to-End Pipeline Evaluation (Automated Parameter Estimation)
 
 :doc:`EEPAS_Forecast_Evaluation_End_to_End`
 
-**Purpose**: Evaluate EEPAS forecasts from ``config_italy_target_m0.json`` — the complete automated end-to-end workflow.
+**Purpose**: Evaluate EEPAS forecasts from ``config_italy_endtoend.json`` — the complete automated end-to-end workflow.
 
 **Configuration**: Full automated pipeline from raw catalog to forecast evaluation
    - mT = 4.95 (target magnitude threshold)

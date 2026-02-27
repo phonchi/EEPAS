@@ -13,7 +13,7 @@ This is Step 7 in the standard EEPAS workflow:
   Step 8:    Assess probability risk
 
 Usage:
-    python step7_verify_forecasts.py [--catalog CATALOG_FILE] [--mag-buffer MAG_BUFFER] config1.json config2.json ...
+    python verify_forecasts.py [--catalog CATALOG_FILE] [--mag-buffer MAG_BUFFER] config1.json config2.json ...
 
     --catalog: Observation catalog file (default: HORUS_Italy_RDN2008_polygon_filtered.mat)
     --mag-buffer: Magnitude buffer below mT for filtering (default: 0.05)
@@ -77,7 +77,7 @@ MAG_BUFFER = args.mag_buffer
 
 # Get config files
 if len(args.configs) == 0:
-    print("\nUsage: python step7_verify_forecasts.py [--catalog CATALOG] [--mag-buffer MAG_BUFFER] config1.json config2.json ...")
+    print("\nUsage: python verify_forecasts.py [--catalog CATALOG] [--mag-buffer MAG_BUFFER] config1.json config2.json ...")
     print("\nError: At least one config file must be specified.")
     sys.exit(1)
 else:

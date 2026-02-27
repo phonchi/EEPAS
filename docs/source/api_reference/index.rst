@@ -77,8 +77,8 @@ Usage Examples
    from utils.catalog_processor import CatalogProcessor
 
    # Load configuration and data
-   cfg = DataLoader.load_config('config_italy_causal_ew0_rerun.json')
-   catalog = DataLoader.load_catalogs('config_italy_causal_ew0_rerun.json')
+   cfg = DataLoader.load_config('config_italy_reproduce.json')
+   catalog = DataLoader.load_catalogs('config_italy_reproduce.json')
 
    # Filter catalog
    filtered = CatalogProcessor.filter_catalog(

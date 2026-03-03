@@ -1,12 +1,12 @@
 Numerical Integration
 =====================
 
-This document explains the numerical integration methods used in EEPAS and provides technical details on the fast vs accurate modes.
+This document explains the numerical integration methods used in PyEEPAS and provides technical details on the fast vs accurate modes.
 
 Overview
 --------
 
-EEPAS requires numerical integration at multiple stages:
+PyEEPAS requires numerical integration at multiple stages:
 
 1. **PPE Learning**: Spatial integration over testing region (baseline intensity)
 2. **Aftershock Fitting**: Spatial integration for normalization (short-term exclusion calibration)

@@ -25,10 +25,10 @@ from utils.catalog_processor import CatalogProcessor
 from utils.region_manager import RegionManager
 from utils.get_paths import get_paths
 from utils.fminsearchcon import fminsearchcon
-from ppe_optimization import optimization_ppe_taiwan
+from ppe_optimization import optimization_ppe
 
 
-def ppe_learning_tw_fast(config_file='config.json', catalog_start_year=None, learn_start_year=None,
+def ppe_learning_fast(config_file='config.json', catalog_start_year=None, learn_start_year=None,
                          learn_end_year=None, m0=None, mT=None, fit_mode='joint', spatial_samples=50,
                          use_fast_mode=True, ppe_ref_mag='mT'):
     """
@@ -193,7 +193,7 @@ def ppe_learning_tw_fast(config_file='config.json', catalog_start_year=None, lea
     print(f'\nStarting PPE parameter optimization (grid resolution={spatial_samples}x{spatial_samples})...')
 
     # Warm up compiler (first call requires compilation)
-    _ = optimization_ppe_taiwan(
+    _ = optimization_ppe(
         CELLE, 0.005, 10.0, 0.1, xj, yj, mj, tj, xi, yi, mi, ti, mT,
         Xpol, Ypol, None, B, delay, m0, fit_mode, profile_opts,
         T1=T1, T2=T2, spatial_samples=spatial_samples,
@@ -220,7 +220,7 @@ def ppe_learning_tw_fast(config_file='config.json', catalog_start_year=None, lea
 
         def fun(x):
             # Calculate negative log-likelihood function (smaller is better)
-            val = optimization_ppe_taiwan(
+            val = optimization_ppe(
                 CELLE, 1.0, x[0], x[1], xj, yj, mj, tj, xi, yi, mi, ti, mT,
                 Xpol, Ypol, None, B, delay, m0, fit_mode, profile_opts,
                 T1=T1, T2=T2, spatial_samples=spatial_samples,
@@ -255,7 +255,7 @@ def ppe_learning_tw_fast(config_file='config.json', catalog_start_year=None, lea
 
         def fun(x):
             # Calculate negative log-likelihood function
-            val = optimization_ppe_taiwan(
+            val = optimization_ppe(
                 CELLE, x[0], x[1], x[2], xj, yj, mj, tj, xi, yi, mi, ti, mT,
                 Xpol, Ypol, None, B, delay, m0, fit_mode, profile_opts,
                 T1=T1, T2=T2, spatial_samples=spatial_samples,
@@ -351,5 +351,5 @@ if __name__ == '__main__':
 
     print(f"Using PPE reference magnitude: {args.ppe_ref_mag}", flush=True)
 
-    ppe_learning_tw_fast(args.config, fit_mode=args.fit_mode, spatial_samples=spatial_res,
+    ppe_learning_fast(args.config, fit_mode=args.fit_mode, spatial_samples=spatial_res,
                         use_fast_mode=use_fast_mode, ppe_ref_mag=args.ppe_ref_mag)

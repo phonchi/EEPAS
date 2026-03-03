@@ -1,13 +1,13 @@
-.. EEPAS documentation master file
+.. PyEEPAS documentation master file
 
-EEPAS - Earthquake Forecasting System
-======================================
+PyEEPAS — Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting
+=========================================================================================
 
-**Version:** 0.4.0
+**Version:** 0.5.0
 
-**EEPAS** (Every Earthquake a Precursor According to Scale) is a state-of-the-art medium- to long-term earthquake forecasting model that combines the PPE (Proximity to Past Earthquakes) baseline intensity model with the EEPAS medium-term precursory component. This implementation provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.
+**PyEEPAS** is the first open-source Python implementation of the EEPAS (Every Earthquake a Precursor According to Scale) model, built on a rigorous mathematical derivation of the likelihood function. It fills the medium-term gap in the open-source earthquake forecasting ecosystem — short-term has ETAS/STEP, long-term has OpenQuake, and now medium-term has PyEEPAS. The package provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.
 
-.. image:: https://img.shields.io/badge/version-0.4.0-blue.svg
+.. image:: https://img.shields.io/badge/version-0.5.0-blue.svg
    :alt: Version
    :target: https://github.com/phonchi/EEPAS
 
@@ -46,7 +46,7 @@ Key Features
    - Automated workflows for batch processing
    - Extensive documentation and examples
 
-Latest Updates (v0.4.0)
+Latest Updates (v0.5.0)
 -----------------------
 
 **Documentation and Dual Validation Approach**
@@ -196,24 +196,29 @@ See :doc:`user_guide/configuration` for detailed guidance on creating custom con
 Citation
 --------
 
-If you use EEPAS in your research, please cite:
+If you use PyEEPAS in your research, please cite:
 
 .. code-block:: bibtex
 
-   @article{eepas2024,
-     title={EEPAS: Every Earthquake a Precursor According to Scale},
-     author={Author Names},
-     journal={Journal Name},
-     year={2024},
-     volume={XX},
-     pages={XX-XX}
+   @article{pyeepas2026,
+     title={PyEEPAS: Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting},
+     author={Chung, Szu-Chi and Cho, Chien-Hong and Wen, Strong},
+     journal={Computers \& Geosciences},
+     year={2026}
    }
+
+Software Availability
+---------------------
+
+PyEEPAS is released under the MIT License. Source code, documentation, and
+example configurations are available at https://github.com/phonchi/EEPAS.
+The package requires Python 3.8+ with NumPy, SciPy, Numba, and joblib.
 
 Support and Contributing
 ------------------------
 
-- **Issues**: Report bugs at `GitHub Issues <https://github.com/your-repo/EEPAS/issues>`_
-- **Discussions**: Ask questions at `GitHub Discussions <https://github.com/your-repo/EEPAS/discussions>`_
+- **Issues**: Report bugs at `GitHub Issues <https://github.com/phonchi/EEPAS/issues>`_
+- **Discussions**: Ask questions at `GitHub Discussions <https://github.com/phonchi/EEPAS/discussions>`_
 - **Contributing**: Contact the development team for contribution guidelines
 
 License

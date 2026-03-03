@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>EEPAS - Earthquake Forecasting System &#8212; EEPAS 0.4.0 documentation</title>
+    <title>PyEEPAS — Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting &#8212; PyEEPAS 0.5.0 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=9453eeee"></script>
+    <script src="_static/documentation_options.js?v=f7ee7eb5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -142,8 +142,8 @@
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="PyEEPAS 0.5.0 documentation - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="PyEEPAS 0.5.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -334,7 +334,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>EEPAS - Earthquake Forecasting System</h1>
+    <h1>PyEEPAS — Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -344,9 +344,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">EEPAS - Earthquake Forecasting System</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PyEEPAS — Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-updates-v0-4-0">Latest Updates (v0.4.0)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-updates-v0-5-0">Latest Updates (v0.5.0)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#previous-updates-v0-3-0">Previous Updates (v0.3.0)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-links">Quick Links</a><ul class="visible nav section-nav flex-column">
 </ul>
@@ -358,6 +358,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-application-italy-dataset">Example Application: Italy Dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">Citation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#software-availability">Software Availability</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-and-contributing">Support and Contributing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
@@ -375,11 +376,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="eepas-earthquake-forecasting-system">
-<h1>EEPAS - Earthquake Forecasting System<a class="headerlink" href="#eepas-earthquake-forecasting-system" title="Link to this heading">#</a></h1>
-<p><strong>Version:</strong> 0.4.0</p>
-<p><strong>EEPAS</strong> (Every Earthquake a Precursor According to Scale) is a state-of-the-art medium- to long-term earthquake forecasting model that combines the PPE (Proximity to Past Earthquakes) baseline intensity model with the EEPAS medium-term precursory component. This implementation provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.</p>
-<a class="reference external image-reference" href="https://github.com/phonchi/EEPAS"><img alt="Version" src="https://img.shields.io/badge/version-0.4.0-blue.svg" />
+  <section id="pyeepas-bridging-the-medium-term-gap-in-open-source-statistical-earthquake-forecasting">
+<h1>PyEEPAS — Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting<a class="headerlink" href="#pyeepas-bridging-the-medium-term-gap-in-open-source-statistical-earthquake-forecasting" title="Link to this heading">#</a></h1>
+<p><strong>Version:</strong> 0.5.0</p>
+<p><strong>PyEEPAS</strong> is the first open-source Python implementation of the EEPAS (Every Earthquake a Precursor According to Scale) model, built on a rigorous mathematical derivation of the likelihood function. It fills the medium-term gap in the open-source earthquake forecasting ecosystem — short-term has ETAS/STEP, long-term has OpenQuake, and now medium-term has PyEEPAS. The package provides a complete, reproducible framework demonstrated using the Italy earthquake catalog as a comprehensive example.</p>
+<a class="reference external image-reference" href="https://github.com/phonchi/EEPAS"><img alt="Version" src="https://img.shields.io/badge/version-0.5.0-blue.svg" />
 </a>
 <a class="reference external image-reference" href="https://www.python.org/downloads/"><img alt="Python Version" src="https://img.shields.io/badge/python-3.8+-blue.svg" />
 </a>
@@ -419,8 +420,8 @@ document.write(`
 </dd>
 </dl>
 </section>
-<section id="latest-updates-v0-4-0">
-<h2>Latest Updates (v0.4.0)<a class="headerlink" href="#latest-updates-v0-4-0" title="Link to this heading">#</a></h2>
+<section id="latest-updates-v0-5-0">
+<h2>Latest Updates (v0.5.0)<a class="headerlink" href="#latest-updates-v0-5-0" title="Link to this heading">#</a></h2>
 <p><strong>Documentation and Dual Validation Approach</strong></p>
 <p>This release focuses on comprehensive documentation and validation:</p>
 <ul class="simple">
@@ -658,23 +659,27 @@ M_m &amp;= a_M + b_M M_p\end{split}\]</div>
 </section>
 <section id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Link to this heading">#</a></h2>
-<p>If you use EEPAS in your research, please cite:</p>
-<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">eepas2024</span><span class="p">,</span>
-<span class="w">  </span><span class="na">title</span><span class="p">=</span><span class="s">{EEPAS: Every Earthquake a Precursor According to Scale}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">author</span><span class="p">=</span><span class="s">{Author Names}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">journal</span><span class="p">=</span><span class="s">{Journal Name}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">year</span><span class="p">=</span><span class="s">{2024}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">volume</span><span class="p">=</span><span class="s">{XX}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">pages</span><span class="p">=</span><span class="s">{XX-XX}</span>
+<p>If you use PyEEPAS in your research, please cite:</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">pyeepas2026</span><span class="p">,</span>
+<span class="w">  </span><span class="na">title</span><span class="p">=</span><span class="s">{PyEEPAS: Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">author</span><span class="p">=</span><span class="s">{Chung, Szu-Chi and Cho, Chien-Hong and Wen, Strong}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">journal</span><span class="p">=</span><span class="s">{Computers \&amp; Geosciences}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">year</span><span class="p">=</span><span class="s">{2026}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </section>
+<section id="software-availability">
+<h2>Software Availability<a class="headerlink" href="#software-availability" title="Link to this heading">#</a></h2>
+<p>PyEEPAS is released under the MIT License. Source code, documentation, and
+example configurations are available at <a class="github reference external" href="https://github.com/phonchi/EEPAS">phonchi/EEPAS</a>.
+The package requires Python 3.8+ with NumPy, SciPy, Numba, and joblib.</p>
+</section>
 <section id="support-and-contributing">
 <h2>Support and Contributing<a class="headerlink" href="#support-and-contributing" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Issues</strong>: Report bugs at <a class="reference external" href="https://github.com/your-repo/EEPAS/issues">GitHub Issues</a></p></li>
-<li><p><strong>Discussions</strong>: Ask questions at <a class="reference external" href="https://github.com/your-repo/EEPAS/discussions">GitHub Discussions</a></p></li>
+<li><p><strong>Issues</strong>: Report bugs at <a class="reference external" href="https://github.com/phonchi/EEPAS/issues">GitHub Issues</a></p></li>
+<li><p><strong>Discussions</strong>: Ask questions at <a class="reference external" href="https://github.com/phonchi/EEPAS/discussions">GitHub Discussions</a></p></li>
 <li><p><strong>Contributing</strong>: Contact the development team for contribution guidelines</p></li>
 </ul>
 </section>
@@ -728,9 +733,9 @@ M_m &amp;= a_M + b_M M_p\end{split}\]</div>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">EEPAS - Earthquake Forecasting System</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PyEEPAS — Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-updates-v0-4-0">Latest Updates (v0.4.0)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-updates-v0-5-0">Latest Updates (v0.5.0)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#previous-updates-v0-3-0">Previous Updates (v0.3.0)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-links">Quick Links</a><ul class="visible nav section-nav flex-column">
 </ul>
@@ -742,6 +747,7 @@ M_m &amp;= a_M + b_M M_p\end{split}\]</div>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-application-italy-dataset">Example Application: Italy Dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">Citation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#software-availability">Software Availability</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-and-contributing">Support and Contributing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
@@ -762,7 +768,7 @@ M_m &amp;= a_M + b_M M_p\end{split}\]</div>
   <div class="footer-item">
     
 <p class="component-author">
-By EEPAS Development Team
+By PyEEPAS Development Team
 </p>
 
   </div>
@@ -772,7 +778,7 @@ By EEPAS Development Team
 
   <p class="copyright">
     
-      © Copyright 2025, EEPAS Development Team.
+      © Copyright 2025, PyEEPAS Development Team.
       <br/>
     
   </p>

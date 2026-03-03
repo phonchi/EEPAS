@@ -236,7 +236,7 @@ def _calculate_ppe_normalization_fast(a, d, s, B, xi, yi, mi, ti, Xpol, Ypol, CE
     return normalization_sum, kernel_integral_total, kernel_deriv_total, s_area_total
 
 
-def optimization_ppe_taiwan(CELLE, a, d, s, xj, yj, mj, tj, xi, yi, mi, ti, mT,
+def optimization_ppe(CELLE, a, d, s, xj, yj, mj, tj, xi, yi, mi, ti, mT,
                             Xpol, Ypol, F_func, B, delay, m0, fit_mode='joint',
                             profile_opts=None, T1=None, T2=None, return_gradient=False,
                             spatial_samples=40, region_manager=None,

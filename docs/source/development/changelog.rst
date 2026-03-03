@@ -6,6 +6,44 @@ All notable changes to this project are documented here.
 The format is based on `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_,
 and this project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
+Version 0.5.0 (2026-02-27)
+--------------------------
+
+PyEEPAS Branding and Documentation Overhaul
+
+Added
+^^^^^
+
+**Formal Citation**
+
+- Paper submitted to *Computers & Geosciences*: "PyEEPAS: Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting"
+- Authors: Szu-Chi Chung, Chien-Hong Cho, Strong Wen
+
+Changed
+^^^^^^^
+
+**Branding**
+
+- Project renamed from EEPAS to **PyEEPAS** throughout documentation
+- Version bumped from 0.4.0 to 0.5.0
+
+**Configuration Renaming**
+
+- ``config_italy_causal_ew0_rerun.json`` → ``config_italy_reproduce.json``
+- ``config_italy_target_m0.json`` → ``config_italy_endtoend.json``
+
+**Function Renaming** (remove region-specific suffixes)
+
+- ``ppe_learning_tw_fast()`` → ``ppe_learning_fast()``
+- ``optimization_ppe_taiwan()`` → ``optimization_ppe()``
+
+**Documentation Consolidation**
+
+- USAGE_EN.md merged into README.md and deleted
+- ``analysis/step7_verify_forecasts.py`` → ``analysis/verify_forecasts.py``
+
+----
+
 Version 0.4.0 (2025-12-11)
 --------------------------
 
@@ -36,8 +74,8 @@ Added
 
 **Dual Validation Approach**
 
-- **Reproduce Published Results**: ``config_italy_causal_ew0_rerun.json``
-- **End-to-End Automated Pipeline**: ``config_italy_target_m0.json``
+- **Reproduce Published Results**: ``config_italy_reproduce.json`` (originally named ``config_italy_causal_ew0_rerun.json``)
+- **End-to-End Automated Pipeline**: ``config_italy_endtoend.json`` (originally named ``config_italy_target_m0.json``)
 
 Changed
 ^^^^^^^

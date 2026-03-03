@@ -10,11 +10,11 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'EEPAS'
-copyright = '2025, EEPAS Development Team'
-author = 'EEPAS Development Team'
-release = '0.4.0'
-version = '0.4.0'
+project = 'PyEEPAS'
+copyright = '2025, PyEEPAS Development Team'
+author = 'PyEEPAS Development Team'
+release = '0.5.0'
+version = '0.5.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -138,20 +138,20 @@ latex_elements = {
 
 # Grouping the document tree into LaTeX files
 latex_documents = [
-    ('index', 'EEPAS.tex', 'EEPAS Documentation',
-     'EEPAS Development Team', 'manual'),
+    ('index', 'PyEEPAS.tex', 'PyEEPAS Documentation',
+     'PyEEPAS Development Team', 'manual'),
 ]
 
 # -- Options for manual page output ------------------------------------------
 man_pages = [
-    ('index', 'eepas', 'EEPAS Documentation',
+    ('index', 'pyeepas', 'PyEEPAS Documentation',
      [author], 1)
 ]
 
 # -- Options for Texinfo output ----------------------------------------------
 texinfo_documents = [
-    ('index', 'EEPAS', 'EEPAS Documentation',
-     author, 'EEPAS', 'Medium- to long-term earthquake forecasting with PPE and EEPAS models.',
+    ('index', 'PyEEPAS', 'PyEEPAS Documentation',
+     author, 'PyEEPAS', 'Bridging the medium-term gap in open-source statistical earthquake forecasting.',
      'Miscellaneous'),
 ]
 

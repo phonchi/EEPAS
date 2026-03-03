@@ -1,7 +1,7 @@
 Core Modules
 ============
 
-This page documents the main EEPAS workflow modules.
+This page documents the main PyEEPAS workflow modules.
 
 PPE Learning
 ------------

@@ -1,11 +1,11 @@
 Examples and Tutorials
 ======================
 
-This section demonstrates EEPAS integration with the earthquake forecasting ecosystem through three interactive notebooks.
+This section demonstrates PyEEPAS integration with the earthquake forecasting ecosystem through three interactive notebooks.
 
 **Framework Integration**
 
-EEPAS is designed to work seamlessly with established seismological tools:
+PyEEPAS is designed to work seamlessly with established seismological tools:
 
 - **pyCSEP** (Savran et al., 2022; Graham et al., 2024): Standardized forecast evaluation using consistency tests (L-test, N-test, S-test, M-test) and comparative scoring rules (log-likelihood, Brier, Kagan information scores).
 - **SeismoStats** (Mirwald et al., 2025): Statistical seismology package providing robust b-value estimators (b-positive, Tinti, Kijko-Smit) and catalog preprocessing tools.

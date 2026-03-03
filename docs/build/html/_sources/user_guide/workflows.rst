@@ -1,7 +1,7 @@
 Complete Workflows
 ==================
 
-This guide provides complete, step-by-step workflows for earthquake forecasting using EEPAS. The tutorial uses the Italy earthquake catalog as an example, but the same workflow can be applied to any seismic region.
+This guide provides complete, step-by-step workflows for earthquake forecasting using PyEEPAS. The tutorial uses the Italy earthquake catalog as an example, but the same workflow can be applied to any seismic region.
 
 Tutorial Example Workflow
 --------------------------
@@ -9,7 +9,7 @@ Tutorial Example Workflow
 Italy Earthquake Forecasting
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This tutorial demonstrates the complete EEPAS workflow using the Italy (CPTI15) earthquake catalog.
+This tutorial demonstrates the complete PyEEPAS workflow using the Italy (CPTI15) earthquake catalog.
 
 Overview
 ~~~~~~~~
@@ -219,7 +219,7 @@ Applying to Your Region
 General Workflow Steps
 ^^^^^^^^^^^^^^^^^^^^^^
 
-To apply EEPAS to your own seismic region, follow these steps:
+To apply PyEEPAS to your own seismic region, follow these steps:
 
 **Prerequisites**
 

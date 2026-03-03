@@ -1,15 +1,16 @@
 <div align="center">
-  <img src="logos/logo.png" alt="EEPAS Logo" width="200"/>
-  <h1>EEPAS - Python Implementation</h1>
+  <img src="logos/logo.png" alt="PyEEPAS Logo" width="200"/>
+  <h1>PyEEPAS</h1>
+  <p><em>Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting</em></p>
 
   [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  [![Version](https://img.shields.io/badge/version-0.4.0-blue.svg)](CHANGELOG_EN.md)
+  [![Version](https://img.shields.io/badge/version-0.5.0-blue.svg)](CHANGELOG_EN.md)
 </div>
 
 <br/>
 
-**EEPAS** (Every Earthquake a Precursor According to Scale) is a state-of-the-art medium- to long-term earthquake forecasting model. This is the first fully documented, high-performance open-source Python implementation.
+**PyEEPAS** is the first open-source Python implementation of the EEPAS (Every Earthquake a Precursor According to Scale) model, built on a complete mathematical derivation of the likelihood function. It fills the medium-term gap in the open-source earthquake forecasting ecosystem — short-term forecasting has ETAS/STEP, long-term has OpenQuake, and now medium-term has PyEEPAS.
 
 ## ✨ Key Features
 
@@ -20,7 +21,7 @@
 - 🔬 **Scientifically Validated** - Reproduces published results + better automated pipeline
 - 📊 **PyCSEP Integration** - Standardized forecast evaluation and comparison
 
-## 🎯 Latest Update (v0.4.0)
+## 🎯 Latest Update (v0.5.0)
 
 ### Major Improvements
 
@@ -300,16 +301,22 @@ See `docs/source/technical/mathematical_foundation.rst` for detailed derivations
 - **SeismoStats** - b-value estimation, catalog preprocessing
 - **Rectangular Algorithm** - Automated Ψ phenomenon detection
 
+## 📦 Software Availability
+
+PyEEPAS is released under the MIT License. Source code, documentation, and
+example configurations are available at https://github.com/phonchi/EEPAS.
+The package requires Python 3.8+ with NumPy, SciPy, Numba, and joblib.
+
 ## 📄 Citation
 
-If you use EEPAS in your research, please cite:
+If you use PyEEPAS in your research, please cite:
 
 ```bibtex
-@article{eepas2025,
-  title={The EEPAS Model Revisited: Statistical Formalism and a High-Performance, Reproducible Open-Source Framework},
-  author={Author Names},
-  journal={Journal Name},
-  year={2025}
+@article{pyeepas2026,
+  title={PyEEPAS: Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting},
+  author={Chung, Szu-Chi and Cho, Chien-Hong and Wen, Strong},
+  journal={Computers \& Geosciences},
+  year={2026}
 }
 ```
 
@@ -332,7 +339,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 
 ---
 
-**Version:** 0.4.0 | **Last Updated:** 2026-02-27
+**Version:** 0.5.0 | **Last Updated:** 2026-02-27
 
 
 

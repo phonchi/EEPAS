@@ -1,12 +1,12 @@
 Configuration Reference
 =======================
 
-This guide provides a complete reference for all configuration file fields in EEPAS.
+This guide provides a complete reference for all configuration file fields in PyEEPAS.
 
 Configuration File Structure
 -----------------------------
 
-EEPAS uses JSON configuration files to control all aspects of the forecasting workflow. A configuration file consists of several main sections:
+PyEEPAS uses JSON configuration files to control all aspects of the forecasting workflow. A configuration file consists of several main sections:
 
 .. code-block:: text
 

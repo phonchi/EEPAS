@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Core Modules &#8212; EEPAS 0.4.0 documentation</title>
+    <title>Core Modules &#8212; PyEEPAS 0.5.0 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9453eeee"></script>
+    <script src="../_static/documentation_options.js?v=f7ee7eb5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -139,8 +139,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="PyEEPAS 0.5.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="PyEEPAS 0.5.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -342,7 +342,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ppe_learning">PPE Learning</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe_learning.ppe_learning_tw_fast"><code class="docutils literal notranslate"><span class="pre">ppe_learning_tw_fast()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe_learning.ppe_learning_fast"><code class="docutils literal notranslate"><span class="pre">ppe_learning_fast()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-fit_aftershock_params">Aftershock Parameter Fitting</a><ul class="visible nav section-nav flex-column">
@@ -380,7 +380,7 @@ document.write(`
                   
   <section id="core-modules">
 <h1>Core Modules<a class="headerlink" href="#core-modules" title="Link to this heading">#</a></h1>
-<p>This page documents the main EEPAS workflow modules.</p>
+<p>This page documents the main PyEEPAS workflow modules.</p>
 <section id="module-ppe_learning">
 <span id="ppe-learning"></span><h2>PPE Learning<a class="headerlink" href="#module-ppe_learning" title="Link to this heading">#</a></h2>
 <p>PPE Model Parameter Learning</p>
@@ -390,8 +390,8 @@ document.write(`
 - Uniform background seismicity</p>
 <p>Parameters learned: a (intensity), d (distance decay, km), s (background rate)</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="ppe_learning.ppe_learning_tw_fast">
-<span class="sig-prename descclassname"><span class="pre">ppe_learning.</span></span><span class="sig-name descname"><span class="pre">ppe_learning_tw_fast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mT</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'joint'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fast_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppe_ref_mag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mT'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ppe_learning.html#ppe_learning_tw_fast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ppe_learning.ppe_learning_tw_fast" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="ppe_learning.ppe_learning_fast">
+<span class="sig-prename descclassname"><span class="pre">ppe_learning.</span></span><span class="sig-name descname"><span class="pre">ppe_learning_fast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mT</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'joint'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fast_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppe_ref_mag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mT'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ppe_learning.html#ppe_learning_fast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ppe_learning.ppe_learning_fast" title="Link to this definition">#</a></dt>
 <dd><p>Learn PPE model parameters using Maximum Likelihood Estimation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -898,7 +898,7 @@ spatiotemporal-magnitude bin during the forecast period.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ppe_learning">PPE Learning</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe_learning.ppe_learning_tw_fast"><code class="docutils literal notranslate"><span class="pre">ppe_learning_tw_fast()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppe_learning.ppe_learning_fast"><code class="docutils literal notranslate"><span class="pre">ppe_learning_fast()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-fit_aftershock_params">Aftershock Parameter Fitting</a><ul class="visible nav section-nav flex-column">
@@ -937,7 +937,7 @@ spatiotemporal-magnitude bin during the forecast period.</p>
   <div class="footer-item">
     
 <p class="component-author">
-By EEPAS Development Team
+By PyEEPAS Development Team
 </p>
 
   </div>
@@ -947,7 +947,7 @@ By EEPAS Development Team
 
   <p class="copyright">
     
-      © Copyright 2025, EEPAS Development Team.
+      © Copyright 2025, PyEEPAS Development Team.
       <br/>
     
   </p>

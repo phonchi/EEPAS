@@ -1,15 +1,15 @@
 API Reference
 =============
 
-This section provides detailed API documentation for all EEPAS modules.
+This section provides detailed API documentation for all PyEEPAS modules.
 
 Module Organization
 -------------------
 
-EEPAS is organized into several functional groups:
+PyEEPAS is organized into several functional groups:
 
 **Core Modules** - Main workflow scripts
-   The five main scripts that implement the EEPAS workflow:
+   The five main scripts that implement the PyEEPAS workflow:
 
    - :doc:`core` - PPE Learning, EEPAS Learning, Aftershock Fitting, Forecast Generation
 
@@ -41,7 +41,7 @@ Quick Reference
      - Function
      - Module
    * - Learn PPE parameters
-     - ``ppe_learning_tw_fast()``
+     - ``ppe_learning_fast()``
      - :py:mod:`ppe_learning`
    * - Fit aftershock parameters
      - ``fit_aftershock_params_fast()``

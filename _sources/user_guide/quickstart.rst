@@ -1,7 +1,7 @@
 Quick Start Guide
 =================
 
-This guide will help you get started with EEPAS earthquake forecasting using the Italy dataset as a tutorial example.
+This guide will help you get started with PyEEPAS earthquake forecasting using the Italy dataset as a tutorial example.
 
 Prerequisites
 -------------
@@ -34,7 +34,7 @@ Installation
 Tutorial Example: Italy Workflow (5 Steps)
 -------------------------------------------
 
-This tutorial demonstrates the complete EEPAS workflow using the Italy earthquake catalog as an example. The same workflow can be adapted to any seismic region by preparing appropriate configuration files and data.
+This tutorial demonstrates the complete PyEEPAS workflow using the Italy earthquake catalog as an example. The same workflow can be adapted to any seismic region by preparing appropriate configuration files and data.
 
 **Step 1: PPE Learning**
 
@@ -114,7 +114,7 @@ Generate complete EEPAS forecast:
 
    Fast mode (trapezoidal integration) is used by default. Use ``--accurate`` for verification only (significantly slower with < 0.004% difference).
 
-See :doc:`workflows` for applying EEPAS to your own region and :doc:`configuration` for detailed configuration guide.
+See :doc:`workflows` for applying PyEEPAS to your own region and :doc:`configuration` for detailed configuration guide.
 
 Verifying Results
 -----------------

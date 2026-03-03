@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Installation Guide &#8212; EEPAS 0.4.0 documentation</title>
+    <title>Installation Guide &#8212; PyEEPAS 0.5.0 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9453eeee"></script>
+    <script src="../_static/documentation_options.js?v=f7ee7eb5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -139,8 +139,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="PyEEPAS 0.5.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="PyEEPAS 0.5.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -363,7 +363,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-core-installation">Test Core Installation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-eepas-functionality">Test EEPAS Functionality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-pyeepas-functionality">Test PyEEPAS Functionality</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-optional-tools">Test Optional Tools</a></li>
 </ul>
 </li>
@@ -400,7 +400,7 @@ document.write(`
 <section id="quick-installation">
 <h2>Quick Installation<a class="headerlink" href="#quick-installation" title="Link to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone repository</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-repo/EEPAS.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/phonchi/EEPAS.git
 <span class="nb">cd</span><span class="w"> </span>EEPAS
 
 <span class="c1"># Install core dependencies (required)</span>
@@ -416,7 +416,7 @@ python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;
 </section>
 <section id="dependencies-overview">
 <h2>Dependencies Overview<a class="headerlink" href="#dependencies-overview" title="Link to this heading">#</a></h2>
-<p>EEPAS dependencies are categorized by usage:</p>
+<p>PyEEPAS dependencies are categorized by usage:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 20.0%" />
@@ -488,7 +488,7 @@ python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;
 </section>
 <section id="core-dependencies-required">
 <h2>Core Dependencies (Required)<a class="headerlink" href="#core-dependencies-required" title="Link to this heading">#</a></h2>
-<p>These packages are <strong>essential</strong> for running EEPAS:</p>
+<p>These packages are <strong>essential</strong> for running PyEEPAS:</p>
 <section id="scientific-computing-stack">
 <h3>Scientific Computing Stack<a class="headerlink" href="#scientific-computing-stack" title="Link to this heading">#</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>numpy&gt;=1.21.0          # Array operations, linear algebra
@@ -585,7 +585,7 @@ make<span class="w"> </span>html
 <h2>Complete Installation Scenarios<a class="headerlink" href="#complete-installation-scenarios" title="Link to this heading">#</a></h2>
 <section id="minimal-core-functionality-only">
 <h3>Minimal (Core Functionality Only)<a class="headerlink" href="#minimal-core-functionality-only" title="Link to this heading">#</a></h3>
-<p>For running EEPAS learning and forecasting only:</p>
+<p>For running PyEEPAS learning and forecasting only:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>scipy<span class="w"> </span>pandas<span class="w"> </span>h5py<span class="w"> </span>numba<span class="w"> </span>joblib
 </pre></div>
 </div>
@@ -633,8 +633,8 @@ pip<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"
 </pre></div>
 </div>
 </section>
-<section id="test-eepas-functionality">
-<h3>Test EEPAS Functionality<a class="headerlink" href="#test-eepas-functionality" title="Link to this heading">#</a></h3>
+<section id="test-pyeepas-functionality">
+<h3>Test PyEEPAS Functionality<a class="headerlink" href="#test-pyeepas-functionality" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test data loading</span>
 python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from utils.data_loader import DataLoader; print(&#39;✓ Data loader OK&#39;)&quot;</span>
 
@@ -784,7 +784,7 @@ conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> <
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-core-installation">Test Core Installation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-eepas-functionality">Test EEPAS Functionality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-pyeepas-functionality">Test PyEEPAS Functionality</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-optional-tools">Test Optional Tools</a></li>
 </ul>
 </li>
@@ -810,7 +810,7 @@ conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> <
   <div class="footer-item">
     
 <p class="component-author">
-By EEPAS Development Team
+By PyEEPAS Development Team
 </p>
 
   </div>
@@ -820,7 +820,7 @@ By EEPAS Development Team
 
   <p class="copyright">
     
-      © Copyright 2025, EEPAS Development Team.
+      © Copyright 2025, PyEEPAS Development Team.
       <br/>
     
   </p>

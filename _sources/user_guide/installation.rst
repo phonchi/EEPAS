@@ -15,7 +15,7 @@ Quick Installation
 .. code-block:: bash
 
    # Clone repository
-   git clone https://github.com/your-repo/EEPAS.git
+   git clone https://github.com/phonchi/EEPAS.git
    cd EEPAS
 
    # Install core dependencies (required)
@@ -30,7 +30,7 @@ Quick Installation
 Dependencies Overview
 ---------------------
 
-EEPAS dependencies are categorized by usage:
+PyEEPAS dependencies are categorized by usage:
 
 .. list-table::
    :header-rows: 1
@@ -84,7 +84,7 @@ EEPAS dependencies are categorized by usage:
 Core Dependencies (Required)
 -----------------------------
 
-These packages are **essential** for running EEPAS:
+These packages are **essential** for running PyEEPAS:
 
 Scientific Computing Stack
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -205,7 +205,7 @@ Complete Installation Scenarios
 Minimal (Core Functionality Only)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For running EEPAS learning and forecasting only:
+For running PyEEPAS learning and forecasting only:
 
 .. code-block:: bash
 
@@ -260,8 +260,8 @@ Test Core Installation
    print(f"  Numba: {numba.__version__}")
    EOF
 
-Test EEPAS Functionality
-^^^^^^^^^^^^^^^^^^^^^^^^
+Test PyEEPAS Functionality
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 

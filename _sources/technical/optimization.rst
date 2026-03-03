@@ -1,7 +1,7 @@
 Optimization Strategies
 =======================
 
-This document describes the optimization algorithms and strategies used in EEPAS parameter learning.
+This document describes the optimization algorithms and strategies used in PyEEPAS parameter learning.
 
 Overview
 --------
@@ -22,7 +22,7 @@ This is a challenging non-convex optimization problem with:
 Optimization Modes
 ^^^^^^^^^^^^^^^^^^
 
-EEPAS supports three optimization modes that can be auto-detected or explicitly specified:
+PyEEPAS supports three optimization modes that can be auto-detected or explicitly specified:
 
 1. **Single-Stage Optimization**: Optimize all 8 parameters simultaneously (define 8 parameters in stage1)
 2. **Three-Stage Optimization**: Sequential optimization of parameter groups (define stage1/stage2/stage3)
@@ -44,7 +44,7 @@ Additional Features
 Optimization Algorithms
 -----------------------
 
-EEPAS supports three optimization algorithms:
+PyEEPAS supports three optimization algorithms:
 
 fminsearchcon (Nelder-Mead with Constraints) - Default
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ppe_learning &#8212; EEPAS 0.4.0 documentation</title>
+    <title>ppe_learning &#8212; PyEEPAS 0.5.0 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9453eeee"></script>
+    <script src="../_static/documentation_options.js?v=f7ee7eb5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -138,8 +138,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="PyEEPAS 0.5.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="PyEEPAS 0.5.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -322,12 +322,12 @@ document.write(`
 <span class="kn">from</span><span class="w"> </span><span class="nn">utils.region_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">RegionManager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">utils.get_paths</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_paths</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">utils.fminsearchcon</span><span class="w"> </span><span class="kn">import</span> <span class="n">fminsearchcon</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ppe_optimization</span><span class="w"> </span><span class="kn">import</span> <span class="n">optimization_ppe_taiwan</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ppe_optimization</span><span class="w"> </span><span class="kn">import</span> <span class="n">optimization_ppe</span>
 
 
-<div class="viewcode-block" id="ppe_learning_tw_fast">
-<a class="viewcode-back" href="../api_reference/core.html#ppe_learning.ppe_learning_tw_fast">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">ppe_learning_tw_fast</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="s1">&#39;config.json&#39;</span><span class="p">,</span> <span class="n">catalog_start_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">learn_start_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="ppe_learning_fast">
+<a class="viewcode-back" href="../api_reference/core.html#ppe_learning.ppe_learning_fast">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ppe_learning_fast</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="s1">&#39;config.json&#39;</span><span class="p">,</span> <span class="n">catalog_start_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">learn_start_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                          <span class="n">learn_end_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">m0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mT</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fit_mode</span><span class="o">=</span><span class="s1">&#39;joint&#39;</span><span class="p">,</span> <span class="n">spatial_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
                          <span class="n">use_fast_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ppe_ref_mag</span><span class="o">=</span><span class="s1">&#39;mT&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -492,7 +492,7 @@ document.write(`
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Starting PPE parameter optimization (grid resolution=</span><span class="si">{</span><span class="n">spatial_samples</span><span class="si">}</span><span class="s1">x</span><span class="si">{</span><span class="n">spatial_samples</span><span class="si">}</span><span class="s1">)...&#39;</span><span class="p">)</span>
 
     <span class="c1"># Warm up compiler (first call requires compilation)</span>
-    <span class="n">_</span> <span class="o">=</span> <span class="n">optimization_ppe_taiwan</span><span class="p">(</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">optimization_ppe</span><span class="p">(</span>
         <span class="n">CELLE</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="n">yj</span><span class="p">,</span> <span class="n">mj</span><span class="p">,</span> <span class="n">tj</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">mT</span><span class="p">,</span>
         <span class="n">Xpol</span><span class="p">,</span> <span class="n">Ypol</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">fit_mode</span><span class="p">,</span> <span class="n">profile_opts</span><span class="p">,</span>
         <span class="n">T1</span><span class="o">=</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="o">=</span><span class="n">T2</span><span class="p">,</span> <span class="n">spatial_samples</span><span class="o">=</span><span class="n">spatial_samples</span><span class="p">,</span>
@@ -519,7 +519,7 @@ document.write(`
 
         <span class="k">def</span><span class="w"> </span><span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="c1"># Calculate negative log-likelihood function (smaller is better)</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="n">optimization_ppe_taiwan</span><span class="p">(</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">optimization_ppe</span><span class="p">(</span>
                 <span class="n">CELLE</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">xj</span><span class="p">,</span> <span class="n">yj</span><span class="p">,</span> <span class="n">mj</span><span class="p">,</span> <span class="n">tj</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">mT</span><span class="p">,</span>
                 <span class="n">Xpol</span><span class="p">,</span> <span class="n">Ypol</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">fit_mode</span><span class="p">,</span> <span class="n">profile_opts</span><span class="p">,</span>
                 <span class="n">T1</span><span class="o">=</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="o">=</span><span class="n">T2</span><span class="p">,</span> <span class="n">spatial_samples</span><span class="o">=</span><span class="n">spatial_samples</span><span class="p">,</span>
@@ -554,7 +554,7 @@ document.write(`
 
         <span class="k">def</span><span class="w"> </span><span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="c1"># Calculate negative log-likelihood function</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="n">optimization_ppe_taiwan</span><span class="p">(</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">optimization_ppe</span><span class="p">(</span>
                 <span class="n">CELLE</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">xj</span><span class="p">,</span> <span class="n">yj</span><span class="p">,</span> <span class="n">mj</span><span class="p">,</span> <span class="n">tj</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">mT</span><span class="p">,</span>
                 <span class="n">Xpol</span><span class="p">,</span> <span class="n">Ypol</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">fit_mode</span><span class="p">,</span> <span class="n">profile_opts</span><span class="p">,</span>
                 <span class="n">T1</span><span class="o">=</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="o">=</span><span class="n">T2</span><span class="p">,</span> <span class="n">spatial_samples</span><span class="o">=</span><span class="n">spatial_samples</span><span class="p">,</span>
@@ -651,7 +651,7 @@ document.write(`
 
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using PPE reference magnitude: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">ppe_ref_mag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">ppe_learning_tw_fast</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">fit_mode</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">fit_mode</span><span class="p">,</span> <span class="n">spatial_samples</span><span class="o">=</span><span class="n">spatial_res</span><span class="p">,</span>
+    <span class="n">ppe_learning_fast</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">fit_mode</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">fit_mode</span><span class="p">,</span> <span class="n">spatial_samples</span><span class="o">=</span><span class="n">spatial_res</span><span class="p">,</span>
                         <span class="n">use_fast_mode</span><span class="o">=</span><span class="n">use_fast_mode</span><span class="p">,</span> <span class="n">ppe_ref_mag</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">ppe_ref_mag</span><span class="p">)</span>
 </pre></div>
 
@@ -681,7 +681,7 @@ document.write(`
   <div class="footer-item">
     
 <p class="component-author">
-By EEPAS Development Team
+By PyEEPAS Development Team
 </p>
 
   </div>
@@ -691,7 +691,7 @@ By EEPAS Development Team
 
   <p class="copyright">
     
-      © Copyright 2025, EEPAS Development Team.
+      © Copyright 2025, PyEEPAS Development Team.
       <br/>
     
   </p>

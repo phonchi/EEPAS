@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Optimization Strategies &#8212; EEPAS 0.4.0 documentation</title>
+    <title>Optimization Strategies &#8212; PyEEPAS 0.5.0 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9453eeee"></script>
+    <script src="../_static/documentation_options.js?v=f7ee7eb5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -141,8 +141,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="EEPAS 0.4.0 documentation - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="EEPAS 0.4.0 documentation - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="PyEEPAS 0.5.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="PyEEPAS 0.5.0 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -403,7 +403,7 @@ document.write(`
                   
   <section id="optimization-strategies">
 <h1>Optimization Strategies<a class="headerlink" href="#optimization-strategies" title="Link to this heading">#</a></h1>
-<p>This document describes the optimization algorithms and strategies used in EEPAS parameter learning.</p>
+<p>This document describes the optimization algorithms and strategies used in PyEEPAS parameter learning.</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
 <p>EEPAS parameter learning involves finding parameters that minimize the negative log-likelihood (NLL):</p>
@@ -418,7 +418,7 @@ document.write(`
 </ul>
 <section id="optimization-modes">
 <h3>Optimization Modes<a class="headerlink" href="#optimization-modes" title="Link to this heading">#</a></h3>
-<p>EEPAS supports three optimization modes that can be auto-detected or explicitly specified:</p>
+<p>PyEEPAS supports three optimization modes that can be auto-detected or explicitly specified:</p>
 <ol class="arabic simple">
 <li><p><strong>Single-Stage Optimization</strong>: Optimize all 8 parameters simultaneously (define 8 parameters in stage1)</p></li>
 <li><p><strong>Three-Stage Optimization</strong>: Sequential optimization of parameter groups (define stage1/stage2/stage3)</p></li>
@@ -442,7 +442,7 @@ document.write(`
 </section>
 <section id="optimization-algorithms">
 <h2>Optimization Algorithms<a class="headerlink" href="#optimization-algorithms" title="Link to this heading">#</a></h2>
-<p>EEPAS supports three optimization algorithms:</p>
+<p>PyEEPAS supports three optimization algorithms:</p>
 <section id="fminsearchcon-nelder-mead-with-constraints-default">
 <h3>fminsearchcon (Nelder-Mead with Constraints) - Default<a class="headerlink" href="#fminsearchcon-nelder-mead-with-constraints-default" title="Link to this heading">#</a></h3>
 <p><strong>Algorithm</strong>: Constrained Nelder-Mead simplex method</p>
@@ -1193,7 +1193,7 @@ python3<span class="w"> </span>eepas_learning_auto_boundary.py<span class="w"> <
   <div class="footer-item">
     
 <p class="component-author">
-By EEPAS Development Team
+By PyEEPAS Development Team
 </p>
 
   </div>
@@ -1203,7 +1203,7 @@ By EEPAS Development Team
 
   <p class="copyright">
     
-      © Copyright 2025, EEPAS Development Team.
+      © Copyright 2025, PyEEPAS Development Team.
       <br/>
     
   </p>

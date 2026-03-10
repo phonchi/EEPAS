@@ -23,7 +23,7 @@ When relaxing boundaries, strictly adhere to EEPAS model's physical constraints:
 - Absolute tolerance: distance < 0.1*bound (small-value parameters like St,Sa)
 - Stop suggestion: When lower bound ≤ 1e-5, no further relaxation (numerical limit reached)
 
-Author: Claude Code
+Author: EEPAS Team
 Date: 2025-01
 """
 

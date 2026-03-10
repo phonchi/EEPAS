@@ -104,7 +104,7 @@ nbsphinx_prolog = """
 html_theme = 'sphinx_book_theme'
 
 html_theme_options = {
-    'repository_url': 'https://github.com/your-org/EEPAS_Taiwan',
+    'repository_url': 'https://github.com/your-org/EEPAS',
     'use_repository_button': False,
     'use_issues_button': False,
     'use_edit_page_button': False,
@@ -117,7 +117,7 @@ html_theme_options = {
 # html_context = {
 #     'display_github': True,
 #     'github_user': 'your-github-username',
-#     'github_repo': 'EEPAS_Taiwan',
+#     'github_repo': 'EEPAS',
 #     'github_version': 'master',
 #     'conf_py_path': '/src/python_src/docs/source/',
 # }
@@ -159,3 +159,4 @@ texinfo_documents = [
 
 # -- Options for todo extension ----------------------------------------------
 todo_include_todos = True
+

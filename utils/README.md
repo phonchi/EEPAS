@@ -50,5 +50,5 @@ For detailed API documentation, see:
 
 ---
 
-**Version:** 0.4.0
+**Version:** 0.5.0
 **Last Updated:** 2026-02-27

@@ -100,8 +100,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 📖 **Documentation Updates**:
   - README.md updated to v0.3.0, emphasizing numerical integration validation achievements
   - CHANGELOG.md detailed recording of refactoring process and validation results
-  - CLAUDE.md added ACCURATE vs FAST mode usage guide
-  - CLAUDE.md added Lambda sum validation methodology explanation
   - Configuration list updated (EW0/EW1 test configurations)
 
 ### Fixed
@@ -271,3 +269,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 🐛 Bug fix
 - ⚡ Performance
 - 🔒 Security
+

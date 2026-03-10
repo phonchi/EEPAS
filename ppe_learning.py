@@ -250,7 +250,7 @@ def ppe_learning_fast(config_file='config.json', catalog_start_year=None, learn_
         lb = np.array([0.0, 0.1, 1e-15])      # Lower bounds (s changed to 1e-15 to allow smaller values)
         ub = np.array([2000, 2000, 1.0])      # Upper bounds
         # a upper bound 2000: Prevent numerical overflow
-        # d upper bound 2000km: Exceeds Taiwan scale
+        # d upper bound 2000km: Exceeds scale
         # s lower bound 1e-15: Paper's s is approximately 9e-13
 
         def fun(x):
@@ -353,3 +353,4 @@ if __name__ == '__main__':
 
     ppe_learning_fast(args.config, fit_mode=args.fit_mode, spatial_samples=spatial_res,
                         use_fast_mode=use_fast_mode, ppe_ref_mag=args.ppe_ref_mag)
+

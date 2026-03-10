@@ -1,5 +1,5 @@
 """
-EEPAS Taiwan - Python Implementation
+EEPAS - Python Implementation
 Utility functions for earthquake forecasting models
 """
 
@@ -12,3 +12,4 @@ __all__ = [
     'CatalogProcessor',
     'get_paths'
 ]
+

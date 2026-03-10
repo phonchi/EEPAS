@@ -10,14 +10,14 @@
 
 <br/>
 
-**PyEEPAS** is the first open-source Python implementation of the EEPAS (Every Earthquake a Precursor According to Scale) model, built on a complete mathematical derivation of the likelihood function. It fills the medium-term gap in the open-source earthquake forecasting ecosystem — short-term forecasting has ETAS/STEP, long-term has OpenQuake, and now medium-term has PyEEPAS.
+**PyEEPAS** is the first open-source Python implementation of the EEPAS (Every Earthquake a Precursor According to Scale) model, built on a complete mathematical derivation of the likelihood function. It fills the medium-term gap in the open-source earthquake forecasting ecosystem — short-term forecasting has ETAS/STEP and now medium-term has PyEEPAS.
 
 ## ✨ Key Features
 
 - 🎯 **Complete EEPAS Implementation** - PPE background model + EEPAS medium-term precursory component
 - 🌍 **Universal Application** - Apply to any seismic region worldwide
 - 🚀 **Automated Workflow** - End-to-end pipeline from raw catalog to forecast evaluation
-- ⚡ **High Performance** - Numba JIT acceleration, 4x faster forecasting
+- ⚡ **High Performance** - Numba JIT acceleration, faster learning and forecasting
 - 🔬 **Scientifically Validated** - Reproduces published results + better automated pipeline
 - 📊 **PyCSEP Integration** - Standardized forecast evaluation and comparison
 
@@ -273,7 +273,6 @@ See `docs/source/user_guide/workflows.rst` for detailed guide.
 
 - **Fast Mode** for daily research (1.75x speedup, <0.2% difference)
 - **Accurate Mode** for final paper validation only
-- **Three-stage** for large regions (>50 cells); single-stage for smaller
 - First run slower due to Numba JIT compilation warmup
 
 ## 🔬 Scientific Background
@@ -340,6 +339,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 ---
 
 **Version:** 0.5.0 | **Last Updated:** 2026-02-27
+
 
 
 

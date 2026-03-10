@@ -171,8 +171,6 @@ Changed
 
 - README.md updated to v0.3.0, emphasizing numerical integration validation achievements
 - CHANGELOG.md detailed recording of refactoring process and validation results
-- CLAUDE.md added ACCURATE vs FAST mode usage guide
-- CLAUDE.md added Lambda sum validation methodology explanation
 - Configuration list updated (EW0/EW1 test configurations)
 
 Fixed
@@ -390,3 +388,4 @@ Contributing
 For guidelines on how to contribute to this project, please contact the development team.
 
 For detailed information about each version, see the full CHANGELOG in the repository.
+

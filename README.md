@@ -315,7 +315,7 @@ If you use PyEEPAS in your research, please cite:
 @article{pyeepas2026,
   title={PyEEPAS: Bridging the Medium-Term Gap in Open-Source Statistical Earthquake Forecasting},
   author={Chung, Szu-Chi and Cho, Chien-Hong and Wen, Strong},
-  journal={Computers \& Geosciences},
+  journal={xxx},
   year={2026}
 }
 ```
@@ -326,7 +326,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
-- Based on the original EEPAS model by Rhoades, Christophersen, and colleagues
+- Based on the original EEPAS model by Rhoades and colleagues
 - Italy earthquake data from CPTI15 and HORUS catalogs
 - Integration with PyCSEP framework (Savran et al., 2022)
 - SeismoStats package (Mirwald et al., 2025)
@@ -340,6 +340,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 ---
 
 **Version:** 0.5.0 | **Last Updated:** 2026-02-27
+
 
 
 

@@ -29,7 +29,7 @@ Equations 15-17 - Compensation strategy:
     λ_B = μλ₀ + (1/p)Σλᵢ                  (scale up time-varying)
     λ_C = ω·λ_A + (1-ω)·λ_B               (optimal mixing)
 
-Author: Claude Sonnet 4.5 & EEPAS Taiwan Team
+Author: EEPAS Taiwan Team
 Date: 2026-01-10
 """
 
@@ -482,3 +482,4 @@ if __name__ == '__main__':
         print("  Check parameter values and integration settings.")
 
     exit(0 if success else 1)
+

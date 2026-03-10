@@ -26,7 +26,6 @@ Core utility modules for the EEPAS earthquake forecasting system.
 - **result_archiver.py** - Archive workflow results for reproducibility
 - **time_compensation.py** - Forecast time compensation
 - **catalog_processor_extensions.py** - Extended catalog processing
-- **translate_utils.py** - Translation utilities
 - **analyze_auto_boundary_result.py** - Auto-boundary result analysis
 
 ## Usage

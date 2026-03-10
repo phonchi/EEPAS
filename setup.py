@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-EEPAS Taiwan - Python Implementation
+EEPAS - Python Implementation
 Setup script for installation
 """
 
@@ -79,7 +79,6 @@ setup(
         "seismology",
         "prediction",
         "EEPAS",
-        "Taiwan",
         "geophysics",
     ],
 )

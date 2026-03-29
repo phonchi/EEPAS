@@ -51,15 +51,15 @@ See [CHANGELOG_EN.md](CHANGELOG_EN.md) for complete version history.
 
 ## 📚 Documentation
 
-**Full documentation available at:** `docs/build/html/index.html`
+**Full documentation available at:** [https://phonchi.github.io/EEPAS/](https://phonchi.github.io/EEPAS/)
 
 ### Quick Links
-- **Installation Guide** - `docs/source/user_guide/installation.rst`
-- **Quick Start** - `docs/source/user_guide/quickstart.rst`
-- **Complete Workflows** - `docs/source/user_guide/workflows.rst`
-- **Configuration Reference** - `docs/source/user_guide/configuration.rst`
-- **API Documentation** - `docs/source/api_reference/index.rst`
-- **Interactive Examples** - `docs/source/examples/index.rst`
+- [**Installation Guide**](https://phonchi.github.io/EEPAS/user_guide/installation.html)
+- [**Quick Start**](https://phonchi.github.io/EEPAS/user_guide/quickstart.html)
+- [**Complete Workflows**](https://phonchi.github.io/EEPAS/user_guide/workflows.html)
+- [**Configuration Reference**](https://phonchi.github.io/EEPAS/user_guide/configuration.html)
+- [**API Documentation**](https://phonchi.github.io/EEPAS/api_reference/index.html)
+- [**Interactive Examples**](https://phonchi.github.io/EEPAS/examples/index.html)
 
 ## 🚀 Quick Start
 
@@ -332,7 +332,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 
 ## 📞 Support
 
-- **Documentation:** `docs/build/html/index.html`
+- **Documentation:** [https://phonchi.github.io/EEPAS/](https://phonchi.github.io/EEPAS/)
 - **Issues:** [GitHub Issues](https://github.com/phonchi/EEPAS/issues)
 - **Changelog:** [CHANGELOG_EN.md](CHANGELOG_EN.md)
 

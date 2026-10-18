@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] - 2026-10-18
+
+### Fixed
+- 🐛 **Sign of the magnitude scaling in the forecast spatial kernel** (`eepas_make_forecast.py`). The forecast used σ = σ_A·10^(−b_A m/2), whereas the model (`docs/source/technical/mathematical_foundation.rst`) and the likelihood in `eepas_likelihood.py` use σ² = σ_A²·10^(b_A m), so larger precursors spread wider. The forecast now calls a `spatial_sigma()` helper with the correct scaling. Parameter fitting was always correct; forecasts (and quantities derived from them) produced with earlier versions should be regenerated
+
 ## [0.4.0] - 2025-12-11
 
 ### Added

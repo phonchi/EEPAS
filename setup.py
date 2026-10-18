@@ -21,7 +21,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 
 setup(
     name="eepas",
-    version="0.4.0",
+    version="0.4.1",
     author="EEPAS Development Team",
     author_email="steve2003121@gmail.com",
     description="EEPAS earthquake forecasting model - First fully documented open-source Python implementation",

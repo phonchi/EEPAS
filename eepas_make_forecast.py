@@ -83,6 +83,16 @@ def compute_spatial_contribution_fast(X1, X2, Y1, Y2, xee, yee, sigma_spatial,
 from utils.numerical_integration import fast_magnitude_integral
 
 
+def spatial_sigma(Sa, ba, mee):
+    """
+    Standard deviation of the EEPAS spatial kernel h(x,y | x_i,y_i,m_i).
+
+    sigma^2 = Sa^2 * 10^(ba*m_i), so larger precursors spread wider. Must match the
+    kernel used in eepas_likelihood.py.
+    """
+    return Sa * (10.0 ** (ba * mee / 2.0))
+
+
 def apply_time_compensation(ppe_rate, eepas_rate_with_eta, u, time_comp_config,
                            forecast_start_time, catalog_end_time, N_tre_M, eepas_params,
                            forecast_period_days=91.31, catalog_start_time=None):
@@ -863,7 +873,7 @@ def eepas_make_forecast(config_file='config.json', catalog_start_year=None,
 
             # Spatial contribution calculation
             # Precompute spatial standard deviation
-            sigma_spatial = Sa / (10.0 ** (ba * mee / 2.0))
+            sigma_spatial = spatial_sigma(Sa, ba, mee)
 
             # Precompute product of other contribution terms (scale×magnitude×time×weight)
             qq_other = qq[:, 0] * qq[:, 1] * qq[:, 2] * W_use
